@@ -1,0 +1,14 @@
+package DAO;
+
+import ShopEntities.ClientEntity;
+
+import java.sql.SQLException;
+import java.util.Collection;
+
+/**
+ * Created by Людмила on 12.07.2017.
+ */
+public interface ClientDAO {
+    public ClientEntity getClientById(Long bus_id) throws SQLException;
+    public Collection getAllClients() throws SQLException;
+}
