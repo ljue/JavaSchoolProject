@@ -1,6 +1,7 @@
 package DAO.Impl;
 
 import DAO.ClientDAO;
+
 import DAO.HibernateUtil;
 import ShopEntities.ClientEntity;
 import org.hibernate.Session;

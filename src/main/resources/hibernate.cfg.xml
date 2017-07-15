@@ -10,11 +10,12 @@
     <property name="hibernate.connection.username">root</property>
     <property name="hibernate.connection.password">password</property>
 
-      <mapping class="ShopEntities.ClientEntity"/>
+    <mapping class="ShopEntities.ClientEntity"/>
       <mapping resource="ShopEntities/ClientEntity.hbm.xml"/>
+    <mapping class="ShopEntities.OrderEntity"/>
+    <mapping class="ShopEntities.CountryEntity"/>
 
-      <!-- <property name="connection.username"/> -->
-    <!-- <property name="connection.password"/> -->
+
 
     <!-- DB schema will be updated if needed -->
     <!-- <property name="hbm2ddl.auto">update</property> -->

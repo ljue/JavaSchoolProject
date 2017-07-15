@@ -1,7 +1,7 @@
 <%@ page import="DAO.Factory" %>
-<%@ page import="DAO.*" %>
 <%@ page import="ShopEntities.ClientEntity" %>
 <%@ page import="java.util.List" %>
+<%@ page import="ShopEntities.CountryEntity" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -23,6 +23,22 @@
         </tr>
     <%}
     %>
+    </table>
+</div>
+<br>
+<br>
+<div>
+    Our countries:
+    <table class="table">
+
+        <% List<CountryEntity> countrylist = Factory.getInstance().getCountryDAO().getAllCountries();
+            for (CountryEntity country:countrylist) {%>
+        <tr>
+            <td> <%= country.getId()%> </td>
+            <td> <%= country.getName()%> </td>
+        </tr>
+        <%}
+        %>
     </table>
 </div>
 
