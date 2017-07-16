@@ -1,4 +1,4 @@
-package DAO;
+package com.jvschool.util;
 
 
 import org.hibernate.SessionFactory;

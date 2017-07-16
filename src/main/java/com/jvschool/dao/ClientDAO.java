@@ -1,6 +1,8 @@
-package DAO;
+package com.jvschool.dao;
 
-import ShopEntities.ClientEntity;
+
+
+import com.jvschool.entities.ClientEntity;
 
 import java.sql.SQLException;
 import java.util.Collection;

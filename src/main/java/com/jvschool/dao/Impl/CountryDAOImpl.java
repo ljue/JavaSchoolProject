@@ -1,26 +1,26 @@
-package DAO.Impl;
+package com.jvschool.dao.Impl;
 
 
-import DAO.CountryDAO;
-import DAO.HibernateUtil;
-import ShopEntities.CountryEntity;
+
+import com.jvschool.dao.CountryDAO;
+import com.jvschool.entities.CountryEntity;
+import com.jvschool.util.HibernateUtil;
 import org.hibernate.Session;
-
+import org.springframework.stereotype.Repository;
 
 import javax.swing.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 /**
  * Created by Людмила on 14.07.2017.
  */
 
-
+@Repository
 public class CountryDAOImpl implements CountryDAO {
 
-    private static Logger log = Logger.getLogger(CountryDAOImpl.class.getName());
+//    private static Logger log = Logger.getLogger(CountryDAOImpl.class.getName());
 //    public ClientEntity getClientById(Long id) throws SQLException {
 //        Session session = null;
 //        ClientEntity client = null;
@@ -44,7 +44,7 @@ public class CountryDAOImpl implements CountryDAO {
         Session session = null;
         List countries = new ArrayList<CountryEntity>();
         System.out.println("Привет!");
-        log.info("Some message");
+        //log.info("Some message");
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             countries = session.createCriteria(CountryEntity.class).list();

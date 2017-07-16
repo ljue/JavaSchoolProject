@@ -1,5 +1,4 @@
-package ShopEntities;
-
+package com.jvschool.entities;
 import javax.persistence.*;
 import java.sql.Date;
 

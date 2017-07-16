@@ -1,6 +1,11 @@
-package DAO;
+package com.jvschool.util;
 
-import DAO.Impl.*;
+import com.jvschool.dao.ClientDAO;
+import com.jvschool.dao.CountryDAO;
+import com.jvschool.dao.Impl.ClientDAOImpl;
+import com.jvschool.dao.Impl.CountryDAOImpl;
+
+
 /**
  * Created by Людмила on 12.07.2017.
  */

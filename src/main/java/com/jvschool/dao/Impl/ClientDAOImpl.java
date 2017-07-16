@@ -1,9 +1,10 @@
-package DAO.Impl;
+package com.jvschool.dao.Impl;
 
-import DAO.ClientDAO;
+import com.jvschool.dao.ClientDAO;
 
-import DAO.HibernateUtil;
-import ShopEntities.ClientEntity;
+
+import com.jvschool.entities.ClientEntity;
+import com.jvschool.util.HibernateUtil;
 import org.hibernate.Session;
 
 import javax.swing.*;

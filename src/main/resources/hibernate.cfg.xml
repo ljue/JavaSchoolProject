@@ -10,10 +10,8 @@
     <property name="hibernate.connection.username">root</property>
     <property name="hibernate.connection.password">password</property>
 
-    <mapping class="ShopEntities.ClientEntity"/>
-      <mapping resource="ShopEntities/ClientEntity.hbm.xml"/>
-    <mapping class="ShopEntities.OrderEntity"/>
-    <mapping class="ShopEntities.CountryEntity"/>
+    <mapping class="com.jvschool.entities.ClientEntity"/>
+    <mapping class="com.jvschool.entities.CountryEntity"/>
 
 
 
