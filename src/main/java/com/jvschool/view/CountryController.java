@@ -119,7 +119,6 @@ public class CountryController {
 //            userStr = userStr + "<br><br>Count: " + wordCount;
 //        }
 //        try (PrintWriter out = response.getWriter()) {
-//            /* TODO output your page here. You may use following sample code. */
 //            out.println("<!DOCTYPE html>");
 //            out.println("<html>");
 //            out.println("<head>");
@@ -153,7 +152,7 @@ public class CountryController {
 //        response.setContentType("text/html;charset=UTF-8");
 //
 //        try (PrintWriter out = response.getWriter()) {
-//            /* TODO output your page here. You may use following sample code. */
+//
 //            out.println("<!DOCTYPE html>");
 //            out.println("<html>");
 //            out.println("<head>");
