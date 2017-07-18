@@ -9,6 +9,8 @@
     <property name="hibernate.connection.username">root</property>
     <property name="hibernate.connection.password">password</property>
 
+    <property name="hibernate.current_session_context_class">org.hibernate.context.internal.ThreadLocalSessionContext</property>
+
     <mapping class="com.jvschool.entities.AdressEntity"/>
     <mapping class="com.jvschool.entities.BucketEntity"/>
     <mapping class="com.jvschool.entities.CameraEntity"/>

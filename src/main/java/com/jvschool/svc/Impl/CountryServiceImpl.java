@@ -25,7 +25,7 @@ public class CountryServiceImpl implements CountryService {
 
     @Transactional
     @Override
-    public List<CountryEntity> getAllCountries() throws SQLException {
+    public List<CountryEntity> getAllCountries(){
         return countryDAO.getAllCountries();
     }
 }

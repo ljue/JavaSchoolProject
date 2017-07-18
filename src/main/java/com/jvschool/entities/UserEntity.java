@@ -1,13 +1,14 @@
 package com.jvschool.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.Null;
 import java.sql.Date;
 
 /**
  * Created by Людмила on 17.07.2017.
  */
 @Entity
-@Table(name = "User", schema = "myshop_schema", catalog = "")
+@Table(name = "User", schema = "myshop_schema")
 public class UserEntity {
     private long id;
     private String login;
@@ -18,6 +19,9 @@ public class UserEntity {
     private Date birthday;
     private AdressEntity adressByAdress;
     private RoleEntity roleByRole;
+
+    @Transient
+    private String confirmPassword;
 
     @Id
     @Column(name = "Id", nullable = false)
@@ -120,6 +124,7 @@ public class UserEntity {
     }
 
     @ManyToOne
+    @Null
     @JoinColumn(name = "Adress", referencedColumnName = "AdressId")
     public AdressEntity getAdressByAdress() {
         return adressByAdress;
@@ -137,5 +142,13 @@ public class UserEntity {
 
     public void setRoleByRole(RoleEntity roleByRole) {
         this.roleByRole = roleByRole;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
     }
 }

@@ -11,5 +11,6 @@ import java.util.List;
  * Created by Людмила on 14.07.2017.
  */
 public interface CountryDAO {
-    List<CountryEntity> getAllCountries() throws SQLException;
+    CountryEntity getCountryById(Long id) ;
+    List<CountryEntity> getAllCountries() ;
 }

@@ -8,9 +8,22 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Log in</title>
+    <title>user</title>
 </head>
 <body>
+
+<table class="tg">
+
+    <c:forEach items="${users}" var="user">
+        <tr>
+            <td>${user.id}</td>
+            <td>${user.login}</td>
+            <td>${user.pass}</td>
+            <td>${user.email}</td>
+
+        </tr>
+    </c:forEach>
+</table>
 
 </body>
 </html>
