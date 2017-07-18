@@ -6,16 +6,30 @@
   <session-factory>
     <property name="connection.url">jdbc:mysql://localhost:3306</property>
     <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-
     <property name="hibernate.connection.username">root</property>
     <property name="hibernate.connection.password">password</property>
 
-    <mapping class="com.jvschool.entities.ClientEntity"/>
+    <mapping class="com.jvschool.entities.AdressEntity"/>
+    <mapping class="com.jvschool.entities.BucketEntity"/>
+    <mapping class="com.jvschool.entities.CameraEntity"/>
+    <mapping class="com.jvschool.entities.CityEntity"/>
     <mapping class="com.jvschool.entities.CountryEntity"/>
+    <mapping class="com.jvschool.entities.DeliveryStatusEntity"/>
+    <mapping class="com.jvschool.entities.OrderEntity"/>
+    <mapping class="com.jvschool.entities.PayStatusEntity"/>
+    <mapping class="com.jvschool.entities.PayWayEntity"/>
+    <mapping class="com.jvschool.entities.RegionEntity"/>
+    <mapping class="com.jvschool.entities.RoleEntity"/>
+    <mapping class="com.jvschool.entities.ThingEntity"/>
+    <mapping class="com.jvschool.entities.TranslationEntity"/>
+    <mapping class="com.jvschool.entities.UserEntity"/>
 
 
 
     <!-- DB schema will be updated if needed -->
     <!-- <property name="hbm2ddl.auto">update</property> -->
   </session-factory>
+
+
 </hibernate-configuration>
+

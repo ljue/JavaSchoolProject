@@ -6,23 +6,23 @@ import javax.persistence.*;
  * Created by Людмила on 17.07.2017.
  */
 @Entity
-@Table(name = "Country", schema = "myshop_schema", catalog = "")
-public class CountryEntity {
-    private long id;
+@Table(name = "Role", schema = "myshop_schema", catalog = "")
+public class RoleEntity {
+    private long idRole;
     private String name;
 
     @Id
-    @Column(name = "id", nullable = false)
-    public long getId() {
-        return id;
+    @Column(name = "IdRole", nullable = false)
+    public long getIdRole() {
+        return idRole;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setIdRole(long idRole) {
+        this.idRole = idRole;
     }
 
     @Basic
-    @Column(name = "name", nullable = false, length = 128)
+    @Column(name = "name", nullable = true, length = 20)
     public String getName() {
         return name;
     }
@@ -36,9 +36,9 @@ public class CountryEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        CountryEntity that = (CountryEntity) o;
+        RoleEntity that = (RoleEntity) o;
 
-        if (id != that.id) return false;
+        if (idRole != that.idRole) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
 
         return true;
@@ -46,7 +46,7 @@ public class CountryEntity {
 
     @Override
     public int hashCode() {
-        int result = (int) (id ^ (id >>> 32));
+        int result = (int) (idRole ^ (idRole >>> 32));
         result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;
     }
