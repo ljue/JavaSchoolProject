@@ -10,8 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.sql.SQLException;
-
 /**
  * Created by Людмила on 14.07.2017.
  */
@@ -26,7 +24,7 @@ public class CountryController {
     //private static Logger log = Logger.getLogger(CountryController.class.getName());
 
 
-    @RequestMapping(value = "countries", method = RequestMethod.GET)
+    @RequestMapping(value = "/countries", method = RequestMethod.GET)
     public String listUsers(Model model) {
         model.addAttribute("country", new CountryEntity());
         model.addAttribute("countries", countryService.getAllCountries());
@@ -34,15 +32,25 @@ public class CountryController {
 
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
     public String home(Model model) {
-        return "index";
+        return "home";
     }
 
     @RequestMapping(value = "settings", method = RequestMethod.GET)
     public String goLogin(Model model) {
         return "settings";
 
+    }
+
+    @RequestMapping(value = {"/bucket"}, method = RequestMethod.GET)
+    public String goBucket(Model model) {
+        return "bucket";
+    }
+
+    @RequestMapping(value = {"/navigation"}, method = RequestMethod.GET)
+    public String goNav(Model model) {
+        return "navigation";
     }
 
 }

@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * Created by Людмила on 17.07.2017.
+ * Created by Людмила on 19.07.2017.
  */
 @Entity
 @Table(name = "Bucket", schema = "myshop_schema", catalog = "")

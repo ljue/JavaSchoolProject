@@ -3,11 +3,10 @@ package com.jvschool.dao.Impl;
 import com.jvschool.dao.UserDAO;
 import com.jvschool.entities.UserEntity;
 import com.jvschool.util.HibernateUtil;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
-import javax.swing.*;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,8 +22,9 @@ public class UserDAOImpl implements UserDAO {
         UserEntity user = null;
 
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
         user = session.load(UserEntity.class, id);
-
+        session.getTransaction().commit();
         return user;
 
     }
@@ -33,8 +33,9 @@ public class UserDAOImpl implements UserDAO {
         UserEntity user = null;
 
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
         user = session.load(UserEntity.class, login);
-
+        session.getTransaction().commit();
         return user;
     }
 
@@ -43,8 +44,28 @@ public class UserDAOImpl implements UserDAO {
         List users = new ArrayList<UserEntity>();
 
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
         users = session.createQuery("FROM UserEntity ").list();
-
+        session.getTransaction().commit();
         return users;
+    }
+
+    public void addUser(UserEntity user) {
+
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        session.save(user);
+        session.getTransaction().commit();
+
+    }
+
+    public UserEntity loginUser(String login, String password) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        UserEntity user = (UserEntity) session.createQuery("FROM UserEntity where login=:log"+
+                " and pass=:passw").setParameter("log",login)
+                .setParameter("passw",password).uniqueResult();
+        session.getTransaction().commit();
+        return user;
     }
 }

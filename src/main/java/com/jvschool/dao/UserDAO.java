@@ -2,7 +2,6 @@ package com.jvschool.dao;
 
 import com.jvschool.entities.UserEntity;
 
-import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -13,4 +12,6 @@ public interface UserDAO {
     List<UserEntity> getAllUsers();
     UserEntity getUserById(Long id);
     UserEntity getUserByLogin(String login);
+    UserEntity loginUser(String login, String password);
+    void addUser(UserEntity user);
 }

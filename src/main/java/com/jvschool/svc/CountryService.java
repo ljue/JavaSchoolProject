@@ -5,7 +5,6 @@ package com.jvschool.svc;
 
 import com.jvschool.entities.CountryEntity;
 
-import java.sql.SQLException;
 import java.util.List;
 
 /**

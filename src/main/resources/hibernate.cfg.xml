@@ -6,9 +6,13 @@
   <session-factory>
     <property name="connection.url">jdbc:mysql://localhost:3306</property>
     <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+    <!--<property name="show_sql">true</property>-->
+
     <property name="hibernate.connection.username">root</property>
     <property name="hibernate.connection.password">password</property>
 
+    <!--<property name="hibernate.connection.username">root</property>-->
+    <!--<property name="hibernate.connection.password">password</property>-->
     <property name="hibernate.current_session_context_class">org.hibernate.context.internal.ThreadLocalSessionContext</property>
 
     <mapping class="com.jvschool.entities.AdressEntity"/>
@@ -25,7 +29,6 @@
     <mapping class="com.jvschool.entities.ThingEntity"/>
     <mapping class="com.jvschool.entities.TranslationEntity"/>
     <mapping class="com.jvschool.entities.UserEntity"/>
-
 
 
     <!-- DB schema will be updated if needed -->

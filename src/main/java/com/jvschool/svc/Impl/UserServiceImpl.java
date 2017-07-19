@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -35,5 +34,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserEntity getUserByLogin(String login) {
         return userDAO.getUserByLogin(login);
+    }
+
+    @Transactional
+    @Override
+    public void addUser(UserEntity user) { userDAO.addUser(user);}
+
+    @Transactional
+    @Override
+    public UserEntity loginUser(String login, String password) {
+        return userDAO.loginUser(login,password);
     }
 }

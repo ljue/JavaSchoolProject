@@ -9,7 +9,6 @@ import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
 import javax.swing.*;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +27,7 @@ public class CountryDAOImpl implements CountryDAO {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
         country = session.load(CountryEntity.class, id);
-        session.close();
+        session.getTransaction().commit();
 
         return country;
 
@@ -37,12 +36,12 @@ public class CountryDAOImpl implements CountryDAO {
 
     public List<CountryEntity> getAllCountries() {
 
-        List countries = new ArrayList<CountryEntity>();
+        List countries;
 
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
-        countries = session.createCriteria(CountryEntity.class).list();
-        session.close();
+        countries = session.createQuery("from CountryEntity ").list();
+        session.getTransaction().commit();
         return countries;
     }
 //    public List<CountryEntity> getAllCountries() {

@@ -7,10 +7,8 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-import java.sql.SQLException;
-
 /**
- * Created by Людмила on 18.07.2017.
+ * Created by Людмила on 19.07.2017.
  */
 public class UserValidator implements Validator {
 
@@ -33,9 +31,9 @@ public class UserValidator implements Validator {
         }
 
 
-            if (userService.getUserByLogin(user.getLogin()) != null) {
-                errors.rejectValue("login", "Duplicate.userForm.username");
-            }
+        if (userService.getUserByLogin(user.getLogin()) != null) {
+            errors.rejectValue("login", "Duplicate.userForm.username");
+        }
 
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "pass", "Required");
@@ -43,9 +41,9 @@ public class UserValidator implements Validator {
             errors.rejectValue("pass", "Size.userForm.password");
         }
 
-        if (!user.getConfirmPassword().equals(user.getPass())) {
-            errors.rejectValue("confirmPassword", "Different.userForm.password");
-        }
+//        if (!user.getConfirmPassword().equals(user.getPass())) {
+//            errors.rejectValue("confirmPassword", "Different.userForm.password");
+//        }
 
     }
 

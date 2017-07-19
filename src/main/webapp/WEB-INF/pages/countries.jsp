@@ -20,6 +20,11 @@
 
 <table class="tg">
 
+
+
+
+    <%--<c:out value="${user.roleByRole.idRole}"></c:out>--%>
+
     <c:forEach items="${countries}" var="country">
         <tr>
             <td>${country.id}</td>

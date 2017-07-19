@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Created by Людмила on 17.07.2017.
+ * Created by Людмила on 19.07.2017.
  */
 @Entity
 @Table(name = "Order", schema = "myshop_schema", catalog = "")

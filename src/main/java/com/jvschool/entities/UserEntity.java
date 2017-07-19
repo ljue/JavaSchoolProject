@@ -1,11 +1,10 @@
 package com.jvschool.entities;
 
 import javax.persistence.*;
-import javax.validation.constraints.Null;
 import java.sql.Date;
 
 /**
- * Created by Людмила on 17.07.2017.
+ * Created by Людмила on 19.07.2017.
  */
 @Entity
 @Table(name = "User", schema = "myshop_schema")
@@ -20,11 +19,10 @@ public class UserEntity {
     private AdressEntity adressByAdress;
     private RoleEntity roleByRole;
 
-    @Transient
-    private String confirmPassword;
 
     @Id
     @Column(name = "Id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long getId() {
         return id;
     }
@@ -54,7 +52,7 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "email", nullable = false, length = 30)
+    @Column(name = "email", length = 30)
     public String getEmail() {
         return email;
     }
@@ -64,7 +62,7 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "FirstName", nullable = false, length = 30)
+    @Column(name = "FirstName", length = 30)
     public String getFirstName() {
         return firstName;
     }
@@ -74,7 +72,7 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "SecondName", nullable = false, length = 30)
+    @Column(name = "SecondName", length = 30)
     public String getSecondName() {
         return secondName;
     }
@@ -84,7 +82,7 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "Birthday", nullable = false)
+    @Column(name = "Birthday")
     public Date getBirthday() {
         return birthday;
     }
@@ -124,7 +122,6 @@ public class UserEntity {
     }
 
     @ManyToOne
-    @Null
     @JoinColumn(name = "Adress", referencedColumnName = "AdressId")
     public AdressEntity getAdressByAdress() {
         return adressByAdress;
@@ -135,7 +132,7 @@ public class UserEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "Role", referencedColumnName = "IdRole", nullable = false)
+    @JoinColumn(name = "Role", referencedColumnName = "IdRole")
     public RoleEntity getRoleByRole() {
         return roleByRole;
     }
@@ -144,11 +141,4 @@ public class UserEntity {
         this.roleByRole = roleByRole;
     }
 
-    public String getConfirmPassword() {
-        return confirmPassword;
-    }
-
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
-    }
 }

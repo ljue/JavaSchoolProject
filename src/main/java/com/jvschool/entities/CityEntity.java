@@ -3,10 +3,10 @@ package com.jvschool.entities;
 import javax.persistence.*;
 
 /**
- * Created by Людмила on 17.07.2017.
+ * Created by Людмила on 19.07.2017.
  */
 @Entity
-@Table(name = "City", schema = "myshop_schema", catalog = "")
+@Table(name = "City", schema = "myshop_schema")
 public class CityEntity {
     private long id;
     private long regionId;
