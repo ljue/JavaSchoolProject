@@ -1,13 +1,14 @@
 package com.jvschool.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created by Людмила on 19.07.2017.
  */
 @Entity
-@Table(name = "Region", schema = "myshop_schema", catalog = "")
-public class RegionEntity {
+@Table(name = "Region", schema = "myshop_schema")
+public class RegionEntity  implements Serializable {
     private long id;
     private long countryId;
     private String name;

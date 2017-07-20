@@ -26,7 +26,7 @@
 <body>
 <jsp:include page="/navigation" />
 
-<c:url var="checkaction" value="/login/checkuser"/>
+<c:url var="checkaction" value="/login"/>
 
 <div class="container">
 

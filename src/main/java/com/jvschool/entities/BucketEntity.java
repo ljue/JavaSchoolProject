@@ -1,20 +1,21 @@
 package com.jvschool.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by Людмила on 19.07.2017.
  */
 @Entity
-@Table(name = "Bucket", schema = "myshop_schema", catalog = "")
-public class BucketEntity {
+@Table(name = "Bucket", schema = "myshop_schema")
+public class BucketEntity implements Serializable {
     private long bucketId;
+    private List<ThingEntity> thingByThing;
 
     @Id
     @Column(name = "BucketId", nullable = false)
+    @GeneratedValue(strategy=GenerationType.AUTO)
     public long getBucketId() {
         return bucketId;
     }
@@ -38,5 +39,15 @@ public class BucketEntity {
     @Override
     public int hashCode() {
         return (int) (bucketId ^ (bucketId >>> 32));
+    }
+
+    @OneToMany
+    @JoinColumn(name = "ThingID", referencedColumnName = "ThingId")
+    public List<ThingEntity> getThingByThing() {
+        return thingByThing;
+    }
+
+    public void setThingByThing(List<ThingEntity> thingByThing) {
+        this.thingByThing = thingByThing;
     }
 }

@@ -202,7 +202,7 @@
     <table id="70" parent="5" name="Client"/>
     <table id="71" parent="5" name="Order"/>
     <table id="72" parent="5" name="gendef"/>
-    <table id="73" parent="7" name="Adress"/>
+    <table id="73" parent="7" name="Address"/>
     <table id="74" parent="7" name="Bucket"/>
     <table id="75" parent="7" name="Camera"/>
     <table id="76" parent="7" name="City"/>
@@ -3208,7 +3208,7 @@
       <ColNames>column_1</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="725" parent="73" name="AdressId">
+    <column id="725" parent="73" name="AddressId">
       <Position>1</Position>
       <DataType>bigint(20)|0</DataType>
       <NotNull>1</NotNull>
@@ -3229,7 +3229,7 @@
       <DataType>bigint(20)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="729" parent="73" name="StreetAdress">
+    <column id="729" parent="73" name="StreetAddress">
       <Position>5</Position>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
@@ -3250,7 +3250,7 @@
     </index>
     <key id="734" parent="73" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
-      <ColNames>AdressId</ColNames>
+      <ColNames>AddressId</ColNames>
       <Primary>1</Primary>
     </key>
     <foreign-key id="735" parent="73" name="Adress_Country_id_fk">
@@ -3391,7 +3391,7 @@
       <DataType>bigint(20)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="762" parent="79" name="ClientAdress">
+    <column id="762" parent="79" name="ClientAddress">
       <Position>3</Position>
       <DataType>bigint(20)|0</DataType>
       <NotNull>1</NotNull>
@@ -3426,7 +3426,7 @@
       <ColNames>ClientId</ColNames>
     </index>
     <index id="769" parent="79" name="Order_fk1">
-      <ColNames>ClientAdress</ColNames>
+      <ColNames>ClientAddress</ColNames>
     </index>
     <index id="770" parent="79" name="Order_fk2">
       <ColNames>PayWay</ColNames>
@@ -3699,7 +3699,7 @@
       <Position>7</Position>
       <DataType>date|0</DataType>
     </column>
-    <column id="828" parent="86" name="Adress">
+    <column id="828" parent="86" name="AddressId">
       <Position>8</Position>
       <DataType>bigint(20)|0</DataType>
     </column>
@@ -3708,19 +3708,19 @@
       <DataType>bigint(20)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="830" parent="86" name="Client_Adress_AdressId_fk">
-      <ColNames>Adress</ColNames>
-    </index>
-    <index id="831" parent="86" name="Client_Role_IdRole_fk">
-      <ColNames>Role</ColNames>
-    </index>
-    <index id="832" parent="86" name="email">
+    <index id="830" parent="86" name="email">
       <ColNames>email</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="833" parent="86" name="login">
+    <index id="831" parent="86" name="login">
       <ColNames>login</ColNames>
       <Unique>1</Unique>
+    </index>
+    <index id="832" parent="86" name="User_Role_IdRole_fk">
+      <ColNames>Role</ColNames>
+    </index>
+    <index id="833" parent="86" name="User_Adress_AdressId_fk">
+      <ColNames>AddressId</ColNames>
     </index>
     <key id="834" parent="86" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
@@ -3735,13 +3735,13 @@
       <ColNames>email</ColNames>
       <UnderlyingIndexName>email</UnderlyingIndexName>
     </key>
-    <foreign-key id="837" parent="86" name="Client_Adress_AdressId_fk">
-      <ColNames>Adress</ColNames>
+    <foreign-key id="837" parent="86" name="User_Adress_AdressId_fk">
+      <ColNames>AddressId</ColNames>
       <RefSchemaName>myshop_schema</RefSchemaName>
-      <RefTableName>Adress</RefTableName>
-      <RefColNames>AdressId</RefColNames>
+      <RefTableName>Address</RefTableName>
+      <RefColNames>AddressId</RefColNames>
     </foreign-key>
-    <foreign-key id="838" parent="86" name="Client_Role_IdRole_fk">
+    <foreign-key id="838" parent="86" name="User_Role_IdRole_fk">
       <ColNames>Role</ColNames>
       <RefSchemaName>myshop_schema</RefSchemaName>
       <RefTableName>Role</RefTableName>

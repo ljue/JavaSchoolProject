@@ -30,6 +30,7 @@
           <element id="library" level="project" name="Maven: org.springframework:spring-test:4.3.9.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-tx:4.3.9.RELEASE" />
           <element id="library" level="project" name="Maven: jstl:jstl:1.2" />
+          <element id="library" level="project" name="Maven: javax.servlet:servlet-api:2.5" />
         </element>
       </element>
       <element id="directory" name="META-INF">

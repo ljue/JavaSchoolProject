@@ -18,10 +18,10 @@
                 </li>
                 <%--<c:if test="${user.roleByRole.idRole gt 0}">--%>
                     <li>
-                        <a href="/room">Личный кабинет</a>
+                        <a href="/user">Личный кабинет</a>
                     </li>
                 <%--</c:if>--%>
-                <%--<c:if test="${user.Role.IdRole gt 1}">--%>
+                <%--<c:if test="${user.roleByRole.idRole gt 1}">--%>
                     <li>
                         <a href="/login">Log in</a>
                     </li>
@@ -31,11 +31,6 @@
                         <a href="/statistics">Cтатистика</a>
                     </li>
                 <%--</c:if>--%>
-                <%--<c:if test="${user.roleByRole.idRole gt 0}">&ndash;%&gt;--%>
-                    <li>
-                        <a href="/room">Личный кабинет</a>
-                    </li>
-                <%--</c:if>&ndash;%&gt;--%>
                 <li>
                     <a href="/countries">Tests</a>
                 </li>

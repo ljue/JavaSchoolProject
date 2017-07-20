@@ -1,18 +1,20 @@
 package com.jvschool.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created by Людмила on 19.07.2017.
  */
 @Entity
-@Table(name = "Camera", schema = "myshop_schema", catalog = "")
-public class CameraEntity {
+@Table(name = "Camera", schema = "myshop_schema")
+public class CameraEntity implements Serializable {
     private int cameraId;
     private String cameraName;
 
     @Id
     @Column(name = "CameraId", nullable = false)
+    @GeneratedValue(strategy=GenerationType.AUTO)
     public int getCameraId() {
         return cameraId;
     }

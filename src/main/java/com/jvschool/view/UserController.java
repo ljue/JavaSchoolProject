@@ -2,6 +2,7 @@ package com.jvschool.view;
 
 import com.jvschool.entities.UserEntity;
 import com.jvschool.svc.UserService;
+import com.jvschool.util.SessionUser;
 import com.jvschool.util.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import javax.jws.soap.SOAPBinding;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created by Людмила on 17.07.2017.
@@ -24,26 +25,23 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-//    @ModelAttribute("user")
-//    public UserEntity getUser() {
-//        return new UserEntity();
-//    }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String start(Model model) {
-        model.addAttribute("user", new UserEntity());
         return "login";
     }
 
 
-    @RequestMapping(value = "/login/checkuser", method = RequestMethod.POST)
-    public String login(@ModelAttribute("user") UserEntity user,
-                        Model model, String error, String logout) {
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public String login(@ModelAttribute("user") SessionUser user,
+                        Model model, HttpServletRequest request, String error, String logout) {
 
-        UserEntity us = userService.loginUser(user.getLogin(),user.getPass());
+        SessionUser us = new SessionUser(userService.loginUser(user.getLogin(),user.getPass()));
         if (us!=null) {
-            model.addAttribute("user",us);
-            return "home";
+            //request.getSession().removeAttribute("user");
+            request.getSession().setAttribute("user",us);
+
+            return "redirect:/home";
         }
         else {
             model.addAttribute("error", "Username or password is incorrect.");
@@ -70,7 +68,6 @@ public class UserController {
         }
 
         userService.addUser(userForm);
-
         return "redirect:/home";
     }
 

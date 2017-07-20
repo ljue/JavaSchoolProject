@@ -1,14 +1,16 @@
 package com.jvschool.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Date;
+import java.util.Collection;
 
 /**
- * Created by Людмила on 19.07.2017.
+ * Created by Людмила on 21.07.2017.
  */
 @Entity
 @Table(name = "User", schema = "myshop_schema")
-public class UserEntity {
+public class UserEntity  implements Serializable {
     private long id;
     private String login;
     private String pass;
@@ -16,13 +18,13 @@ public class UserEntity {
     private String firstName;
     private String secondName;
     private Date birthday;
-    private AdressEntity adressByAdress;
+    private Collection<AddressEntity> addressByAddress;
     private RoleEntity roleByRole;
 
 
     @Id
     @Column(name = "Id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.AUTO)
     public long getId() {
         return id;
     }
@@ -121,14 +123,13 @@ public class UserEntity {
         return result;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "Adress", referencedColumnName = "AdressId")
-    public AdressEntity getAdressByAdress() {
-        return adressByAdress;
+    @OneToMany(mappedBy = "userEntity", fetch = FetchType.LAZY)
+    public Collection<AddressEntity> getAddressByAddress() {
+        return addressByAddress;
     }
 
-    public void setAdressByAdress(AdressEntity adressByAdress) {
-        this.adressByAdress = adressByAdress;
+    public void setAddressByAddress(Collection<AddressEntity> addressByAddress) {
+        this.addressByAddress = addressByAddress;
     }
 
     @ManyToOne

@@ -12,35 +12,32 @@ import java.util.List;
 /**
  * Created by Людмила on 17.07.2017.
  */
+
+@Transactional
 @Service
 public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserDAO userDAO;
 
-    @Transactional
     @Override
     public List<UserEntity> getAllUsers()  {
         return userDAO.getAllUsers();
     }
 
-    @Transactional
     @Override
     public UserEntity getUserById(Long id)  {
         return userDAO.getUserById(id);
     }
 
-    @Transactional
     @Override
     public UserEntity getUserByLogin(String login) {
         return userDAO.getUserByLogin(login);
     }
 
-    @Transactional
     @Override
     public void addUser(UserEntity user) { userDAO.addUser(user);}
 
-    @Transactional
     @Override
     public UserEntity loginUser(String login, String password) {
         return userDAO.loginUser(login,password);

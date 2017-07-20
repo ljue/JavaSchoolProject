@@ -1,13 +1,14 @@
 package com.jvschool.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created by Людмила on 19.07.2017.
  */
 @Entity
-@Table(name = "Role", schema = "myshop_schema", catalog = "")
-public class RoleEntity {
+@Table(name = "Role", schema = "myshop_schema")
+public class RoleEntity  implements Serializable {
     private long idRole;
     private String name;
 

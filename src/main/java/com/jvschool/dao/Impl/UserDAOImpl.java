@@ -3,7 +3,6 @@ package com.jvschool.dao.Impl;
 import com.jvschool.dao.UserDAO;
 import com.jvschool.entities.UserEntity;
 import com.jvschool.util.HibernateUtil;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 

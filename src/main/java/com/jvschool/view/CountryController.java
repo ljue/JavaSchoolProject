@@ -20,10 +20,6 @@ public class CountryController {
     @Autowired
     private CountryService countryService;
 
-    //private static org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(CountryController.class);
-    //private static Logger log = Logger.getLogger(CountryController.class.getName());
-
-
     @RequestMapping(value = "/countries", method = RequestMethod.GET)
     public String listUsers(Model model) {
         model.addAttribute("country", new CountryEntity());
