@@ -41,8 +41,7 @@ public class BucketEntity implements Serializable {
         return (int) (bucketId ^ (bucketId >>> 32));
     }
 
-    @OneToMany
-    @JoinColumn(name = "ThingID", referencedColumnName = "ThingId")
+    @OneToMany(mappedBy = "bucketEntity", fetch = FetchType.EAGER)
     public List<ThingEntity> getThingByThing() {
         return thingByThing;
     }

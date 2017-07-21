@@ -38,6 +38,7 @@ public class SessionUser implements Serializable {
     public SessionUser() {
         this.role = "ROLE_ANONYM";
     }
+
     public SessionUser(UserEntity ue) {
         this.id = ue.getId();
         this.login = ue.getLogin();
@@ -48,9 +49,13 @@ public class SessionUser implements Serializable {
         this.birthday = ue.getBirthday();
         this.role = ue.getRoleByRole().getName();
 
-        List<AddressEntity> list=new ArrayList( ue.getAddressByAddress());
-        for (AddressEntity adr:list) {
-            this.addressId.add(adr.getAddressId());
+        if (ue.getAddressByAddress()!=null) {
+            List<AddressEntity> list = new ArrayList(ue.getAddressByAddress());
+
+                for (AddressEntity adr : list) {
+                    this.addressId.add(adr.getAddressId());
+                }
+
         }
     }
 
@@ -114,8 +119,8 @@ public class SessionUser implements Serializable {
         return addressId;
     }
 
-    public void setAddressId(List<Long> adressId) {
-        this.addressId = adressId;
+    public void setAddressId(List<Long> addressId) {
+        this.addressId = addressId;
     }
 
     public String getRole() {

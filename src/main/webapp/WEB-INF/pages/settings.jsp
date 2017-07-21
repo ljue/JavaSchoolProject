@@ -9,8 +9,11 @@
 <html>
 <head>
     <title>Settings</title>
+    <jsp:include page="../templates/head.jsp" />
 </head>
 <body>
+<jsp:include page="../templates/navigation.jsp" />
+<jsp:include page="../templates/scripts.jsp" />
 
 </body>
 </html>

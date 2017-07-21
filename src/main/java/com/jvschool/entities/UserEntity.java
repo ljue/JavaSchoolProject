@@ -22,9 +22,13 @@ public class UserEntity  implements Serializable {
     private RoleEntity roleByRole;
 
 
+    private String confirmPassword;
+
+
+
     @Id
     @Column(name = "Id", nullable = false)
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long getId() {
         return id;
     }
@@ -123,7 +127,7 @@ public class UserEntity  implements Serializable {
         return result;
     }
 
-    @OneToMany(mappedBy = "userEntity")
+    @OneToMany(mappedBy = "userEntity", fetch = FetchType.EAGER)
     public Collection<AddressEntity> getAddressByAddress() {
         return addressByAddress;
     }
@@ -132,7 +136,7 @@ public class UserEntity  implements Serializable {
         this.addressByAddress = addressByAddress;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Role", referencedColumnName = "IdRole")
     public RoleEntity getRoleByRole() {
         return roleByRole;
@@ -141,5 +145,15 @@ public class UserEntity  implements Serializable {
     public void setRoleByRole(RoleEntity roleByRole) {
         this.roleByRole = roleByRole;
     }
+
+    @Transient
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
+
 
 }

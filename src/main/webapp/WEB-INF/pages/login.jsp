@@ -15,22 +15,18 @@
 <head>
 
     <title>Log in</title>
-
-    <link href="/resources/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/resources/css/shop-homepage.css" rel="stylesheet">
-    <link href="${contextPath}/resources/css/common.css" rel="stylesheet">
-
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <jsp:include page="../templates/head.jsp" />
 </head>
 <body>
-<jsp:include page="/navigation" />
+<jsp:include page="../templates/navigation.jsp" />
+<jsp:include page="../templates/scripts.jsp" />
+
 
 <c:url var="checkaction" value="/login"/>
 
 <div class="container">
 
-    <form method="POST" commandName="user" action="${checkaction}" class="form-signin">
+    <form method="POST"  action="${checkaction}" class="form-signin">
         <h2 class="form-heading">Log in</h2>
 
         <div class="form-group ${error != null ? 'has-error' : ''}">

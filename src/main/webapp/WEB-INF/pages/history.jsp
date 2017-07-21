@@ -10,11 +10,12 @@
 <head>
     <title>History</title>
 
-    <link href="/resources/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/resources/css/shop-homepage.css" rel="stylesheet">
+    <jsp:include page="../templates/head.jsp" />
 </head>
 <body>
-<jsp:include page="/navigation" />
+<jsp:include page="../templates/navigation.jsp" />
+<jsp:include page="../templates/scripts.jsp" />
+
 
 <%--<jsp:include page="/countries" />--%>
 <!-- Page Content -->
@@ -23,7 +24,7 @@
     <div class="row">
 
         <div class="col-md-3">
-            <p class="lead">Shop Name</p>
+            <p class="lead">Личный кабинет</p>
             <div class="list-group">
                 <a href="/user" class="list-group-item">Личная информация</a>
                 <a href="/adress" class="list-group-item">Адрес</a>

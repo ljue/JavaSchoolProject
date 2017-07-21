@@ -34,6 +34,10 @@ public class UserServiceImpl implements UserService {
     public UserEntity getUserByLogin(String login) {
         return userDAO.getUserByLogin(login);
     }
+    @Override
+    public UserEntity getUserByEmail(String email) {
+        return userDAO.getUserByEmail(email);
+    }
 
     @Override
     public void addUser(UserEntity user) { userDAO.addUser(user);}
@@ -42,4 +46,12 @@ public class UserServiceImpl implements UserService {
     public UserEntity loginUser(String login, String password) {
         return userDAO.loginUser(login,password);
     }
+
+    @Override
+    public void editUserInfo(UserEntity user) {
+        userDAO.editUserInfo(user);
+    }
+
+    @Override
+    public void editUserPassword(UserEntity user) { userDAO.editUserPassword(user);}
 }

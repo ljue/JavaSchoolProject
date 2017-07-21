@@ -8,13 +8,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Adress</title>
+    <title>Address</title>
 
-    <link href="/resources/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/resources/css/shop-homepage.css" rel="stylesheet">
+    <jsp:include page="../templates/head.jsp" />
 </head>
 <body>
-<jsp:include page="/navigation" />
+<jsp:include page="../templates/navigation.jsp" />
+<jsp:include page="../templates/scripts.jsp" />
+
 
 <%--<jsp:include page="/countries" />--%>
 <!-- Page Content -->

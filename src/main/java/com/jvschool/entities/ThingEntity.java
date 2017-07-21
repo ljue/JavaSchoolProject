@@ -17,6 +17,7 @@ public class ThingEntity  implements Serializable {
     private int visibility;
     private CameraEntity cameraByCamera;
     private TranslationEntity translationEntity;
+    private BucketEntity bucketEntity;
 
 
 
@@ -130,4 +131,13 @@ public class ThingEntity  implements Serializable {
         this.translationEntity = translationEntity;
     }
 
+    @ManyToOne
+    @JoinColumn(name = "BucketId", referencedColumnName = "BucketId")
+    public BucketEntity getBucketEntity() {
+        return bucketEntity;
+    }
+
+    public void setBucketEntity(BucketEntity bucketEntity) {
+        this.bucketEntity = bucketEntity;
+    }
 }

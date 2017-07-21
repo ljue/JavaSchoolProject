@@ -19,23 +19,23 @@ public class AddressEntity implements Serializable {
 
     @Id
     @Column(name = "AddressId", nullable = false)
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long getAddressId() {
         return addressId;
     }
 
-    public void setAddressId(long adressId) {
-        this.addressId = adressId;
+    public void setAddressId(long addressId) {
+        this.addressId = addressId;
     }
 
     @Basic
     @Column(name = "StreetAddress", nullable = false, length = 255)
-    public String getStreetAdress() {
+    public String getStreetAddress() {
         return streetAddress;
     }
 
-    public void setStreetAdress(String streetAdress) {
-        this.streetAddress = streetAdress;
+    public void setStreetAddress(String streetAddress) {
+        this.streetAddress = streetAddress;
     }
 
     @Basic
@@ -71,8 +71,8 @@ public class AddressEntity implements Serializable {
     }
 
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "AddressId", referencedColumnName = "AddressId")
+    @ManyToOne
+    @JoinColumn(name = "UserId", referencedColumnName = "Id")
     public UserEntity getUserEntity() {
         return userEntity;
     }

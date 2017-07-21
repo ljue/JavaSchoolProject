@@ -16,28 +16,33 @@
                 <li>
                     <a href="/home">Home</a>
                 </li>
-                <%--<c:if test="${user.roleByRole.idRole gt 0}">--%>
+                <c:if test="${user.role ne 'ROLE_ANONYM'}">
                     <li>
-                        <a href="/user">Личный кабинет</a>
+                        <a href="/user">My Room</a>
                     </li>
-                <%--</c:if>--%>
-                <%--<c:if test="${user.roleByRole.idRole gt 1}">--%>
+                </c:if>
+                <c:if test="${user.role eq 'ROLE_ANONYM'}">
                     <li>
                         <a href="/login">Log in</a>
                     </li>
-                <%--</c:if>--%>
-                <%--<c:if test="${user.roleByRole.idRole eq 0}">--%>
+                </c:if>
+                <c:if test="${user.role eq 'ROLE_MANAGER'}">
                     <li>
-                        <a href="/statistics">Cтатистика</a>
+                        <a href="/statistics">Statistics</a>
                     </li>
-                <%--</c:if>--%>
+                </c:if>
                 <li>
                     <a href="/countries">Tests</a>
                 </li>
 
                 <li>
-                    <a href="/bucket">Корзина</a>
+                    <a href="/bucket">Bucket</a>
                 </li>
+                <c:if test="${user.role ne 'ROLE_ANONYM'}">
+                    <li>
+                        <a href="/logout">Log out</a>
+                    </li>
+                </c:if>
             </ul>
         </div>
         <!-- /.navbar-collapse -->

@@ -10,11 +10,11 @@
 <head>
     <title>Person</title>
 
-        <link href="/resources/css/bootstrap.min.css" rel="stylesheet">
-        <link href="/resources/css/shop-homepage.css" rel="stylesheet">
-    </head>
+    <jsp:include page="../templates/head.jsp" />
+</head>
 <body>
-<jsp:include page="/navigation" />
+<jsp:include page="../templates/navigation.jsp" />
+<jsp:include page="../templates/scripts.jsp" />
 
 <%--<jsp:include page="/countries" />--%>
 <!-- Page Content -->
@@ -54,10 +54,6 @@
 </div>
 
 <!-- /.container -->
-<!-- jQuery -->
-<script src="js/jquery.js"></script>
 
-<!-- Bootstrap Core JavaScript -->
-<script src="js/bootstrap.min.js"></script>
 </body>
 </html>
