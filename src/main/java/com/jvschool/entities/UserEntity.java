@@ -123,7 +123,7 @@ public class UserEntity  implements Serializable {
         return result;
     }
 
-    @OneToMany(mappedBy = "userEntity", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "userEntity")
     public Collection<AddressEntity> getAddressByAddress() {
         return addressByAddress;
     }

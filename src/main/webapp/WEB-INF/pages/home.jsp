@@ -6,27 +6,15 @@
     <link href="/resources/css/shop-homepage.css" rel="stylesheet">
 </head>
 <body>
-<jsp:include page="/navigation" />
-
-<%--<jsp:include page="/countries" />--%>
-<!-- Page Content -->
-<div class="container">
-
+<jsp:include page="/navigation"
+/><div class="page-flexbox-wrapper">
+    <div class="parallax-container">
+        <div class="parallax"><img src="../resources/Images/zakat.jpg" class="img-responsive"></div>
+    </div>
     <div class="row">
 
-        <div class="col-md-3">
-            <p class="lead">Shop Name</p>
-            <div class="list-group">
-                <a href="#" class="list-group-item">Category 1</a>
-                <a href="#" class="list-group-item">Category 2</a>
-                <a href="#" class="list-group-item">Category 3</a>
-            </div>
-        </div>
 
     </div>
-
-    </div>
-
 </div>
 <!-- /.container -->
 
