@@ -23,4 +23,14 @@ public class ProductRadioPropertyServiceImpl implements ProductRadioPropertyServ
     public List<ProductRadioPropertyEntity> getAllRadioProperties() {
         return productRadioPropertyDAO.getAllRadioProperties();
     }
+
+    @Override
+    public ProductRadioPropertyEntity getProductRadioPropertyByName(String name) {
+        return productRadioPropertyDAO.getProductRadioPropertyByName(name);
+    }
+
+    @Override
+    public ProductRadioPropertyEntity getProductRadioPropertyById(int id) {
+        return productRadioPropertyDAO.getProductRadioPropertyById(id);
+    }
 }

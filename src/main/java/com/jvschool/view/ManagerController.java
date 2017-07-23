@@ -1,9 +1,9 @@
 package com.jvschool.view;
 
-import com.jvschool.dao.ProductRadioPropertyDAO;
-import com.jvschool.dao.PropertyRadioCategoryDAO;
+
+import com.jvschool.entities.PicturesEntity;
 import com.jvschool.entities.ProductEntity;
-import com.jvschool.entities.ProductPropertyEntity;
+
 import com.jvschool.svc.*;
 import com.jvschool.util.ProductValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.ServletRequest;
+
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
@@ -57,7 +57,7 @@ public class ManagerController {
     @RequestMapping(value = "/adminProducts", method = RequestMethod.GET)
     public String goAdminProducts(Model model, @ModelAttribute("productForm")ProductEntity productForm) {
         model.addAttribute("categories", productCategoryService.getAllProductCategories());
-        model.addAttribute("propertiesMany", propertyCategoryService.getAllProperyCategories());
+        model.addAttribute("propertiesMany", propertyCategoryService.getAllPropertyCategories());
         model.addAttribute("propertyManyChild",productPropertyService.getAllProductProperties());
 
         model.addAttribute("radioCategory", propertyRadioCategoryService.getAllRadioCategories());
@@ -73,6 +73,7 @@ public class ManagerController {
 
         List<MultipartFile> files = productForm.getImages();
         List<String> fileNames = new ArrayList<String>();
+        List<PicturesEntity> picNames=new ArrayList<>();
         if (null != files && files.size() > 0)
         {
             for (MultipartFile multipartFile : files) {
@@ -84,12 +85,18 @@ public class ManagerController {
                 try
                 {
                     multipartFile.transferTo(imageFile);
+
+                    PicturesEntity pic = new PicturesEntity();
+                    pic.setPicName(fileName);
+                    picNames.add(pic);
+
                 } catch (IOException e)
                 {
                     e.printStackTrace();
                 }
             }
         }
+        productForm.setPicturesByProductId(picNames);
 
         productValidator.validate(productForm, bindingResult);
         if (bindingResult.hasErrors()) {

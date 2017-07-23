@@ -21,4 +21,24 @@ public class ProductPropertyDAOImpl implements ProductPropertyDAO {
         session.getTransaction().commit();
         return properties;
     }
+
+    @Override
+    public ProductPropertyEntity getProductPropertyByName(String name) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        ProductPropertyEntity property = (ProductPropertyEntity) session.createQuery("FROM ProductPropertyEntity " +
+                "where prodPropName=:name").setParameter("name", name).uniqueResult();
+        session.getTransaction().commit();
+        return property;
+    }
+
+    @Override
+    public ProductPropertyEntity getProductPropertyById(int id) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        ProductPropertyEntity property = (ProductPropertyEntity) session.createQuery("FROM ProductPropertyEntity " +
+                "where prodPropId=:id").setParameter("id", id).uniqueResult();
+        session.getTransaction().commit();
+        return property;
+    }
 }

@@ -23,4 +23,14 @@ public class ProductPropertyServiceImpl implements ProductPropertyService {
     public List<ProductPropertyEntity> getAllProductProperties() {
         return productPropertyDAO.getAllProductProperties();
     }
+
+    @Override
+    public ProductPropertyEntity getProductPropertyByName(String name) {
+        return productPropertyDAO.getProductPropertyByName(name);
+    }
+
+    @Override
+    public ProductPropertyEntity getProductPropertyById(int id) {
+        return productPropertyDAO.getProductPropertyById(id);
+    }
 }

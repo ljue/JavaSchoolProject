@@ -17,16 +17,21 @@ import java.util.List;
 public class ProductCategoryServiceImpl implements ProductCategoryService {
 
     @Autowired
-    private ProductCategoryDAOImpl productCategoryDAOImpl;
+    private ProductCategoryDAOImpl productCategoryDAO;
 
     @Override
     public List<ProductCategoryEntity> getAllProductCategories() {
-        return productCategoryDAOImpl.getAllProductCategories();
+        return productCategoryDAO.getAllProductCategories();
 
     }
 
     @Override
     public ProductCategoryEntity getProductCategoryById(int id) {
-        return productCategoryDAOImpl.getProductCategoryById(id);
+        return productCategoryDAO.getProductCategoryById(id);
+    }
+
+    @Override
+    public ProductCategoryEntity getProductCategoryByName(String name) {
+        return productCategoryDAO.getProductCategoryByName(name);
     }
 }

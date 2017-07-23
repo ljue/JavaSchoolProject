@@ -7,7 +7,7 @@ import java.util.Collection;
  * Created by Людмила on 23.07.2017.
  */
 @Entity
-@Table(name = "PropertyRadioCategory", schema = "myshop_schema", catalog = "")
+@Table(name = "PropertyRadioCategory", schema = "myshop_schema")
 public class PropertyRadioCategoryEntity {
     private int id;
     private String name;

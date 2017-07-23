@@ -21,4 +21,24 @@ public class ProductRadioPropertyDAOImpl implements ProductRadioPropertyDAO {
         session.getTransaction().commit();
         return properties;
     }
+
+    @Override
+    public ProductRadioPropertyEntity getProductRadioPropertyByName(String name) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        ProductRadioPropertyEntity property = (ProductRadioPropertyEntity) session.createQuery("FROM ProductRadioPropertyEntity " +
+                "where name=:name").setParameter("name", name).uniqueResult();
+        session.getTransaction().commit();
+        return property;
+    }
+
+    @Override
+    public ProductRadioPropertyEntity getProductRadioPropertyById(int id) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        ProductRadioPropertyEntity property = (ProductRadioPropertyEntity) session.createQuery("FROM ProductRadioPropertyEntity " +
+                "where id=:id").setParameter("id", id).uniqueResult();
+        session.getTransaction().commit();
+        return property;
+    }
 }

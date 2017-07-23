@@ -9,4 +9,6 @@ import java.util.List;
  */
 public interface ProductPropertyService {
     List<ProductPropertyEntity> getAllProductProperties();
+    ProductPropertyEntity getProductPropertyByName(String name);
+    ProductPropertyEntity getProductPropertyById(int id);
 }

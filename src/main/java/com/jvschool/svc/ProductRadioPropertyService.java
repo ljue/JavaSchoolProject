@@ -10,4 +10,6 @@ import java.util.List;
 public interface ProductRadioPropertyService {
 
     List<ProductRadioPropertyEntity> getAllRadioProperties();
+    ProductRadioPropertyEntity getProductRadioPropertyByName(String name);
+    ProductRadioPropertyEntity getProductRadioPropertyById(int id);
 }

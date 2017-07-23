@@ -10,4 +10,5 @@ import java.util.List;
 public interface ProductCategoryService {
     List<ProductCategoryEntity> getAllProductCategories();
     ProductCategoryEntity getProductCategoryById(int id);
+    ProductCategoryEntity getProductCategoryByName(String name);
 }

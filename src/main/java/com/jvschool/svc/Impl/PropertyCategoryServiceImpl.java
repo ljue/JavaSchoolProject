@@ -20,7 +20,7 @@ public class PropertyCategoryServiceImpl implements PropertyCategoryService {
     private PropertyCategoryDAOImpl propertyCategoryDAO;
 
     @Override
-    public List<PropertyCategoryEntity> getAllProperyCategories() {
+    public List<PropertyCategoryEntity> getAllPropertyCategories() {
         return propertyCategoryDAO.getAllProductCategories();
     }
 

@@ -11,4 +11,5 @@ public interface ProductCategoryDAO {
 
     List<ProductCategoryEntity> getAllProductCategories();
     ProductCategoryEntity getProductCategoryById(int id);
+    ProductCategoryEntity getProductCategoryByName(String name);
 }

@@ -31,4 +31,16 @@ public class ProductCategoryDAOImpl implements com.jvschool.dao.ProductCategoryD
         session.getTransaction().commit();
         return category;
     }
+
+    @Override
+    public ProductCategoryEntity getProductCategoryByName(String name) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        ProductCategoryEntity category = (ProductCategoryEntity) session.createQuery("FROM ProductCategoryEntity " +
+                "where categoryName=:name").setParameter("name", name).uniqueResult();
+        session.getTransaction().commit();
+        return category;
+    }
+
+
 }
