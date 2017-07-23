@@ -21,6 +21,9 @@
 <c:url var="editInfo" value="/user/editInfo"/>
 <c:url var="editPass" value="/user/editPass"/>
 <%--<jsp:include page="/countries" />--%>
+
+<br>
+<br>
 <!-- Page Content -->
 <div class="container">
     <div class="row">
@@ -29,7 +32,7 @@
                 <p class="lead">   </p>
             <div class="list-group">
                 <a href="/user" class="list-group-item">My Profile</a>
-                <a href="/adress" class="list-group-item">My Address</a>
+                <a href="/address" class="list-group-item">My Address</a>
                 <a href="/history" class="list-group-item">My Orders</a>
             </div>
         </div>

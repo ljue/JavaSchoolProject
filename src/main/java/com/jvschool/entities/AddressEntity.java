@@ -12,10 +12,12 @@ public class AddressEntity implements Serializable {
     private long addressId;
     private String streetAddress;
     private String postIndex;
-    private UserEntity userEntity;
+    //private UserEntity userEntity;
+    //private Long userId;
     private CountryEntity countryEntity;
     private RegionEntity regionEntity;
     private CityEntity cityEntity;
+    private UserEntity userByUserId;
 
     @Id
     @Column(name = "AddressId", nullable = false)
@@ -62,6 +64,17 @@ public class AddressEntity implements Serializable {
         return true;
     }
 
+//
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "UserId", referencedColumnName = "Id")
+//    public UserEntity getUserEntity() {
+//        return userEntity;
+//    }
+//
+//    public void setUserEntity(UserEntity userEntity) {
+//        this.userEntity = userEntity;
+//    }
+
     @Override
     public int hashCode() {
         int result = (int) (addressId ^ (addressId >>> 32));
@@ -70,18 +83,15 @@ public class AddressEntity implements Serializable {
         return result;
     }
 
-
-    @ManyToOne
-    @JoinColumn(name = "UserId", referencedColumnName = "Id")
-    public UserEntity getUserEntity() {
-        return userEntity;
-    }
-
-    public void setUserEntity(UserEntity userEntity) {
-        this.userEntity = userEntity;
-    }
-
-
+//    @Basic
+//    @Column(name = "UserId")
+//    public Long getUserId() {
+//        return userId;
+//    }
+//
+//    public void setUserId(Long userId) {
+//        this.userId = userId;
+//    }
 
     @ManyToOne
     @JoinColumn(name = "Country", referencedColumnName = "id")
@@ -113,4 +123,13 @@ public class AddressEntity implements Serializable {
         this.cityEntity = cityEntity;
     }
 
+    @ManyToOne
+    @JoinColumn(name = "UserId", referencedColumnName = "Id")
+    public UserEntity getUserByUserId() {
+        return userByUserId;
+    }
+
+    public void setUserByUserId(UserEntity userByUserId) {
+        this.userByUserId = userByUserId;
+    }
 }

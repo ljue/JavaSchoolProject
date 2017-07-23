@@ -3,7 +3,9 @@ package com.jvschool.entities;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by Людмила on 21.07.2017.
@@ -18,7 +20,7 @@ public class UserEntity  implements Serializable {
     private String firstName;
     private String secondName;
     private Date birthday;
-    private Collection<AddressEntity> addressByAddress;
+    private List<AddressEntity> addresses = new ArrayList<>();
     private RoleEntity roleByRole;
 
 
@@ -58,7 +60,7 @@ public class UserEntity  implements Serializable {
     }
 
     @Basic
-    @Column(name = "email", length = 30)
+    @Column(name = "email", length = 30, nullable = true)
     public String getEmail() {
         return email;
     }
@@ -68,7 +70,7 @@ public class UserEntity  implements Serializable {
     }
 
     @Basic
-    @Column(name = "FirstName", length = 30)
+    @Column(name = "FirstName", length = 30, nullable = true)
     public String getFirstName() {
         return firstName;
     }
@@ -78,7 +80,7 @@ public class UserEntity  implements Serializable {
     }
 
     @Basic
-    @Column(name = "SecondName", length = 30)
+    @Column(name = "SecondName", length = 30, nullable = true)
     public String getSecondName() {
         return secondName;
     }
@@ -88,7 +90,7 @@ public class UserEntity  implements Serializable {
     }
 
     @Basic
-    @Column(name = "Birthday")
+    @Column(name = "Birthday", nullable = true)
     public Date getBirthday() {
         return birthday;
     }
@@ -127,13 +129,14 @@ public class UserEntity  implements Serializable {
         return result;
     }
 
-    @OneToMany(mappedBy = "userEntity", fetch = FetchType.EAGER)
-    public Collection<AddressEntity> getAddressByAddress() {
-        return addressByAddress;
+    @OneToMany//(fetch = FetchType.EAGER)
+    @JoinColumn(name = "UserId", referencedColumnName = "Id")
+    public List<AddressEntity> getAddresses() {
+        return addresses;
     }
 
-    public void setAddressByAddress(Collection<AddressEntity> addressByAddress) {
-        this.addressByAddress = addressByAddress;
+    public void setAddresses(List<AddressEntity> addressByAddress) {
+        this.addresses = addressByAddress;
     }
 
     @ManyToOne(fetch = FetchType.EAGER)

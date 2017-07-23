@@ -1,27 +1,27 @@
 package com.jvschool.entities;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Collection;
 
 /**
- * Created by Людмила on 19.07.2017.
+ * Created by Людмила on 22.07.2017.
  */
 @Entity
 @Table(name = "Order", schema = "myshop_schema")
-public class OrderEntity implements Serializable {
+public class OrderEntity {
     private long orderId;
-    private long clientAddress;
     private Timestamp dateTimeOrder;
-    private UserEntity clientByUserId;
-    private DeliveryStatusEntity deliveryStatusByDeliveryStatus;
-    private BucketEntity bucketByBucket;
-    private PayStatusEntity payStatusByPayStatus;
+
+    private UserEntity userByClientId;
+    private AddressEntity addressByClientAddress;
     private PayWayEntity payWayByPayWay;
+    private PayStatusEntity payStatusByPayStatus;
+    private DeliveryStatusEntity deliveryStatusByDeliveryStatus;
+    private Collection<ProductEntity> productByProductId;
 
     @Id
     @Column(name = "OrderId", nullable = false)
-    @GeneratedValue(strategy=GenerationType.AUTO)
     public long getOrderId() {
         return orderId;
     }
@@ -30,15 +30,6 @@ public class OrderEntity implements Serializable {
         this.orderId = orderId;
     }
 
-    @Basic
-    @Column(name = "ClientAddress", nullable = false)
-    public long getClientAddress() {
-        return clientAddress;
-    }
-
-    public void setClientAddress(long clientAddress) {
-        this.clientAddress = clientAddress;
-    }
 
     @Basic
     @Column(name = "DateTimeOrder", nullable = false)
@@ -58,7 +49,6 @@ public class OrderEntity implements Serializable {
         OrderEntity that = (OrderEntity) o;
 
         if (orderId != that.orderId) return false;
-        if (clientAddress != that.clientAddress) return false;
         if (dateTimeOrder != null ? !dateTimeOrder.equals(that.dateTimeOrder) : that.dateTimeOrder != null)
             return false;
 
@@ -68,50 +58,29 @@ public class OrderEntity implements Serializable {
     @Override
     public int hashCode() {
         int result = (int) (orderId ^ (orderId >>> 32));
-        result = 31 * result + (int) (clientAddress ^ (clientAddress >>> 32));
         result = 31 * result + (dateTimeOrder != null ? dateTimeOrder.hashCode() : 0);
         return result;
     }
 
+
     @ManyToOne
     @JoinColumn(name = "ClientId", referencedColumnName = "Id", nullable = false)
-    public UserEntity getClientByClientId() {
-        return clientByUserId;
+    public UserEntity getUserByClientId() {
+        return userByClientId;
     }
 
-    public void setClientByClientId(UserEntity clientByClientId) {
-        this.clientByUserId = clientByClientId;
+    public void setUserByClientId(UserEntity userByClientId) {
+        this.userByClientId = userByClientId;
     }
 
     @ManyToOne
-    @JoinColumn(name = "DeliveryStatus", referencedColumnName = "DeliveryStatusId", nullable = false)
-    public DeliveryStatusEntity getDeliveryStatusByDeliveryStatus() {
-        return deliveryStatusByDeliveryStatus;
+    @JoinColumn(name = "ClientAddress", referencedColumnName = "AddressId", nullable = false)
+    public AddressEntity getAddressByClientAddress() {
+        return addressByClientAddress;
     }
 
-    public void setDeliveryStatusByDeliveryStatus(DeliveryStatusEntity deliveryStatusByDeliveryStatus) {
-        this.deliveryStatusByDeliveryStatus = deliveryStatusByDeliveryStatus;
-    }
-
-    @OneToOne
-    @JoinColumn(name = "Bucket", referencedColumnName = "BucketId", nullable = false)
-    public BucketEntity getBucketByBucket() {
-        return bucketByBucket;
-    }
-
-    public void setBucketByBucket(BucketEntity bucketByBucket) {
-        this.bucketByBucket = bucketByBucket;
-    }
-
-
-    @ManyToOne
-    @JoinColumn(name = "PayStatus", referencedColumnName = "PayStatusId", nullable = false)
-    public PayStatusEntity getPayStatusByPayStatus() {
-        return payStatusByPayStatus;
-    }
-
-    public void setPayStatusByPayStatus(PayStatusEntity payStatusByPayStatus) {
-        this.payStatusByPayStatus = payStatusByPayStatus;
+    public void setAddressByClientAddress(AddressEntity addressByClientAddress) {
+        this.addressByClientAddress = addressByClientAddress;
     }
 
     @ManyToOne
@@ -124,4 +93,32 @@ public class OrderEntity implements Serializable {
         this.payWayByPayWay = payWayByPayWay;
     }
 
+    @ManyToOne
+    @JoinColumn(name = "PayStatus", referencedColumnName = "PayStatusId", nullable = false)
+    public PayStatusEntity getPayStatusByPayStatus() {
+        return payStatusByPayStatus;
+    }
+
+    public void setPayStatusByPayStatus(PayStatusEntity payStatusByPayStatus) {
+        this.payStatusByPayStatus = payStatusByPayStatus;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "DeliveryStatus", referencedColumnName = "DeliveryStatusId", nullable = false)
+    public DeliveryStatusEntity getDeliveryStatusByDeliveryStatus() {
+        return deliveryStatusByDeliveryStatus;
+    }
+
+    public void setDeliveryStatusByDeliveryStatus(DeliveryStatusEntity deliveryStatusByDeliveryStatus) {
+        this.deliveryStatusByDeliveryStatus = deliveryStatusByDeliveryStatus;
+    }
+
+    @OneToMany(mappedBy = "bucketByProductId")
+    public Collection<ProductEntity> getBucketsByProductId() {
+        return productByProductId;
+    }
+
+    public void setBucketsByProductId(Collection<ProductEntity> productByProductId) {
+        this.productByProductId = productByProductId;
+    }
 }

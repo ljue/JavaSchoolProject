@@ -28,7 +28,7 @@
                 </c:if>
                 <c:if test="${user.role eq 'ROLE_MANAGER'}">
                     <li>
-                        <a href="/statistics">Statistics</a>
+                        <a href="/orderList">Administration</a>
                     </li>
                 </c:if>
                 <li>

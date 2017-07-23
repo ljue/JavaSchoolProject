@@ -42,7 +42,7 @@ public class UserController {
     public String login(@ModelAttribute("user") SessionUser user,
                         Model model, HttpServletRequest request, String error, String logout) {
 
-        SessionUser us = new SessionUser(userService.loginUser(user.getLogin(),user.getPass()));
+        SessionUser us = new SessionUser(userService.loginUser(user.getLogin(),user.getPass()),user.getListProducts());
         if (us!=null) {
             model.addAttribute("user",us);
             return "redirect:/home";
@@ -69,7 +69,8 @@ public class UserController {
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String registration(@ModelAttribute("userForm") UserEntity userForm, BindingResult bindingResult, Model model) {
+    public String registration(@ModelAttribute("userForm") UserEntity userForm, BindingResult bindingResult,
+            @ModelAttribute("user") SessionUser user, Model model) {
         userValidator.validate(userForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
@@ -78,7 +79,7 @@ public class UserController {
 
         userForm.setRoleByRole(roleService.getRoleByName("ROLE_CLIENT"));
         userService.addUser(userForm);
-        SessionUser us = new SessionUser(userForm);
+        SessionUser us = new SessionUser(userForm, user.getListProducts());
         model.addAttribute("user",us);
         return "redirect:/home";
     }
@@ -99,7 +100,7 @@ public class UserController {
             return "user";
         }
         userService.editUserInfo(userForm);
-        SessionUser us = new SessionUser(userService.getUserById(userForm.getId()));
+        SessionUser us = new SessionUser(userService.getUserById(userForm.getId()), sessionUser.getListProducts());
         model.addAttribute("user",us);
         return "redirect:/user";
     }
@@ -113,9 +114,16 @@ public class UserController {
             return "user";
         }
         userService.editUserPassword(userForm);
-        SessionUser us = new SessionUser(userService.getUserById(userForm.getId()));
+        SessionUser us = new SessionUser(userService.getUserById(userForm.getId()),sessionUser.getListProducts());
         model.addAttribute("user",us);
         return "redirect:/user";
     }
+
+    @RequestMapping(value = {"/history"}, method = RequestMethod.GET)
+    public String goOrdersHistoryInfo(@ModelAttribute("user") SessionUser user) {
+        return "history";
+    }
+
+
 
 }

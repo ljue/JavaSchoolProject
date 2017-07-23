@@ -9,27 +9,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 /**
- * Created by Людмила on 19.07.2017.
+ * Created by Людмила on 21.07.2017.
  */
 @Controller
 @SessionAttributes("user")
-public class RoomController {
+public class AddressController {
 
 
-
-    @RequestMapping(value = {"/adress"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/address"}, method = RequestMethod.GET)
     public String goAddressInfo(@ModelAttribute("user") SessionUser user) {
-        return "adress";
+        return "address";
     }
 
-    @RequestMapping(value = {"/history"}, method = RequestMethod.GET)
-    public String goOrdershistoryInfo(@ModelAttribute("user") SessionUser user) {
-        return "history";
-    }
-
-    @RequestMapping(value = {"/room"}, method = RequestMethod.GET)
-    public String goRoom(@ModelAttribute("user") SessionUser user) {
-        return "room";
-    }
-
+//    @RequestMapping(value = "/addNewAddress", method = RequestMethod.GET)
+//    public String goNewAddress(Model model) {
+//        return "addNewAddress";
+//    }
 }

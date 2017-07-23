@@ -7,7 +7,7 @@ import java.io.Serializable;
  * Created by Людмила on 19.07.2017.
  */
 @Entity
-@Table(name = "DeliveryStatus", schema = "myshop_schema")
+@Table(name = "DeliveryStatus", schema = "myshop_schema", catalog = "")
 public class DeliveryStatusEntity implements Serializable {
     private int deliveryStatusId;
     private String deliveryStatusName;

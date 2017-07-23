@@ -22,24 +22,29 @@ public class SessionUser implements Serializable {
     private Date birthday;
     private List<Long> addressId;
     private String role;
+    private List<Long> listProducts;
 
-    public SessionUser(long id, String login, String pass, String email, String firstName, String secondName, Date birthday, List<Long> addressId, String role) {
-        this.id = id;
-        this.login = login;
-        this.pass = pass;
-        this.email = email;
-        this.firstName = firstName;
-        this.secondName = secondName;
-        this.birthday = birthday;
-        this.addressId = addressId;
-        this.role = role;
-    }
+
+
+//    public SessionUser(long id, String login, String pass, String email, String firstName, String secondName,
+//                       Date birthday, List<Long> addressId, String role, List<Long> listProducts) {
+//        this.id = id;
+//        this.login = login;
+//        this.pass = pass;
+//        this.email = email;
+//        this.firstName = firstName;
+//        this.secondName = secondName;
+//        this.birthday = birthday;
+//        this.addressId = addressId;
+//        this.role = role;
+//        this.listProducts=listProducts;
+//    }
 
     public SessionUser() {
         this.role = "ROLE_ANONYM";
     }
 
-    public SessionUser(UserEntity ue) {
+    public SessionUser(UserEntity ue, List<Long> listProducts) {
         this.id = ue.getId();
         this.login = ue.getLogin();
         this.pass = ue.getPass();
@@ -49,13 +54,16 @@ public class SessionUser implements Serializable {
         this.birthday = ue.getBirthday();
         this.role = ue.getRoleByRole().getName();
 
-        if (ue.getAddressByAddress()!=null) {
-            List<AddressEntity> list = new ArrayList(ue.getAddressByAddress());
-
+        if (ue.getAddresses()!=null) {
+            List<AddressEntity> list = ue.getAddresses();
                 for (AddressEntity adr : list) {
                     this.addressId.add(adr.getAddressId());
                 }
-
+        }
+        if (listProducts!=null) {
+            for (Long lp : listProducts) {
+                this.listProducts.add(lp);
+            }
         }
     }
 
@@ -129,6 +137,14 @@ public class SessionUser implements Serializable {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public List<Long> getListProducts() {
+        return listProducts;
+    }
+
+    public void setListProducts(List<Long> listProducts) {
+        this.listProducts = listProducts;
     }
 
 

@@ -24,10 +24,10 @@
     <div class="row">
 
         <div class="col-md-3">
-            <p class="lead">Личный кабинет</p>
+            <p class="lead">   </p>
             <div class="list-group">
                 <a href="/user" class="list-group-item">Личная информация</a>
-                <a href="/adress" class="list-group-item">Адрес</a>
+                <a href="/address" class="list-group-item">Адрес</a>
                 <a href="/history" class="list-group-item">Заказы</a>
             </div>
         </div>
