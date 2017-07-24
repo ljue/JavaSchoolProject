@@ -10,3 +10,4 @@
 <link href="/resources/css/shop-homepage.css" rel="stylesheet">
 
 <link href="/resources/css/common.css" rel="stylesheet">
+<link href="/resources/css/font-awesome.min.css" rel="stylesheet">

@@ -82,7 +82,7 @@ public class ProductPropertyEntity  implements Serializable {
 
 
 
-    @ManyToMany
+    @ManyToMany//(fetch = FetchType.EAGER)
     @JoinTable(name = "Prod_Prop",
             joinColumns = @JoinColumn(name = "ProductPropertyId"),
             inverseJoinColumns = @JoinColumn(name = "ProductId"))

@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -14,17 +15,37 @@
     </div>
     <div class="row">
 
+        <script src="//yandex.st/jquery/1.9.1/jquery.min.js"></script>
+
+        <!-- arcticModal -->
+        <script src="js/arcticmodal/jquery.arcticmodal-0.3.min.js"></script>
+        <link rel="stylesheet" href="js/arcticmodal/jquery.arcticmodal-0.3.css">
+
+        <!-- arcticModal theme -->
+        <link rel="stylesheet" href="js/arcticmodal/themes/simple.css">
+
+        <div style="display: none;">
+            <div class="box-modal" id="exampleModal">
+                <div class="box-modal_close arcticmodal-close">закрыть</div>
+                Пример модального окна
+            </div>
+        </div>
+<script>$(function(){
+    $('#exampleModal').arcticmodal();
+});</script>
+
+
+
+
+
+
 
     </div>
 </div>
 <!-- /.container -->
 
 <!-- /.container -->
-<!-- jQuery -->
-<script src="js/jquery.js"></script>
 
-<!-- Bootstrap Core JavaScript -->
-<script src="js/bootstrap.min.js"></script>
 
 <%--<script>$(document).ready(function () {--%>
     <%--$('.parallax').parallax();--%>

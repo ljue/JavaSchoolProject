@@ -1,3 +1,6 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: Людмила
@@ -47,72 +50,119 @@
                     <div id="panel1" class="tab-pane fade in active">
                         <%--<h3>Панель 1</h3>--%>
                         <br>
-                        <p>You haven't add any address yet.</p>
+                            <%--<c:if test="${empty addresses}">--%>
+                                <%--<p>You haven't add any address yet.</p>--%>
+                            <%--</c:if>--%>
+                            <%--<c:if test="${!empty addresses}">--%>
+
+                                <%--<c:forEach items="${addresses}" var="address">--%>
+                                    <%--<table class="table">--%>
+
+                                        <%--<tr>--%>
+                                            <%--<td>Country:</td>--%>
+                                            <%--<td>${address.countryEntity.name}</td>--%>
+                                        <%--</tr>--%>
+                                        <%--<tr>--%>
+                                            <%--<td>Region:</td>--%>
+                                            <%--<td>${address.regionEntity.name}</td>--%>
+                                        <%--</tr>--%>
+                                        <%--<tr>--%>
+                                            <%--<td>City/town:</td>--%>
+                                            <%--<td>${address.cityEntity.name}</td>--%>
+                                        <%--</tr>--%>
+                                        <%--<tr>--%>
+                                            <%--<td>Address:</td>--%>
+                                            <%--<td>${address.streetAddress}</td>--%>
+                                        <%--</tr>--%>
+                                        <%--<tr>--%>
+                                            <%--<td>Post index:</td>--%>
+                                            <%--<td>${address.postIndex}</td>--%>
+                                        <%--</tr>--%>
+                                    <%--</table>--%>
+                                    <%--<br>--%>
+                                    <%--<br>--%>
+                                <%--</c:forEach>--%>
+
+                            <%--</c:if>--%>
+
                     </div>
 
 
 
 
+                    <c:url var="addaddress" value="address/add"/>
 
                     <div id="panel2" class="tab-pane fade">
                         <%--<h3>Панель 2</h3>--%>
                         <br>
-                            <form class="form-horizontal">
+                            <form:form modelAttribute="formAddAddress" method="post" action="${addaddress}" class="form-horizontal">
                                 <fieldset>
 
                                     <!-- Form Name -->
                                     <%--<legend>Source address</legend>--%>
 
                                     <!-- Select Basic -->
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="Country">Country</label>
-                                        <div class="col-md-5">
-                                            <select id="Country" name="Country" class="form-control">
-                                                <option value="DE">Germany</option>
-                                                <option value="Ru">Russia</option>
-                                                <option value="USA">United States</option>
-                                            </select>
+                                    <spring:bind path="countryEntity">
+
+                                        <%--</spring:bind>--%>
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label" for="Country">Country</label>
+                                            <div class="col-md-5">
+                                                <form:select id="Country" path="countryEntity" class="form-control">
+                                                    <c:forEach items="${countries}" var="country">
+                                                        <form:option value="${country.name}" label="${country.name}"></form:option>
+                                                    </c:forEach>
+                                                </form:select>
+
+                                            </div>
                                         </div>
-                                    </div>
+                                    </spring:bind>
+
+
+                                    <spring:bind path="regionEntity">
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label" for="State">Region/State</label>
+                                            <div class="col-md-5">
+                                                <form:select id="State" path="regionEntity" class="form-control">
+                                                    <c:forEach items="${regions}" var="region">
+                                                        <form:option value="${region.name}" label="${region.name}"></form:option>
+                                                    </c:forEach>
+                                                </form:select>
+                                            </div>
+                                        </div>
+                                    </spring:bind>
+
+                                    <spring:bind path="cityEntity">
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label" for="city">City/Town</label>
+                                            <div class="col-md-5">
+                                                <form:select id="city" path="cityEntity" class="form-control">
+                                                    <c:forEach items="${cities}" var="city">
+                                                        <form:option value="${city.name}" label="${city.name}"></form:option>
+                                                    </c:forEach>
+                                                </form:select>
+                                            </div>
+                                        </div></spring:bind>
+
+                                    <spring:bind path="streetAddress">
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label" for="address1">Address Line</label>
+                                            <div class="col-md-8">
+                                                <form:input id="address1" type="text" path="streetAddress" class="form-control" placeholder=""
+                                                ></form:input>
+                                                <span class="help-block">Street address, P.O. box, company name, c/o</span>
+                                            </div>
+                                        </div></spring:bind>
 
                                     <!-- Text input-->
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="State">Region/State</label>
-                                        <div class="col-md-5">
-                                            <select id="State" name="State" class="form-control">
-                                                <option value="1">Berlin</option>
-                                                <option value="2">Moscow</option>
-                                                <option value="3">Washington</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <!-- Text input-->
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="city">City/Town</label>
-                                        <div class="col-md-6">
-                                            <input id="city" name="city" type="text" placeholder="city or town" class="form-control input-md" required="">
-
-                                        </div>
-                                    </div>
-
-                                    <!-- Text input-->
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="address1">Address Line1</label>
-                                        <div class="col-md-8">
-                                            <input id="address1" name="address1" type="text" placeholder="" class="form-control input-md">
-                                            <span class="help-block">Street address, P.O. box, company name, c/o</span>
-                                        </div>
-                                    </div>
-
-                                    <!-- Text input-->
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="zip">Zip/Postal code</label>
-                                        <div class="col-md-4">
-                                            <input id="zip" name="zip" type="text" placeholder="zip or postal code" class="form-control input-md" required="">
-
-                                        </div>
-                                    </div>
+                                    <spring:bind path="postIndex">
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label" for="zip">Postal code</label>
+                                            <div class="col-md-4">
+                                                <form:input id="zip" type="text" path="postIndex" class="form-control" placeholder="Zip or Postal code"
+                                                ></form:input>
+                                            </div>
+                                        </div></spring:bind>
 
 
 
@@ -126,7 +176,7 @@
                                     </div>
 
                                 </fieldset>
-                            </form>
+                            </form:form>
                     </div>
 
                 </div>

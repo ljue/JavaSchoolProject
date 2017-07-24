@@ -36,9 +36,7 @@ public class UserValidator implements Validator {
             errors.rejectValue("login", "Size.userForm.login", "Username must be between 4 and 30 characters.");
         }
 
-        if (user.getRoleByRole()!=null
-                && user.getRoleByRole().getName().equals("ROLE_ANONYM")
-                && userService.getUserByLogin(user.getLogin()) != null) {
+        if (userService.getUserByLogin(user.getLogin()) != null) {
             errors.rejectValue("login", "Duplicate.userForm.login", "Such username already exists.");
         }
 
@@ -63,9 +61,7 @@ public class UserValidator implements Validator {
         if (!EmailValidator.getInstance(allowLocal).isValid(user.getEmail())) {
             errors.rejectValue("email","Unvalidated.userForm.email", "Email is unvalidated.");
         }
-        if (user.getRoleByRole()!=null
-                && user.getRoleByRole().getName().equals("ROLE_ANONYM")
-                && userService.getUserByEmail(user.getEmail())!=null) {
+        if (userService.getUserByEmail(user.getEmail())!=null) {
             errors.rejectValue("email","Duplicate.userForm.email", "Such email already exists.");
         }
 

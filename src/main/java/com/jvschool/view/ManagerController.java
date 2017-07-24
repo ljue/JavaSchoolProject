@@ -2,15 +2,18 @@ package com.jvschool.view;
 
 
 import com.jvschool.entities.PicturesEntity;
+import com.jvschool.entities.ProductCategoryEntity;
 import com.jvschool.entities.ProductEntity;
 
 import com.jvschool.svc.*;
+import com.jvschool.util.FormListCategories;
 import com.jvschool.util.ProductValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
@@ -104,5 +107,53 @@ public class ManagerController {
         }
         productService.addProduct(productForm);
         return "redirect:/adminProducts";
+    }
+
+
+
+    @RequestMapping(value = "/editCategories", method = RequestMethod.GET)
+    public String editCategoryGet(@ModelAttribute("formEditCategory") FormListCategories formListCategories,
+            @ModelAttribute("formNewCategory") ProductCategoryEntity productCategoryEntity,
+            Model model){
+        model.addAttribute("formEditCategory", new FormListCategories());
+        model.addAttribute("formNewCategory", new ProductCategoryEntity());
+        model.addAttribute("categories", productCategoryService.getAllProductCategories());
+        //FormListCategories formListCategories=new FormListCategories();
+        //formListCategories.setProductCategoryEntityList(productCategoryService.getAllProductCategories());
+
+        //model.addAttribute("formCategories",formListCategories);
+
+        return "editCategories";
+    }
+
+    // Не принимает данные с формы. Null.
+    @RequestMapping(value = "/editCategories/editCategory", method = RequestMethod.POST)
+    public String editCategoryPost(@ModelAttribute("formEditCategory") FormListCategories formListCategories,
+                                    Model model){
+
+        ProductCategoryEntity productCategoryEntity=new ProductCategoryEntity();
+        productCategoryEntity.setCategoryId(formListCategories.getChooseCategory().getCategoryId());
+        productCategoryEntity.setCategoryName(formListCategories.getEditCategory());
+        productCategoryService.editCategory(productCategoryEntity);
+
+        //model.addAttribute("categories", productCategoryService.getAllProductCategories());
+
+
+
+        return "redirect:/editCategories";
+    }
+
+    @RequestMapping(value = "/editCategories/addCategory", method = RequestMethod.POST)
+    public String addCategoryPost(@ModelAttribute("formNewCategory") ProductCategoryEntity productCategoryEntity,
+                                Model model){
+
+
+        productCategoryService.addProductCategory(productCategoryEntity.getCategoryName());
+
+        //model.addAttribute("categories", productCategoryService.getAllProductCategories());
+
+
+
+        return "redirect:/editCategories";
     }
 }

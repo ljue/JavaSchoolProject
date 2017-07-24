@@ -22,6 +22,7 @@ public class OrderEntity {
 
     @Id
     @Column(name = "OrderId", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long getOrderId() {
         return orderId;
     }

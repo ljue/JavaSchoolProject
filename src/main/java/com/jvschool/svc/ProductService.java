@@ -8,5 +8,6 @@ import com.jvschool.entities.ProductEntity;
 public interface ProductService {
 
     void addProduct(ProductEntity productEntity);
+    ProductEntity getProductById(long id);
 
 }

@@ -8,4 +8,5 @@ import com.jvschool.entities.ProductEntity;
 public interface ProductDAO {
 
     void addProduct(ProductEntity productEntity);
+    ProductEntity getProductById(long id);
 }

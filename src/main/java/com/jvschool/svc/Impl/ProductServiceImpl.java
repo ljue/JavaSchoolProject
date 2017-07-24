@@ -21,4 +21,9 @@ public class ProductServiceImpl implements ProductService {
     public void addProduct(ProductEntity productEntity) {
         productDAO.addProduct(productEntity);
     }
+
+    @Override
+    public ProductEntity getProductById(long id) {
+        return productDAO.getProductById(id);
+    }
 }

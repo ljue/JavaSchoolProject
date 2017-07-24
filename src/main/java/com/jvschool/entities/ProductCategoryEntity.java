@@ -15,7 +15,8 @@ public class ProductCategoryEntity  implements Serializable {
     private Collection<ProductEntity> productsByCategoryId;
 
     @Id
-    @Column(name = "CategoryId", nullable = false)
+    @Column(name = "CategoryId")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getCategoryId() {
         return categoryId;
     }

@@ -20,7 +20,7 @@ public class UserEntity  implements Serializable {
     private String firstName;
     private String secondName;
     private Date birthday;
-    private List<AddressEntity> addresses = new ArrayList<>();
+    private List<AddressEntity> addresses;
     private RoleEntity roleByRole;
 
 
@@ -129,8 +129,8 @@ public class UserEntity  implements Serializable {
         return result;
     }
 
-    @OneToMany//(fetch = FetchType.EAGER)
-    @JoinColumn(name = "UserId", referencedColumnName = "Id")
+    @OneToMany(mappedBy = "userByUserId",cascade = CascadeType.PERSIST)//(fetch = FetchType.EAGER)
+    //@JoinColumn(name = "UserId", referencedColumnName = "Id")
     public List<AddressEntity> getAddresses() {
         return addresses;
     }

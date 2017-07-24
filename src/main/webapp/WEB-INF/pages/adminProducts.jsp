@@ -39,14 +39,16 @@
         <div class="col-md-9">
             <div class="row">
                 <ul class="nav nav-tabs">
-                    <li class="active"><a data-toggle="tab" href="#panel1">Add new goods</a></li>
-                    <li><a data-toggle="tab" href="#panel2">Control categories</a></li>
+                    <li class="active"><a href="/adminProducts">Add new goods</a></li>
+                    <li><a  href="/editCategories">Control categories</a></li>
+                    <%--<li><a data-toggle="tab" href="/editCategories">Control categories</a></li>--%>
 
                 </ul>
 
                 <div class="tab-content">
 
-                    <div id="panel1" class="tab-pane fade in active">
+
+                    <%--<div id="panel1" class="tab-pane fade in active">--%>
                         <br>
                         <form:form method="POST" enctype="multipart/form-data" modelAttribute="productForm" action="${addProduct}"  class="form-horizontal">
 
@@ -145,22 +147,22 @@
                                 </div>
                             </spring:bind>
 
-                            <%--<c:forEach items="${propertiesMany}" var="property">--%>
-                                <%--<div class="form-group" >--%>
-                                    <%--<label class="col-lg-3 control-label">${property.propCatName}:</label>--%>
-                                    <%--<div class="col-lg-8">--%>
-                                        <%--<c:forEach items="${propertyManyChild}" var="propChild">--%>
-                                            <%--<c:if test="${property eq propChild.propertyCategoryByProdPropCatId}">--%>
-                                                <%--<form:checkbox path="properties"--%>
-                                                <%--value="${propChild.prodPropName}"--%>
-                                                <%--label="${propChild.prodPropName}"></form:checkbox>--%>
-                                                <%--<br>--%>
-                                            <%--</c:if>--%>
-                                        <%--</c:forEach>--%>
-                                    <%--</div>--%>
-                                <%--</div>--%>
-                                <%----%>
-                            <%--</c:forEach>--%>
+                            <c:forEach items="${propertiesMany}" var="property">
+                                <div class="form-group" >
+                                    <label class="col-lg-3 control-label">${property.propCatName}:</label>
+                                    <div class="col-lg-8">
+                                        <c:forEach items="${propertyManyChild}" var="propChild">
+                                            <c:if test="${property eq propChild.propertyCategoryByProdPropCatId}">
+                                                <form:checkbox path="properties"
+                                                value="${propChild.prodPropName}"
+                                                label="${propChild.prodPropName}"></form:checkbox>
+                                                <br>
+                                            </c:if>
+                                        </c:forEach>
+                                    </div>
+                                </div>
+
+                            </c:forEach>
 
 
                             <%--<c:forEach items="${radioCategory}" var="radio">--%>
@@ -199,12 +201,35 @@
                                 <%--</div>--%>
                             <%--</c:forEach>--%>
 
+                            <spring:bind path="description">
+                                <div class="form-group ${status.error ? 'has-error' : ''}" >
+                                    <label class="col-lg-3 control-label">Description:</label>
+                                    <div class="col-lg-8">
+                                        <form:textarea  path="description" class="form-control" placeholder="Add description less 500 characters"
+                                        ></form:textarea>
+                                    </div>
+                                    <form:errors path="description"></form:errors>
+                                </div>
+                            </spring:bind>
+
                             <div class="form-group" >
                                 <label class="col-lg-3 control-label">Add picture:</label>
                                 <div class="col-lg-8">
                                     <input type="file" name="images" multiple="multiple"/>
                                 </div>
                             </div>
+
+
+                            <%--<spring:bind path="images">--%>
+                                <%--<div class="form-group ${status.error ? 'has-error' : ''}" >--%>
+                                    <%--<label class="col-lg-3 control-label">Images:</label>--%>
+                                    <%--<div class="col-lg-8">--%>
+                                        <%--<form:input path="images" type="file" multiple="true"></form:input>--%>
+
+                                    <%--</div>--%>
+                                    <%--<form:errors path="images"></form:errors>--%>
+                                <%--</div>--%>
+                            <%--</spring:bind>--%>
 
 
 
@@ -232,13 +257,10 @@
                             </div>
 
                         </form:form>
-                    </div>
+                    <%--</div>--%>
 
 
-                    <div id="panel2" class="tab-pane fade">
-                        <br>
-                            <jsp:include page="../content/manageCategories.jsp" />
-                    </div>
+
 
                 </div>
             </div>

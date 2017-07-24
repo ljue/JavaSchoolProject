@@ -35,32 +35,11 @@ public class CountryDAOImpl implements CountryDAO {
 
 
     public List<CountryEntity> getAllCountries() {
-
-        List countries;
-
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
-        countries = session.createQuery("from CountryEntity ").list();
+        List countries = session.createQuery("from CountryEntity ").list();
         session.getTransaction().commit();
         return countries;
     }
-//    public List<CountryEntity> getAllCountries() {
-//
-//        Session session = null;
-//        List countries = new ArrayList<CountryEntity>();
-//
-//
-//        try {
-//            session = HibernateUtil.getSessionFactory().openSession();
-//            countries = session.createCriteria(CountryEntity.class).list();
-//
-//        } catch (Exception e) {
-//            JOptionPane.showMessageDialog(null, e.getMessage(), "Ошибка 'getAll'", JOptionPane.OK_OPTION);
-//        } finally {
-//            if (session != null && session.isOpen()) {
-//                session.close();
-//            }
-//        }
-//        return countries;
-//    }
+
 }

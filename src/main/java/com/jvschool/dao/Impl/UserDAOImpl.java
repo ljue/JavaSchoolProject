@@ -17,16 +17,13 @@ import java.util.List;
 @Repository
 public class UserDAOImpl implements UserDAO {
 
-        public UserEntity getUserById(Long id) {
-
-        UserEntity user = null;
-
+    public UserEntity getUserById(Long id) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
-        user = session.load(UserEntity.class, id);
+            UserEntity user  = (UserEntity) session.createQuery("FROM UserEntity where id=:id")
+                .setParameter("id",id).uniqueResult();
         session.getTransaction().commit();
         return user;
-
     }
 
     public UserEntity getUserByLogin(String login){

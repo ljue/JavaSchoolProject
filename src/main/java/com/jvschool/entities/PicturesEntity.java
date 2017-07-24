@@ -15,6 +15,8 @@ public class PicturesEntity {
 
     @Id
     @Column(name = "PictureId", nullable = false)
+    //@GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long getPictureId() {
         return pictureId;
     }
@@ -65,7 +67,7 @@ public class PicturesEntity {
         return result;
     }
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ProductId", referencedColumnName = "ProductId")
     public ProductEntity getProductByProductId() {
         return productByProductId;

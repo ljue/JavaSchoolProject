@@ -36,7 +36,7 @@
                 </li>
 
                 <li>
-                    <a href="/bucket">Bucket</a>
+                    <a href="/bucket">Shopping cart</a>
                 </li>
                 <%--<c:if test="${user.role ne 'ROLE_ANONYM'}">--%>
                     <li>

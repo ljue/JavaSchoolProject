@@ -34,4 +34,14 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
     public ProductCategoryEntity getProductCategoryByName(String name) {
         return productCategoryDAO.getProductCategoryByName(name);
     }
+
+    @Override
+    public void addProductCategory(String name) {
+        productCategoryDAO.addProductCategory(name);
+    }
+
+    @Override
+    public void editCategory(ProductCategoryEntity category) {
+        productCategoryDAO.editCategory(category);
+    }
 }

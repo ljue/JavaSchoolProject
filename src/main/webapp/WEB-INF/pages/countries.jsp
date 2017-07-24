@@ -23,7 +23,20 @@
 
 <table class="tg">
 
+    <br>${product.productName}<br>
+    <br>${product.productId}<br>
+    <br>${product.cost}<br>
+    <br>${product.count}<br>
+    <br>${product.size}<br>
+    <br>${product.distance}<br>
+    <%--<br>${product.productCategoryByCategory.categoryName}<br>--%>
+    <br>${product.battery}<br>
+    <br>${product.flyTime}<br>
+    <br>${product.description}<br>
 
+    <%--<c:forEach items="${product.picturesByProductId}" var="pict">--%>
+    <%--<img src="../resources/Images/${pict.picName}" class="img-responsive">--%>
+    <%--</c:forEach>--%>
 
 
     <%--<c:out value="${user.roleByRole.idRole}"></c:out>--%>
