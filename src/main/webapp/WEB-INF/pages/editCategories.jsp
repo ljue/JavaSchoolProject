@@ -50,13 +50,14 @@
                 <div class="tab-content">
                     <%--<div class="tab-pane fade">--%>
                         <br>
+
                         <form:form modelAttribute="formEditCategory"  method="POST" action="${edit}" class="form-horizontal">
 
                             <spring:bind path="chooseCategory">
                                 <div class="form-group ${status.error ? 'has-error' : ''}" >
                                     <label class="col-lg-3 control-label">Edit product category:</label>
                                     <div class="col-lg-8">
-                                        <form:select path="chooseCategory" class="form-control">
+                                        <form:select path="chooseCategory.categoryName" class="form-control">
                                             <c:forEach items="${categories}" var="cat">
                                                 <form:option value="${cat.categoryName}" label="${cat.categoryName}"></form:option>
                                             </c:forEach>

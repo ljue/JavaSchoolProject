@@ -4,8 +4,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Людмила on 22.07.2017.
@@ -17,23 +19,19 @@ public class ProductEntity  implements Serializable {
     private String productName;
     private int count;
     private double cost;
-    //private String image;
-    //private int category;
-    //private Long bucketId;
     private String size;
     private String battery;
     private String flyTime;
     private String distance;
     private String description;
 
-    private List<MultipartFile> images;
-
     private OrderEntity bucketByProductId;
-    private List<PicturesEntity> picturesByProductId;
     private ProductCategoryEntity productCategoryByCategory;
 
-    private List<ProductPropertyEntity> properties;
-    private List<ProductRadioPropertyEntity> radioProperties;
+    private List<MultipartFile> images;
+    private List<PicturesEntity> picturesByProductId;
+    private Set<ProductPropertyEntity> properties;// = new ArrayList<>();
+    private List<ProductRadioPropertyEntity> radioProperties = new ArrayList<>();
 
     @Id
     @Column(name = "ProductId", nullable = false)
@@ -191,8 +189,10 @@ public class ProductEntity  implements Serializable {
         this.bucketByProductId = bucketByProductId;
     }
 
-    @OneToMany(mappedBy = "productByProductId",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    //@OneToMany(mappedBy = "productByProductId",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     //@JoinColumn(name = "PictureId", referencedColumnName = "PictureId")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "ProductId", referencedColumnName = "ProductId")
     public List<PicturesEntity> getPicturesByProductId() {
         return picturesByProductId;
     }
@@ -212,20 +212,20 @@ public class ProductEntity  implements Serializable {
     }
 
 
-    @ManyToMany//(fetch = FetchType.EAGER)
+    @ManyToMany//(fetch = FetchType.LAZY)//(mappedBy = "product")
     @JoinTable(name = "Prod_Prop",
             joinColumns = @JoinColumn(name = "ProductId"),
             inverseJoinColumns = @JoinColumn(name = "ProductPropertyId"))
-    public List<ProductPropertyEntity> getProperties() {
+    public Set<ProductPropertyEntity> getProperties() {
         return properties;
     }
 
-    public void setProperties(List<ProductPropertyEntity> properties) {
+    public void setProperties(Set<ProductPropertyEntity> properties) {
         this.properties = properties;
     }
 
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(name = "Prod_RadioProp",
             joinColumns = @JoinColumn(name = "ProductId"),
             inverseJoinColumns = @JoinColumn(name = "RadioPropId"))

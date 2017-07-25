@@ -20,11 +20,11 @@ public class ProductDAOImpl implements ProductDAO {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
         session.save(productEntity);
-        List<PicturesEntity> lpic = productEntity.getPicturesByProductId();
-        for (PicturesEntity pic:lpic) {
-            pic.setProductByProductId(productEntity);
-            session.save(pic);
-        }
+//        List<PicturesEntity> lpic = productEntity.getPicturesByProductId();
+//        for (PicturesEntity pic:lpic) {
+//            pic.setProductByProductId(productEntity);
+//            session.save(pic);
+//        }
         //session.persist(productEntity);
         session.getTransaction().commit();
     }

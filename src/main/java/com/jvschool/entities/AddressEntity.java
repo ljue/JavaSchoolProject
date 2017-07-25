@@ -12,12 +12,17 @@ public class AddressEntity implements Serializable {
     private long addressId;
     private String streetAddress;
     private String postIndex;
-    //private UserEntity userEntity;
-    //private Long userId;
-    private CountryEntity countryEntity;
-    private RegionEntity regionEntity;
-    private CityEntity cityEntity;
-    private UserEntity userByUserId;
+
+    private Long userId;
+
+    private String country;
+    private String region;
+    private String city;
+
+//    private CountryEntity countryEntity;
+//    private RegionEntity regionEntity;
+//    private CityEntity cityEntity;
+    //private UserEntity userByUserId;
 
     @Id
     @Column(name = "AddressId", nullable = false)
@@ -83,53 +88,83 @@ public class AddressEntity implements Serializable {
         return result;
     }
 
-//    @Basic
-//    @Column(name = "UserId")
-//    public Long getUserId() {
-//        return userId;
+    @Basic
+    @Column(name = "UserId")
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    @Basic
+    @Column(name = "Country")
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    @Basic
+    @Column(name = "Region")
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
+    @Basic
+    @Column(name = "City")
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+//    @ManyToOne
+//    @JoinColumn(name = "Country", referencedColumnName = "id")
+//    public CountryEntity getCountryEntity() {
+//        return countryEntity;
 //    }
 //
-//    public void setUserId(Long userId) {
-//        this.userId = userId;
+//    public void setCountryEntity(CountryEntity countryEntity) {
+//        this.countryEntity = countryEntity;
 //    }
-
-    @ManyToOne
-    @JoinColumn(name = "Country", referencedColumnName = "id")
-    public CountryEntity getCountryEntity() {
-        return countryEntity;
-    }
-
-    public void setCountryEntity(CountryEntity countryEntity) {
-        this.countryEntity = countryEntity;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "Region", referencedColumnName = "id")
-    public RegionEntity getRegionEntity() {
-        return regionEntity;
-    }
-
-    public void setRegionEntity(RegionEntity regionEntity) {
-        this.regionEntity = regionEntity;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "City", referencedColumnName = "id")
-    public CityEntity getCityEntity() {
-        return cityEntity;
-    }
-
-    public void setCityEntity(CityEntity cityEntity) {
-        this.cityEntity = cityEntity;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "UserId", referencedColumnName = "Id")
-    public UserEntity getUserByUserId() {
-        return userByUserId;
-    }
-
-    public void setUserByUserId(UserEntity userByUserId) {
-        this.userByUserId = userByUserId;
-    }
+//
+//    @ManyToOne
+//    @JoinColumn(name = "Region", referencedColumnName = "id")
+//    public RegionEntity getRegionEntity() {
+//        return regionEntity;
+//    }
+//
+//    public void setRegionEntity(RegionEntity regionEntity) {
+//        this.regionEntity = regionEntity;
+//    }
+//
+//    @ManyToOne
+//    @JoinColumn(name = "City", referencedColumnName = "id")
+//    public CityEntity getCityEntity() {
+//        return cityEntity;
+//    }
+//
+//    public void setCityEntity(CityEntity cityEntity) {
+//        this.cityEntity = cityEntity;
+//    }
+//
+//    @ManyToOne
+//    @JoinColumn(name = "UserId", referencedColumnName = "Id")
+//    public UserEntity getUserByUserId() {
+//        return userByUserId;
+//    }
+//
+//    public void setUserByUserId(UserEntity userByUserId) {
+//        this.userByUserId = userByUserId;
+//    }
 }

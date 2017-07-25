@@ -56,13 +56,14 @@ public class ProductCategoryDAOImpl implements com.jvschool.dao.ProductCategoryD
     @Override
     public void editCategory(ProductCategoryEntity category) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        int id = category.getCategoryId();
+        String name = category.getCategoryName();
         session.beginTransaction();
 
-        Query query = session.createQuery("UPDATE ProductCategoryEntity set categoryName=:name where id=:id")
-                .setParameter("id",category.getCategoryId())
-                .setParameter("name", category.getCategoryName());
 
-        int result=query.executeUpdate();
+        Query query = session.createQuery("UPDATE ProductCategoryEntity set categoryName=:name where id=:id").setParameter("id",id).setParameter("name", name);
+
+        query.executeUpdate();
         session.getTransaction().commit();
     }
 

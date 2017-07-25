@@ -33,11 +33,11 @@ public class AddressController {
 
     @RequestMapping(value = {"/address"}, method = RequestMethod.GET)
     public String goAddressInfo(@ModelAttribute("user") SessionUser user, Model model) {
-        //List<AddressEntity> addrlist = addressService.getAllAddressesByUserId(user.getId());
-        //model.addAttribute("addresses", addrlist);
-        model.addAttribute("countries", countryService.getAllCountries());
-        model.addAttribute("cities", cityService.getAllCities());
-        model.addAttribute("regions",regionService.getAllRegions());
+        List<AddressEntity> addrlist = addressService.getAllAddressesByUserId(user.getId());
+        model.addAttribute("addresses", addrlist);
+//        model.addAttribute("countries", countryService.getAllCountries());
+//        model.addAttribute("cities", cityService.getAllCities());
+//        model.addAttribute("regions",regionService.getAllRegions());
         model.addAttribute("formAddAddress", new AddressEntity());
 
         return "address";
@@ -46,15 +46,9 @@ public class AddressController {
     @RequestMapping(value = "/address/add", method = RequestMethod.POST)
     public String addNewAddress(@ModelAttribute("formAddAddress") AddressEntity addressEntity,
     @ModelAttribute("user") SessionUser user) {
-        addressEntity.setUserByUserId(userService.getUserById(user.getId()));
+        addressEntity.setUserId(user.getId());
         addressService.addNewAddress(addressEntity);
-
 
         return "redirect:/address";
     }
-
-//    @RequestMapping(value = "/addNewAddress", method = RequestMethod.GET)
-//    public String goNewAddress(Model model) {
-//        return "addNewAddress";
-//    }
 }

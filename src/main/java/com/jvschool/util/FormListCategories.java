@@ -24,7 +24,7 @@ public class FormListCategories {
 
 
 
-    private ProductCategoryEntity chooseCategory;
+    private ProductCategoryEntity chooseCategory = new ProductCategoryEntity();
 
     private String editCategory;
 
@@ -34,6 +34,14 @@ public class FormListCategories {
 
     public String getEditCategory() {
         return editCategory;
+    }
+
+    public void setChooseCategory(ProductCategoryEntity chooseCategory) {
+        this.chooseCategory = chooseCategory;
+    }
+
+    public void setEditCategory(String editCategory) {
+        this.editCategory = editCategory;
     }
 
     @Override

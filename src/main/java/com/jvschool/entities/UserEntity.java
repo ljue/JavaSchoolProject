@@ -129,8 +129,8 @@ public class UserEntity  implements Serializable {
         return result;
     }
 
-    @OneToMany(mappedBy = "userByUserId",cascade = CascadeType.PERSIST)//(fetch = FetchType.EAGER)
-    //@JoinColumn(name = "UserId", referencedColumnName = "Id")
+    @OneToMany(cascade = CascadeType.ALL)//(fetch = FetchType.EAGER)mappedBy = "userByUserId",
+    @JoinColumn(name = "UserId", referencedColumnName = "Id")
     public List<AddressEntity> getAddresses() {
         return addresses;
     }

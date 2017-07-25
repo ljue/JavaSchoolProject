@@ -34,9 +34,9 @@
     <br>${product.flyTime}<br>
     <br>${product.description}<br>
 
-    <%--<c:forEach items="${product.picturesByProductId}" var="pict">--%>
-    <%--<img src="../resources/Images/${pict.picName}" class="img-responsive">--%>
-    <%--</c:forEach>--%>
+    <c:forEach items="${product.picturesByProductId}" var="pict">
+    <img src="../resources/Images/${pict.picName}" class="img-responsive">
+    </c:forEach>
 
 
     <%--<c:out value="${user.roleByRole.idRole}"></c:out>--%>

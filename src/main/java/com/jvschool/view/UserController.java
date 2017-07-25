@@ -85,9 +85,8 @@ public class UserController {
     }
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
-    public String editUser(Model model) {
+    public String editUser(@ModelAttribute("user") SessionUser sessionUser,Model model) {
         model.addAttribute("userForm", new UserEntity());
-
         return "user";
     }
 
@@ -95,7 +94,7 @@ public class UserController {
     public String editUser(@ModelAttribute("userForm") UserEntity userForm, @ModelAttribute("user") SessionUser sessionUser,
                            BindingResult bindingResult, Model model) {
         userForm.setId(sessionUser.getId());
-        userValidator.validate(userForm, bindingResult);
+        //userValidator.validate(userForm, bindingResult);!!!!!!!!!!!!!!!!!!!!!!!!!!!
         if (bindingResult.hasErrors()) {
             return "user";
         }
@@ -109,7 +108,7 @@ public class UserController {
     public String editPass(@ModelAttribute("userForm") UserEntity userForm, @ModelAttribute("user") SessionUser sessionUser,
                            BindingResult bindingResult, Model model) {
         userForm.setId(sessionUser.getId());
-        userValidator.validate(userForm, bindingResult);
+        //userValidator.validate(userForm, bindingResult);
         if (bindingResult.hasErrors()) {
             return "user";
         }

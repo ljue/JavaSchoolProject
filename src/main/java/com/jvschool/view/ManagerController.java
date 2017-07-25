@@ -118,27 +118,18 @@ public class ManagerController {
         model.addAttribute("formEditCategory", new FormListCategories());
         model.addAttribute("formNewCategory", new ProductCategoryEntity());
         model.addAttribute("categories", productCategoryService.getAllProductCategories());
-        //FormListCategories formListCategories=new FormListCategories();
-        //formListCategories.setProductCategoryEntityList(productCategoryService.getAllProductCategories());
-
-        //model.addAttribute("formCategories",formListCategories);
 
         return "editCategories";
     }
 
-    // Не принимает данные с формы. Null.
     @RequestMapping(value = "/editCategories/editCategory", method = RequestMethod.POST)
     public String editCategoryPost(@ModelAttribute("formEditCategory") FormListCategories formListCategories,
                                     Model model){
-
         ProductCategoryEntity productCategoryEntity=new ProductCategoryEntity();
-        productCategoryEntity.setCategoryId(formListCategories.getChooseCategory().getCategoryId());
+        productCategoryEntity.setCategoryId(productCategoryService.getProductCategoryByName
+                (formListCategories.getChooseCategory().getCategoryName()).getCategoryId());
         productCategoryEntity.setCategoryName(formListCategories.getEditCategory());
         productCategoryService.editCategory(productCategoryEntity);
-
-        //model.addAttribute("categories", productCategoryService.getAllProductCategories());
-
-
 
         return "redirect:/editCategories";
     }
@@ -146,14 +137,7 @@ public class ManagerController {
     @RequestMapping(value = "/editCategories/addCategory", method = RequestMethod.POST)
     public String addCategoryPost(@ModelAttribute("formNewCategory") ProductCategoryEntity productCategoryEntity,
                                 Model model){
-
-
         productCategoryService.addProductCategory(productCategoryEntity.getCategoryName());
-
-        //model.addAttribute("categories", productCategoryService.getAllProductCategories());
-
-
-
         return "redirect:/editCategories";
     }
 }

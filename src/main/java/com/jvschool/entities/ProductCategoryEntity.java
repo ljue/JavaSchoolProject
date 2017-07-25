@@ -3,6 +3,7 @@ package com.jvschool.entities;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by Людмила on 22.07.2017.
@@ -12,7 +13,7 @@ import java.util.Collection;
 public class ProductCategoryEntity  implements Serializable {
     private int categoryId;
     private String categoryName;
-    private Collection<ProductEntity> productsByCategoryId;
+    private List<ProductEntity> productsByCategoryId;
 
     @Id
     @Column(name = "CategoryId")
@@ -56,11 +57,11 @@ public class ProductCategoryEntity  implements Serializable {
     }
 
     @OneToMany(mappedBy = "productCategoryByCategory")
-    public Collection<ProductEntity> getProductsByCategoryId() {
+    public List<ProductEntity> getProductsByCategoryId() {
         return productsByCategoryId;
     }
 
-    public void setProductsByCategoryId(Collection<ProductEntity> productsByCategoryId) {
+    public void setProductsByCategoryId(List<ProductEntity> productsByCategoryId) {
         this.productsByCategoryId = productsByCategoryId;
     }
 }

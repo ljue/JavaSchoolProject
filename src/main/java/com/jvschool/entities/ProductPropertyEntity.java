@@ -2,8 +2,10 @@ package com.jvschool.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Людмила on 22.07.2017.
@@ -15,7 +17,7 @@ public class ProductPropertyEntity  implements Serializable {
     //private Integer prodPropCatId;
     private String prodPropName;
     private PropertyCategoryEntity propertyCategoryByProdPropCatId;
-    private List<ProductEntity> product;
+    private Set<ProductEntity> product;// = new ArrayList<>();
 
     @Id
     @Column(name = "ProdPropId", nullable = false)
@@ -82,15 +84,15 @@ public class ProductPropertyEntity  implements Serializable {
 
 
 
-    @ManyToMany//(fetch = FetchType.EAGER)
+    @ManyToMany//(fetch = FetchType.LAZY)//(mappedBy = "properties")//(fetch = FetchType.EAGER)
     @JoinTable(name = "Prod_Prop",
             joinColumns = @JoinColumn(name = "ProductPropertyId"),
             inverseJoinColumns = @JoinColumn(name = "ProductId"))
-    public List<ProductEntity> getProduct() {
+    public Set<ProductEntity> getProduct() {
         return product;
     }
 
-    public void setProduct(List<ProductEntity> product) {
+    public void setProduct(Set<ProductEntity> product) {
         this.product = product;
     }
 }

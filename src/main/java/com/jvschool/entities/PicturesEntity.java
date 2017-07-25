@@ -10,8 +10,8 @@ import javax.persistence.*;
 public class PicturesEntity {
     private long pictureId;
     private String picName;
-    //private Long productId;
-    private ProductEntity productByProductId;
+    private Long productId;
+    //private ProductEntity productByProductId;
 
     @Id
     @Column(name = "PictureId", nullable = false)
@@ -35,15 +35,15 @@ public class PicturesEntity {
         this.picName = picName;
     }
 
-//    @Basic
-//    @Column(name = "ProductId", nullable = true)
-//    public Long getProductId() {
-//        return productId;
-//    }
-//
-//    public void setProductId(Long productId) {
-//        this.productId = productId;
-//    }
+    @Basic
+    @Column(name = "ProductId", nullable = true)
+    public Long getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Long productId) {
+        this.productId = productId;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -67,13 +67,13 @@ public class PicturesEntity {
         return result;
     }
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "ProductId", referencedColumnName = "ProductId")
-    public ProductEntity getProductByProductId() {
-        return productByProductId;
-    }
-
-    public void setProductByProductId(ProductEntity productByProductId) {
-        this.productByProductId = productByProductId;
-    }
+//    @ManyToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "ProductId", referencedColumnName = "ProductId")
+//    public ProductEntity getProductByProductId() {
+//        return productByProductId;
+//    }
+//
+//    public void setProductByProductId(ProductEntity productByProductId) {
+//        this.productByProductId = productByProductId;
+//    }
 }

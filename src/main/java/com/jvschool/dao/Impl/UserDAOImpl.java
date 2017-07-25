@@ -81,15 +81,13 @@ public class UserDAOImpl implements UserDAO {
     public void editUserInfo(UserEntity user) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
-
         Query query = session.createQuery("UPDATE UserEntity set login=:log, " +
                 " firstName=:fname, secondName=:sname, email=:mail, birthday=:bday where id=:uid")
-                .setParameter("uid",user.getId())
-                .setParameter("log",user.getLogin()).//setParameter("passw", user.getPass()).
+                .setParameter("uid",user.getId()).setParameter("log",user.getLogin()).
                 setParameter("fname",user.getFirstName()).setParameter("sname",user.getSecondName()).
                 setParameter("mail",user.getEmail()).setParameter("bday",user.getBirthday());
 
-        int result=query.executeUpdate();
+        query.executeUpdate();
         session.getTransaction().commit();
 
     }
@@ -102,7 +100,7 @@ public class UserDAOImpl implements UserDAO {
                 .setParameter("uid",user.getId())
                 .setParameter("passw", user.getPass());
 
-        int result=query.executeUpdate();
+        query.executeUpdate();
         session.getTransaction().commit();
 
     }

@@ -24,18 +24,11 @@ public class AddressDAOImpl implements AddressDAO {
 
     @Override
     public List<AddressEntity> getAllAddressesByUserId(long userId) {
+        //UserEntity user = userDAO.getUserById(userId);
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
-        UserEntity user = userDAO.getUserById(userId);
-        int count = (int) session.createQuery("select count (AddressEntity) FROM AddressEntity where userByUserId=:user")
-                .setParameter("user",user).uniqueResult();
-        if(count==0) {
-            session.getTransaction().commit();
-            return null;
-        }
-
-        List<AddressEntity> addresses = session.createQuery("FROM AddressEntity where userByUserId=:user")
-                .setParameter("user",user).list();
+        List addresses = session.createQuery("FROM AddressEntity where userId=:userId")
+                .setParameter("userId",userId).list();
         session.getTransaction().commit();
         return addresses;
     }

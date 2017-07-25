@@ -2,9 +2,9 @@ create table myshop_schema.Address
 (
 	AddressId bigint auto_increment
 		primary key,
-	Country bigint not null,
-	Region bigint not null,
-	City bigint not null,
+	Country varchar(255) not null,
+	Region varchar(255) not null,
+	City varchar(255) not null,
 	StreetAddress varchar(255) not null,
 	PostIndex varchar(30) not null,
 	UserId bigint null
@@ -36,11 +36,6 @@ create table myshop_schema.City
 )
 ;
 
-alter table Address
-	add constraint Adress_City_id_fk
-		foreign key (City) references myshop_schema.City (id)
-;
-
 create table myshop_schema.Country
 (
 	id bigint not null
@@ -49,18 +44,13 @@ create table myshop_schema.Country
 )
 ;
 
-alter table Address
-	add constraint Adress_Country_id_fk
-		foreign key (Country) references myshop_schema.Country (id)
-;
-
 create table myshop_schema.DeliveryStatus
 (
 	DeliveryStatusId int auto_increment
 		primary key,
 	DeliveryStatusName varchar(50) not null,
 	constraint DeliveryStatusName
-		unique (DeliveryStatusName)
+	unique (DeliveryStatusName)
 )
 ;
 
@@ -75,9 +65,9 @@ create table myshop_schema.`Order`
 	DeliveryStatus int not null,
 	DateTimeOrder timestamp default CURRENT_TIMESTAMP not null,
 	constraint Order_Address_AddressId_fk
-		foreign key (ClientAddress) references myshop_schema.Address (AddressId),
+	foreign key (ClientAddress) references myshop_schema.Address (AddressId),
 	constraint Order_fk4
-		foreign key (DeliveryStatus) references myshop_schema.DeliveryStatus (DeliveryStatusId)
+	foreign key (DeliveryStatus) references myshop_schema.DeliveryStatus (DeliveryStatusId)
 )
 ;
 
@@ -108,7 +98,7 @@ create table myshop_schema.Order_Product
 	OrderId bigint null,
 	ProductId bigint null,
 	constraint Order_Product_Order_OrderId_fk
-		foreign key (OrderId) references myshop_schema.`Order` (OrderId)
+	foreign key (OrderId) references myshop_schema.`Order` (OrderId)
 )
 ;
 
@@ -126,13 +116,13 @@ create table myshop_schema.PayStatus
 		primary key,
 	PayStatusName varchar(30) not null,
 	constraint PayStatusName
-		unique (PayStatusName)
+	unique (PayStatusName)
 )
 ;
 
 alter table `Order`
 	add constraint Order_fk3
-		foreign key (PayStatus) references myshop_schema.PayStatus (PayStatusId)
+foreign key (PayStatus) references myshop_schema.PayStatus (PayStatusId)
 ;
 
 create table myshop_schema.PayWay
@@ -141,13 +131,13 @@ create table myshop_schema.PayWay
 		primary key,
 	PayWayName varchar(50) not null,
 	constraint PayWayName
-		unique (PayWayName)
+	unique (PayWayName)
 )
 ;
 
 alter table `Order`
 	add constraint Order_fk2
-		foreign key (PayWay) references myshop_schema.PayWay (PayWayId)
+foreign key (PayWay) references myshop_schema.PayWay (PayWayId)
 ;
 
 create table myshop_schema.Pictures
@@ -212,7 +202,7 @@ create table myshop_schema.Product
 	Distance varchar(50) null,
 	Description varchar(500) null,
 	constraint Product_Order_OrderId_fk
-		foreign key (OrderId) references myshop_schema.`Order` (OrderId)
+	foreign key (OrderId) references myshop_schema.`Order` (OrderId)
 )
 ;
 
@@ -226,22 +216,22 @@ create index Product_ProductCategory_CategoryId_fk
 
 alter table Order_Product
 	add constraint Order_Product_Product_ProductId_fk
-		foreign key (ProductId) references myshop_schema.Product (ProductId)
+foreign key (ProductId) references myshop_schema.Product (ProductId)
 ;
 
 alter table Pictures
 	add constraint Pictures_Product_ProductId_fk
-		foreign key (ProductId) references myshop_schema.Product (ProductId)
+foreign key (ProductId) references myshop_schema.Product (ProductId)
 ;
 
 alter table Prod_Prop
 	add constraint Prod_Prop_Product_ProductId_fk
-		foreign key (ProductId) references myshop_schema.Product (ProductId)
+foreign key (ProductId) references myshop_schema.Product (ProductId)
 ;
 
 alter table Prod_RadioProp
 	add constraint Product_RadioProp_Product_ProductId_fk
-		foreign key (ProductId) references myshop_schema.Product (ProductId)
+foreign key (ProductId) references myshop_schema.Product (ProductId)
 ;
 
 create table myshop_schema.ProductCategory
@@ -250,13 +240,13 @@ create table myshop_schema.ProductCategory
 		primary key,
 	CategoryName varchar(50) null,
 	constraint ProductCategory_CategoryName_uindex
-		unique (CategoryName)
+	unique (CategoryName)
 )
 ;
 
 alter table Product
 	add constraint Product_ProductCategory_CategoryId_fk
-		foreign key (Category) references myshop_schema.ProductCategory (CategoryId)
+foreign key (Category) references myshop_schema.ProductCategory (CategoryId)
 ;
 
 create table myshop_schema.ProductProperty
@@ -274,7 +264,7 @@ create index ProductProperty_PropertyCategory_PropCatId_fk
 
 alter table Prod_Prop
 	add constraint Prod_Prop_ProductProperty_ProdPropId_fk
-		foreign key (ProductPropertyId) references myshop_schema.ProductProperty (ProdPropId)
+foreign key (ProductPropertyId) references myshop_schema.ProductProperty (ProdPropId)
 ;
 
 create table myshop_schema.ProductRadioProperty
@@ -292,7 +282,7 @@ create index ProductRadioProperty_PropertyRadioCategory_id_fk
 
 alter table Prod_RadioProp
 	add constraint Product_RadioProp_ProductRadioProperty_id_fk
-		foreign key (RadioPropId) references myshop_schema.ProductRadioProperty (id)
+foreign key (RadioPropId) references myshop_schema.ProductRadioProperty (id)
 ;
 
 create table myshop_schema.PropertyCategory
@@ -305,7 +295,7 @@ create table myshop_schema.PropertyCategory
 
 alter table ProductProperty
 	add constraint ProductProperty_PropertyCategory_PropCatId_fk
-		foreign key (ProdPropCatId) references myshop_schema.PropertyCategory (PropCatId)
+foreign key (ProdPropCatId) references myshop_schema.PropertyCategory (PropCatId)
 ;
 
 create table myshop_schema.PropertyRadioCategory
@@ -318,7 +308,7 @@ create table myshop_schema.PropertyRadioCategory
 
 alter table ProductRadioProperty
 	add constraint ProductRadioProperty_PropertyRadioCategory_id_fk
-		foreign key (radioCategoryId) references myshop_schema.PropertyRadioCategory (id)
+foreign key (radioCategoryId) references myshop_schema.PropertyRadioCategory (id)
 ;
 
 create table myshop_schema.Region
@@ -330,18 +320,13 @@ create table myshop_schema.Region
 )
 ;
 
-alter table Address
-	add constraint Adress_Region_id_fk
-		foreign key (Region) references myshop_schema.Region (id)
-;
-
 create table myshop_schema.Role
 (
 	IdRole bigint not null
 		primary key,
 	name varchar(20) null,
 	constraint Role_name_uindex
-		unique (name)
+	unique (name)
 )
 ;
 
@@ -357,11 +342,11 @@ create table myshop_schema.User
 	Birthday date null,
 	Role bigint not null,
 	constraint login
-		unique (login),
+	unique (login),
 	constraint email
-		unique (email),
+	unique (email),
 	constraint User_Role_IdRole_fk
-		foreign key (Role) references myshop_schema.Role (IdRole)
+	foreign key (Role) references myshop_schema.Role (IdRole)
 )
 ;
 
@@ -371,11 +356,11 @@ create index User_Role_IdRole_fk
 
 alter table Address
 	add constraint Address_User_Id_fk
-		foreign key (UserId) references myshop_schema.User (Id)
+foreign key (UserId) references myshop_schema.User (Id)
 ;
 
 alter table `Order`
 	add constraint Order_fk0
-		foreign key (ClientId) references myshop_schema.User (Id)
+foreign key (ClientId) references myshop_schema.User (Id)
 ;
 

@@ -20,7 +20,7 @@ public class SessionUser implements Serializable {
     private String firstName;
     private String secondName;
     private Date birthday;
-    private List<Long> addressId;
+//    private List<Long> addressId;
     private String role;
     private List<Long> listProducts;
 
@@ -54,12 +54,12 @@ public class SessionUser implements Serializable {
         this.birthday = ue.getBirthday();
         this.role = ue.getRoleByRole().getName();
 
-        if (ue.getAddresses()!=null) {
-            List<AddressEntity> list = ue.getAddresses();
-                for (AddressEntity adr : list) {
-                    this.addressId.add(adr.getAddressId());
-                }
-        }
+//        if (ue.getAddresses()!=null) {
+//            List<AddressEntity> list = ue.getAddresses();
+//                for (AddressEntity adr : list) {
+//                    this.addressId.add(adr.getAddressId());
+//                }
+//        }
         if (listProducts!=null) {
             for (Long lp : listProducts) {
                 this.listProducts.add(lp);
@@ -123,13 +123,13 @@ public class SessionUser implements Serializable {
         this.birthday = birthday;
     }
 
-    public List<Long> getAddressId() {
-        return addressId;
-    }
-
-    public void setAddressId(List<Long> addressId) {
-        this.addressId = addressId;
-    }
+//    public List<Long> getAddressId() {
+//        return addressId;
+//    }
+//
+//    public void setAddressId(List<Long> addressId) {
+//        this.addressId = addressId;
+//    }
 
     public String getRole() {
         return role;
