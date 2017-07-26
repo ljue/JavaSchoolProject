@@ -16,6 +16,9 @@
                 <li>
                     <a href="/home">Home</a>
                 </li>
+                <li>
+                    <a href="/catalog">Catalog</a>
+                </li>
                 <%--<c:if test="${user.role ne 'ROLE_ANONYM'}">--%>
                     <li>
                         <a href="/user">My Room</a>

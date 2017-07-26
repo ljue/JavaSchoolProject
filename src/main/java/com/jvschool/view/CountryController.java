@@ -46,10 +46,7 @@ public class CountryController {
 
     }
 
-    @RequestMapping(value = {"/bucket"}, method = RequestMethod.GET)
-    public String goBucket(Model model) {
-        return "bucket";
-    }
+
 
     @RequestMapping(value = {"/navigation"}, method = RequestMethod.GET)
     public String goNav(Model model) {

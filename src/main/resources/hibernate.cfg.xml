@@ -15,27 +15,20 @@
     <property name="hibernate.current_session_context_class">org.hibernate.context.internal.ThreadLocalSessionContext</property>
     <property name="hibernate.enable_lazy_load_no_trans">true</property>
     <mapping class="com.jvschool.entities.AddressEntity"/>
-
-
     <mapping class="com.jvschool.entities.CityEntity"/>
     <mapping class="com.jvschool.entities.CountryEntity"/>
     <mapping class="com.jvschool.entities.DeliveryStatusEntity"/>
-
     <mapping class="com.jvschool.entities.PayStatusEntity"/>
     <mapping class="com.jvschool.entities.PayWayEntity"/>
     <mapping class="com.jvschool.entities.RegionEntity"/>
     <mapping class="com.jvschool.entities.RoleEntity"/>
-
-
     <mapping class="com.jvschool.entities.UserEntity"/>
-
     <mapping class="com.jvschool.entities.OrderEntity"/>
     <mapping class="com.jvschool.entities.PicturesEntity"/>
     <mapping class="com.jvschool.entities.ProductEntity"/>
     <mapping class="com.jvschool.entities.ProductCategoryEntity"/>
     <mapping class="com.jvschool.entities.ProductPropertyEntity"/>
     <mapping class="com.jvschool.entities.PropertyCategoryEntity"/>
-
     <mapping class="com.jvschool.entities.ProductRadioPropertyEntity"/>
     <mapping class="com.jvschool.entities.PropertyRadioCategoryEntity"/>
 

@@ -111,6 +111,12 @@ public class ManagerController {
 
 
 
+
+
+
+
+
+
     @RequestMapping(value = "/editCategories", method = RequestMethod.GET)
     public String editCategoryGet(@ModelAttribute("formEditCategory") FormListCategories formListCategories,
             @ModelAttribute("formNewCategory") ProductCategoryEntity productCategoryEntity,

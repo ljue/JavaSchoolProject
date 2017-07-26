@@ -155,8 +155,6 @@ create index Pictures_Product_ProductId_fk
 
 create table myshop_schema.Prod_Prop
 (
-	id bigint auto_increment
-		primary key,
 	ProductId bigint null,
 	ProductPropertyId int null
 )
@@ -195,19 +193,12 @@ create table myshop_schema.Product
 	Count int not null,
 	Cost double not null,
 	Category int not null,
-	OrderId bigint null,
 	Size varchar(50) null,
 	Battery varchar(50) null,
 	FlyTime varchar(50) null,
 	Distance varchar(50) null,
-	Description varchar(500) null,
-	constraint Product_Order_OrderId_fk
-	foreign key (OrderId) references myshop_schema.`Order` (OrderId)
+	Description varchar(500) null
 )
-;
-
-create index Product_Order_OrderId_fk
-	on Product (OrderId)
 ;
 
 create index Product_ProductCategory_CategoryId_fk

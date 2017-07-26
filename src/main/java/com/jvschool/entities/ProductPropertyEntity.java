@@ -11,13 +11,13 @@ import java.util.*;
 @Table(name = "ProductProperty", schema = "myshop_schema")
 public class ProductPropertyEntity  implements Serializable {
     private int prodPropId;
-    //private Integer prodPropCatId;
     private String prodPropName;
     private PropertyCategoryEntity propertyCategoryByProdPropCatId;
     //private Set<ProductEntity> product = new HashSet<>();// = new ArrayList<>();
 
     @Id
     @Column(name = "ProdPropId", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getProdPropId() {
         return prodPropId;
     }
@@ -25,16 +25,6 @@ public class ProductPropertyEntity  implements Serializable {
     public void setProdPropId(int prodPropId) {
         this.prodPropId = prodPropId;
     }
-
-//    @Basic
-//    @Column(name = "ProdPropCatId", nullable = true)
-//    public Integer getProdPropCatId() {
-//        return prodPropCatId;
-//    }
-//
-//    public void setProdPropCatId(Integer prodPropCatId) {
-//        this.prodPropCatId = prodPropCatId;
-//    }
 
     @Basic
     @Column(name = "ProdPropName", nullable = true, length = 255)
@@ -69,7 +59,7 @@ public class ProductPropertyEntity  implements Serializable {
         return result;
     }
 
-    @ManyToOne
+    @ManyToOne//(fetch = FetchType.EAGER)
     @JoinColumn(name = "ProdPropCatId", referencedColumnName = "PropCatId")
     public PropertyCategoryEntity getPropertyCategoryByProdPropCatId() {
         return propertyCategoryByProdPropCatId;

@@ -27,13 +27,12 @@ public class ProductEntity  implements Serializable {
 
     private List<MultipartFile> images;
     private List<PicturesEntity> picturesByProductId;
-    private Set<ProductPropertyEntity> properties;// = new HashSet<>();// = new ArrayList<>();
+    private Set<ProductPropertyEntity> properties = new HashSet<ProductPropertyEntity>();// = new ArrayList<>();
     //private List<ProductRadioPropertyEntity> radioProperties = new ArrayList<>();
 
     @Id
-    @Column(name = "ProductId", nullable = false)
+    @Column(name = "ProductId")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    //@GeneratedValue(strategy=GenerationType.AUTO)
     public long getProductId() {
         return productId;
     }
@@ -112,35 +111,6 @@ public class ProductEntity  implements Serializable {
         this.distance = distance;
     }
 
-    //    @Basic
-//    @Column(name = "Image", nullable = false, length = 30)
-//    public String getImage() {
-//        return image;
-//    }
-//
-//    public void setImage(String image) {
-//        this.image = image;
-//    }
-
-//    @Basic
-//    @Column(name = "Category", nullable = false)
-//    public int getCategory() {
-//        return category;
-//    }
-//
-//    public void setCategory(int category) {
-//        this.category = category;
-//    }
-
-//    @Basic
-//    @Column(name = "BucketId", nullable = true)
-//    public Long getBucketId() {
-//        return bucketId;
-//    }
-//
-//    public void setBucketId(Long bucketId) {
-//        this.bucketId = bucketId;
-//    }
 
     @Override
     public boolean equals(Object o) {
@@ -186,8 +156,6 @@ public class ProductEntity  implements Serializable {
 //        this.bucketByProductId = bucketByProductId;
 //    }
 
-    //@OneToMany(mappedBy = "productByProductId",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    //@JoinColumn(name = "PictureId", referencedColumnName = "PictureId")
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "ProductId", referencedColumnName = "ProductId")
     public List<PicturesEntity> getPicturesByProductId() {
@@ -209,10 +177,14 @@ public class ProductEntity  implements Serializable {
     }
 
 
-    @ManyToMany(cascade = CascadeType.ALL)//(fetch = FetchType.EAGER)//(fetch = FetchType.LAZY)//(mappedBy = "product")
+    //@ManyToMany(cascade = CascadeType.ALL)//, fetch = FetchType.EAGER)//(fetch = FetchType.LAZY)//(mappedBy = "product")
+//    @JoinTable(name = "Prod_Prop",
+//            joinColumns = @JoinColumn(name = "ProductId"),
+//            inverseJoinColumns = @JoinColumn(name = "ProductPropertyId"))
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "Prod_Prop",
-            joinColumns = @JoinColumn(name = "ProductId"),
-            inverseJoinColumns = @JoinColumn(name = "ProductPropertyId"))
+            joinColumns = @JoinColumn(name = "ProductId", referencedColumnName = "ProductId"),
+            inverseJoinColumns = @JoinColumn(name = "ProductPropertyId", referencedColumnName = "ProdPropId"))
     public Set<ProductPropertyEntity> getProperties() {
         return properties;
     }

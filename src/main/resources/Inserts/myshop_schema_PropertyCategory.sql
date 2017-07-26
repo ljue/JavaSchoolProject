@@ -1,0 +1,1 @@
+INSERT INTO myshop_schema.PropertyCategory (PropCatId, PropCatName) VALUES (3, 'Features');

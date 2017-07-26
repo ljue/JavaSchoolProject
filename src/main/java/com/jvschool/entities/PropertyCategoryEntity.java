@@ -12,10 +12,10 @@ import java.util.Collection;
 public class PropertyCategoryEntity  implements Serializable {
     private int propCatId;
     private String propCatName;
-    private Collection<ProductPropertyEntity> productPropertiesByPropCatId;
 
     @Id
     @Column(name = "PropCatId", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getPropCatId() {
         return propCatId;
     }
@@ -54,12 +54,4 @@ public class PropertyCategoryEntity  implements Serializable {
         return result;
     }
 
-    @OneToMany(mappedBy = "propertyCategoryByProdPropCatId")
-    public Collection<ProductPropertyEntity> getProductPropertiesByPropCatId() {
-        return productPropertiesByPropCatId;
-    }
-
-    public void setProductPropertiesByPropCatId(Collection<ProductPropertyEntity> productPropertiesByPropCatId) {
-        this.productPropertiesByPropCatId = productPropertiesByPropCatId;
-    }
 }

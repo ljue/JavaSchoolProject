@@ -1,0 +1,4 @@
+INSERT INTO myshop_schema.User (login, pass, email, FirstName, SecondName, Birthday, Role) VALUES ('admin', 'admin', 'lmerm@mail.ru', 'Ludmila', 'Ermakova', '1993-10-07', 1);
+INSERT INTO myshop_schema.User (login, pass, email, FirstName, SecondName, Birthday, Role) VALUES ('manager', 'manager', 'manager@mail.ru', 'Manager', 'Manager', '2017-07-18', 2);
+INSERT INTO myshop_schema.User (login, pass, email, FirstName, SecondName, Birthday, Role) VALUES ('client', 'client', 'client@mail.ru', 'Client', 'Client', '2017-07-18', 3);
+INSERT INTO myshop_schema.User (login, pass, email, FirstName, SecondName, Birthday, Role) VALUES ('lmerm', 'password', 'lusinda_erm@mail.ru', 'Ludmila', 'Ermakova', '2000-06-01', 3);

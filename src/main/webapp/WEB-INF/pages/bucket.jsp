@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Людмила
@@ -28,102 +29,51 @@
 <jsp:include page="../templates/scripts.jsp" />
 
 
-<%--<jsp:include page="/countries" />--%>
-<!-- Page Content -->
-<%--<div class="container">--%>
-
-    <%--<div class="row">--%>
-
-        <%--<div class="col-md-3">--%>
-            <%--<p class="lead">Shop Name</p>--%>
-            <%--<div class="list-group">--%>
-                <%--<a href="/user" class="list-group-item">Личная информация</a>--%>
-                <%--<a href="/adress" class="list-group-item">Адрес</a>--%>
-                <%--<a href="/history" class="list-group-item">Заказы</a>--%>
-            <%--</div>--%>
-        <%--</div>--%>
-
-    <%--</div>--%>
-
-<%--</div>--%>
-
 </div>
 <!-- /.container -->
 <div class="container">
 
-    <div class="alert alert-info">
-        <a id="fullscreen" href="#fullscreen" class="alert-link"><strong>Click here</strong></a> to view this snippet in an iframe.
-        <i class="fa fa-info-circle fa-2x pull-right"></i>
-    </div>
+    <br>
+    <br>
 
-    <h1> <i class="fa fa-shopping-cart"></i> Produtos <small> - click on product for details</small> <a href="http://bootsnipp.com/alisonpedro/snippets/Q60Oj" class="btn btn-danger pull-right hide" id="back-to-bootsnipp">Back to Bootsnipp</a></h1>
+    <h1> <i class="fa fa-shopping-cart"></i> Shopping Cart <small> - click on product for details</small> </h1>
 
     <hr>
 
     <table class="table table-hover">
         <thead>
-        <tr>
-            <th>#Cod</th>
-            <th>Name</th>
-            <th>Manufacturers</th>
-            <th>Model</th>
-        </tr>
+            <tr>
+                <th>#Id</th>
+                <th>Name</th>
+                <th>Cost</th>
+            </tr>
         </thead>
         <tbody>
+        <c:forEach items="${productsInCart}" var="productInCart">
         <tr>
-            <td>1</td>
-            <td>Dell 18.5 Inch Monitor</td>
-            <td>Dell</td>
-            <td>IN1930</td>
+            <td>${productInCart.productId}</td>
+            <td>${productInCart.productName}</td>
+            <td>${productInCart.cost}</td>
         </tr>
-        <tr>
-            <td>2</td>
-            <td>Intel Core i5</td>
-            <td>Intel</td>
-            <td>Core i5</td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td >Gaming Keyboard G510</td>
-            <td>Logitech</td>
-            <td>G510</td>
-        </tr>
-
-        <tr>
-            <td>1</td>
-            <td>Dell 18.5 Inch Monitor</td>
-            <td>Dell</td>
-            <td>IN1930</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>Intel Core i5</td>
-            <td>Intel</td>
-            <td>Core i5</td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td >Gaming Keyboard G510</td>
-            <td>Logitech</td>
-            <td>G510</td>
-        </tr>
+        </c:forEach>
         </tbody>
     </table>
 
-    <div class="col-sm-12 ">
-        <div class="result pull-left"><strong>Mostrando 1 até 6 de 5000</strong></div>
+    <%--<div class="col-sm-12 ">--%>
+        <%--<div class="result pull-left"><strong>Mostrando 1 até 6 de 5000</strong></div>--%>
 
-        <ul class="pagination pull-right">
-            <li><a href="#">«</a></li>
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-            <li><a href="#">»</a></li>
-        </ul>
+        <%--<ul class="pagination pull-right">--%>
+            <%--<li><a href="#">«</a></li>--%>
+            <%--<li><a href="#">1</a></li>--%>
+            <%--<li><a href="#">2</a></li>--%>
+            <%--<li><a href="#">3</a></li>--%>
+            <%--<li><a href="#">4</a></li>--%>
+            <%--<li><a href="#">5</a></li>--%>
+            <%--<li><a href="#">»</a></li>--%>
+        <%--</ul>--%>
 
-    </div>
+    <%--</div>--%>
+    <%--странички--%>
 
 
 

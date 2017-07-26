@@ -25,6 +25,7 @@ public class ProductDAOImpl implements ProductDAO {
 //            pic.setProductByProductId(productEntity);
 //            session.save(pic);
 //        }
+
         //session.persist(productEntity);
         session.getTransaction().commit();
     }
@@ -37,5 +38,24 @@ public class ProductDAOImpl implements ProductDAO {
                 .setParameter("id",id).uniqueResult();
         session.getTransaction().commit();
         return  productEntity;
+    }
+
+    @Override
+    public List<ProductEntity> getAllProducts() {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        List<ProductEntity> products = session.createQuery("from ProductEntity ").list();
+        session.getTransaction().commit();
+        return  products;
+    }
+
+    @Override
+    public List<ProductEntity> getProductsToBuy(List<Long> list) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        List<ProductEntity> products = session.createQuery("from ProductEntity pe where pe.id in (:list) ")
+        .setParameterList("list",list).list();
+        session.getTransaction().commit();
+        return  products;
     }
 }
