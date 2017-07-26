@@ -18,7 +18,7 @@ public class OrderEntity {
     private PayWayEntity payWayByPayWay;
     private PayStatusEntity payStatusByPayStatus;
     private DeliveryStatusEntity deliveryStatusByDeliveryStatus;
-    private Collection<ProductEntity> productByProductId;
+   // private Collection<ProductEntity> productByProductId;
 
     @Id
     @Column(name = "OrderId", nullable = false)
@@ -114,12 +114,12 @@ public class OrderEntity {
         this.deliveryStatusByDeliveryStatus = deliveryStatusByDeliveryStatus;
     }
 
-    @OneToMany(mappedBy = "bucketByProductId")
-    public Collection<ProductEntity> getBucketsByProductId() {
-        return productByProductId;
-    }
-
-    public void setBucketsByProductId(Collection<ProductEntity> productByProductId) {
-        this.productByProductId = productByProductId;
-    }
+//    @OneToMany(mappedBy = "bucketByProductId")
+//    public Collection<ProductEntity> getBucketsByProductId() {
+//        return productByProductId;
+//    }
+//
+//    public void setBucketsByProductId(Collection<ProductEntity> productByProductId) {
+//        this.productByProductId = productByProductId;
+//    }
 }

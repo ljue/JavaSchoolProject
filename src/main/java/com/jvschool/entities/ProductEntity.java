@@ -4,10 +4,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by Людмила on 22.07.2017.
@@ -25,13 +22,13 @@ public class ProductEntity  implements Serializable {
     private String distance;
     private String description;
 
-    private OrderEntity bucketByProductId;
+    //private OrderEntity bucketByProductId;
     private ProductCategoryEntity productCategoryByCategory;
 
     private List<MultipartFile> images;
     private List<PicturesEntity> picturesByProductId;
-    private Set<ProductPropertyEntity> properties;// = new ArrayList<>();
-    private List<ProductRadioPropertyEntity> radioProperties = new ArrayList<>();
+    private Set<ProductPropertyEntity> properties;// = new HashSet<>();// = new ArrayList<>();
+    //private List<ProductRadioPropertyEntity> radioProperties = new ArrayList<>();
 
     @Id
     @Column(name = "ProductId", nullable = false)
@@ -179,15 +176,15 @@ public class ProductEntity  implements Serializable {
     }
 
 
-    @ManyToOne()
-    @JoinColumn(name = "OrderId", referencedColumnName = "OrderId")
-    public OrderEntity getBucketByProductId() {
-        return bucketByProductId;
-    }
-
-    public void setBucketByProductId(OrderEntity bucketByProductId) {
-        this.bucketByProductId = bucketByProductId;
-    }
+//    @ManyToOne()
+//    @JoinColumn(name = "OrderId", referencedColumnName = "OrderId")
+//    public OrderEntity getBucketByProductId() {
+//        return bucketByProductId;
+//    }
+//
+//    public void setBucketByProductId(OrderEntity bucketByProductId) {
+//        this.bucketByProductId = bucketByProductId;
+//    }
 
     //@OneToMany(mappedBy = "productByProductId",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     //@JoinColumn(name = "PictureId", referencedColumnName = "PictureId")
@@ -212,7 +209,7 @@ public class ProductEntity  implements Serializable {
     }
 
 
-    @ManyToMany//(fetch = FetchType.LAZY)//(mappedBy = "product")
+    @ManyToMany(cascade = CascadeType.ALL)//(fetch = FetchType.EAGER)//(fetch = FetchType.LAZY)//(mappedBy = "product")
     @JoinTable(name = "Prod_Prop",
             joinColumns = @JoinColumn(name = "ProductId"),
             inverseJoinColumns = @JoinColumn(name = "ProductPropertyId"))
@@ -225,17 +222,17 @@ public class ProductEntity  implements Serializable {
     }
 
 
-    @ManyToMany
-    @JoinTable(name = "Prod_RadioProp",
-            joinColumns = @JoinColumn(name = "ProductId"),
-            inverseJoinColumns = @JoinColumn(name = "RadioPropId"))
-    public List<ProductRadioPropertyEntity> getRadioProperties() {
-        return radioProperties;
-    }
-
-    public void setRadioProperties(List<ProductRadioPropertyEntity> radioProperties) {
-        this.radioProperties = radioProperties;
-    }
+//    @ManyToMany
+//    @JoinTable(name = "Prod_RadioProp",
+//            joinColumns = @JoinColumn(name = "ProductId"),
+//            inverseJoinColumns = @JoinColumn(name = "RadioPropId"))
+//    public List<ProductRadioPropertyEntity> getRadioProperties() {
+//        return radioProperties;
+//    }
+//
+//    public void setRadioProperties(List<ProductRadioPropertyEntity> radioProperties) {
+//        this.radioProperties = radioProperties;
+//    }
 
     @Transient
     public List<MultipartFile> getImages() {
