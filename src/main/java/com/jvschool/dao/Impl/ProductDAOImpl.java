@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Людмила on 23.07.2017.
@@ -50,11 +51,11 @@ public class ProductDAOImpl implements ProductDAO {
     }
 
     @Override
-    public List<ProductEntity> getProductsToBuy(List<Long> list) {
+    public List<ProductEntity> getProductsToBuy(Set<Long> set) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
         List<ProductEntity> products = session.createQuery("from ProductEntity pe where pe.id in (:list) ")
-        .setParameterList("list",list).list();
+        .setParameterList("list",set).list();
         session.getTransaction().commit();
         return  products;
     }

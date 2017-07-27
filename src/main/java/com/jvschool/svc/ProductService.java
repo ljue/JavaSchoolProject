@@ -1,9 +1,10 @@
 package com.jvschool.svc;
 
 import com.jvschool.entities.ProductEntity;
-import com.jvschool.util.ProductAttribute;
+import com.jvschool.util.Attributes.ProductAttribute;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Людмила on 23.07.2017.
@@ -11,8 +12,8 @@ import java.util.List;
 public interface ProductService {
 
     void addProduct(ProductEntity productEntity);
-    ProductEntity getProductById(long id);
+    ProductAttribute getProductById(long id);
     List<ProductAttribute> getAllProducts();
-    List<ProductAttribute> getProductsToBuy(List<Long> list);
+    List<ProductAttribute> getProductsToBuy(Set<Long> list);
 
 }

@@ -156,7 +156,11 @@ create index Pictures_Product_ProductId_fk
 create table myshop_schema.Prod_Prop
 (
 	ProductId bigint null,
-	ProductPropertyId int null
+	ProductPropertyId int null,
+	prod_prop_id bigint auto_increment
+		primary key,
+	constraint Prod_Prop_prod_prop_id_uindex
+	unique (prod_prop_id)
 )
 ;
 
@@ -192,12 +196,12 @@ create table myshop_schema.Product
 	ProductName varchar(255) not null,
 	Count int not null,
 	Cost double not null,
-	Category int not null,
 	Size varchar(50) null,
 	Battery varchar(50) null,
 	FlyTime varchar(50) null,
 	Distance varchar(50) null,
-	Description varchar(500) null
+	Description varchar(500) null,
+	Category int null
 )
 ;
 

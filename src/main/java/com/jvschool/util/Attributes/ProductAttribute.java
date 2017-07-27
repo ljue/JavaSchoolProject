@@ -1,4 +1,4 @@
-package com.jvschool.util;
+package com.jvschool.util.Attributes;
 
 import com.jvschool.entities.PicturesEntity;
 import com.jvschool.entities.ProductCategoryEntity;
@@ -19,9 +19,6 @@ import java.util.Set;
  */
 public class ProductAttribute  implements Serializable {
 
-
-
-
     private long productId;
     private String productName;
     private int count;
@@ -36,7 +33,7 @@ public class ProductAttribute  implements Serializable {
     private String productCategoryByCategory;
 
     private List<MultipartFile> images;
-    private List<String> picturesPath = new ArrayList<>();
+    private List<String> picturesPath= new ArrayList<>();
     private String presentPic;
     //private Set<ProductPropertyEntity> properties = new HashSet<ProductPropertyEntity>();
 

@@ -19,33 +19,33 @@
                 <li>
                     <a href="/catalog">Catalog</a>
                 </li>
-                <%--<c:if test="${user.role ne 'ROLE_ANONYM'}">--%>
+                <c:if test="${user.role ne 'ROLE_ANONYM'}">
                     <li>
                         <a href="/user">My Room</a>
                     </li>
-                <%--</c:if>--%>
-                <%--<c:if test="${user.role eq 'ROLE_ANONYM'}">--%>
+                </c:if>
+                <c:if test="${user.role eq 'ROLE_ANONYM'}">
                     <li>
                         <a href="/login">Log in</a>
                     </li>
-                <%--</c:if>--%>
-                <%--<c:if test="${user.role eq 'ROLE_MANAGER'}">--%>
+                </c:if>
+                <c:if test="${user.role eq 'ROLE_MANAGER'}">
                     <li>
                         <a href="/orderList">Administration</a>
                     </li>
-                <%--</c:if>--%>
-                <li>
-                    <a href="/countries">Tests</a>
-                </li>
+                </c:if>
+                <%--<li>--%>
+                    <%--<a href="/countries">Tests</a>--%>
+                <%--</li>--%>
 
                 <li>
                     <a href="/bucket">Shopping cart</a>
                 </li>
-                <%--<c:if test="${user.role ne 'ROLE_ANONYM'}">--%>
+                <c:if test="${user.role ne 'ROLE_ANONYM'}">
                     <li>
                         <a href="/logout">Log out</a>
                     </li>
-                <%--</c:if>--%>
+                </c:if>
             </ul>
         </div>
         <!-- /.navbar-collapse -->

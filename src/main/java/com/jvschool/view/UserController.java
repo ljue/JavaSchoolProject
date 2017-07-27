@@ -3,7 +3,7 @@ package com.jvschool.view;
 import com.jvschool.entities.UserEntity;
 import com.jvschool.svc.RoleService;
 import com.jvschool.svc.UserService;
-import com.jvschool.util.SessionUser;
+import com.jvschool.util.Attributes.SessionUser;
 import com.jvschool.util.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,7 +42,7 @@ public class UserController {
     public String login(@ModelAttribute("user") SessionUser user,
                         Model model, HttpServletRequest request, String error, String logout) {
 
-        SessionUser us = new SessionUser(userService.loginUser(user.getLogin(),user.getPass()),user.getListProducts());
+        SessionUser us = new SessionUser(userService.loginUser(user.getLogin(),user.getPass()),user.getProducts());
         if (us!=null) {
             model.addAttribute("user",us);
             return "redirect:/home";
@@ -79,7 +79,7 @@ public class UserController {
 
         userForm.setRoleByRole(roleService.getRoleByName("ROLE_CLIENT"));
         userService.addUser(userForm);
-        SessionUser us = new SessionUser(userForm, user.getListProducts());
+        SessionUser us = new SessionUser(userForm, user.getProducts());
         model.addAttribute("user",us);
         return "redirect:/home";
     }
@@ -99,7 +99,7 @@ public class UserController {
             return "user";
         }
         userService.editUserInfo(userForm);
-        SessionUser us = new SessionUser(userService.getUserById(userForm.getId()), sessionUser.getListProducts());
+        SessionUser us = new SessionUser(userService.getUserById(userForm.getId()), sessionUser.getProducts());
         model.addAttribute("user",us);
         return "redirect:/user";
     }
@@ -113,7 +113,7 @@ public class UserController {
             return "user";
         }
         userService.editUserPassword(userForm);
-        SessionUser us = new SessionUser(userService.getUserById(userForm.getId()),sessionUser.getListProducts());
+        SessionUser us = new SessionUser(userService.getUserById(userForm.getId()),sessionUser.getProducts());
         model.addAttribute("user",us);
         return "redirect:/user";
     }

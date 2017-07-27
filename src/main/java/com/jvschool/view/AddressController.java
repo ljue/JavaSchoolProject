@@ -2,7 +2,7 @@ package com.jvschool.view;
 
 import com.jvschool.entities.AddressEntity;
 import com.jvschool.svc.*;
-import com.jvschool.util.SessionUser;
+import com.jvschool.util.Attributes.SessionUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -1,16 +1,12 @@
-package com.jvschool.util;
+package com.jvschool.util.Attributes;
 
 import com.jvschool.entities.ProductCategoryEntity;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.Basic;
-import java.util.List;
-
 /**
  * Created by Людмила on 24.07.2017.
  */
-@Component
-public class FormListCategories {
+public class FormEditCategories {
 
 //    List<ProductCategoryEntity> productCategoryEntityList;
 //
@@ -47,9 +43,9 @@ public class FormListCategories {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof FormListCategories)) return false;
+        if (!(o instanceof FormEditCategories)) return false;
 
-        FormListCategories that = (FormListCategories) o;
+        FormEditCategories that = (FormEditCategories) o;
 
         if (chooseCategory != null ? !chooseCategory.equals(that.chooseCategory) : that.chooseCategory != null)
             return false;

@@ -28,7 +28,7 @@ public class CountryController {
     public String listUsers(Model model) {
         model.addAttribute("country", new CountryEntity());
         model.addAttribute("countries", countryService.getAllCountries());
-        model.addAttribute("product",productService.getProductById(18));
+        //model.addAttribute("product",productService.getProductById(18));
 
 
         return "countries";

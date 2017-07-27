@@ -43,7 +43,7 @@
                          <%--<a href="http://cookingfoodsworld.blogspot.in/"  >	<button class="btn btn-info right " > View </button></a>--%>
                         <%--</div>--%>
                         <div class="col-md-6 col-sm-6">
-                         <a href="http://cookingfoodsworld.blogspot.in/" >	<button onclick="addProductToCart(${product.productId})"  class="btn btn-info right" > Add to Cart </button></a>
+                         <button value="${product.productId}" onclick="addProductToCart(this)"   class="btn btn-info right" > Add to Cart </button>
                         </div>
 
                     </div>
@@ -53,7 +53,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <%--<a href="#" data-dismiss="modal" class="class pull-right"></a>--%>
+
                             <h3 class="modal-title">${product.productName}</h3>
                         </div>
                         <div class="modal-body">
@@ -72,25 +72,13 @@
                                     <h5>${product.description}</h5>
 
                                     <h3 class="cost"></span> $${product.cost}</h3>
-                                    <div class="row">
 
-                                        <!-- end col -->
-                                    </div>
+
                                     <div class="space-ten"></div>
                                     <div class="btn-ground">
-                                        <button type="button" onclick="addProductToCart(${product.productId})" class="btn btn-primary"> Add To Cart</button>
+                                        <button type="button" value="${product.productId}" onclick="addProductToCart(this)" class="btn btn-primary"> Add To Cart</button>
                                     </div>
 
-                                    <script>
-                                        function addProductToCart(id){
-//                                            var id=$(this).attr("value");
-                                            $.ajax({
-                                                type: "POST",
-                                                url: "/addToCart/"+id
-                                            })
-
-                                        }
-                                    </script>
                                 </div>
                             </div>
                         </div>
@@ -99,7 +87,15 @@
             </div>
         </c:forEach>
 
-
+        <script>
+            function addProductToCart(obj){
+                var idProduct=obj.value;
+                $.ajax({
+                    type: "POST",
+                    url: "/addToCart/"+idProduct
+                })
+            }
+        </script>
 
 
         <%--<div class="col-md-4 col-sm-3">--%>

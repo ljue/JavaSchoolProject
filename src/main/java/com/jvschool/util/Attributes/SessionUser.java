@@ -1,4 +1,4 @@
-package com.jvschool.util;
+package com.jvschool.util.Attributes;
 
 import com.jvschool.entities.AddressEntity;
 import com.jvschool.entities.UserEntity;
@@ -6,7 +6,9 @@ import com.jvschool.entities.UserEntity;
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Людмила on 20.07.2017.
@@ -20,31 +22,16 @@ public class SessionUser implements Serializable {
     private String firstName;
     private String secondName;
     private Date birthday;
-//    private List<Long> addressId;
+    private List<Long> listAddress= new ArrayList<>();
     private String role;
-    private List<Long> listProducts;
+    private Map<Long,Integer> products = new HashMap<>();
 
-
-
-//    public SessionUser(long id, String login, String pass, String email, String firstName, String secondName,
-//                       Date birthday, List<Long> addressId, String role, List<Long> listProducts) {
-//        this.id = id;
-//        this.login = login;
-//        this.pass = pass;
-//        this.email = email;
-//        this.firstName = firstName;
-//        this.secondName = secondName;
-//        this.birthday = birthday;
-//        this.addressId = addressId;
-//        this.role = role;
-//        this.listProducts=listProducts;
-//    }
 
     public SessionUser() {
         this.role = "ROLE_ANONYM";
     }
 
-    public SessionUser(UserEntity ue, List<Long> listProducts) {
+    public SessionUser(UserEntity ue, Map<Long,Integer> products) {
         this.id = ue.getId();
         this.login = ue.getLogin();
         this.pass = ue.getPass();
@@ -54,17 +41,15 @@ public class SessionUser implements Serializable {
         this.birthday = ue.getBirthday();
         this.role = ue.getRoleByRole().getName();
 
-//        if (ue.getAddresses()!=null) {
-//            List<AddressEntity> list = ue.getAddresses();
-//                for (AddressEntity adr : list) {
-//                    this.addressId.add(adr.getAddressId());
-//                }
-//        }
-        if (listProducts!=null) {
-            for (Long lp : listProducts) {
-                this.listProducts.add(lp);
-            }
+        this.products = products;
+
+        if (ue.getAddresses()!=null) {
+            List<AddressEntity> list = ue.getAddresses();
+                for (AddressEntity adr : list) {
+                    this.listAddress.add(adr.getAddressId());
+                }
         }
+
     }
 
     public long getId() {
@@ -123,13 +108,13 @@ public class SessionUser implements Serializable {
         this.birthday = birthday;
     }
 
-//    public List<Long> getAddressId() {
-//        return addressId;
-//    }
-//
-//    public void setAddressId(List<Long> addressId) {
-//        this.addressId = addressId;
-//    }
+    public List<Long> getListAddress() {
+        return listAddress;
+    }
+
+    public void setListAddress(List<Long> listAddress) {
+        this.listAddress = listAddress;
+    }
 
     public String getRole() {
         return role;
@@ -139,15 +124,11 @@ public class SessionUser implements Serializable {
         this.role = role;
     }
 
-    public List<Long> getListProducts() {
-        return listProducts;
+    public Map<Long, Integer> getProducts() {
+        return products;
     }
 
-    public void setListProducts(List<Long> listProducts) {
-        this.listProducts = listProducts;
+    public void setProducts(Map<Long, Integer> products) {
+        this.products = products;
     }
-
-
-
-
 }

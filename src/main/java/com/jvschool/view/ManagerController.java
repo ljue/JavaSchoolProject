@@ -6,14 +6,13 @@ import com.jvschool.entities.ProductCategoryEntity;
 import com.jvschool.entities.ProductEntity;
 
 import com.jvschool.svc.*;
-import com.jvschool.util.FormListCategories;
+import com.jvschool.util.Attributes.FormEditCategories;
 import com.jvschool.util.ProductValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
@@ -63,8 +62,8 @@ public class ManagerController {
         model.addAttribute("propertiesMany", propertyCategoryService.getAllPropertyCategories());
         model.addAttribute("propertyManyChild",productPropertyService.getAllProductProperties());
 
-        model.addAttribute("radioCategory", propertyRadioCategoryService.getAllRadioCategories());
-        model.addAttribute("radioProperties", productRadioPropertyService.getAllRadioProperties());
+//        model.addAttribute("radioCategory", propertyRadioCategoryService.getAllRadioCategories());
+//        model.addAttribute("radioProperties", productRadioPropertyService.getAllRadioProperties());
 
 
         return "adminProducts";
@@ -118,10 +117,10 @@ public class ManagerController {
 
 
     @RequestMapping(value = "/editCategories", method = RequestMethod.GET)
-    public String editCategoryGet(@ModelAttribute("formEditCategory") FormListCategories formListCategories,
+    public String editCategoryGet(@ModelAttribute("formEditCategory") FormEditCategories formEditCategories,
             @ModelAttribute("formNewCategory") ProductCategoryEntity productCategoryEntity,
             Model model){
-        model.addAttribute("formEditCategory", new FormListCategories());
+        model.addAttribute("formEditCategory", new FormEditCategories());
         model.addAttribute("formNewCategory", new ProductCategoryEntity());
         model.addAttribute("categories", productCategoryService.getAllProductCategories());
 
@@ -129,12 +128,12 @@ public class ManagerController {
     }
 
     @RequestMapping(value = "/editCategories/editCategory", method = RequestMethod.POST)
-    public String editCategoryPost(@ModelAttribute("formEditCategory") FormListCategories formListCategories,
+    public String editCategoryPost(@ModelAttribute("formEditCategory") FormEditCategories formEditCategories,
                                     Model model){
         ProductCategoryEntity productCategoryEntity=new ProductCategoryEntity();
         productCategoryEntity.setCategoryId(productCategoryService.getProductCategoryByName
-                (formListCategories.getChooseCategory().getCategoryName()).getCategoryId());
-        productCategoryEntity.setCategoryName(formListCategories.getEditCategory());
+                (formEditCategories.getChooseCategory().getCategoryName()).getCategoryId());
+        productCategoryEntity.setCategoryName(formEditCategories.getEditCategory());
         productCategoryService.editCategory(productCategoryEntity);
 
         return "redirect:/editCategories";

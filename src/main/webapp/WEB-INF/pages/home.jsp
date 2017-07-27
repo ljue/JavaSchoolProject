@@ -15,11 +15,7 @@
     </div>
     <div class="row">
 
-        <%--<button onclick="" href="filterServlet"> Фильтр сервлет</button>--%>
 
-            <form>
-                <input type="button" value="фильтр" onClick='location.href="/filterServlet"'>
-            </form>
 
 
         <script src="//yandex.st/jquery/1.9.1/jquery.min.js"></script>
