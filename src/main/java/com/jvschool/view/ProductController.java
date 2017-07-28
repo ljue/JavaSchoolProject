@@ -36,13 +36,7 @@ public class ProductController {
 //        return "forward:/checkout";
 //    }
 
-    @RequestMapping(value = "/checkout", method = RequestMethod.GET)
-    public String Checkout(@ModelAttribute("user") SessionUser user,Model model) {
-        if(user.getRole().equals("ROLE_ANONYM")) {
-            return "forward:/login";
-        }
-        return "checkout";
-    }
+
 
 
     @RequestMapping(value = "/addToCart/{idProduct}", method = RequestMethod.POST)
@@ -92,7 +86,7 @@ public class ProductController {
         double commonPrice=0L;
         if(!user.getProducts().isEmpty()) {
             for (Long productKey : user.getProducts().keySet()) {
-                ProductAttribute pa= productService.getProductById(productKey);
+                ProductAttribute pa= productService.getProductAttributeById(productKey);
                 productsInCart.put(pa,user.getProducts().get(productKey));
                 commonPrice=commonPrice+pa.getCost()*user.getProducts().get(productKey);
             }

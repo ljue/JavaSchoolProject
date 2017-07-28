@@ -1,5 +1,7 @@
 package com.jvschool.entities;
 
+import com.jvschool.util.Attributes.AddressAttribute;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -19,10 +21,7 @@ public class AddressEntity implements Serializable {
     private String region;
     private String city;
 
-//    private CountryEntity countryEntity;
-//    private RegionEntity regionEntity;
-//    private CityEntity cityEntity;
-    //private UserEntity userByUserId;
+
 
     @Id
     @Column(name = "AddressId", nullable = false)
@@ -69,16 +68,6 @@ public class AddressEntity implements Serializable {
         return true;
     }
 
-//
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "UserId", referencedColumnName = "Id")
-//    public UserEntity getUserEntity() {
-//        return userEntity;
-//    }
-//
-//    public void setUserEntity(UserEntity userEntity) {
-//        this.userEntity = userEntity;
-//    }
 
     @Override
     public int hashCode() {
@@ -128,43 +117,4 @@ public class AddressEntity implements Serializable {
         this.city = city;
     }
 
-//    @ManyToOne
-//    @JoinColumn(name = "Country", referencedColumnName = "id")
-//    public CountryEntity getCountryEntity() {
-//        return countryEntity;
-//    }
-//
-//    public void setCountryEntity(CountryEntity countryEntity) {
-//        this.countryEntity = countryEntity;
-//    }
-//
-//    @ManyToOne
-//    @JoinColumn(name = "Region", referencedColumnName = "id")
-//    public RegionEntity getRegionEntity() {
-//        return regionEntity;
-//    }
-//
-//    public void setRegionEntity(RegionEntity regionEntity) {
-//        this.regionEntity = regionEntity;
-//    }
-//
-//    @ManyToOne
-//    @JoinColumn(name = "City", referencedColumnName = "id")
-//    public CityEntity getCityEntity() {
-//        return cityEntity;
-//    }
-//
-//    public void setCityEntity(CityEntity cityEntity) {
-//        this.cityEntity = cityEntity;
-//    }
-//
-//    @ManyToOne
-//    @JoinColumn(name = "UserId", referencedColumnName = "Id")
-//    public UserEntity getUserByUserId() {
-//        return userByUserId;
-//    }
-//
-//    public void setUserByUserId(UserEntity userByUserId) {
-//        this.userByUserId = userByUserId;
-//    }
 }

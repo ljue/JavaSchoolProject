@@ -13,11 +13,11 @@
 <head>
     <title>Address</title>
 
-    <jsp:include page="../templates/head.jsp" />
+    <jsp:include page="../templates/head.jsp"/>
 </head>
 <body>
-<jsp:include page="../templates/navigation.jsp" />
-<jsp:include page="../templates/scripts.jsp" />
+<jsp:include page="../templates/navigation.jsp"/>
+<jsp:include page="../templates/scripts.jsp"/>
 <br>
 <br>
 
@@ -29,7 +29,7 @@
     <div class="row">
 
         <div class="col-md-3">
-            <p class="lead">  </p>
+            <p class="lead"></p>
             <div class="list-group">
                 <a href="/user" class="list-group-item">My Profile</a>
                 <a href="/address" class="list-group-item">My Address</a>
@@ -50,7 +50,7 @@
                     <div id="panel1" class="tab-pane fade in active">
                         <%--<h3>Панель 1</h3>--%>
                         <row>
-                        <br>
+                            <br>
                             <c:if test="${empty addresses}">
                                 <p>You haven't add any address yet.</p>
                             </c:if>
@@ -61,31 +61,21 @@
                                     <div class="container">
                                         <div class="col-lg-6 col-sm-4 text-center">
                                             <div class="well">
-                                                <strong class="pull-left primary-font">Address ${status.index+1}</strong>
+                                                <strong class="pull-left primary-font">Address ${status.count}</strong>
 
-                                                    <ul data-brackets-id="12674" id="sortable" class="list-unstyled ui-sortable">
-                                                        <hr data-brackets-id="12673">
-                                                </br>
-
-                                                        <li class="ui-state-default">
-                                                                ${address.country},<br>
-                                                                        ${address.region},<br>
-                                                                        ${address.city},<br>
-                                                                        ${address.streetAddress},<br>
-                                                                        Post code: ${address.postIndex}<br>
-                                                        </li>
-
-                                                    <br>
-
-
-                                                    <br>
-                                                    <br>
-
-
+                                                <ul data-brackets-id="12674" id="sortable"
+                                                    class="list-unstyled ui-sortable">
+                                                    <hr data-brackets-id="12673">
                                                     </br>
-
-
-                                                    </ul>
+                                                    <li class="ui-state-default">
+                                                            ${address.country},<br>
+                                                            ${address.region},<br>
+                                                            ${address.city},<br>
+                                                            ${address.streetAddress},<br>
+                                                        Post code: ${address.postIndex}<br>
+                                                    </li>
+                                                    <br><br><br></br>
+                                                </ul>
                                             </div>
                                         </div>
                                     </div>
@@ -99,128 +89,82 @@
                     </div>
 
 
-
-
-
                     <c:url var="addaddress" value="address/add"/>
 
                     <div id="panel2" class="tab-pane fade">
                         <%--<h3>Панель 2</h3>--%>
                         <br>
-                            <form:form modelAttribute="formAddAddress" method="post" action="${addaddress}" class="form-horizontal">
-                                <fieldset>
-
-                                    <!-- Form Name -->
-                                    <%--<legend>Source address</legend>--%>
-
-                                    <!-- Select Basic -->
-                                    <%--<spring:bind path="countryEntity">--%>
-
-                                        <%--&lt;%&ndash;</spring:bind>&ndash;%&gt;--%>
-                                        <%--<div class="form-group">--%>
-                                            <%--<label class="col-md-4 control-label">Country</label>--%>
-                                            <%--<div class="col-md-5">--%>
-                                                <%--<form:select path="countryEntity" class="form-control">--%>
-                                                    <%--<c:forEach items="${countries}" var="country">--%>
-                                                        <%--<form:option value="${country.name}" label="${country.name}"></form:option>--%>
-                                                    <%--</c:forEach>--%>
-                                                <%--</form:select>--%>
-
-                                            <%--</div>--%>
-                                        <%--</div>--%>
-                                    <%--</spring:bind>--%>
-
-
-                                    <%--<spring:bind path="regionEntity">--%>
-                                        <%--<div class="form-group">--%>
-                                            <%--<label class="col-md-4 control-label" for="State">Region/State</label>--%>
-                                            <%--<div class="col-md-5">--%>
-                                                <%--<form:select id="State" path="regionEntity" class="form-control">--%>
-                                                    <%--<c:forEach items="${regions}" var="region">--%>
-                                                        <%--<form:option value="${region.name}" label="${region.name}"></form:option>--%>
-                                                    <%--</c:forEach>--%>
-                                                <%--</form:select>--%>
-                                            <%--</div>--%>
-                                        <%--</div>--%>
-                                    <%--</spring:bind>--%>
-
-                                    <%--<spring:bind path="cityEntity">--%>
-                                        <%--<div class="form-group">--%>
-                                            <%--<label class="col-md-4 control-label" for="city">City/Town</label>--%>
-                                            <%--<div class="col-md-5">--%>
-                                                <%--<form:select id="city" path="cityEntity" class="form-control">--%>
-                                                    <%--<c:forEach items="${cities}" var="city">--%>
-                                                        <%--<form:option value="${city.name}" label="${city.name}"></form:option>--%>
-                                                    <%--</c:forEach>--%>
-                                                <%--</form:select>--%>
-                                            <%--</div>--%>
-                                        <%--</div>--%>
-                                    <%--</spring:bind>--%>
-
-                                    <spring:bind path="country">
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label" >Country</label>
-                                            <div class="col-md-6">
-                                                <form:input  type="text" path="country" class="form-control" placeholder="Country"
-                                                ></form:input>
-                                            </div>
-                                        </div>
-                                    </spring:bind>
-                                    <spring:bind path="region">
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label" >Region</label>
-                                            <div class="col-md-6">
-                                                <form:input type="text" path="region" class="form-control" placeholder="Region"
-                                                ></form:input>
-                                            </div>
-                                        </div>
-                                    </spring:bind>
-
-                                    <spring:bind path="city">
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label" >City/Town</label>
-                                            <div class="col-md-6">
-                                                <form:input type="text" path="city" class="form-control" placeholder="City / Town"
-                                                ></form:input>
-                                            </div>
-                                        </div>
-                                    </spring:bind>
-
-                                    <spring:bind path="streetAddress">
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label" for="address1">Address Line</label>
-                                            <div class="col-md-8">
-                                                <form:input id="address1" type="text" path="streetAddress" class="form-control" placeholder=""
-                                                ></form:input>
-                                                <span class="help-block">Street address, P.O. box, company name, c/o</span>
-                                            </div>
-                                        </div>
-                                    </spring:bind>
-
-                                    <!-- Text input-->
-                                    <spring:bind path="postIndex">
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label" for="zip">Postal code</label>
-                                            <div class="col-md-4">
-                                                <form:input id="zip" type="text" path="postIndex" class="form-control" placeholder="Zip or Postal code"
-                                                ></form:input>
-                                            </div>
-                                        </div>
-                                    </spring:bind>
-
-
-
+                        <form:form modelAttribute="formAddAddress" method="post" action="${addaddress}"
+                                   class="form-horizontal">
+                            <fieldset>
+                                <spring:bind path="country">
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label"></label>
-                                        <div class="col-md-8">
-                                            <input class="btn btn-primary" value="Save Changes" type="submit">
-                                            <span></span>
-                                            <input class="btn btn-default" value="Cancel" type="reset">
+                                        <label class="col-md-3 control-label">Country</label>
+                                        <div class="col-md-6">
+                                            <form:input type="text" path="country" class="form-control"
+                                                        placeholder="Country"
+                                            ></form:input>
                                         </div>
                                     </div>
+                                </spring:bind>
+                                <spring:bind path="region">
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Region</label>
+                                        <div class="col-md-6">
+                                            <form:input type="text" path="region" class="form-control"
+                                                        placeholder="Region"
+                                            ></form:input>
+                                        </div>
+                                    </div>
+                                </spring:bind>
 
-                                </fieldset>
-                            </form:form>
+                                <spring:bind path="city">
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">City/Town</label>
+                                        <div class="col-md-6">
+                                            <form:input type="text" path="city" class="form-control"
+                                                        placeholder="City / Town"
+                                            ></form:input>
+                                        </div>
+                                    </div>
+                                </spring:bind>
+
+                                <spring:bind path="streetAddress">
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label" for="address1">Address Line</label>
+                                        <div class="col-md-8">
+                                            <form:input id="address1" type="text" path="streetAddress"
+                                                        class="form-control" placeholder=""
+                                            ></form:input>
+                                            <span class="help-block">Street address, P.O. box, company name, c/o</span>
+                                        </div>
+                                    </div>
+                                </spring:bind>
+
+                                <!-- Text input-->
+                                <spring:bind path="postIndex">
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label" for="zip">Postal code</label>
+                                        <div class="col-md-4">
+                                            <form:input id="zip" type="text" path="postIndex" class="form-control"
+                                                        placeholder="Zip or Postal code"
+                                            ></form:input>
+                                        </div>
+                                    </div>
+                                </spring:bind>
+
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"></label>
+                                    <div class="col-md-8">
+                                        <input class="btn btn-primary" value="Save Changes" type="submit">
+                                        <span></span>
+                                        <input class="btn btn-default" value="Cancel" type="reset">
+                                    </div>
+                                </div>
+
+                            </fieldset>
+                        </form:form>
                     </div>
 
                 </div>

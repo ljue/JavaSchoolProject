@@ -24,7 +24,6 @@ public class AddressDAOImpl implements AddressDAO {
 
     @Override
     public List<AddressEntity> getAllAddressesByUserId(long userId) {
-        //UserEntity user = userDAO.getUserById(userId);
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
         List addresses = session.createQuery("FROM AddressEntity where userId=:userId")
@@ -39,6 +38,16 @@ public class AddressDAOImpl implements AddressDAO {
         session.beginTransaction();
         session.save(addressEntity);
         session.getTransaction().commit();
+    }
+
+    @Override
+    public AddressEntity getAddressById(long id) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        AddressEntity address = (AddressEntity) session.createQuery("FROM AddressEntity where addressId=:id")
+                .setParameter("id",id).uniqueResult();
+        session.getTransaction().commit();
+        return address;
     }
 
 

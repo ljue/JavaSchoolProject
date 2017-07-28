@@ -7,30 +7,30 @@ import java.io.Serializable;
  * Created by Людмила on 19.07.2017.
  */
 @Entity
-@Table(name = "DeliveryStatus", schema = "myshop_schema", catalog = "")
+@Table(name = "DeliveryStatus", schema = "myshop_schema")
 public class DeliveryStatusEntity implements Serializable {
     private int deliveryStatusId;
     private String deliveryStatusName;
 
     @Id
     @Column(name = "DeliveryStatusId", nullable = false)
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getDeliveryStatusId() {
         return deliveryStatusId;
     }
 
-    public void setDeliveryStatusId(int deliveryStatusId) {
-        this.deliveryStatusId = deliveryStatusId;
+    public void setDeliveryStatusId(int payStatusId) {
+        this.deliveryStatusId = payStatusId;
     }
 
     @Basic
-    @Column(name = "DeliveryStatusName", nullable = false, length = 50)
+    @Column(name = "DeliveryStatusName", nullable = false, length = 30)
     public String getDeliveryStatusName() {
         return deliveryStatusName;
     }
 
-    public void setDeliveryStatusName(String deliveryStatusName) {
-        this.deliveryStatusName = deliveryStatusName;
+    public void setDeliveryStatusName(String payStatusName) {
+        this.deliveryStatusName = payStatusName;
     }
 
     @Override

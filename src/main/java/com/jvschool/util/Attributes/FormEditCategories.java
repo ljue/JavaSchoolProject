@@ -1,7 +1,6 @@
 package com.jvschool.util.Attributes;
 
 import com.jvschool.entities.ProductCategoryEntity;
-import org.springframework.stereotype.Component;
 
 /**
  * Created by Людмила on 24.07.2017.

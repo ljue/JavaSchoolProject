@@ -27,8 +27,11 @@ public class ProductEntity  implements Serializable {
 
     private List<MultipartFile> images;
     private List<PicturesEntity> picturesByProductId;
+
+
     private Set<ProductPropertyEntity> properties = new HashSet<ProductPropertyEntity>();// = new ArrayList<>();
     //private List<ProductRadioPropertyEntity> radioProperties = new ArrayList<>();
+
 
     @Id
     @Column(name = "ProductId")

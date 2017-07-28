@@ -2,7 +2,8 @@ package com.jvschool.entities;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Людмила on 22.07.2017.
@@ -13,12 +14,12 @@ public class OrderEntity {
     private long orderId;
     private Timestamp dateTimeOrder;
 
-    private UserEntity userByClientId;
-    private AddressEntity addressByClientAddress;
-    private PayWayEntity payWayByPayWay;
-    private PayStatusEntity payStatusByPayStatus;
-    private DeliveryStatusEntity deliveryStatusByDeliveryStatus;
-   // private Collection<ProductEntity> productByProductId;
+    private UserEntity user;
+    private AddressEntity address;
+    private PayWayEntity payWay;
+    private DeliveryStatusEntity deliveryStatus;
+    private DeliveryWayEntity deliveryWay;
+    private List<ProductEntity> products = new ArrayList<>();
 
     @Id
     @Column(name = "OrderId", nullable = false)
@@ -65,61 +66,66 @@ public class OrderEntity {
 
 
     @ManyToOne
-    @JoinColumn(name = "ClientId", referencedColumnName = "Id", nullable = false)
-    public UserEntity getUserByClientId() {
-        return userByClientId;
+    @JoinColumn(name = "UserId", referencedColumnName = "Id", nullable = false)
+    public UserEntity getUser() {
+        return user;
     }
 
-    public void setUserByClientId(UserEntity userByClientId) {
-        this.userByClientId = userByClientId;
+    public void setUser(UserEntity userByClientId) {
+        this.user = userByClientId;
     }
 
     @ManyToOne
-    @JoinColumn(name = "ClientAddress", referencedColumnName = "AddressId", nullable = false)
-    public AddressEntity getAddressByClientAddress() {
-        return addressByClientAddress;
+    @JoinColumn(name = "UserAddress", referencedColumnName = "AddressId", nullable = false)
+    public AddressEntity getAddress() {
+        return address;
     }
 
-    public void setAddressByClientAddress(AddressEntity addressByClientAddress) {
-        this.addressByClientAddress = addressByClientAddress;
+    public void setAddress(AddressEntity addressByClientAddress) {
+        this.address = addressByClientAddress;
     }
 
     @ManyToOne
     @JoinColumn(name = "PayWay", referencedColumnName = "PayWayId", nullable = false)
-    public PayWayEntity getPayWayByPayWay() {
-        return payWayByPayWay;
+    public PayWayEntity getPayWay() {
+        return payWay;
     }
 
-    public void setPayWayByPayWay(PayWayEntity payWayByPayWay) {
-        this.payWayByPayWay = payWayByPayWay;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "PayStatus", referencedColumnName = "PayStatusId", nullable = false)
-    public PayStatusEntity getPayStatusByPayStatus() {
-        return payStatusByPayStatus;
-    }
-
-    public void setPayStatusByPayStatus(PayStatusEntity payStatusByPayStatus) {
-        this.payStatusByPayStatus = payStatusByPayStatus;
+    public void setPayWay(PayWayEntity payWayByPayWay) {
+        this.payWay = payWayByPayWay;
     }
 
     @ManyToOne
     @JoinColumn(name = "DeliveryStatus", referencedColumnName = "DeliveryStatusId", nullable = false)
-    public DeliveryStatusEntity getDeliveryStatusByDeliveryStatus() {
-        return deliveryStatusByDeliveryStatus;
+    public DeliveryStatusEntity getDeliveryStatus() {
+        return deliveryStatus;
     }
 
-    public void setDeliveryStatusByDeliveryStatus(DeliveryStatusEntity deliveryStatusByDeliveryStatus) {
-        this.deliveryStatusByDeliveryStatus = deliveryStatusByDeliveryStatus;
+    public void setDeliveryStatus(DeliveryStatusEntity payStatusByPayStatus) {
+        this.deliveryStatus = payStatusByPayStatus;
     }
 
-//    @OneToMany(mappedBy = "bucketByProductId")
-//    public Collection<ProductEntity> getBucketsByProductId() {
-//        return productByProductId;
-//    }
-//
-//    public void setBucketsByProductId(Collection<ProductEntity> productByProductId) {
-//        this.productByProductId = productByProductId;
-//    }
+    @ManyToOne
+    @JoinColumn(name = "DeliveryWay", referencedColumnName = "DeliveryWayId", nullable = false)
+    public DeliveryWayEntity getDeliveryWay() {
+        return deliveryWay;
+    }
+
+    public void setDeliveryWay(DeliveryWayEntity deliveryStatusByDeliveryStatus) {
+        this.deliveryWay = deliveryStatusByDeliveryStatus;
+    }
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "Order_Product",
+    joinColumns = @JoinColumn(name = "OrderId", referencedColumnName = "OrderId"),
+    inverseJoinColumns = @JoinColumn(name = "ProductId", referencedColumnName = "ProductId"))
+    public List<ProductEntity> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<ProductEntity> productByProductId) {
+        this.products = productByProductId;
+    }
+
+
 }

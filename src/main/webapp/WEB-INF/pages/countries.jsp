@@ -23,32 +23,32 @@
 
 <table class="tg">
 
-    <br>${product.productName}<br>
-    <br>${product.productId}<br>
-    <br>${product.cost}<br>
-    <br>${product.count}<br>
-    <br>${product.size}<br>
-    <br>${product.distance}<br>
-    <%--<br>${product.productCategoryByCategory.categoryName}<br>--%>
-    <br>${product.battery}<br>
-    <br>${product.flyTime}<br>
-    <br>${product.description}<br>
+    <%--<br>${product.productName}<br>--%>
+    <%--<br>${product.productId}<br>--%>
+    <%--<br>${product.cost}<br>--%>
+    <%--<br>${product.count}<br>--%>
+    <%--<br>${product.size}<br>--%>
+    <%--<br>${product.distance}<br>--%>
+    <%--&lt;%&ndash;<br>${product.productCategoryByCategory.categoryName}<br>&ndash;%&gt;--%>
+    <%--<br>${product.battery}<br>--%>
+    <%--<br>${product.flyTime}<br>--%>
+    <%--<br>${product.description}<br>--%>
 
-    <c:forEach items="${product.picturesByProductId}" var="pict">
-    <img src="../resources/Images/${pict.picName}" class="img-responsive">
-    </c:forEach>
+    <%--<c:forEach items="${product.picturesByProductId}" var="pict">--%>
+    <%--<img src="../resources/Images/${pict.picName}" class="img-responsive">--%>
+    <%--</c:forEach>--%>
 
 
     <%--<c:out value="${user.roleByRole.idRole}"></c:out>--%>
 
-    <c:forEach items="${countries}" var="country">
-        <tr>
-            <td>${country.id}</td>
+    <%--<c:forEach items="${countries}" var="country">--%>
+        <%--<tr>--%>
+            <%--<td>${country.id}</td>--%>
 
-            <td>${country.name}</td>
+            <%--<td>${country.name}</td>--%>
 
-        </tr>
-    </c:forEach>
+        <%--</tr>--%>
+    <%--</c:forEach>--%>
 </table>
 
 

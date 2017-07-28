@@ -48,9 +48,19 @@ create table myshop_schema.DeliveryStatus
 (
 	DeliveryStatusId int auto_increment
 		primary key,
-	DeliveryStatusName varchar(50) not null,
-	constraint DeliveryStatusName
+	DeliveryStatusName varchar(30) not null,
+	constraint PayStatusName
 	unique (DeliveryStatusName)
+)
+;
+
+create table myshop_schema.DeliveryWay
+(
+	DeliveryWayId int auto_increment
+		primary key,
+	DeliveryWayName varchar(50) not null,
+	constraint DeliveryStatusName
+	unique (DeliveryWayName)
 )
 ;
 
@@ -58,21 +68,23 @@ create table myshop_schema.`Order`
 (
 	OrderId bigint auto_increment
 		primary key,
-	ClientId bigint not null,
-	ClientAddress bigint not null,
+	UserId bigint not null,
+	UserAddress bigint not null,
 	PayWay int not null,
-	PayStatus int not null,
 	DeliveryStatus int not null,
+	DeliveryWay int not null,
 	DateTimeOrder timestamp default CURRENT_TIMESTAMP not null,
 	constraint Order_Address_AddressId_fk
-	foreign key (ClientAddress) references myshop_schema.Address (AddressId),
+	foreign key (UserAddress) references myshop_schema.Address (AddressId),
+	constraint Order_fk3
+	foreign key (DeliveryStatus) references myshop_schema.DeliveryStatus (DeliveryStatusId),
 	constraint Order_fk4
-	foreign key (DeliveryStatus) references myshop_schema.DeliveryStatus (DeliveryStatusId)
+	foreign key (DeliveryWay) references myshop_schema.DeliveryWay (DeliveryWayId)
 )
 ;
 
 create index Order_fk0
-	on `Order` (ClientId)
+	on `Order` (UserId)
 ;
 
 create index Order_fk2
@@ -80,15 +92,15 @@ create index Order_fk2
 ;
 
 create index Order_fk3
-	on `Order` (PayStatus)
-;
-
-create index Order_fk4
 	on `Order` (DeliveryStatus)
 ;
 
+create index Order_fk4
+	on `Order` (DeliveryWay)
+;
+
 create index Order_Address_AddressId_fk
-	on `Order` (ClientAddress)
+	on `Order` (UserAddress)
 ;
 
 create table myshop_schema.Order_Product
@@ -108,21 +120,6 @@ create index Order_Product_Order_OrderId_fk
 
 create index Order_Product_Product_ProductId_fk
 	on Order_Product (ProductId)
-;
-
-create table myshop_schema.PayStatus
-(
-	PayStatusId int auto_increment
-		primary key,
-	PayStatusName varchar(30) not null,
-	constraint PayStatusName
-	unique (PayStatusName)
-)
-;
-
-alter table `Order`
-	add constraint Order_fk3
-foreign key (PayStatus) references myshop_schema.PayStatus (PayStatusId)
 ;
 
 create table myshop_schema.PayWay
@@ -356,6 +353,6 @@ foreign key (UserId) references myshop_schema.User (Id)
 
 alter table `Order`
 	add constraint Order_fk0
-foreign key (ClientId) references myshop_schema.User (Id)
+foreign key (UserId) references myshop_schema.User (Id)
 ;
 

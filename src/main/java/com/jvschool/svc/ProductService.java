@@ -12,7 +12,8 @@ import java.util.Set;
 public interface ProductService {
 
     void addProduct(ProductEntity productEntity);
-    ProductAttribute getProductById(long id);
+    ProductAttribute getProductAttributeById(long id);
+    ProductEntity getProductById(long id);
     List<ProductAttribute> getAllProducts();
     List<ProductAttribute> getProductsToBuy(Set<Long> list);
 

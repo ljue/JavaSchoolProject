@@ -11,5 +11,6 @@ public interface AddressDAO {
 
     List<AddressEntity> getAllAddressesByUserId(long id);
     void addNewAddress(AddressEntity addressEntity);
+    AddressEntity getAddressById(long id);
 
 }

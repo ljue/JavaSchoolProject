@@ -22,12 +22,7 @@ public class AddressController {
 
     @Autowired
     private AddressService addressService;
-    @Autowired
-    private CountryService countryService;
-    @Autowired
-    private RegionService regionService;
-    @Autowired
-    private CityService cityService;
+
     @Autowired
     private UserService userService;
 

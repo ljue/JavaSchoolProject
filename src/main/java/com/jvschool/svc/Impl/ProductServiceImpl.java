@@ -28,8 +28,13 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductAttribute getProductById(long id) {
+    public ProductAttribute getProductAttributeById(long id) {
         return new ProductAttribute(productDAO.getProductById(id));
+    }
+
+    @Override
+    public ProductEntity getProductById(long id) {
+        return productDAO.getProductById(id);
     }
 
     @Override
