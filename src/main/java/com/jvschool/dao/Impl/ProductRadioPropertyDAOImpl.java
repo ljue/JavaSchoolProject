@@ -2,10 +2,11 @@ package com.jvschool.dao.Impl;
 
 import com.jvschool.dao.ProductRadioPropertyDAO;
 import com.jvschool.entities.ProductRadioPropertyEntity;
-import com.jvschool.util.HibernateUtil;
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 /**
@@ -13,32 +14,33 @@ import java.util.List;
  */
 @Repository
 public class ProductRadioPropertyDAOImpl implements ProductRadioPropertyDAO {
+
+    @PersistenceContext
+    private EntityManager em;
+
     @Override
     public List<ProductRadioPropertyEntity> getAllRadioProperties() {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
-        List <ProductRadioPropertyEntity> properties = session.createQuery("FROM ProductRadioPropertyEntity ").list();
-        session.getTransaction().commit();
+
+        List <ProductRadioPropertyEntity> properties = em.createQuery("FROM ProductRadioPropertyEntity ").getResultList();
+
         return properties;
     }
 
     @Override
     public ProductRadioPropertyEntity getProductRadioPropertyByName(String name) {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
-        ProductRadioPropertyEntity property = (ProductRadioPropertyEntity) session.createQuery("FROM ProductRadioPropertyEntity " +
-                "where name=:name").setParameter("name", name).uniqueResult();
-        session.getTransaction().commit();
+
+        ProductRadioPropertyEntity property = (ProductRadioPropertyEntity) em.createQuery("FROM ProductRadioPropertyEntity " +
+                "where name=:name").setParameter("name", name).getSingleResult();
+
         return property;
     }
 
     @Override
     public ProductRadioPropertyEntity getProductRadioPropertyById(int id) {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
-        ProductRadioPropertyEntity property = (ProductRadioPropertyEntity) session.createQuery("FROM ProductRadioPropertyEntity " +
-                "where id=:id").setParameter("id", id).uniqueResult();
-        session.getTransaction().commit();
+
+        ProductRadioPropertyEntity property = (ProductRadioPropertyEntity) em.createQuery("FROM ProductRadioPropertyEntity " +
+                "where id=:id").setParameter("id", id).getSingleResult();
+
         return property;
     }
 }

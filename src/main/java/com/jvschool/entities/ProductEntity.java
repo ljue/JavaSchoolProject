@@ -169,7 +169,7 @@ public class ProductEntity  implements Serializable {
         this.picturesByProductId = picturesByProductId;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL)//(fetch = FetchType.EAGER)
     @JoinColumn(name = "Category", referencedColumnName = "CategoryId", nullable = false)
     public ProductCategoryEntity getProductCategoryByCategory() {
         return productCategoryByCategory;
@@ -184,7 +184,7 @@ public class ProductEntity  implements Serializable {
 //    @JoinTable(name = "Prod_Prop",
 //            joinColumns = @JoinColumn(name = "ProductId"),
 //            inverseJoinColumns = @JoinColumn(name = "ProductPropertyId"))
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "Prod_Prop",
             joinColumns = @JoinColumn(name = "ProductId", referencedColumnName = "ProductId"),
             inverseJoinColumns = @JoinColumn(name = "ProductPropertyId", referencedColumnName = "ProdPropId"))

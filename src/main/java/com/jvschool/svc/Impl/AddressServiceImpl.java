@@ -6,6 +6,7 @@ import com.jvschool.svc.AddressService;
 import com.jvschool.util.Attributes.AddressAttribute;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.List;
  * Created by Людмила on 24.07.2017.
  */
 @Service
+@Transactional
 public class AddressServiceImpl implements AddressService {
 
     @Autowired

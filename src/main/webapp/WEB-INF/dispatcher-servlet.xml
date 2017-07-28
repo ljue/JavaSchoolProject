@@ -17,8 +17,6 @@
 
     <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"/>
 
-
-
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/pages/"/>
         <property name="suffix" value=".jsp"/>
@@ -27,6 +25,47 @@
     <mvc:resources mapping="/resources/Images/**" location="/resources/Images/" />
 
     <context:component-scan base-package="com.jvschool"/>
+
+
+    <!-- Database Information -->
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+          destroy-method="close">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/"/>
+        <property name="username" value="root"/>
+        <property name="password" value="password"/>
+    </bean>
+
+    <bean id="mms-persistence-unit" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="persistenceProviderClass" value="org.hibernate.jpa.HibernatePersistenceProvider"/>
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
+        </property>
+        <property name="jpaProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+                <!--<prop key="hibernate.show_sql">true</prop>-->
+                <!--<prop key="hibernate.format_sql">true</prop>-->
+
+            </props>
+        </property>
+        <property name="packagesToScan">
+            <list>
+                <value>com.jvschool.entities</value>
+            </list>
+        </property>
+    </bean>
+
+
+    <context:component-scan base-package="com.jvschool"/>
+
+    <tx:annotation-driven transaction-manager="txManager"/>
+
+    <bean id="txManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="mms-persistence-unit"/>
+    </bean>
+
 
     <mvc:default-servlet-handler/>
     <mvc:annotation-driven/>

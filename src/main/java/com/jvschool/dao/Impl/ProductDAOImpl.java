@@ -1,12 +1,12 @@
 package com.jvschool.dao.Impl;
 
 import com.jvschool.dao.ProductDAO;
-import com.jvschool.entities.PicturesEntity;
 import com.jvschool.entities.ProductEntity;
-import com.jvschool.util.HibernateUtil;
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Set;
 
@@ -16,11 +16,14 @@ import java.util.Set;
 @Repository
 public class ProductDAOImpl implements ProductDAO {
 
+    @PersistenceContext
+    private EntityManager em;
+
+
     @Override
     public void addProduct(ProductEntity productEntity) {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
-        session.save(productEntity);
+
+        em.merge(productEntity);
 //        List<PicturesEntity> lpic = productEntity.getPicturesByProductId();
 //        for (PicturesEntity pic:lpic) {
 //            pic.setProductByProductId(productEntity);
@@ -28,35 +31,32 @@ public class ProductDAOImpl implements ProductDAO {
 //        }
 
         //session.persist(productEntity);
-        session.getTransaction().commit();
+
     }
 
     @Override
     public ProductEntity getProductById(long id) {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
-        ProductEntity productEntity = (ProductEntity) session.createQuery("from ProductEntity where id=:id")
-                .setParameter("id",id).uniqueResult();
-        session.getTransaction().commit();
+
+        ProductEntity productEntity = (ProductEntity) em.createQuery("from ProductEntity where id=:id")
+                .setParameter("id",id).getSingleResult();
+
         return  productEntity;
     }
 
     @Override
     public List<ProductEntity> getAllProducts() {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
-        List<ProductEntity> products = session.createQuery("from ProductEntity ").list();
-        session.getTransaction().commit();
+
+        List<ProductEntity> products = em.createQuery("from ProductEntity ").getResultList();
+
         return  products;
     }
 
     @Override
     public List<ProductEntity> getProductsToBuy(Set<Long> set) {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
-        List<ProductEntity> products = session.createQuery("from ProductEntity pe where pe.id in (:list) ")
-        .setParameterList("list",set).list();
-        session.getTransaction().commit();
+
+        List<ProductEntity> products = em.createQuery("from ProductEntity pe where pe.id in (:list) ")
+        .setParameter("list",set).getResultList();
+
         return  products;
     }
 }

@@ -5,6 +5,7 @@ import com.jvschool.entities.DeliveryStatusEntity;
 import com.jvschool.svc.DeliveryStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
  * Created by Людмила on 28.07.2017.
  */
 @Service
+@Transactional
 public class DeliveryStatusServiceImpl implements DeliveryStatusService {
 
     @Autowired

@@ -2,10 +2,11 @@ package com.jvschool.dao.Impl;
 
 import com.jvschool.dao.DeliveryWayDAO;
 import com.jvschool.entities.DeliveryWayEntity;
-import com.jvschool.util.HibernateUtil;
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 /**
@@ -13,22 +14,24 @@ import java.util.List;
  */
 @Repository
 public class DeliveryWayDAOImpl implements DeliveryWayDAO {
+
+    @PersistenceContext
+    private EntityManager em;
+
     @Override
     public List<DeliveryWayEntity> getAllDeliveryWays() {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
-        List<DeliveryWayEntity> ways = session.createQuery("from DeliveryWayEntity ").list();
-        session.getTransaction().commit();
+
+        List<DeliveryWayEntity> ways = em.createQuery("from DeliveryWayEntity ").getResultList();
+
         return  ways;
     }
 
     @Override
     public DeliveryWayEntity getDeliveryWayByName(String name) {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
-        DeliveryWayEntity way = (DeliveryWayEntity) session.createQuery("FROM DeliveryWayEntity where deliveryWayName=:name")
-                .setParameter("name",name).uniqueResult();
-        session.getTransaction().commit();
+
+        DeliveryWayEntity way = (DeliveryWayEntity) em.createQuery("FROM DeliveryWayEntity where deliveryWayName=:name")
+                .setParameter("name",name).getSingleResult();
+
         return way;
     }
 }

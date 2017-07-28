@@ -2,10 +2,11 @@ package com.jvschool.dao.Impl;
 
 import com.jvschool.dao.DeliveryStatusDAO;
 import com.jvschool.entities.DeliveryStatusEntity;
-import com.jvschool.util.HibernateUtil;
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 /**
@@ -13,22 +14,24 @@ import java.util.List;
  */
 @Repository
 public class DeliveryStatusDAOImpl implements DeliveryStatusDAO {
+
+    @PersistenceContext
+    private EntityManager em;
+
     @Override
     public List<DeliveryStatusEntity> getAllDeliveryStatuses() {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
-        List<DeliveryStatusEntity> statuses = session.createQuery("from DeliveryStatusEntity ").list();
-        session.getTransaction().commit();
+
+        List<DeliveryStatusEntity> statuses = em.createQuery("from DeliveryStatusEntity ").getResultList();
+
         return  statuses;
     }
 
     @Override
     public DeliveryStatusEntity getDeliveryStatusByName(String name) {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
-        DeliveryStatusEntity status = (DeliveryStatusEntity) session.createQuery("FROM DeliveryStatusEntity where deliveryStatusName=:name")
-                .setParameter("name",name).uniqueResult();
-        session.getTransaction().commit();
+
+        DeliveryStatusEntity status = (DeliveryStatusEntity) em.createQuery("FROM DeliveryStatusEntity where deliveryStatusName=:name")
+                .setParameter("name",name).getSingleResult();
+
         return status;
     }
 }

@@ -2,11 +2,11 @@ package com.jvschool.dao.Impl;
 
 import com.jvschool.dao.PayWayDAO;
 import com.jvschool.entities.PayWayEntity;
-import com.jvschool.entities.RoleEntity;
-import com.jvschool.util.HibernateUtil;
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 /**
@@ -14,22 +14,24 @@ import java.util.List;
  */
 @Repository
 public class PayWayDAOImpl implements PayWayDAO {
+
+    @PersistenceContext
+    private EntityManager em;
+
     @Override
     public List<PayWayEntity> getAllPayWays() {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
-        List<PayWayEntity> ways = session.createQuery("from PayWayEntity ").list();
-        session.getTransaction().commit();
+
+        List<PayWayEntity> ways = em.createQuery("from PayWayEntity ").getResultList();
+
         return  ways;
     }
 
     @Override
     public PayWayEntity getPayWayByName(String name) {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
-        PayWayEntity way = (PayWayEntity) session.createQuery("FROM PayWayEntity where payWayName=:name")
-                .setParameter("name",name).uniqueResult();
-        session.getTransaction().commit();
+
+        PayWayEntity way = (PayWayEntity) em.createQuery("FROM PayWayEntity where payWayName=:name")
+                .setParameter("name",name).getSingleResult();
+
         return way;
     }
 }

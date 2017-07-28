@@ -5,6 +5,7 @@ import com.jvschool.entities.PayWayEntity;
 import com.jvschool.svc.PayWayService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
  * Created by Людмила on 28.07.2017.
  */
 @Service
+@Transactional
 public class PayWayServiceImpl implements PayWayService {
 
     @Autowired

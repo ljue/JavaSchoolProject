@@ -13,7 +13,7 @@ import java.util.List;
 public class ProductCategoryEntity  implements Serializable {
     private int categoryId;
     private String categoryName;
-    private List<ProductEntity> productsByCategoryId;
+//    private List<ProductEntity> productsByCategoryId;
 
     @Id
     @Column(name = "CategoryId")
@@ -56,12 +56,12 @@ public class ProductCategoryEntity  implements Serializable {
         return result;
     }
 
-    @OneToMany(mappedBy = "productCategoryByCategory")
-    public List<ProductEntity> getProductsByCategoryId() {
-        return productsByCategoryId;
-    }
-
-    public void setProductsByCategoryId(List<ProductEntity> productsByCategoryId) {
-        this.productsByCategoryId = productsByCategoryId;
-    }
+//    @OneToMany(mappedBy = "productCategoryByCategory")
+//    public List<ProductEntity> getProductsByCategoryId() {
+//        return productsByCategoryId;
+//    }
+//
+//    public void setProductsByCategoryId(List<ProductEntity> productsByCategoryId) {
+//        this.productsByCategoryId = productsByCategoryId;
+//    }
 }

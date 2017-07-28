@@ -2,10 +2,11 @@ package com.jvschool.dao.Impl;
 
 import com.jvschool.dao.ProductPropertyDAO;
 import com.jvschool.entities.ProductPropertyEntity;
-import com.jvschool.util.HibernateUtil;
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 /**
@@ -13,32 +14,33 @@ import java.util.List;
  */
 @Repository
 public class ProductPropertyDAOImpl implements ProductPropertyDAO {
+
+    @PersistenceContext
+    private EntityManager em;
+
     @Override
     public List<ProductPropertyEntity> getAllProductProperties() {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
-        List <ProductPropertyEntity> properties = session.createQuery("FROM ProductPropertyEntity ").list();
-        session.getTransaction().commit();
+
+        List <ProductPropertyEntity> properties = em.createQuery("FROM ProductPropertyEntity ").getResultList();
+
         return properties;
     }
 
     @Override
     public ProductPropertyEntity getProductPropertyByName(String name) {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
-        ProductPropertyEntity property = (ProductPropertyEntity) session.createQuery("FROM ProductPropertyEntity " +
-                "where prodPropName=:name").setParameter("name", name).uniqueResult();
-        session.getTransaction().commit();
+
+        ProductPropertyEntity property = (ProductPropertyEntity) em.createQuery("FROM ProductPropertyEntity " +
+                "where prodPropName=:name").setParameter("name", name).getSingleResult();
+
         return property;
     }
 
     @Override
     public ProductPropertyEntity getProductPropertyById(int id) {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
-        ProductPropertyEntity property = (ProductPropertyEntity) session.createQuery("FROM ProductPropertyEntity " +
-                "where prodPropId=:id").setParameter("id", id).uniqueResult();
-        session.getTransaction().commit();
+
+        ProductPropertyEntity property = (ProductPropertyEntity) em.createQuery("FROM ProductPropertyEntity " +
+                "where prodPropId=:id").setParameter("id", id).getSingleResult();
+
         return property;
     }
 }

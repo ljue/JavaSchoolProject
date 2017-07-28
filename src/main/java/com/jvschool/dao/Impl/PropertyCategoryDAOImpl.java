@@ -2,10 +2,11 @@ package com.jvschool.dao.Impl;
 
 import com.jvschool.dao.PropertyCategoryDAO;
 import com.jvschool.entities.PropertyCategoryEntity;
-import com.jvschool.util.HibernateUtil;
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 /**
@@ -14,22 +15,23 @@ import java.util.List;
 @Repository
 public class PropertyCategoryDAOImpl implements PropertyCategoryDAO {
 
+    @PersistenceContext
+    private EntityManager em;
+
     @Override
     public List<PropertyCategoryEntity> getAllProductCategories() {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
-        List <PropertyCategoryEntity> properties = session.createQuery("FROM PropertyCategoryEntity ").list();
-        session.getTransaction().commit();
+
+        List <PropertyCategoryEntity> properties = em.createQuery("FROM PropertyCategoryEntity ").getResultList();
+
         return properties;
     }
 
     @Override
     public PropertyCategoryEntity getProductCategoryById(int id) {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
-        PropertyCategoryEntity property = (PropertyCategoryEntity) session.createQuery("FROM PropertyCategoryEntity " +
-                "where propCatId=:id").setParameter("id", id).uniqueResult();
-        session.getTransaction().commit();
+
+        PropertyCategoryEntity property = (PropertyCategoryEntity) em.createQuery("FROM PropertyCategoryEntity " +
+                "where propCatId=:id").setParameter("id", id).getSingleResult();
+
         return property;
     }
 }

@@ -129,7 +129,7 @@ public class UserEntity  implements Serializable {
         return result;
     }
 
-    @OneToMany(cascade = CascadeType.ALL)//(fetch = FetchType.EAGER)mappedBy = "userByUserId",
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)//mappedBy = "userByUserId",
     @JoinColumn(name = "UserId", referencedColumnName = "Id")
     public List<AddressEntity> getAddresses() {
         return addresses;
