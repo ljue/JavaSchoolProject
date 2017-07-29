@@ -59,7 +59,7 @@ public class ProductPropertyEntity  implements Serializable {
         return result;
     }
 
-    @ManyToOne//(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ProdPropCatId", referencedColumnName = "PropCatId")
     public PropertyCategoryEntity getPropertyCategoryByProdPropCatId() {
         return propertyCategoryByProdPropCatId;

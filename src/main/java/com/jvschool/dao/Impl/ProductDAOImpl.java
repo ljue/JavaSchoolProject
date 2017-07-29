@@ -24,6 +24,7 @@ public class ProductDAOImpl implements ProductDAO {
     public void addProduct(ProductEntity productEntity) {
 
         em.merge(productEntity);
+        //em.refresh(productEntity);
 //        List<PicturesEntity> lpic = productEntity.getPicturesByProductId();
 //        for (PicturesEntity pic:lpic) {
 //            pic.setProductByProductId(productEntity);
@@ -46,7 +47,7 @@ public class ProductDAOImpl implements ProductDAO {
     @Override
     public List<ProductEntity> getAllProducts() {
 
-        List<ProductEntity> products = em.createQuery("from ProductEntity ").getResultList();
+        List<ProductEntity> products = em.createQuery("FROM ProductEntity ").getResultList();
 
         return  products;
     }
