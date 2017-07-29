@@ -29,9 +29,12 @@ public class DeliveryWayDAOImpl implements DeliveryWayDAO {
     @Override
     public DeliveryWayEntity getDeliveryWayByName(String name) {
 
-        DeliveryWayEntity way = (DeliveryWayEntity) em.createQuery("FROM DeliveryWayEntity where deliveryWayName=:name")
-                .setParameter("name",name).getSingleResult();
+        List list = em.createQuery("FROM DeliveryWayEntity where deliveryWayName=:name")
+                .setParameter("name",name).getResultList();
 
-        return way;
+        if(list.isEmpty())
+            return null;
+        else
+            return (DeliveryWayEntity) list.get(0);
     }
 }

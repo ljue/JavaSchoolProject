@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+
 import java.util.List;
 
 /**
@@ -24,26 +25,36 @@ public class UserDAOImpl implements UserDAO {
 
     public UserEntity getUserById(Long id) {
 
-        UserEntity user  = (UserEntity) em.createQuery("FROM UserEntity where id=:id")
-            .setParameter("id",id).getSingleResult();
+        List list  = em.createQuery("FROM UserEntity where id=:id")
+            .setParameter("id",id).getResultList();
 
-        return user;
+        if(list.isEmpty())
+            return null;
+        else
+            return (UserEntity) list.get(0);
     }
 
     public UserEntity getUserByLogin(String login){
 
-        UserEntity user = (UserEntity) em.createQuery("FROM UserEntity where login=:log")
-                .setParameter("log",login).getSingleResult();
+        List list = em.createQuery("FROM UserEntity where login=:log")
+                .setParameter("log",login).getResultList();
 
-        return user;
+        if(list.isEmpty())
+            return null;
+        else
+            return (UserEntity) list.get(0);
     }
 
     public UserEntity getUserByEmail(String email){
 
-        UserEntity user = (UserEntity) em.createQuery("FROM UserEntity where email=:mail")
-                .setParameter("mail",email).getSingleResult();
+        List list = em.createQuery("FROM UserEntity where email=:mail")
+                .setParameter("mail",email).getResultList();
 
-        return user;
+        if(list.isEmpty())
+            return null;
+        else
+            return (UserEntity) list.get(0);
+
     }
 
     public List<UserEntity> getAllUsers() {
@@ -99,10 +110,13 @@ public class UserDAOImpl implements UserDAO {
 
     public UserEntity loginUser(String login, String password) {
 
-        UserEntity user = (UserEntity) em.createQuery("FROM UserEntity where login=:log"+
-                " and pass=:passw").setParameter("log",login)
-                .setParameter("passw",password).getSingleResult();
+        List list =  em.createQuery("FROM UserEntity where login=:log" +
+                " and pass=:passw").setParameter("log", login)
+                .setParameter("passw", password).getResultList();
 
-        return user;
+        if(list.isEmpty())
+            return null;
+        else
+            return (UserEntity) list.get(0);
     }
 }

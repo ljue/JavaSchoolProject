@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 /**
  * Created by Людмила on 21.07.2017.
@@ -20,9 +21,12 @@ public class RoleDAOImpl implements RoleDAO {
     @Override
     public RoleEntity getRoleByName(String nameRole) {
 
-        RoleEntity role = (RoleEntity) em.createQuery("FROM RoleEntity where name=:namerole")
-                .setParameter("namerole",nameRole).getSingleResult();
+        List list = em.createQuery("FROM RoleEntity where name=:namerole")
+                .setParameter("namerole",nameRole).getResultList();
 
-        return role;
+        if(list.isEmpty())
+            return null;
+        else
+            return (RoleEntity) list.get(0);
     }
 }

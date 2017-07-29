@@ -42,9 +42,9 @@ public class UserController {
     public String login(@ModelAttribute("user") SessionUser user,
                         Model model, HttpServletRequest request, String error, String logout) {
 
-        SessionUser us = new SessionUser(userService.loginUser(user.getLogin(),user.getPass()),user.getProducts());
-        if (us!=null) {
-            model.addAttribute("user",us);
+        UserEntity use = userService.loginUser(user.getLogin(),user.getPass());
+        if (use!=null) {
+            model.addAttribute("user", new SessionUser(use,user.getProducts()));
             return "redirect:/home";
         }
         else {

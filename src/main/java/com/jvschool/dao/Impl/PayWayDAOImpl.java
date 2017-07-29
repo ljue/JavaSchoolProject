@@ -29,9 +29,12 @@ public class PayWayDAOImpl implements PayWayDAO {
     @Override
     public PayWayEntity getPayWayByName(String name) {
 
-        PayWayEntity way = (PayWayEntity) em.createQuery("FROM PayWayEntity where payWayName=:name")
-                .setParameter("name",name).getSingleResult();
+        List list = em.createQuery("FROM PayWayEntity where payWayName=:name")
+                .setParameter("name",name).getResultList();
 
-        return way;
+        if(list.isEmpty())
+            return null;
+        else
+            return (PayWayEntity) list.get(0);
     }
 }

@@ -38,10 +38,13 @@ public class ProductDAOImpl implements ProductDAO {
     @Override
     public ProductEntity getProductById(long id) {
 
-        ProductEntity productEntity = (ProductEntity) em.createQuery("from ProductEntity where id=:id")
-                .setParameter("id",id).getSingleResult();
+        List list = em.createQuery("from ProductEntity where id=:id")
+                .setParameter("id",id).getResultList();
 
-        return  productEntity;
+        if(list.isEmpty())
+            return null;
+        else
+            return (ProductEntity) list.get(0);
     }
 
     @Override

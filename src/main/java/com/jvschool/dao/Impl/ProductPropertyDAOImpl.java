@@ -29,18 +29,24 @@ public class ProductPropertyDAOImpl implements ProductPropertyDAO {
     @Override
     public ProductPropertyEntity getProductPropertyByName(String name) {
 
-        ProductPropertyEntity property = (ProductPropertyEntity) em.createQuery("FROM ProductPropertyEntity " +
-                "where prodPropName=:name").setParameter("name", name).getSingleResult();
+        List list = em.createQuery("FROM ProductPropertyEntity " +
+                "where prodPropName=:name").setParameter("name", name).getResultList();
 
-        return property;
+        if(list.isEmpty())
+            return null;
+        else
+            return (ProductPropertyEntity) list.get(0);
     }
 
     @Override
     public ProductPropertyEntity getProductPropertyById(int id) {
 
-        ProductPropertyEntity property = (ProductPropertyEntity) em.createQuery("FROM ProductPropertyEntity " +
-                "where prodPropId=:id").setParameter("id", id).getSingleResult();
+        List list = em.createQuery("FROM ProductPropertyEntity " +
+                "where prodPropId=:id").setParameter("id", id).getResultList();
 
-        return property;
+        if(list.isEmpty())
+            return null;
+        else
+            return (ProductPropertyEntity) list.get(0);
     }
 }

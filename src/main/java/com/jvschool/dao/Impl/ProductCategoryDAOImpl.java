@@ -29,19 +29,25 @@ public class ProductCategoryDAOImpl implements com.jvschool.dao.ProductCategoryD
     @Override
     public ProductCategoryEntity getProductCategoryById(int id) {
 
-        ProductCategoryEntity category = (ProductCategoryEntity) em.createQuery("FROM ProductCategoryEntity " +
-                "where categoryId=:id").setParameter("id", id).getSingleResult();
+        List list = em.createQuery("FROM ProductCategoryEntity " +
+                "where categoryId=:id").setParameter("id", id).getResultList();
 
-        return category;
+        if(list.isEmpty())
+            return null;
+        else
+            return (ProductCategoryEntity) list.get(0);
     }
 
     @Override
     public ProductCategoryEntity getProductCategoryByName(String name) {
 
-        ProductCategoryEntity category = (ProductCategoryEntity) em.createQuery("FROM ProductCategoryEntity " +
-                "where categoryName=:name").setParameter("name", name).getSingleResult();
+        List list  =  em.createQuery("FROM ProductCategoryEntity " +
+                "where categoryName=:name").setParameter("name", name).getResultList();
 
-        return category;
+        if(list.isEmpty())
+            return null;
+        else
+            return (ProductCategoryEntity) list.get(0);
     }
 
     @Override

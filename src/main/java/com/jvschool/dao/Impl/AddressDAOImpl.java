@@ -42,9 +42,13 @@ public class AddressDAOImpl implements AddressDAO {
     @Override
     public AddressEntity getAddressById(long id) {
 
-        AddressEntity address = (AddressEntity) em.createQuery("FROM AddressEntity where addressId=:id")
-                .setParameter("id",id).getSingleResult();
-        return address;
+        List list = em.createQuery("FROM AddressEntity where addressId=:id")
+                .setParameter("id",id).getResultList();
+
+        if(list.isEmpty())
+            return null;
+        else
+            return (AddressEntity) list.get(0);
     }
 
 

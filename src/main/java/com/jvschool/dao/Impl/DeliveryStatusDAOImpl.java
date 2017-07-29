@@ -29,9 +29,12 @@ public class DeliveryStatusDAOImpl implements DeliveryStatusDAO {
     @Override
     public DeliveryStatusEntity getDeliveryStatusByName(String name) {
 
-        DeliveryStatusEntity status = (DeliveryStatusEntity) em.createQuery("FROM DeliveryStatusEntity where deliveryStatusName=:name")
-                .setParameter("name",name).getSingleResult();
+        List list = em.createQuery("FROM DeliveryStatusEntity where deliveryStatusName=:name")
+                .setParameter("name",name).getResultList();
 
-        return status;
+        if(list.isEmpty())
+            return null;
+        else
+            return (DeliveryStatusEntity) list.get(0);
     }
 }

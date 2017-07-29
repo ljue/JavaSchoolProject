@@ -29,9 +29,12 @@ public class PropertyCategoryDAOImpl implements PropertyCategoryDAO {
     @Override
     public PropertyCategoryEntity getProductCategoryById(int id) {
 
-        PropertyCategoryEntity property = (PropertyCategoryEntity) em.createQuery("FROM PropertyCategoryEntity " +
-                "where propCatId=:id").setParameter("id", id).getSingleResult();
+        List list = em.createQuery("FROM PropertyCategoryEntity " +
+                "where propCatId=:id").setParameter("id", id).getResultList();
 
-        return property;
+        if(list.isEmpty())
+            return null;
+        else
+            return (PropertyCategoryEntity) list.get(0);
     }
 }
