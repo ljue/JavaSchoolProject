@@ -21,7 +21,8 @@ public class DeliveryStatusDAOImpl implements DeliveryStatusDAO {
     @Override
     public List<DeliveryStatusEntity> getAllDeliveryStatuses() {
 
-        List<DeliveryStatusEntity> statuses = em.createQuery("from DeliveryStatusEntity ").getResultList();
+        List<DeliveryStatusEntity> statuses = em.createQuery("from DeliveryStatusEntity order by deliveryStatusId")
+                .getResultList();
 
         return  statuses;
     }

@@ -7,14 +7,14 @@ import com.jvschool.entities.ProductEntity;
 
 import com.jvschool.svc.*;
 import com.jvschool.util.Attributes.FormEditCategories;
+import com.jvschool.util.Attributes.OrderAttribute;
+import com.jvschool.util.Attributes.ProductAttribute;
 import com.jvschool.util.ProductValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 
@@ -32,24 +32,22 @@ public class ManagerController {
 
     @Autowired
     private ProductCategoryService productCategoryService;
-
     @Autowired
     private PropertyCategoryService propertyCategoryService;
-
     @Autowired
     private ProductPropertyService productPropertyService;
-
     @Autowired
     private ProductValidator productValidator;
-
     @Autowired
     private ProductService productService;
-
     @Autowired
     private PropertyRadioCategoryService propertyRadioCategoryService;
-
     @Autowired
     private ProductRadioPropertyService productRadioPropertyService;
+    @Autowired
+    private OrderService orderService;
+
+
 
     @RequestMapping(value = "/orderList", method = RequestMethod.GET)
     public String goOrderList(Model model) {
@@ -144,5 +142,31 @@ public class ManagerController {
                                 Model model){
         productCategoryService.addProductCategory(productCategoryEntity.getCategoryName());
         return "redirect:/editCategories";
+    }
+
+
+
+    @GetMapping(value = "/adminOrders")
+    public String goAdminOrders(Model model) {
+
+        List<OrderAttribute> orders = orderService.getOrdersGroupByDeliveryStatus();
+        model.addAttribute("orders", orders);
+
+        return "adminOrders";
+    }
+
+    @GetMapping(value = "/adminOrders/{orderId}")
+    public String goCheckOrder(@PathVariable("orderId") Long orderId, Model model) {
+
+        OrderAttribute orderAttribute = orderService.getOrderById(orderId);
+        List<ProductAttribute> lpa = new ArrayList<>();
+        for(Long id : orderAttribute.getProducts()) {
+            lpa.add(productService.getProductAttributeById(id));
+        }
+        model.addAttribute("order",orderAttribute);
+        model.addAttribute("products", lpa);
+
+
+        return "checkOrder";
     }
 }

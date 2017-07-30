@@ -1,358 +1,283 @@
-create table myshop_schema.Address
+create table MYSHOP_SCHEMA.ADDRESS
 (
-	AddressId bigint auto_increment
+	ADDRESS_ID bigint auto_increment
 		primary key,
-	Country varchar(255) not null,
-	Region varchar(255) not null,
-	City varchar(255) not null,
-	StreetAddress varchar(255) not null,
-	PostIndex varchar(30) not null,
-	UserId bigint null
+	COUNTRY varchar(255) not null,
+	REGION varchar(255) not null,
+	CITY varchar(255) not null,
+	STREET_ADDRESS varchar(255) not null,
+	POST_INDEX varchar(30) not null,
+	USER_ID bigint null
 )
 ;
 
-create index Adress_City_id_fk
-	on Address (City)
+create index ADDRESS_USER_ID_FK
+	on ADDRESS (USER_ID)
 ;
 
-create index Adress_Country_id_fk
-	on Address (Country)
-;
-
-create index Adress_Region_id_fk
-	on Address (Region)
-;
-
-create index Address_User_Id_fk
-	on Address (UserId)
-;
-
-create table myshop_schema.City
+create table MYSHOP_SCHEMA.CATEGORY
 (
-	id bigint auto_increment
+	CATEGORY_ID bigint auto_increment
 		primary key,
-	region_id bigint not null,
-	name varchar(128) not null
+	NAME varchar(50) null,
+	constraint CATEGORY_NAME_UINDEX
+	unique (NAME)
 )
 ;
 
-create table myshop_schema.Country
+create table MYSHOP_SCHEMA.CITY
 (
-	id bigint not null
+	CITY_ID bigint auto_increment
 		primary key,
-	name varchar(128) not null
+	REGION_ID bigint not null,
+	NAME varchar(128) not null
 )
 ;
 
-create table myshop_schema.DeliveryStatus
+create table MYSHOP_SCHEMA.COUNTRY
 (
-	DeliveryStatusId int auto_increment
+	COUNTRY_ID bigint not null
 		primary key,
-	DeliveryStatusName varchar(30) not null,
-	constraint PayStatusName
-	unique (DeliveryStatusName)
+	NAME varchar(128) not null
 )
 ;
 
-create table myshop_schema.DeliveryWay
+create table MYSHOP_SCHEMA.DELIVERY_STATUS
 (
-	DeliveryWayId int auto_increment
+	DELIVERY_STATUS_ID bigint auto_increment
 		primary key,
-	DeliveryWayName varchar(50) not null,
-	constraint DeliveryStatusName
-	unique (DeliveryWayName)
+	NAME varchar(30) not null,
+	constraint PayStatusNAME
+	unique (NAME)
 )
 ;
 
-create table myshop_schema.`Order`
+create table MYSHOP_SCHEMA.DELIVERY_WAY
 (
-	OrderId bigint auto_increment
+	DELIVERY_WAY_ID bigint auto_increment
 		primary key,
-	UserId bigint not null,
-	UserAddress bigint not null,
-	PayWay int not null,
-	DeliveryStatus int not null,
-	DeliveryWay int not null,
-	DateTimeOrder timestamp default CURRENT_TIMESTAMP not null,
-	constraint Order_Address_AddressId_fk
-	foreign key (UserAddress) references myshop_schema.Address (AddressId),
-	constraint Order_fk3
-	foreign key (DeliveryStatus) references myshop_schema.DeliveryStatus (DeliveryStatusId),
-	constraint Order_fk4
-	foreign key (DeliveryWay) references myshop_schema.DeliveryWay (DeliveryWayId)
+	NAME varchar(50) not null,
+	constraint DELIVERY_STATUSNAME
+	unique (NAME)
 )
 ;
 
-create index Order_fk0
-	on `Order` (UserId)
-;
-
-create index Order_fk2
-	on `Order` (PayWay)
-;
-
-create index Order_fk3
-	on `Order` (DeliveryStatus)
-;
-
-create index Order_fk4
-	on `Order` (DeliveryWay)
-;
-
-create index Order_Address_AddressId_fk
-	on `Order` (UserAddress)
-;
-
-create table myshop_schema.Order_Product
+create table MYSHOP_SCHEMA.`ORDER`
 (
-	id bigint auto_increment
+	ORDER_ID bigint auto_increment
 		primary key,
-	OrderId bigint null,
-	ProductId bigint null,
-	constraint Order_Product_Order_OrderId_fk
-	foreign key (OrderId) references myshop_schema.`Order` (OrderId)
+	USER_ID bigint not null,
+	USER_ADDRESS_ID bigint not null,
+	PAY_WAY_ID bigint not null,
+	DELIVERY_STATUS_ID bigint not null,
+	DELIVERY_WAY_ID bigint not null,
+	TIME timestamp default CURRENT_TIMESTAMP not null,
+	constraint ORDER_ADDRESS_ID_FK
+	foreign key (USER_ADDRESS_ID) references MYSHOP_SCHEMA.ADDRESS (ADDRESS_ID),
+	constraint ORDER_FK3
+	foreign key (DELIVERY_STATUS_ID) references MYSHOP_SCHEMA.DELIVERY_STATUS (DELIVERY_STATUS_ID),
+	constraint ORDER_FK4
+	foreign key (DELIVERY_WAY_ID) references MYSHOP_SCHEMA.DELIVERY_WAY (DELIVERY_WAY_ID)
 )
 ;
 
-create index Order_Product_Order_OrderId_fk
-	on Order_Product (OrderId)
+create index ORDER_ADDRESS_ID_FK
+	on `ORDER` (USER_ADDRESS_ID)
 ;
 
-create index Order_Product_Product_ProductId_fk
-	on Order_Product (ProductId)
+create index ORDER_FK0
+	on `ORDER` (USER_ID)
 ;
 
-create table myshop_schema.PayWay
+create index ORDER_FK2
+	on `ORDER` (PAY_WAY_ID)
+;
+
+create index ORDER_FK3
+	on `ORDER` (DELIVERY_STATUS_ID)
+;
+
+create index ORDER_FK4
+	on `ORDER` (DELIVERY_WAY_ID)
+;
+
+create table MYSHOP_SCHEMA.ORDER_HAS_PRODUCT
 (
-	PayWayId int auto_increment
+	ORDER_HAS_PRODUCT_ID bigint auto_increment
 		primary key,
-	PayWayName varchar(50) not null,
-	constraint PayWayName
-	unique (PayWayName)
+	ORDER_ID bigint null,
+	PRODUCT_ID bigint null,
+	constraint ORDER_HAS_PRODUCT_ORDER_ID_FK
+	foreign key (ORDER_ID) references MYSHOP_SCHEMA.`ORDER` (ORDER_ID)
 )
 ;
 
-alter table `Order`
-	add constraint Order_fk2
-foreign key (PayWay) references myshop_schema.PayWay (PayWayId)
+create index ORDER_HAS_PRODUCT_ORDER_ID_FK
+	on ORDER_HAS_PRODUCT (ORDER_ID)
 ;
 
-create table myshop_schema.Pictures
+create index ORDER_HAS_PRODUCT_PRODUCT_ID_FK
+	on ORDER_HAS_PRODUCT (PRODUCT_ID)
+;
+
+create table MYSHOP_SCHEMA.PAY_WAY
 (
-	PictureId bigint auto_increment
+	PAY_WAY_ID bigint auto_increment
 		primary key,
-	PicName varchar(255) null,
-	ProductId bigint null
+	NAME varchar(50) not null,
+	constraint UC_NAME
+	unique (NAME)
 )
 ;
 
-create index Pictures_Product_ProductId_fk
-	on Pictures (ProductId)
+alter table `ORDER`
+	add constraint ORDER_FK2
+foreign key (PAY_WAY_ID) references MYSHOP_SCHEMA.PAY_WAY (PAY_WAY_ID)
 ;
 
-create table myshop_schema.Prod_Prop
+create table MYSHOP_SCHEMA.PICTURE
 (
-	ProductId bigint null,
-	ProductPropertyId int null,
-	prod_prop_id bigint auto_increment
+	PICTURE_ID bigint auto_increment
 		primary key,
-	constraint Prod_Prop_prod_prop_id_uindex
-	unique (prod_prop_id)
+	NAME varchar(255) null,
+	PRODUCT_ID bigint null
 )
 ;
 
-create index Prod_Prop_ProductProperty_ProdPropId_fk
-	on Prod_Prop (ProductPropertyId)
+create index PICTURE_PRODUCT_ID_FK
+	on PICTURE (PRODUCT_ID)
 ;
 
-create index Prod_Prop_Product_ProductId_fk
-	on Prod_Prop (ProductId)
-;
-
-create table myshop_schema.Prod_RadioProp
+create table MYSHOP_SCHEMA.PRODUCT
 (
-	id bigint auto_increment
+	PRODUCT_ID bigint auto_increment
 		primary key,
-	ProductId bigint null,
-	RadioPropId int null
+	NAME varchar(255) not null,
+	COUNT int not null,
+	COST double not null,
+	SIZE varchar(50) null,
+	BATTERY varchar(50) null,
+	FLY_TIME varchar(50) null,
+	DISTANCE varchar(50) null,
+	DESCRIPTION varchar(500) null,
+	CATEGORY_ID bigint null,
+	constraint PRODUCT_CATEGORY_ID_FK
+	foreign key (CATEGORY_ID) references MYSHOP_SCHEMA.CATEGORY (CATEGORY_ID)
 )
 ;
 
-create index Product_RadioProp_ProductRadioProperty_id_fk
-	on Prod_RadioProp (RadioPropId)
+create index PRODUCT_CATEGORY_ID_FK
+	on PRODUCT (CATEGORY_ID)
 ;
 
-create index Product_RadioProp_Product_ProductId_fk
-	on Prod_RadioProp (ProductId)
+alter table ORDER_HAS_PRODUCT
+	add constraint ORDER_HAS_PRODUCT_PRODUCT_ID_FK
+foreign key (PRODUCT_ID) references MYSHOP_SCHEMA.PRODUCT (PRODUCT_ID)
 ;
 
-create table myshop_schema.Product
+alter table PICTURE
+	add constraint PICTURE_PRODUCT_ID_FK
+foreign key (PRODUCT_ID) references MYSHOP_SCHEMA.PRODUCT (PRODUCT_ID)
+;
+
+create table MYSHOP_SCHEMA.PRODUCT_HAS_PROPERTY
 (
-	ProductId bigint auto_increment
+	PRODUCT_ID bigint null,
+	PROPERTY_ID bigint null,
+	PRODUCT_HAS_PROPERTY_ID bigint auto_increment
 		primary key,
-	ProductName varchar(255) not null,
-	Count int not null,
-	Cost double not null,
-	Size varchar(50) null,
-	Battery varchar(50) null,
-	FlyTime varchar(50) null,
-	Distance varchar(50) null,
-	Description varchar(500) null,
-	Category int null
+	constraint PRODUCT_HAS_PROPERTY_ID_UINDEX
+	unique (PRODUCT_ID),
+	constraint PRODUCT_HAS_PROPERTY_PRODUCT_ID_FK
+	foreign key (PRODUCT_ID) references MYSHOP_SCHEMA.PRODUCT (PRODUCT_ID)
 )
 ;
 
-create index Product_ProductCategory_CategoryId_fk
-	on Product (Category)
+create index PRODUCT_HAS_PROPERTY_PROPERTY_ID_FK
+	on PRODUCT_HAS_PROPERTY (PROPERTY_ID)
 ;
 
-alter table Order_Product
-	add constraint Order_Product_Product_ProductId_fk
-foreign key (ProductId) references myshop_schema.Product (ProductId)
-;
-
-alter table Pictures
-	add constraint Pictures_Product_ProductId_fk
-foreign key (ProductId) references myshop_schema.Product (ProductId)
-;
-
-alter table Prod_Prop
-	add constraint Prod_Prop_Product_ProductId_fk
-foreign key (ProductId) references myshop_schema.Product (ProductId)
-;
-
-alter table Prod_RadioProp
-	add constraint Product_RadioProp_Product_ProductId_fk
-foreign key (ProductId) references myshop_schema.Product (ProductId)
-;
-
-create table myshop_schema.ProductCategory
+create table MYSHOP_SCHEMA.PROPERTY
 (
-	CategoryId int auto_increment
+	PROPERTY_ID bigint auto_increment
 		primary key,
-	CategoryName varchar(50) null,
-	constraint ProductCategory_CategoryName_uindex
-	unique (CategoryName)
+	PROPERTY_GROUP_ID bigint null,
+	GROUP_NAME varchar(255) null
 )
 ;
 
-alter table Product
-	add constraint Product_ProductCategory_CategoryId_fk
-foreign key (Category) references myshop_schema.ProductCategory (CategoryId)
+create index PROPERTY_GROUP_ID_FK
+	on PROPERTY (PROPERTY_GROUP_ID)
 ;
 
-create table myshop_schema.ProductProperty
+alter table PRODUCT_HAS_PROPERTY
+	add constraint PRODUCT_HAS_PROPERTY_PROPERTY_ID_FK
+foreign key (PROPERTY_ID) references MYSHOP_SCHEMA.PROPERTY (PROPERTY_ID)
+;
+
+create table MYSHOP_SCHEMA.PROPERTY_GROUP
 (
-	ProdPropId int auto_increment
+	PROPERTY_GROUP_ID bigint not null
 		primary key,
-	ProdPropCatId int null,
-	ProdPropName varchar(255) null
+	NAME varchar(255) null
 )
 ;
 
-create index ProductProperty_PropertyCategory_PropCatId_fk
-	on ProductProperty (ProdPropCatId)
+alter table PROPERTY
+	add constraint PROPERTY_GROUP_ID_FK
+foreign key (PROPERTY_GROUP_ID) references MYSHOP_SCHEMA.PROPERTY_GROUP (PROPERTY_GROUP_ID)
 ;
 
-alter table Prod_Prop
-	add constraint Prod_Prop_ProductProperty_ProdPropId_fk
-foreign key (ProductPropertyId) references myshop_schema.ProductProperty (ProdPropId)
-;
-
-create table myshop_schema.ProductRadioProperty
+create table MYSHOP_SCHEMA.REGION
 (
-	id int auto_increment
+	REGION_ID bigint not null
 		primary key,
-	name varchar(255) null,
-	radioCategoryId int null
+	COUNTRY_ID bigint not null,
+	NAME varchar(128) not null
 )
 ;
 
-create index ProductRadioProperty_PropertyRadioCategory_id_fk
-	on ProductRadioProperty (radioCategoryId)
-;
-
-alter table Prod_RadioProp
-	add constraint Product_RadioProp_ProductRadioProperty_id_fk
-foreign key (RadioPropId) references myshop_schema.ProductRadioProperty (id)
-;
-
-create table myshop_schema.PropertyCategory
+create table MYSHOP_SCHEMA.ROLE
 (
-	PropCatId int not null
+	ROLE_ID bigint not null
 		primary key,
-	PropCatName varchar(255) null
+	NAME varchar(20) null,
+	constraint ROLE_NAME_UINDEX
+	unique (NAME)
 )
 ;
 
-alter table ProductProperty
-	add constraint ProductProperty_PropertyCategory_PropCatId_fk
-foreign key (ProdPropCatId) references myshop_schema.PropertyCategory (PropCatId)
-;
-
-create table myshop_schema.PropertyRadioCategory
+create table MYSHOP_SCHEMA.USER
 (
-	id int auto_increment
+	USER_ID bigint auto_increment
 		primary key,
-	name varchar(255) null
-)
-;
-
-alter table ProductRadioProperty
-	add constraint ProductRadioProperty_PropertyRadioCategory_id_fk
-foreign key (radioCategoryId) references myshop_schema.PropertyRadioCategory (id)
-;
-
-create table myshop_schema.Region
-(
-	id bigint not null
-		primary key,
-	country_id bigint not null,
-	name varchar(128) not null
-)
-;
-
-create table myshop_schema.Role
-(
-	IdRole bigint not null
-		primary key,
-	name varchar(20) null,
-	constraint Role_name_uindex
-	unique (name)
-)
-;
-
-create table myshop_schema.User
-(
-	Id bigint auto_increment
-		primary key,
-	login varchar(30) not null,
-	pass varchar(30) not null,
-	email varchar(30) null,
-	FirstName varchar(30) null,
-	SecondName varchar(30) null,
-	Birthday date null,
-	Role bigint not null,
+	LOGIN varchar(30) not null,
+	PASSWORD varchar(30) not null,
+	EMAIL varchar(30) null,
+	FIRST_NAME varchar(30) null,
+	LAST_NAME varchar(30) null,
+	BIRTHDAY date null,
+	ROLE_ID bigint not null,
 	constraint login
-	unique (login),
+	unique (LOGIN),
 	constraint email
-	unique (email),
-	constraint User_Role_IdRole_fk
-	foreign key (Role) references myshop_schema.Role (IdRole)
+	unique (EMAIL),
+	constraint USER_ROLE_IDROLE_FK
+	foreign key (ROLE_ID) references MYSHOP_SCHEMA.ROLE (ROLE_ID)
 )
 ;
 
-create index User_Role_IdRole_fk
-	on User (Role)
+create index USER_ROLE_IDROLE_FK
+	on USER (ROLE_ID)
 ;
 
-alter table Address
-	add constraint Address_User_Id_fk
-foreign key (UserId) references myshop_schema.User (Id)
+alter table ADDRESS
+	add constraint ADDRESS_USER_ID_FK
+foreign key (USER_ID) references MYSHOP_SCHEMA.USER (USER_ID)
 ;
 
-alter table `Order`
-	add constraint Order_fk0
-foreign key (UserId) references myshop_schema.User (Id)
+alter table `ORDER`
+	add constraint ORDER_FK0
+foreign key (USER_ID) references MYSHOP_SCHEMA.USER (USER_ID)
 ;
 

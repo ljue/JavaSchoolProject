@@ -49,7 +49,7 @@ public class ProductAttribute  implements Serializable {
         this.productCategoryByCategory = productEntity.getProductCategoryByCategory().getCategoryName();
 
 
-        if(productEntity.getPicturesByProductId()!=null) {
+        if(!productEntity.getPicturesByProductId().isEmpty()) {
             presentPic=productEntity.getPicturesByProductId().get(0).getPicName();
 
             for(PicturesEntity picPath:productEntity.getPicturesByProductId()) {

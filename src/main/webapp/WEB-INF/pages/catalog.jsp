@@ -26,6 +26,7 @@
 
         <!-- BEGIN PRODUCTS -->
 
+        <c:if test="${!empty allProducts}">
         <c:forEach items="${allProducts}" var="product">
             <div class="col-md-4 col-sm-3">
                 <span class="thumbnail">
@@ -86,6 +87,7 @@
                 </div>
             </div>
         </c:forEach>
+        </c:if>
 
         <script>
             function addProductToCart(obj){

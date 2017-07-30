@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Людмила
@@ -9,47 +10,82 @@
 <html>
 <head>
     <title>Orders</title>
+    <jsp:include page="../templates/head.jsp"/>
 </head>
 <body>
+<jsp:include page="../templates/navigation.jsp"/>
+<jsp:include page="../templates/scripts.jsp"/>
 
+<br>
+<br>
+<!-- Page Content -->
 <div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <%--<p class="lead">Личный кабинет</p>--%>
+            <p class="lead"></p>
+            <div class="list-group">
+                <a href="/orderList" class="list-group-item">Order list</a>
+                <a href="/statistics" class="list-group-item">Shop statistic</a>
+                <a href="/adminProducts" class="list-group-item">Goods management</a>
+            </div>
+        </div>
 
-    <div class="panel panel-default">
-        <div class="panel-heading text-center"><h4>Current Cart</h4></div>
-        <div class="panel-body">
-            <table class="table borderless">
-                <thead>
-                <tr>
-                    <td><strong>Your Cart: # item</strong></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                </thead>
-                <tbody>
-                <!-- foreach ($order->lineItems as $line) or some such thing here -->
-                <tr>
-                    <td class="col-md-3">
-                        <div class="media">
-                            <a class="thumbnail pull-left" href="#"> <img class="media-object" src="http://lorempixel.com/460/250/" style="width: 72px; height: 72px;"> </a>
-                            <div class="media-body">
-                                <h5 class="media-heading"> Product Name</h5>
-                                <h5 class="media-heading"> Product Code</h5>
+        <div class="col-md-9">
+            <div class="row">
+                <c:if test="${!empty orders}">
+                    <c:forEach var="order" items="${orders}">
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading text-center"><h4>Order #${order.orderId}</h4></div>
+                            <div class="panel-body">
+                                <table class="table borderless">
+                                    <thead>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td  class="text-left">User Id:</td>
+                                        <td class="text-center">${order.userId}</td>
+                                    </tr>
+                                    <tr>
+                                        <td  class="text-left">Delivery status:</td>
+                                        <td class="text-center">${order.deliveryStatus}</td>
+                                    </tr>
+                                    <tr>
+                                        <td  class="text-left">Time:</td>
+                                        <td class="text-center">${order.dateTimeOrder}</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td class="text-right">
+                                            <c:set var="orderId" value="${order.orderId}"/>
+                                            <a href="/adminOrders/${orderId}">
+                                                <button type="button" class="btn btn-danger">Edit</button>
+                                            </a>
+                                        </td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
-                    </td>
-                    <td class="text-center">$10.99</td>
-                    <td class="text-center">1</td>
-                    <td class="text-right">$32.99</td>
-                    <td class="text-right"><button type="button" class="btn btn-danger">Remove</button></td>
-                </tr>
 
-                </tbody>
-            </table>
+
+
+                    </c:forEach>
+                </c:if>
+            </div>
         </div>
     </div>
 </div>
+
 
 </body>
 </html>

@@ -3,6 +3,7 @@ package com.jvschool.dao.Impl;
 import com.jvschool.dao.ProductDAO;
 import com.jvschool.entities.ProductEntity;
 import org.hibernate.Session;
+import org.slf4j.Logger;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -24,6 +25,8 @@ public class ProductDAOImpl implements ProductDAO {
     public void addProduct(ProductEntity productEntity) {
 
         em.merge(productEntity);
+
+        em.flush();
         //em.refresh(productEntity);
 //        List<PicturesEntity> lpic = productEntity.getPicturesByProductId();
 //        for (PicturesEntity pic:lpic) {

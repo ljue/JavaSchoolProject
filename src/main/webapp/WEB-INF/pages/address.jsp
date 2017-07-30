@@ -46,7 +46,6 @@
                 </ul>
 
                 <div class="tab-content">
-
                     <div id="panel1" class="tab-pane fade in active">
                         <%--<h3>Панель 1</h3>--%>
                         <row>
@@ -83,8 +82,6 @@
 
                             </c:if>
                             <br>
-
-
                         </row>
                     </div>
 
@@ -92,7 +89,6 @@
                     <c:url var="addaddress" value="address/add"/>
 
                     <div id="panel2" class="tab-pane fade">
-                        <%--<h3>Панель 2</h3>--%>
                         <br>
                         <form:form modelAttribute="formAddAddress" method="post" action="${addaddress}"
                                    class="form-horizontal">
