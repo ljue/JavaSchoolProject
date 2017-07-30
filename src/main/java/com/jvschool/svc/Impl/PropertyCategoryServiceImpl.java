@@ -1,8 +1,8 @@
 package com.jvschool.svc.Impl;
 
-import com.jvschool.dao.Impl.PropertyCategoryDAOImpl;
+import com.jvschool.dao.impl.PropertyCategoryDAOImpl;
 import com.jvschool.entities.PropertyCategoryEntity;
-import com.jvschool.svc.PropertyCategoryService;
+import com.jvschool.svc.api.PropertyCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

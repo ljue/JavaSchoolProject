@@ -1,6 +1,6 @@
 package com.jvschool.util;
 
-import com.jvschool.util.Attributes.SessionUser;
+import com.jvschool.dto.SessionUser;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;

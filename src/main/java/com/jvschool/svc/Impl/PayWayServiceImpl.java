@@ -1,8 +1,8 @@
 package com.jvschool.svc.Impl;
 
-import com.jvschool.dao.PayWayDAO;
+import com.jvschool.dao.api.PayWayDAO;
 import com.jvschool.entities.PayWayEntity;
-import com.jvschool.svc.PayWayService;
+import com.jvschool.svc.api.PayWayService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

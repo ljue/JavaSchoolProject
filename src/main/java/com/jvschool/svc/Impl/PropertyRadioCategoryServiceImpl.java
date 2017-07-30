@@ -1,8 +1,8 @@
 package com.jvschool.svc.Impl;
 
-import com.jvschool.dao.PropertyRadioCategoryDAO;
+import com.jvschool.dao.api.PropertyRadioCategoryDAO;
 import com.jvschool.entities.PropertyRadioCategoryEntity;
-import com.jvschool.svc.PropertyRadioCategoryService;
+import com.jvschool.svc.api.PropertyRadioCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

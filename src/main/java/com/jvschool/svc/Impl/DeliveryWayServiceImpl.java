@@ -1,8 +1,8 @@
 package com.jvschool.svc.Impl;
 
-import com.jvschool.dao.DeliveryWayDAO;
+import com.jvschool.dao.api.DeliveryWayDAO;
 import com.jvschool.entities.DeliveryWayEntity;
-import com.jvschool.svc.DeliveryWayService;
+import com.jvschool.svc.api.DeliveryWayService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

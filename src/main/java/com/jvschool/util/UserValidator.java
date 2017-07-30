@@ -1,15 +1,13 @@
 package com.jvschool.util;
 
 import com.jvschool.entities.UserEntity;
-import com.jvschool.svc.UserService;
+import com.jvschool.svc.api.UserService;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
-import org.springframework.validation.annotation.Validated;
 
 /**
  * Created by Людмила on 19.07.2017.

@@ -2,7 +2,7 @@ package com.jvschool.view;
 
 
 
-import com.jvschool.svc.ProductService;
+import com.jvschool.svc.api.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -1,8 +1,8 @@
 package com.jvschool.svc.Impl;
 
-import com.jvschool.dao.Impl.ProductCategoryDAOImpl;
+import com.jvschool.dao.impl.ProductCategoryDAOImpl;
 import com.jvschool.entities.ProductCategoryEntity;
-import com.jvschool.svc.ProductCategoryService;
+import com.jvschool.svc.api.ProductCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

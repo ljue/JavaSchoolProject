@@ -1,8 +1,8 @@
 package com.jvschool.svc.Impl;
 
-import com.jvschool.dao.UserDAO;
+import com.jvschool.dao.api.UserDAO;
 import com.jvschool.entities.UserEntity;
-import com.jvschool.svc.UserService;
+import com.jvschool.svc.api.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

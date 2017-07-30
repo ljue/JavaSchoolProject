@@ -1,9 +1,9 @@
 package com.jvschool.svc.Impl;
 
-import com.jvschool.dao.AddressDAO;
+import com.jvschool.dao.api.AddressDAO;
 import com.jvschool.entities.AddressEntity;
-import com.jvschool.svc.AddressService;
-import com.jvschool.util.Attributes.AddressAttribute;
+import com.jvschool.svc.api.AddressService;
+import com.jvschool.dto.AddressAttribute;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

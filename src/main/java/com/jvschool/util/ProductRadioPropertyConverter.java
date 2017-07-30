@@ -1,7 +1,7 @@
 package com.jvschool.util;
 
 import com.jvschool.entities.ProductRadioPropertyEntity;
-import com.jvschool.svc.ProductRadioPropertyService;
+import com.jvschool.svc.api.ProductRadioPropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 

@@ -1,7 +1,7 @@
 package com.jvschool.util;
 
 import com.jvschool.entities.ProductPropertyEntity;
-import com.jvschool.svc.ProductPropertyService;
+import com.jvschool.svc.api.ProductPropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 

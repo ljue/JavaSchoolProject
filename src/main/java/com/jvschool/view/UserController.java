@@ -1,9 +1,9 @@
 package com.jvschool.view;
 
 import com.jvschool.entities.UserEntity;
-import com.jvschool.svc.RoleService;
-import com.jvschool.svc.UserService;
-import com.jvschool.util.Attributes.SessionUser;
+import com.jvschool.svc.api.RoleService;
+import com.jvschool.svc.api.UserService;
+import com.jvschool.dto.SessionUser;
 import com.jvschool.util.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -1,21 +1,21 @@
 package com.jvschool.svc.Impl;
 
-import com.jvschool.dao.*;
+import com.jvschool.dao.api.AddressDAO;
+import com.jvschool.dao.api.OrderDAO;
+import com.jvschool.dao.api.PayWayDAO;
+import com.jvschool.dao.api.UserDAO;
 import com.jvschool.entities.OrderEntity;
-import com.jvschool.entities.ProductEntity;
-import com.jvschool.svc.DeliveryStatusService;
-import com.jvschool.svc.DeliveryWayService;
-import com.jvschool.svc.OrderService;
-import com.jvschool.svc.ProductService;
-import com.jvschool.util.Attributes.OrderAttribute;
+import com.jvschool.svc.api.DeliveryStatusService;
+import com.jvschool.svc.api.DeliveryWayService;
+import com.jvschool.svc.api.OrderService;
+import com.jvschool.svc.api.ProductService;
+import com.jvschool.dto.OrderAttribute;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Людмила on 28.07.2017.

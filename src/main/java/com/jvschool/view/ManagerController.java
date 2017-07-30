@@ -5,10 +5,10 @@ import com.jvschool.entities.PicturesEntity;
 import com.jvschool.entities.ProductCategoryEntity;
 import com.jvschool.entities.ProductEntity;
 
-import com.jvschool.svc.*;
-import com.jvschool.util.Attributes.FormEditCategories;
-import com.jvschool.util.Attributes.OrderAttribute;
-import com.jvschool.util.Attributes.ProductAttribute;
+import com.jvschool.svc.api.*;
+import com.jvschool.dto.FormEditCategories;
+import com.jvschool.dto.OrderAttribute;
+import com.jvschool.dto.ProductAttribute;
 import com.jvschool.util.ProductValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
