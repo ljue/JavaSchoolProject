@@ -7,7 +7,7 @@ import java.util.List;
  * Created by Людмила on 23.07.2017.
  */
 @Entity
-@Table(name = "ProductRadioProperty", schema = "myshop_schema", catalog = "")
+@Table(name = "ProductRadioProperty", schema = "MYSHOP_SCHEMA", catalog = "")
 public class ProductRadioPropertyEntity {
     private int id;
     private String name;

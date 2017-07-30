@@ -10,7 +10,7 @@ import java.util.*;
  * Created by Людмила on 22.07.2017.
  */
 @Entity
-@Table(name = "Product", schema = "myshop_schema")
+@Table(name = "PRODUCT", schema = "MYSHOP_SCHEMA")
 public class ProductEntity  implements Serializable {
     private long productId;
     private String productName;
@@ -34,7 +34,7 @@ public class ProductEntity  implements Serializable {
 
 
     @Id
-    @Column(name = "ProductId")
+    @Column(name = "PRODUCT_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long getProductId() {
         return productId;
@@ -45,7 +45,7 @@ public class ProductEntity  implements Serializable {
     }
 
     @Basic
-    @Column(name = "ProductName", nullable = false, length = 255)
+    @Column(name = "NAME", nullable = false, length = 255)
     public String getProductName() {
         return productName;
     }
@@ -55,7 +55,7 @@ public class ProductEntity  implements Serializable {
     }
 
     @Basic
-    @Column(name = "Count", nullable = false)
+    @Column(name = "COUNT", nullable = false)
     public int getCount() {
         return count;
     }
@@ -65,7 +65,7 @@ public class ProductEntity  implements Serializable {
     }
 
     @Basic
-    @Column(name = "Cost", nullable = false)
+    @Column(name = "COST", nullable = false)
     public double getCost() {
         return cost;
     }
@@ -75,7 +75,7 @@ public class ProductEntity  implements Serializable {
     }
 
     @Basic
-    @Column(name = "Size")
+    @Column(name = "SIZE")
     public String getSize() {
         return size;
     }
@@ -85,7 +85,7 @@ public class ProductEntity  implements Serializable {
     }
 
     @Basic
-    @Column(name = "Battery")
+    @Column(name = "BATTERY")
     public String getBattery() {
         return battery;
     }
@@ -95,7 +95,7 @@ public class ProductEntity  implements Serializable {
     }
 
     @Basic
-    @Column(name = "FlyTime")
+    @Column(name = "FLY_TIME")
     public String getFlyTime() {
         return flyTime;
     }
@@ -105,7 +105,7 @@ public class ProductEntity  implements Serializable {
     }
 
     @Basic
-    @Column(name = "Distance")
+    @Column(name = "DISTANCE")
     public String getDistance() {
         return distance;
     }
@@ -160,7 +160,7 @@ public class ProductEntity  implements Serializable {
 //    }
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "ProductId", referencedColumnName = "ProductId")
+    @JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID")
     public List<PicturesEntity> getPicturesByProductId() {
         return picturesByProductId;
     }
@@ -170,7 +170,7 @@ public class ProductEntity  implements Serializable {
     }
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "Category", referencedColumnName = "CategoryId", nullable = false)
+    @JoinColumn(name = "CATEGORY_ID", referencedColumnName = "CATEGORY_ID", nullable = false)
     public ProductCategoryEntity getProductCategoryByCategory() {
         return productCategoryByCategory;
     }
@@ -185,9 +185,9 @@ public class ProductEntity  implements Serializable {
 //            joinColumns = @JoinColumn(name = "ProductId"),
 //            inverseJoinColumns = @JoinColumn(name = "ProductPropertyId"))
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "Prod_Prop",
-            joinColumns = @JoinColumn(name = "ProductId", referencedColumnName = "ProductId"),
-            inverseJoinColumns = @JoinColumn(name = "ProductPropertyId", referencedColumnName = "ProdPropId"))
+    @JoinTable(name = "PRODUCT_HAS_PROPERTY",
+            joinColumns = @JoinColumn(name = "PRODUCT_ID"),
+            inverseJoinColumns = @JoinColumn(name = "PROPERTY_ID"))
     public Set<ProductPropertyEntity> getProperties() {
         return properties;
     }

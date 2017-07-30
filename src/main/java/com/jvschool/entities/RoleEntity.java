@@ -7,13 +7,13 @@ import java.io.Serializable;
  * Created by Людмила on 19.07.2017.
  */
 @Entity
-@Table(name = "Role", schema = "myshop_schema")
+@Table(name = "ROLE", schema = "MYSHOP_SCHEMA")
 public class RoleEntity  implements Serializable {
     private long idRole;
     private String name;
 
     @Id
-    @Column(name = "IdRole", nullable = false)
+    @Column(name = "ROLE_ID", nullable = false)
     public long getIdRole() {
         return idRole;
     }
@@ -23,7 +23,7 @@ public class RoleEntity  implements Serializable {
     }
 
     @Basic
-    @Column(name = "name", nullable = true, length = 20)
+    @Column(name = "NAME", length = 20)
     public String getName() {
         return name;
     }

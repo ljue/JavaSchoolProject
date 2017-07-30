@@ -11,7 +11,7 @@ import java.util.List;
  * Created by Людмила on 21.07.2017.
  */
 @Entity
-@Table(name = "User", schema = "myshop_schema")
+@Table(name = "USER", schema = "MYSHOP_SCHEMA")
 public class UserEntity  implements Serializable {
     private long id;
     private String login;
@@ -29,7 +29,7 @@ public class UserEntity  implements Serializable {
 
 
     @Id
-    @Column(name = "Id", nullable = false)
+    @Column(name = "USER_ID", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long getId() {
         return id;
@@ -40,7 +40,7 @@ public class UserEntity  implements Serializable {
     }
 
     @Basic
-    @Column(name = "login", nullable = false, length = 30)
+    @Column(name = "LOGIN", nullable = false, length = 30)
     public String getLogin() {
         return login;
     }
@@ -50,7 +50,7 @@ public class UserEntity  implements Serializable {
     }
 
     @Basic
-    @Column(name = "pass", nullable = false, length = 30)
+    @Column(name = "PASSWORD", nullable = false, length = 30)
     public String getPass() {
         return pass;
     }
@@ -60,7 +60,7 @@ public class UserEntity  implements Serializable {
     }
 
     @Basic
-    @Column(name = "email", length = 30, nullable = true)
+    @Column(name = "EMAIL", length = 30)
     public String getEmail() {
         return email;
     }
@@ -70,7 +70,7 @@ public class UserEntity  implements Serializable {
     }
 
     @Basic
-    @Column(name = "FirstName", length = 30, nullable = true)
+    @Column(name = "FIRST_NAME", length = 30)
     public String getFirstName() {
         return firstName;
     }
@@ -80,7 +80,7 @@ public class UserEntity  implements Serializable {
     }
 
     @Basic
-    @Column(name = "SecondName", length = 30, nullable = true)
+    @Column(name = "LAST_NAME", length = 30)
     public String getSecondName() {
         return secondName;
     }
@@ -90,7 +90,7 @@ public class UserEntity  implements Serializable {
     }
 
     @Basic
-    @Column(name = "Birthday", nullable = true)
+    @Column(name = "BIRTHDAY")
     public Date getBirthday() {
         return birthday;
     }
@@ -130,7 +130,7 @@ public class UserEntity  implements Serializable {
     }
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)//mappedBy = "userByUserId",
-    @JoinColumn(name = "UserId", referencedColumnName = "Id")
+    @JoinColumn(name = "USER_ID")
     public List<AddressEntity> getAddresses() {
         return addresses;
     }
@@ -140,7 +140,7 @@ public class UserEntity  implements Serializable {
     }
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "Role", referencedColumnName = "IdRole")
+    @JoinColumn(name = "ROLE_ID")
     public RoleEntity getRoleByRole() {
         return roleByRole;
     }

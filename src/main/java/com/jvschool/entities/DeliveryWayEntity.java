@@ -7,13 +7,13 @@ import java.io.Serializable;
  * Created by Людмила on 19.07.2017.
  */
 @Entity
-@Table(name = "DeliveryWay", schema = "myshop_schema")
+@Table(name = "DELIVERY_WAY", schema = "MYSHOP_SCHEMA")
 public class DeliveryWayEntity implements Serializable {
     private int deliveryWayId;
     private String deliveryWayName;
 
     @Id
-    @Column(name = "DeliveryWayId", nullable = false)
+    @Column(name = "DELIVERY_WAY_ID", nullable = false)
     @GeneratedValue(strategy=GenerationType.AUTO)
     public int getDeliveryWayId() {
         return deliveryWayId;
@@ -24,7 +24,7 @@ public class DeliveryWayEntity implements Serializable {
     }
 
     @Basic
-    @Column(name = "DeliveryWayName", nullable = false, length = 50)
+    @Column(name = "NAME", nullable = false, length = 50)
     public String getDeliveryWayName() {
         return deliveryWayName;
     }
