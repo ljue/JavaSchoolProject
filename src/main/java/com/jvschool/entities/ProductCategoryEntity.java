@@ -9,14 +9,15 @@ import java.util.List;
  * Created by Людмила on 22.07.2017.
  */
 @Entity
-@Table(name = "ProductCategory", schema = "myshop_schema")
+@Table(name = "CATEGORY", schema = "MYSHOP_SCHEMA")
 public class ProductCategoryEntity  implements Serializable {
+
     private int categoryId;
     private String categoryName;
 //    private List<ProductEntity> productsByCategoryId;
 
     @Id
-    @Column(name = "CategoryId")
+    @Column(name = "CATEGORY_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getCategoryId() {
         return categoryId;
@@ -27,7 +28,7 @@ public class ProductCategoryEntity  implements Serializable {
     }
 
     @Basic
-    @Column(name = "CategoryName", nullable = true, length = 50)
+    @Column(name = "NAME", length = 50)
     public String getCategoryName() {
         return categoryName;
     }

@@ -2,13 +2,12 @@ package com.jvschool.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.*;
 
 /**
  * Created by Людмила on 22.07.2017.
  */
 @Entity
-@Table(name = "ProductProperty", schema = "myshop_schema")
+@Table(name = "PROPERTY", schema = "MYSHOP_SCHEMA")
 public class ProductPropertyEntity  implements Serializable {
     private int prodPropId;
     private String prodPropName;
@@ -16,7 +15,7 @@ public class ProductPropertyEntity  implements Serializable {
     //private Set<ProductEntity> product = new HashSet<>();// = new ArrayList<>();
 
     @Id
-    @Column(name = "ProdPropId", nullable = false)
+    @Column(name = "PROPERTY_ID", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getProdPropId() {
         return prodPropId;
@@ -27,7 +26,7 @@ public class ProductPropertyEntity  implements Serializable {
     }
 
     @Basic
-    @Column(name = "ProdPropName", nullable = true, length = 255)
+    @Column(name = "NAME")
     public String getProdPropName() {
         return prodPropName;
     }
@@ -59,8 +58,8 @@ public class ProductPropertyEntity  implements Serializable {
         return result;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "ProdPropCatId", referencedColumnName = "PropCatId")
+    @ManyToOne//(fetch = FetchType.EAGER)//(cascade = CascadeType.DETACH)
+    @JoinColumn(name = "PROPERTY_GROUP_ID", insertable = false, updatable = false)
     public PropertyCategoryEntity getPropertyCategoryByProdPropCatId() {
         return propertyCategoryByProdPropCatId;
     }

@@ -8,13 +8,13 @@ import java.util.Collection;
  * Created by Людмила on 22.07.2017.
  */
 @Entity
-@Table(name = "PropertyCategory", schema = "myshop_schema")
+@Table(name = "PROPERTY_GROUP", schema = "MYSHOP_SCHEMA")
 public class PropertyCategoryEntity  implements Serializable {
     private int propCatId;
     private String propCatName;
 
     @Id
-    @Column(name = "PropCatId", nullable = false)
+    @Column(name = "PROPERTY_GROUP_ID", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getPropCatId() {
         return propCatId;
@@ -25,7 +25,7 @@ public class PropertyCategoryEntity  implements Serializable {
     }
 
     @Basic
-    @Column(name = "PropCatName", nullable = true, length = 255)
+    @Column(name = "NAME", nullable = true, length = 255)
     public String getPropCatName() {
         return propCatName;
     }

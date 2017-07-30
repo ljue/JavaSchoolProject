@@ -1,7 +1,5 @@
 package com.jvschool.entities;
 
-import com.jvschool.util.Attributes.AddressAttribute;
-
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -9,7 +7,7 @@ import java.io.Serializable;
  * Created by Людмила on 19.07.2017.
  */
 @Entity
-@Table(name = "Address", schema = "myshop_schema")
+@Table(name = "ADDRESS", schema = "MYSHOP_SCHEMA")
 public class AddressEntity implements Serializable {
     private long addressId;
     private String streetAddress;
@@ -24,7 +22,7 @@ public class AddressEntity implements Serializable {
 
 
     @Id
-    @Column(name = "AddressId", nullable = false)
+    @Column(name = "ADDRESS_ID", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long getAddressId() {
         return addressId;
@@ -35,7 +33,7 @@ public class AddressEntity implements Serializable {
     }
 
     @Basic
-    @Column(name = "StreetAddress", nullable = false, length = 255)
+    @Column(name = "STREET_ADDRESS", nullable = false, length = 255)
     public String getStreetAddress() {
         return streetAddress;
     }
@@ -45,7 +43,7 @@ public class AddressEntity implements Serializable {
     }
 
     @Basic
-    @Column(name = "PostIndex", nullable = false, length = 30)
+    @Column(name = "POST_INDEX", nullable = false, length = 30)
     public String getPostIndex() {
         return postIndex;
     }
@@ -78,7 +76,7 @@ public class AddressEntity implements Serializable {
     }
 
     @Basic
-    @Column(name = "UserId")
+    @Column(name = "USER_ID")
     public Long getUserId() {
         return userId;
     }
@@ -88,7 +86,7 @@ public class AddressEntity implements Serializable {
     }
 
     @Basic
-    @Column(name = "Country")
+    @Column(name = "COUNTRY")
     public String getCountry() {
         return country;
     }
@@ -98,7 +96,7 @@ public class AddressEntity implements Serializable {
     }
 
     @Basic
-    @Column(name = "Region")
+    @Column(name = "REGION")
     public String getRegion() {
         return region;
     }
@@ -108,7 +106,7 @@ public class AddressEntity implements Serializable {
     }
 
     @Basic
-    @Column(name = "City")
+    @Column(name = "CITY")
     public String getCity() {
         return city;
     }

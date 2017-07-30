@@ -9,7 +9,7 @@ import java.util.List;
  * Created by Людмила on 22.07.2017.
  */
 @Entity
-@Table(name = "Order", schema = "myshop_schema")
+@Table(name = "ORDER", schema = "MYSHOP_SCHEMA")
 public class OrderEntity {
     private long orderId;
     private Timestamp dateTimeOrder;
@@ -22,7 +22,7 @@ public class OrderEntity {
     private List<ProductEntity> products = new ArrayList<>();
 
     @Id
-    @Column(name = "OrderId", nullable = false)
+    @Column(name = "ORDER_ID", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long getOrderId() {
         return orderId;
@@ -34,7 +34,7 @@ public class OrderEntity {
 
 
     @Basic
-    @Column(name = "DateTimeOrder", nullable = false)
+    @Column(name = "TIME", nullable = false)
     public Timestamp getDateTimeOrder() {
         return dateTimeOrder;
     }
@@ -65,8 +65,8 @@ public class OrderEntity {
     }
 
 
-    @ManyToOne
-    @JoinColumn(name = "UserId", referencedColumnName = "Id", nullable = false)
+    @ManyToOne//(fetch = FetchType.EAGER)
+    @JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID", nullable = false)
     public UserEntity getUser() {
         return user;
     }
@@ -75,8 +75,8 @@ public class OrderEntity {
         this.user = userByClientId;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "UserAddress", referencedColumnName = "AddressId", nullable = false)
+    @ManyToOne//(fetch = FetchType.EAGER)
+    @JoinColumn(name = "USER_ADDRESS_ID", referencedColumnName = "ADDRESS_ID", nullable = false)
     public AddressEntity getAddress() {
         return address;
     }
@@ -86,7 +86,7 @@ public class OrderEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "PayWay", referencedColumnName = "PayWayId", nullable = false)
+    @JoinColumn(name = "PAY_WAY_ID", referencedColumnName = "PAY_WAY_ID", nullable = false)
     public PayWayEntity getPayWay() {
         return payWay;
     }
@@ -96,7 +96,7 @@ public class OrderEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "DeliveryStatus", referencedColumnName = "DeliveryStatusId", nullable = false)
+    @JoinColumn(name = "DELIVERY_STATUS_ID", referencedColumnName = "DELIVERY_STATUS_ID", nullable = false)
     public DeliveryStatusEntity getDeliveryStatus() {
         return deliveryStatus;
     }
@@ -106,7 +106,7 @@ public class OrderEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "DeliveryWay", referencedColumnName = "DeliveryWayId", nullable = false)
+    @JoinColumn(name = "DELIVERY_WAY_ID", referencedColumnName = "DELIVERY_WAY_ID", nullable = false)
     public DeliveryWayEntity getDeliveryWay() {
         return deliveryWay;
     }
@@ -115,10 +115,10 @@ public class OrderEntity {
         this.deliveryWay = deliveryStatusByDeliveryStatus;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "Order_Product",
-    joinColumns = @JoinColumn(name = "OrderId", referencedColumnName = "OrderId"),
-    inverseJoinColumns = @JoinColumn(name = "ProductId", referencedColumnName = "ProductId"))
+    @ManyToMany
+    @JoinTable(name = "ORDER_HAS_PRODUCT",
+    joinColumns = @JoinColumn(name = "ORDER_ID"),
+    inverseJoinColumns = @JoinColumn(name = "PRODUCT_ID"))
     public List<ProductEntity> getProducts() {
         return products;
     }
