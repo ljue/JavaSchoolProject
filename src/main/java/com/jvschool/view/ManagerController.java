@@ -159,12 +159,12 @@ public class ManagerController {
     public String goCheckOrder(@PathVariable("orderId") Long orderId, Model model) {
 
         OrderAttribute orderAttribute = orderService.getOrderById(orderId);
-        List<ProductAttribute> lpa = new ArrayList<>();
-        for(Long id : orderAttribute.getProducts()) {
-            lpa.add(productService.getProductAttributeById(id));
-        }
-        model.addAttribute("order",orderAttribute);
-        model.addAttribute("products", lpa);
+//        List<ProductAttribute> lpa = new ArrayList<>();
+//        for(Long id : orderAttribute.getProducts()) {
+//            lpa.add(productService.getProductAttributeById(id));
+//        }
+//        model.addAttribute("order",orderAttribute);
+//        model.addAttribute("products", lpa);
 
 
         return "checkOrder";

@@ -13,7 +13,6 @@ public class ProductPropertyEntity  implements Serializable {
     private int prodPropId;
     private String prodPropName;
     private PropertyCategoryEntity propertyCategoryByProdPropCatId;
-    //private Set<ProductEntity> product = new HashSet<>();// = new ArrayList<>();
 
     @Id
     @Column(name = "PROPERTY_ID", nullable = false)
@@ -44,8 +43,6 @@ public class ProductPropertyEntity  implements Serializable {
         ProductPropertyEntity that = (ProductPropertyEntity) o;
 
         if (prodPropId != that.prodPropId) return false;
-        //if (prodPropCatId != null ? !prodPropCatId.equals(that.prodPropCatId) : that.prodPropCatId != null)
-        //    return false;
         if (prodPropName != null ? !prodPropName.equals(that.prodPropName) : that.prodPropName != null) return false;
 
         return true;
@@ -54,7 +51,6 @@ public class ProductPropertyEntity  implements Serializable {
     @Override
     public int hashCode() {
         int result = prodPropId;
-       // result = 31 * result + (prodPropCatId != null ? prodPropCatId.hashCode() : 0);
         result = 31 * result + (prodPropName != null ? prodPropName.hashCode() : 0);
         return result;
     }
@@ -70,16 +66,4 @@ public class ProductPropertyEntity  implements Serializable {
     }
 
 
-
-//    @ManyToMany(cascade = CascadeType.ALL)//(fetch = FetchType.LAZY)//(mappedBy = "properties")//(fetch = FetchType.EAGER)
-//    @JoinTable(name = "Prod_Prop",
-//            joinColumns = @JoinColumn(name = "ProductId"),
-//            inverseJoinColumns = @JoinColumn(name = "ProductPropertyId"))
-//    public Set<ProductEntity> getProduct() {
-//        return product;
-//    }
-//
-//    public void setProduct(Set<ProductEntity> product) {
-//        this.product = product;
-//    }
 }

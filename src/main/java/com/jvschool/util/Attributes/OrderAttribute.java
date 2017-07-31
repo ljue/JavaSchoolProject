@@ -1,6 +1,7 @@
 package com.jvschool.util.Attributes;
 
 
+import com.jvschool.entities.BucketEntity;
 import com.jvschool.entities.OrderEntity;
 import com.jvschool.entities.ProductEntity;
 
@@ -20,7 +21,8 @@ public class OrderAttribute {
     private String payWay;
     private String deliveryStatus;
     private String deliveryWay;
-    private List<Long> products = new ArrayList<>();
+    //private List<Long> products = new ArrayList<>();
+    private List<BucketAttribute> buckets = new ArrayList<>();
 
 
 
@@ -35,12 +37,18 @@ public class OrderAttribute {
         this.deliveryStatus = oe.getDeliveryStatus().getDeliveryStatusName();
         this.deliveryWay = oe.getDeliveryWay().getDeliveryWayName();
 
-        List<ProductEntity> lpe = oe.getProducts();
-        if(lpe!=null) {
-            for(ProductEntity pe:lpe) {
-                products.add(pe.getProductId());
+        List<BucketEntity> lbe = oe.getBuckets();
+        if(!lbe.isEmpty()) {
+            for (BucketEntity be:lbe) {
+                this.buckets.add(new BucketAttribute(be));
             }
         }
+//        List<ProductEntity> lpe = oe.getProducts();
+//        if(!lpe.isEmpty()) {
+//            for(ProductEntity pe:lpe) {
+//                products.add(pe.getProductId());
+//            }
+//        }
     }
 
 
@@ -101,11 +109,19 @@ public class OrderAttribute {
         this.deliveryWay = deliveryWay;
     }
 
-    public List<Long> getProducts() {
-        return products;
+    public List<BucketAttribute> getBuckets() {
+        return buckets;
     }
 
-    public void setProducts(List<Long> products) {
-        this.products = products;
+    public void setBuckets(List<BucketAttribute> buckets) {
+        this.buckets = buckets;
     }
+
+    //    public List<Long> getProducts() {
+//        return products;
+//    }
+//
+//    public void setProducts(List<Long> products) {
+//        this.products = products;
+//    }
 }

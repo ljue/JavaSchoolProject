@@ -29,8 +29,7 @@ public class ProductEntity  implements Serializable {
     private List<PicturesEntity> picturesByProductId;
 
 
-    private Set<ProductPropertyEntity> properties = new HashSet<ProductPropertyEntity>();// = new ArrayList<>();
-    //private List<ProductRadioPropertyEntity> radioProperties = new ArrayList<>();
+   // private Set<ProductPropertyEntity> properties = new HashSet<ProductPropertyEntity>();
 
 
     @Id
@@ -149,16 +148,6 @@ public class ProductEntity  implements Serializable {
     }
 
 
-//    @ManyToOne()
-//    @JoinColumn(name = "OrderId", referencedColumnName = "OrderId")
-//    public OrderEntity getBucketByProductId() {
-//        return bucketByProductId;
-//    }
-//
-//    public void setBucketByProductId(OrderEntity bucketByProductId) {
-//        this.bucketByProductId = bucketByProductId;
-//    }
-
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID")
     public List<PicturesEntity> getPicturesByProductId() {
@@ -184,30 +173,18 @@ public class ProductEntity  implements Serializable {
 //    @JoinTable(name = "Prod_Prop",
 //            joinColumns = @JoinColumn(name = "ProductId"),
 //            inverseJoinColumns = @JoinColumn(name = "ProductPropertyId"))
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "PRODUCT_HAS_PROPERTY",
-            joinColumns = @JoinColumn(name = "PRODUCT_ID"),
-            inverseJoinColumns = @JoinColumn(name = "PROPERTY_ID"))
-    public Set<ProductPropertyEntity> getProperties() {
-        return properties;
-    }
-
-    public void setProperties(Set<ProductPropertyEntity> properties) {
-        this.properties = properties;
-    }
-
-
-//    @ManyToMany
-//    @JoinTable(name = "Prod_RadioProp",
-//            joinColumns = @JoinColumn(name = "ProductId"),
-//            inverseJoinColumns = @JoinColumn(name = "RadioPropId"))
-//    public List<ProductRadioPropertyEntity> getRadioProperties() {
-//        return radioProperties;
+//    @ManyToMany(cascade = CascadeType.ALL)
+//    @JoinTable(name = "PRODUCT_HAS_PROPERTY",
+//            joinColumns = @JoinColumn(name = "PRODUCT_ID"),
+//            inverseJoinColumns = @JoinColumn(name = "PROPERTY_ID"))
+//    public Set<ProductPropertyEntity> getProperties() {
+//        return properties;
 //    }
 //
-//    public void setRadioProperties(List<ProductRadioPropertyEntity> radioProperties) {
-//        this.radioProperties = radioProperties;
+//    public void setProperties(Set<ProductPropertyEntity> properties) {
+//        this.properties = properties;
 //    }
+//
 
     @Transient
     public List<MultipartFile> getImages() {
@@ -220,7 +197,7 @@ public class ProductEntity  implements Serializable {
 
 
     @Basic
-    @Column(name = "Description")
+    @Column(name = "DESCRIPTION")
     public String getDescription() {
         return description;
     }

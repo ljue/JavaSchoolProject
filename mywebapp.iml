@@ -26,7 +26,7 @@
         <setting name="provider-name" value="" />
         <datasource-mapping>
           <factory-entry name="NewPersistenceUnit" />
-          <factory-entry name="mms-persistence-unit" value="fa56b8a3-b5b0-40cb-b044-c3881a89d908" />
+          <factory-entry name="mms-persistence-unit" value="5f3cd99a-852e-4c3c-a0b8-d24bc549c097" />
         </datasource-mapping>
         <deploymentDescriptor name="persistence.xml" url="file://$MODULE_DIR$/src/main/resources/META-INF/persistence.xml" />
       </configuration>

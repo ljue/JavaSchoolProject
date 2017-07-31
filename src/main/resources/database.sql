@@ -15,6 +15,18 @@ create index ADDRESS_USER_ID_FK
 	on ADDRESS (USER_ID)
 ;
 
+create table MYSHOP_SCHEMA.BUCKET
+(
+	BUCKET_ID int auto_increment
+		primary key,
+	PRODUCT_ID bigint null,
+	COUNT_PRODUCT int null,
+	ORDER_ID bigint null,
+	constraint BUCKET_ID_uindex
+	unique (BUCKET_ID)
+)
+;
+
 create table MYSHOP_SCHEMA.CATEGORY
 (
 	CATEGORY_ID bigint auto_increment
@@ -69,7 +81,7 @@ create table MYSHOP_SCHEMA.`ORDER`
 	USER_ID bigint not null,
 	USER_ADDRESS_ID bigint not null,
 	PAY_WAY_ID bigint not null,
-	DELIVERY_STATUS_ID bigint not null,
+	DELIVERY_STATUS_ID bigint null,
 	DELIVERY_WAY_ID bigint not null,
 	TIME timestamp default CURRENT_TIMESTAMP not null,
 	constraint ORDER_ADDRESS_ID_FK
@@ -202,7 +214,7 @@ create table MYSHOP_SCHEMA.PROPERTY
 	PROPERTY_ID bigint auto_increment
 		primary key,
 	PROPERTY_GROUP_ID bigint null,
-	GROUP_NAME varchar(255) null
+	NAME varchar(255) null
 )
 ;
 

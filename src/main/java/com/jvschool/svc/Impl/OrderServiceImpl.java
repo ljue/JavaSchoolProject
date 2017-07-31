@@ -1,12 +1,14 @@
 package com.jvschool.svc.Impl;
 
 import com.jvschool.dao.*;
+import com.jvschool.entities.BucketEntity;
 import com.jvschool.entities.OrderEntity;
 import com.jvschool.entities.ProductEntity;
 import com.jvschool.svc.DeliveryStatusService;
 import com.jvschool.svc.DeliveryWayService;
 import com.jvschool.svc.OrderService;
 import com.jvschool.svc.ProductService;
+import com.jvschool.util.Attributes.BucketAttribute;
 import com.jvschool.util.Attributes.OrderAttribute;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,11 +50,20 @@ public class OrderServiceImpl implements OrderService {
         oe.setPayWay(payWayDAO.getPayWayByName(oa.getPayWay()));
         oe.setDeliveryWay(deliveryWayService.getDeliveryWayByName(oa.getDeliveryWay()));
 
-        oe.setDeliveryStatus(deliveryStatusService.getDeliveryStatusByName("Await"));
+        //oe.setDeliveryStatus(deliveryStatusService.getDeliveryStatusByName("Await"));
 
-        for(Long product : oa.getProducts()) {
-            oe.getProducts().add(productService.getProductById(product));
+        List<BucketAttribute> lba = oa.getBuckets();
+        List<BucketEntity> lbe = new ArrayList<>();
+        for (BucketAttribute ba : lba) {
+            BucketEntity be = new BucketEntity();
+            be.setCountProduct(ba.getCountProduct());
+            be.setProductId(productService.getProductById(ba.getProductId()));
+            lbe.add(be);
         }
+        oe.setBuckets(lbe);
+//        for(Long product : oa.getProducts()) {
+//            oe.getProducts().add(productService.getProductById(product));
+//        }
 
         orderDAO.saveOrder(oe);
     }

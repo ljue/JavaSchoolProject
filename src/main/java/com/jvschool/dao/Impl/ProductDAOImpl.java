@@ -24,17 +24,7 @@ public class ProductDAOImpl implements ProductDAO {
     public void addProduct(ProductEntity productEntity) {
 
         em.merge(productEntity);
-
-        em.flush();
-        //em.refresh(productEntity);
-//        List<PicturesEntity> lpic = productEntity.getPicturesByProductId();
-//        for (PicturesEntity pic:lpic) {
-//            pic.setProductByProductId(productEntity);
-//            session.save(pic);
-//        }
-
-        //session.persist(productEntity);
-
+       //em.flush();
     }
 
     @Override

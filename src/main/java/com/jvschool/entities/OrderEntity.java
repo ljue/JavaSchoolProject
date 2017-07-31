@@ -19,7 +19,8 @@ public class OrderEntity {
     private PayWayEntity payWay;
     private DeliveryStatusEntity deliveryStatus;
     private DeliveryWayEntity deliveryWay;
-    private List<ProductEntity> products = new ArrayList<>();
+    private List<BucketEntity> buckets = new ArrayList<>();
+    //private List<ProductEntity> products = new ArrayList<>();
 
     @Id
     @Column(name = "ORDER_ID", nullable = false)
@@ -96,7 +97,7 @@ public class OrderEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "DELIVERY_STATUS_ID", referencedColumnName = "DELIVERY_STATUS_ID", nullable = false)
+    @JoinColumn(name = "DELIVERY_STATUS_ID", referencedColumnName = "DELIVERY_STATUS_ID")
     public DeliveryStatusEntity getDeliveryStatus() {
         return deliveryStatus;
     }
@@ -115,17 +116,27 @@ public class OrderEntity {
         this.deliveryWay = deliveryStatusByDeliveryStatus;
     }
 
-    @ManyToMany
-    @JoinTable(name = "ORDER_HAS_PRODUCT",
-    joinColumns = @JoinColumn(name = "ORDER_ID"),
-    inverseJoinColumns = @JoinColumn(name = "PRODUCT_ID"))
-    public List<ProductEntity> getProducts() {
-        return products;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "ORDER_ID")
+    public List<BucketEntity> getBuckets() {
+        return buckets;
     }
 
-    public void setProducts(List<ProductEntity> productByProductId) {
-        this.products = productByProductId;
+    public void setBuckets(List<BucketEntity> buckets) {
+        this.buckets = buckets;
     }
 
+    //    @ManyToMany
+//    @JoinTable(name = "ORDER_HAS_PRODUCT",
+//    joinColumns = @JoinColumn(name = "ORDER_ID"),
+//    inverseJoinColumns = @JoinColumn(name = "PRODUCT_ID"))
+//    public List<ProductEntity> getProducts() {
+//        return products;
+//    }
+//
+//    public void setProducts(List<ProductEntity> productByProductId) {
+//        this.products = productByProductId;
+//    }
+//
 
 }

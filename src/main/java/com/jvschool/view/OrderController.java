@@ -5,6 +5,7 @@ import com.jvschool.svc.DeliveryWayService;
 import com.jvschool.svc.OrderService;
 import com.jvschool.svc.PayWayService;
 import com.jvschool.util.Attributes.AddressAttribute;
+import com.jvschool.util.Attributes.BucketAttribute;
 import com.jvschool.util.Attributes.OrderAttribute;
 import com.jvschool.util.Attributes.SessionUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -54,11 +57,14 @@ public class OrderController {
 
         orderAttribute.setUserId(user.getId());
         orderAttribute.setDateTimeOrder(new Timestamp(Calendar.getInstance().getTime().getTime()));
+        List<BucketAttribute> buckets = new ArrayList<>();
         for(Map.Entry<Long,Integer> mli : user.getProducts().entrySet()) {
-            for(int i =0; i<mli.getValue(); i++) {
-                orderAttribute.getProducts().add(mli.getKey());
-            }
+            BucketAttribute bucket = new BucketAttribute();
+            bucket.setProductId(mli.getKey());
+            bucket.setCountProduct(mli.getValue());
+            buckets.add(bucket);
         }
+        orderAttribute.setBuckets(buckets);
         orderService.saveOrder(orderAttribute);
 
 
