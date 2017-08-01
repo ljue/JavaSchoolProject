@@ -33,6 +33,7 @@
 
         <div class="col-md-9">
             <div class="row">
+                <br>
                 <c:if test="${!empty orders}">
                     <c:forEach var="order" items="${orders}">
 

@@ -1,10 +1,14 @@
 package com.jvschool.dao.Impl;
 
 import com.jvschool.dao.OrderDAO;
+import com.jvschool.dao.UserDAO;
 import com.jvschool.entities.OrderEntity;
+import com.jvschool.entities.UserEntity;
 import org.hibernate.Session;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.jws.soap.SOAPBinding;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
@@ -18,11 +22,15 @@ public class OrderDAOImpl implements OrderDAO {
     @PersistenceContext
     private EntityManager em;
 
+    @Autowired
+    private UserDAO userDAO;
+
+
+
     @Override
     public void saveOrder(OrderEntity orderEntity) {
 
         em.merge(orderEntity);
-
     }
 
     @Override
@@ -44,5 +52,15 @@ public class OrderDAOImpl implements OrderDAO {
         else
             return (OrderEntity) list.get(0);
 
+    }
+
+    @Override
+    public List<OrderEntity> getOrdersByUserId(long id) {
+
+        UserEntity user = userDAO.getUserById(id);
+        List<OrderEntity> list = em.createQuery("FROM OrderEntity where user=:user")
+                .setParameter("user",user).getResultList();
+
+        return list;
     }
 }

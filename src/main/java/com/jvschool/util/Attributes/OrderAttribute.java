@@ -34,8 +34,13 @@ public class OrderAttribute {
         this.userId = oe.getUser().getId();
         this.addressId = oe.getAddress().getAddressId();
         this.payWay = oe.getPayWay().getPayWayName();
-        this.deliveryStatus = oe.getDeliveryStatus().getDeliveryStatusName();
         this.deliveryWay = oe.getDeliveryWay().getDeliveryWayName();
+
+        if(oe.getDeliveryStatus()==null) {
+            this.deliveryStatus = "Await";
+        }
+        else
+            this.deliveryStatus = oe.getDeliveryStatus().getDeliveryStatusName();
 
         List<BucketEntity> lbe = oe.getBuckets();
         if(!lbe.isEmpty()) {

@@ -12,4 +12,5 @@ public interface OrderDAO {
     void saveOrder(OrderEntity orderEntity);
     List<OrderEntity> getOrdersGroupByDeliveryStatus();
     OrderEntity getOrderById(long id);
+    List<OrderEntity> getOrdersByUserId(long id);
 }

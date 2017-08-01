@@ -14,5 +14,6 @@ public interface OrderService {
     void saveOrder(OrderAttribute orderAttribute);
     List<OrderAttribute> getOrdersGroupByDeliveryStatus();
     OrderAttribute getOrderById(long id);
+    List<OrderAttribute> getOrdersByUserId(long id);
 
 }

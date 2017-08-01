@@ -1,19 +1,23 @@
 package com.jvschool.view;
 
 import com.jvschool.entities.UserEntity;
-import com.jvschool.svc.RoleService;
-import com.jvschool.svc.UserService;
+import com.jvschool.svc.*;
+import com.jvschool.svc.Impl.OrderServiceImpl;
+import com.jvschool.util.Attributes.BucketAttribute;
+import com.jvschool.util.Attributes.OrderAttribute;
+import com.jvschool.util.Attributes.ProductAttribute;
 import com.jvschool.util.Attributes.SessionUser;
 import com.jvschool.util.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
+
+import javax.persistence.Basic;
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Людмила on 17.07.2017.
@@ -30,6 +34,15 @@ public class UserController {
 
     @Autowired
     private UserValidator userValidator;
+
+    @Autowired
+    private OrderService orderService;
+
+    @Autowired
+    private AddressService addressService;
+
+    @Autowired
+    private ProductService productService;
 
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -119,8 +132,37 @@ public class UserController {
     }
 
     @RequestMapping(value = {"/history"}, method = RequestMethod.GET)
-    public String goOrdersHistoryInfo(@ModelAttribute("user") SessionUser user) {
+    public String goOrdersHistoryInfo(@ModelAttribute("user") SessionUser user, Model model) {
+
+        model.addAttribute("ordersHistory", orderService.getOrdersByUserId(user.getId()));
+
         return "history";
+    }
+
+    @GetMapping(value = "/orderInHistory/{orderId}")
+    public String goOrderInHistory(@PathVariable("orderId") long orderId, Model model) {
+
+        OrderAttribute orderAttribute = orderService.getOrderById(orderId);
+        List<BucketAttribute> bucketAttributes = orderAttribute.getBuckets();
+        List<ProductAttribute> productAttributes = new ArrayList<>();
+        Double total=0d;
+        if(!bucketAttributes.isEmpty()) {
+            for (BucketAttribute ba : bucketAttributes) {
+                ProductAttribute pa = productService.getProductAttributeById(ba.getProductId());
+                productAttributes.add(pa);
+                total = total+pa.getCost()*ba.getCountProduct();
+            }
+        }
+        model.addAttribute("products",productAttributes);
+        model.addAttribute("orderIn", orderAttribute);
+        model.addAttribute("buckets", bucketAttributes);
+        model.addAttribute("addressOrder", addressService.getAddressById(orderAttribute.getAddressId()));
+
+        model.addAttribute("total",total);
+
+
+
+        return "orderInHistory";
     }
 
 

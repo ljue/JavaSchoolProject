@@ -68,13 +68,8 @@ public class OrderController {
         orderService.saveOrder(orderAttribute);
 
 
+        return "history";
 
-        if(orderAttribute.getPayWay().equals("By card")) {
-            return "payOrder";
-        }
-        else {
-            return "history";
-        }
 
 
     }

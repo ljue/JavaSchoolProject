@@ -99,4 +99,16 @@ public class OrderServiceImpl implements OrderService {
     public OrderAttribute getOrderById(long id) {
         return new OrderAttribute(orderDAO.getOrderById(id));
     }
+
+    @Override
+    public List<OrderAttribute> getOrdersByUserId(long id) {
+        List<OrderEntity> loe = orderDAO.getOrdersByUserId(id);
+        List<OrderAttribute> loa = new ArrayList<>();
+        if(!loe.isEmpty()) {
+            for(OrderEntity oe : loe) {
+                loa.add(new OrderAttribute(oe));
+            }
+        }
+        return loa;
+    }
 }

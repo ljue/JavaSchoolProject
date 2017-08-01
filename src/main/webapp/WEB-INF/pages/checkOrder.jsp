@@ -35,7 +35,7 @@
         </div>
 
         <div class="col-md-9">
-
+            <br>
             <div class="panel panel-default">
                 <div class="panel-heading text-center"><h4>Order #${order.orderId}</h4></div>
                 <div class="panel-body">
