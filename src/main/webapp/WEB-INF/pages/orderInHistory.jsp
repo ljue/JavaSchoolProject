@@ -1,11 +1,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: Людмила
-  Date: 01.08.2017
-  Time: 2:03
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -39,29 +32,31 @@
 
             <div class="row">
                 <h3>#Order Id: ${orderIn.orderId}</h3><br>
-                    <h4>Delivery status: ${orderIn.deliveryStatus}</h4>
-                    <h4>Pay way: ${orderIn.payWay}</h4>
-                    <h4>Delivery way: ${orderIn.deliveryWay}</h4>
+                    <%--<h4>Delivery status: ${orderIn.deliveryStatus}</h4>--%>
+                    <%--<h4>Pay way: ${orderIn.payWay}</h4>--%>
+                    <%--<h4>Delivery way: ${orderIn.deliveryWay}</h4>--%>
 
+                <%--<h4>Address: ${addressOrder.country}, ${addressOrder.region}, ${addressOrder.city},--%>
+                    <%--${addressOrder.streetAddress}, post code ${addressOrder.postIndex}</h4>--%>
 
-                <br>
-
-                <div class="col-lg-4 col-sm-3 text-center">
-                    <div class="well">
-                        <strong class="pull-left primary-font">Address</strong>
-                        <ul class="list-unstyled ui-sortable">
-                            <hr>
-                            <li class="ui-state-default">
-                                ${addressOrder.country},<br>
-                                ${addressOrder.region},<br>
-                                ${addressOrder.city},<br>
-                                ${addressOrder.streetAddress},<br>
-                                Post code: ${addressOrder.postIndex}<br>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
+                <div class="form-group">
+                    <label class="col-md-3">Delivery status:</label>
+                    <label class="col-md-3">${orderIn.deliveryStatus}</label>
+                </div><br>
+                <div class="form-group">
+                    <label class="col-md-3">Pay way:</label>
+                    <label class="col-md-3">${orderIn.payWay}</label>
+                </div><br>
+                <div class="form-group">
+                    <label class="col-md-3">Delivery way:</label>
+                    <label class="col-md-3">${orderIn.deliveryWay}</label>
+                </div><br>
+                <div class="form-group">
+                    <label class="col-md-3">Address:</label>
+                    <label class="col-md-8">${addressOrder.country}, ${addressOrder.region}, ${addressOrder.city},
+                        ${addressOrder.streetAddress}, post code ${addressOrder.postIndex}</h4>
+                    </label>
+                </div><br><br><br>
                 <br>
 
                 <table class="table table-hover">
@@ -85,40 +80,40 @@
                         </tr>
 
 
-                            <div class="modal fade product_view" id="productInOrder${product.productId}">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
 
-                                            <h3 class="modal-title">${product.productName}</h3>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="row">
-                                                <div class="col-md-6 product_img">
-                                                    <img src="../resources/Images/${product.presentPic}"
-                                                         class="img-responsive">
-                                                </div>
-                                                <div class="col-md-6 product_content">
-                                                    <h4>Product Id: <span>${product.productId}</span></h4>
+                        </c:if>
 
-                                                    <h5>Name: <span>${product.productName}</span></h5>
-                                                    <h5>Category: <span>${product.productCategoryByCategory}</span></h5>
-                                                    <h5>Battery: <span>${product.battery}</span></h5>
-                                                    <h5>Fly time: <span>${product.flyTime}</span></h5>
-                                                    <h5>Distance: <span>${product.distance}</span></h5>
-                                                    <h5>${product.description}</h5>
+                        <div class="modal fade product_view" id="productInOrder${product.productId}">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
 
-                                                    <h3 class="cost"></span> $${product.cost}</h3>
+                                        <h3 class="modal-title">${product.productName}</h3>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-md-6 product_img">
+                                                <img src="../resources/Images/${product.presentPic}"
+                                                     class="img-responsive">
+                                            </div>
+                                            <div class="col-md-6 product_content">
+                                                <h4>Product Id: <span>${product.productId}</span></h4>
 
+                                                <h5>Name: <span>${product.productName}</span></h5>
+                                                <h5>Category: <span>${product.productCategoryByCategory}</span></h5>
+                                                <h5>Battery: <span>${product.battery}</span></h5>
+                                                <h5>Fly time: <span>${product.flyTime}</span></h5>
+                                                <h5>Distance: <span>${product.distance}</span></h5>
+                                                <h5>${product.description}</h5>
 
+                                                <h3 class="cost"></span> $${product.cost}</h3>
 
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </c:if>
+                        </div>
                     </c:forEach>
                     </c:forEach>
                     <tr>

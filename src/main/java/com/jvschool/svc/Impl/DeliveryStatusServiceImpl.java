@@ -35,4 +35,9 @@ public class DeliveryStatusServiceImpl implements DeliveryStatusService {
     public DeliveryStatusEntity getDeliveryStatusByName(String name) {
         return deliveryStatusDAO.getDeliveryStatusByName(name);
     }
+
+    @Override
+    public void addDeliveryStatus(String name) {
+        deliveryStatusDAO.addDeliveryStatus(name);
+    }
 }

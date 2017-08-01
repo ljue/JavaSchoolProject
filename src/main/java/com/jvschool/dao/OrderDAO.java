@@ -1,5 +1,6 @@
 package com.jvschool.dao;
 
+import com.jvschool.entities.DeliveryStatusEntity;
 import com.jvschool.entities.OrderEntity;
 
 import java.util.List;
@@ -13,4 +14,5 @@ public interface OrderDAO {
     List<OrderEntity> getOrdersGroupByDeliveryStatus();
     OrderEntity getOrderById(long id);
     List<OrderEntity> getOrdersByUserId(long id);
+    void editDeliveryStatus(DeliveryStatusEntity deliveryStatusEntity, long id);
 }

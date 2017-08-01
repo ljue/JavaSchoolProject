@@ -30,7 +30,7 @@
         <div class="col-md-3">
             <p class="lead">  </p>
             <div class="list-group">
-                <a href="/orderList" class="list-group-item">Order list</a>
+                <a href="/adminOrders" class="list-group-item">Order list</a>
                 <a href="/statistics" class="list-group-item">Shop statistic</a>
                 <a href="/adminProducts" class="list-group-item">Goods management</a>
             </div>

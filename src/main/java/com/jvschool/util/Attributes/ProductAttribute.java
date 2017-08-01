@@ -8,9 +8,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Людмила on 26.07.2017.
- */
+
 public class ProductAttribute  implements Serializable {
 
     private long productId;

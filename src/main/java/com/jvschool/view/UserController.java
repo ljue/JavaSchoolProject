@@ -19,9 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Людмила on 17.07.2017.
- */
+
 @Controller
 @SessionAttributes("user")
 public class UserController {

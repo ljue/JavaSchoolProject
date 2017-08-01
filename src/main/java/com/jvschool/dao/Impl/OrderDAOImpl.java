@@ -2,6 +2,7 @@ package com.jvschool.dao.Impl;
 
 import com.jvschool.dao.OrderDAO;
 import com.jvschool.dao.UserDAO;
+import com.jvschool.entities.DeliveryStatusEntity;
 import com.jvschool.entities.OrderEntity;
 import com.jvschool.entities.UserEntity;
 import org.hibernate.Session;
@@ -63,4 +64,11 @@ public class OrderDAOImpl implements OrderDAO {
 
         return list;
     }
+
+    @Override
+    public void editDeliveryStatus(DeliveryStatusEntity deliveryStatusEntity, long id) {
+
+
+    }
+
 }

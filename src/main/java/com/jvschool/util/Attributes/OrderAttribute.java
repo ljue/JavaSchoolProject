@@ -9,9 +9,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Людмила on 27.07.2017.
- */
+
 public class OrderAttribute {
 
     private long orderId;

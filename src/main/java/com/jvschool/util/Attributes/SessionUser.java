@@ -10,9 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by Людмила on 20.07.2017.
- */
+
 public class SessionUser implements Serializable {
 
     private long id;

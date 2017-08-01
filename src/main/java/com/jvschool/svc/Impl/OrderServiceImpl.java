@@ -2,6 +2,7 @@ package com.jvschool.svc.Impl;
 
 import com.jvschool.dao.*;
 import com.jvschool.entities.BucketEntity;
+import com.jvschool.entities.DeliveryStatusEntity;
 import com.jvschool.entities.OrderEntity;
 import com.jvschool.entities.ProductEntity;
 import com.jvschool.svc.DeliveryStatusService;
@@ -44,13 +45,24 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void saveOrder(OrderAttribute oa) {
         OrderEntity oe = new OrderEntity();
+        if(oa.getOrderId()!=0) {
+            oe.setOrderId(oa.getOrderId());
+        }
         oe.setAddress(addressDAO.getAddressById(oa.getAddressId()));
         oe.setUser(userDAO.getUserById(oa.getUserId()));
         oe.setDateTimeOrder(oa.getDateTimeOrder());
         oe.setPayWay(payWayDAO.getPayWayByName(oa.getPayWay()));
         oe.setDeliveryWay(deliveryWayService.getDeliveryWayByName(oa.getDeliveryWay()));
 
-        //oe.setDeliveryStatus(deliveryStatusService.getDeliveryStatusByName("Await"));
+        if(oa.getDeliveryStatus()==null) {
+            DeliveryStatusEntity deliveryStatusEntity = deliveryStatusService.getDeliveryStatusByName("Await");
+            if(deliveryStatusEntity==null) {
+                deliveryStatusEntity = new DeliveryStatusEntity();
+                deliveryStatusEntity.setDeliveryStatusName("Await");
+            }
+            oe.setDeliveryStatus(deliveryStatusEntity);
+        }
+        else oe.setDeliveryStatus(deliveryStatusService.getDeliveryStatusByName(oa.getDeliveryStatus()));
 
         List<BucketAttribute> lba = oa.getBuckets();
         List<BucketEntity> lbe = new ArrayList<>();

@@ -38,4 +38,11 @@ public class DeliveryStatusDAOImpl implements DeliveryStatusDAO {
         else
             return (DeliveryStatusEntity) list.get(0);
     }
+
+    @Override
+    public void addDeliveryStatus(String name) {
+        DeliveryStatusEntity deliveryStatusEntity = new DeliveryStatusEntity();
+        deliveryStatusEntity.setDeliveryStatusName(name);
+        em.persist(deliveryStatusEntity);
+    }
 }

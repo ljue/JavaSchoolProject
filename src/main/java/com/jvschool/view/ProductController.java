@@ -11,9 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by Людмила on 26.07.2017.
- */
 @Controller
 @SessionAttributes("user")
 public class ProductController {
@@ -27,15 +24,6 @@ public class ProductController {
 
         return "catalog";
     }
-
-//    @RequestMapping(value = "/gocheckout", method = RequestMethod.GET)
-//    public String goCheckout(@ModelAttribute("user") SessionUser user,Model model) {
-//        if(user.getRole().equals("ROLE_ANONYM")) {
-//            return "forward:/login";
-//        }
-//        return "forward:/checkout";
-//    }
-
 
 
 
@@ -81,7 +69,6 @@ public class ProductController {
     @RequestMapping(value = {"/bucket"}, method = RequestMethod.GET)
     public String goBucket(@ModelAttribute("user") SessionUser user, Model model) {
 
-        //model.addAttribute("productsInCart", productService.getProductsToBuy(user.getProducts().keySet()));
         Map<ProductAttribute,Integer> productsInCart = new HashMap<>();
         double commonPrice=0L;
         if(!user.getProducts().isEmpty()) {
@@ -92,19 +79,11 @@ public class ProductController {
             }
         }
 
-
-
         model.addAttribute("productsInCart",productsInCart);
         model.addAttribute("commonPrice",String.format("%.2f", commonPrice));
 
         return "bucket";
     }
-
-//    @RequestMapping(value = {"/reloadCart"}, method = RequestMethod.GET)
-//    public String reloadCart() {
-//
-//        return "redirect:/bucket";
-//    }
 
 
 }

@@ -5,9 +5,7 @@ import com.jvschool.svc.ProductPropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 
-/**
- * Created by Людмила on 23.07.2017.
- */
+
 public class ProductCheckBoxPropertyConverter implements Converter<String, ProductPropertyEntity> {
 
     @Autowired

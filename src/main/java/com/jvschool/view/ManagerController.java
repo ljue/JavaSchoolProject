@@ -6,6 +6,7 @@ import com.jvschool.entities.ProductCategoryEntity;
 import com.jvschool.entities.ProductEntity;
 
 import com.jvschool.svc.*;
+import com.jvschool.util.Attributes.BucketAttribute;
 import com.jvschool.util.Attributes.FormEditCategories;
 import com.jvschool.util.Attributes.OrderAttribute;
 import com.jvschool.util.Attributes.ProductAttribute;
@@ -23,9 +24,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
-/**
- * Created by Людмила on 22.07.2017.
- */
+
 
 @Controller
 public class ManagerController {
@@ -41,11 +40,12 @@ public class ManagerController {
     @Autowired
     private ProductService productService;
     @Autowired
-    private PropertyRadioCategoryService propertyRadioCategoryService;
-    @Autowired
-    private ProductRadioPropertyService productRadioPropertyService;
-    @Autowired
     private OrderService orderService;
+    @Autowired
+    private AddressService addressService;
+    @Autowired
+    private DeliveryStatusService deliveryStatusService;
+
 
 
 
@@ -70,6 +70,12 @@ public class ManagerController {
     @RequestMapping(value = "/adminProducts", method = RequestMethod.POST)
     public String addProduct(@ModelAttribute("productForm")ProductEntity productForm,
                            BindingResult bindingResult, Model model, HttpServletRequest request) {
+
+        productValidator.validate(productForm, bindingResult);
+        if (bindingResult.hasErrors()) {
+            return "adminProducts";
+        }
+
 
         List<MultipartFile> files = productForm.getImages();
         List<String> fileNames = new ArrayList<String>();
@@ -98,10 +104,7 @@ public class ManagerController {
         }
         productForm.setPicturesByProductId(picNames);
 
-        productValidator.validate(productForm, bindingResult);
-        if (bindingResult.hasErrors()) {
-            return "adminProducts";
-        }
+
         productService.addProduct(productForm);
         return "redirect:/adminProducts";
     }
@@ -156,17 +159,50 @@ public class ManagerController {
     }
 
     @GetMapping(value = "/adminOrders/{orderId}")
-    public String goCheckOrder(@PathVariable("orderId") Long orderId, Model model) {
+    public String goCheckOrder(@PathVariable("orderId") Long orderId, Model model,
+                               HttpServletRequest request) {
+
 
         OrderAttribute orderAttribute = orderService.getOrderById(orderId);
-//        List<ProductAttribute> lpa = new ArrayList<>();
-//        for(Long id : orderAttribute.getProducts()) {
-//            lpa.add(productService.getProductAttributeById(id));
-//        }
-//        model.addAttribute("order",orderAttribute);
-//        model.addAttribute("products", lpa);
+        List<BucketAttribute> bucketAttributes = orderAttribute.getBuckets();
+        List<ProductAttribute> productAttributes = new ArrayList<>();
+        Double total=0d;
+        if(!bucketAttributes.isEmpty()) {
+            for (BucketAttribute ba : bucketAttributes) {
+                ProductAttribute pa = productService.getProductAttributeById(ba.getProductId());
+                productAttributes.add(pa);
+                total = total+pa.getCost()*ba.getCountProduct();
+            }
+        }
+        model.addAttribute("products",productAttributes);
+        model.addAttribute("orderIn", orderAttribute);
+        model.addAttribute("buckets", bucketAttributes);
+        model.addAttribute("addressOrder", addressService.getAddressById(orderAttribute.getAddressId()));
+        model.addAttribute("deliveryStatuses", deliveryStatusService.getAllDeliveryStatuses());
+        model.addAttribute("total",total);
+        model.addAttribute("editDeliveryStatus", new OrderAttribute());
+        request.getSession().setAttribute("editOrder", orderAttribute);
 
 
         return "checkOrder";
+    }
+
+
+    @PostMapping(value = "editDeliveryStatus")
+    public String editDeliveryStatus(HttpServletRequest request, Model model,
+                                     @ModelAttribute("editDeliveryStatus") OrderAttribute orderEditAttribute) {
+
+        OrderAttribute orderAttribute = (OrderAttribute) request.getSession().getAttribute("editOrder");
+        orderAttribute.setDeliveryStatus(orderEditAttribute.getDeliveryStatus());
+        orderService.saveOrder(orderAttribute);
+
+        return "redirect:/adminOrders/"+orderAttribute.getOrderId();
+    }
+
+
+    @GetMapping(value = "statistics")
+    public String goStatistics() {
+
+        return "statistics";
     }
 }

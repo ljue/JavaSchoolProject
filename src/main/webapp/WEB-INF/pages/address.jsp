@@ -39,6 +39,7 @@
 
         <div class="col-md-9">
             <div class="row">
+                <br>
                 <ul class="nav nav-tabs">
                     <li class="active"><a data-toggle="tab" href="#panel1">Available addresses</a></li>
                     <li><a data-toggle="tab" href="#panel2">Add new Address</a></li>
@@ -94,39 +95,42 @@
                                    class="form-horizontal">
                             <fieldset>
                                 <spring:bind path="country">
-                                    <div class="form-group">
+                                    <div class="form-group ${status.error ? 'has-error' : ''}">
                                         <label class="col-md-3 control-label">Country</label>
                                         <div class="col-md-6">
                                             <form:input type="text" path="country" class="form-control"
                                                         placeholder="Country"
                                             ></form:input>
                                         </div>
+                                        <form:errors path="country"></form:errors>
                                     </div>
                                 </spring:bind>
                                 <spring:bind path="region">
-                                    <div class="form-group">
+                                    <div class="form-group ${status.error ? 'has-error' : ''}">
                                         <label class="col-md-3 control-label">Region</label>
                                         <div class="col-md-6">
                                             <form:input type="text" path="region" class="form-control"
                                                         placeholder="Region"
                                             ></form:input>
                                         </div>
+                                        <form:errors path="region"></form:errors>
                                     </div>
                                 </spring:bind>
 
                                 <spring:bind path="city">
-                                    <div class="form-group">
+                                    <div class="form-group ${status.error ? 'has-error' : ''}">
                                         <label class="col-md-3 control-label">City/Town</label>
                                         <div class="col-md-6">
                                             <form:input type="text" path="city" class="form-control"
                                                         placeholder="City / Town"
                                             ></form:input>
                                         </div>
+                                        <form:errors path="city"></form:errors>
                                     </div>
                                 </spring:bind>
 
                                 <spring:bind path="streetAddress">
-                                    <div class="form-group">
+                                    <div class="form-group ${status.error ? 'has-error' : ''}">
                                         <label class="col-md-3 control-label" for="address1">Address Line</label>
                                         <div class="col-md-8">
                                             <form:input id="address1" type="text" path="streetAddress"
@@ -134,18 +138,20 @@
                                             ></form:input>
                                             <span class="help-block">Street address, P.O. box, company name, c/o</span>
                                         </div>
+                                        <form:errors path="streetAddress"></form:errors>
                                     </div>
                                 </spring:bind>
 
                                 <!-- Text input-->
                                 <spring:bind path="postIndex">
-                                    <div class="form-group">
+                                    <div class="form-group ${status.error ? 'has-error' : ''}">
                                         <label class="col-md-3 control-label" for="zip">Postal code</label>
                                         <div class="col-md-4">
                                             <form:input id="zip" type="text" path="postIndex" class="form-control"
                                                         placeholder="Zip or Postal code"
                                             ></form:input>
                                         </div>
+                                        <form:errors path="postIndex"></form:errors>
                                     </div>
                                 </spring:bind>
 

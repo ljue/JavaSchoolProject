@@ -3,9 +3,7 @@ package com.jvschool.util.Attributes;
 import com.jvschool.entities.BucketEntity;
 import com.jvschool.entities.ProductEntity;
 
-/**
- * Created by Людмила on 31.07.2017.
- */
+
 public class BucketAttribute {
 
     private int bucketId;

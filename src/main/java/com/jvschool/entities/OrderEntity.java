@@ -96,7 +96,7 @@ public class OrderEntity {
         this.payWay = payWayByPayWay;
     }
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "DELIVERY_STATUS_ID", referencedColumnName = "DELIVERY_STATUS_ID")
     public DeliveryStatusEntity getDeliveryStatus() {
         return deliveryStatus;

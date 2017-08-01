@@ -2,9 +2,7 @@ package com.jvschool.util.Attributes;
 
 import com.jvschool.entities.AddressEntity;
 
-/**
- * Created by Людмила on 28.07.2017.
- */
+
 public class AddressAttribute {
 
     private long addressId;

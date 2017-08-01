@@ -19,9 +19,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by Людмила on 26.07.2017.
- */
+
 @Controller
 @SessionAttributes("user")
 public class OrderController {
@@ -68,7 +66,7 @@ public class OrderController {
         orderService.saveOrder(orderAttribute);
 
 
-        return "history";
+        return "forward:/history";
 
 
 

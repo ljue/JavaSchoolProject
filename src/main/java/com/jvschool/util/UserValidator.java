@@ -11,9 +11,7 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 import org.springframework.validation.annotation.Validated;
 
-/**
- * Created by Людмила on 19.07.2017.
- */
+
 @Component
 public class UserValidator implements Validator {
 

@@ -7,9 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-/**
- * Created by Людмила on 20.07.2017.
- */
+
 public class RoleFilter implements Filter {
 
 

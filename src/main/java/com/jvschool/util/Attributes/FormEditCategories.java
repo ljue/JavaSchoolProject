@@ -2,9 +2,7 @@ package com.jvschool.util.Attributes;
 
 import com.jvschool.entities.ProductCategoryEntity;
 
-/**
- * Created by Людмила on 24.07.2017.
- */
+
 public class FormEditCategories {
 
 //    List<ProductCategoryEntity> productCategoryEntityList;
