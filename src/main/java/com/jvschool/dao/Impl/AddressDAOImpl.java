@@ -11,9 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
-/**
- * Created by Людмила on 24.07.2017.
- */
+
 @Repository
 public class AddressDAOImpl implements AddressDAO {
 

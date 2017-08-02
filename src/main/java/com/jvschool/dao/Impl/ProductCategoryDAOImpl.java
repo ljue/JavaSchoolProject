@@ -1,17 +1,12 @@
 package com.jvschool.dao.Impl;
 
 import com.jvschool.entities.ProductCategoryEntity;
-import org.hibernate.Query;
-import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
-/**
- * Created by Людмила on 23.07.2017.
- */
+
 @Repository
 public class ProductCategoryDAOImpl implements com.jvschool.dao.ProductCategoryDAO {
 

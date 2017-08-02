@@ -15,5 +15,7 @@ public interface OrderService {
     List<OrderAttribute> getOrdersGroupByDeliveryStatus();
     OrderAttribute getOrderById(long id);
     List<OrderAttribute> getOrdersByUserId(long id);
+    double getWeekProceed();
+    double getMonthProceed();
 
 }

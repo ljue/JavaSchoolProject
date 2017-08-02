@@ -20,15 +20,14 @@ public class ProductAttribute  implements Serializable {
     private String flyTime;
     private String distance;
     private String description;
-
     //private OrderEntity bucketByProductId;
     private String productCategoryByCategory;
 
     private List<MultipartFile> images;
     private List<String> picturesPath= new ArrayList<>();
     private String presentPic;
-    //private Set<ProductPropertyEntity> properties = new HashSet<ProductPropertyEntity>();
 
+    private int sumCount;
 
     public ProductAttribute() {
     }
@@ -159,5 +158,13 @@ public class ProductAttribute  implements Serializable {
 
     public void setPresentPic(String presentPic) {
         this.presentPic = presentPic;
+    }
+
+    public int getSumCount() {
+        return sumCount;
+    }
+
+    public void setSumCount(int sumCount) {
+        this.sumCount = sumCount;
     }
 }

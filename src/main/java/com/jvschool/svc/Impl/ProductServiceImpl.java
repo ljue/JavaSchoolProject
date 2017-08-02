@@ -1,6 +1,8 @@
 package com.jvschool.svc.Impl;
 
+import com.jvschool.dao.BucketDAO;
 import com.jvschool.dao.ProductDAO;
+import com.jvschool.entities.BucketEntity;
 import com.jvschool.entities.ProductEntity;
 import com.jvschool.svc.ProductService;
 import com.jvschool.util.Attributes.ProductAttribute;
@@ -21,6 +23,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private ProductDAO productDAO;
+    @Autowired
+    private BucketDAO bucketDAO;
 
     @Override
     public void addProduct(ProductEntity productEntity) {
@@ -57,5 +61,26 @@ public class ProductServiceImpl implements ProductService {
         }
 
         return listAttr;
+    }
+
+    @Override
+    public List<ProductAttribute> getTopProducts() {
+
+        List<ProductEntity> lpe = productDAO.getTopProducts();
+        List<ProductAttribute> lpa = new ArrayList<>();
+        if (!lpe.isEmpty()) {
+            for (ProductEntity pe : lpe) {
+                ProductAttribute pa = new ProductAttribute(pe);
+                List<BucketEntity> lbe = bucketDAO.getBucketsByProductId(pe.getProductId());
+                if (!lbe.isEmpty()) {
+                    for (BucketEntity be : lbe) {
+                        pa.setSumCount(pa.getSumCount() + be.getCountProduct());
+                    }
+                }
+                lpa.add(pa);
+            }
+        }
+
+        return lpa;
     }
 }

@@ -25,6 +25,8 @@ public class UserEntity  implements Serializable {
 
 
     private String confirmPassword;
+    private double sumTotal;
+    private int sumCountProduct;
 
 
 
@@ -158,5 +160,21 @@ public class UserEntity  implements Serializable {
         this.confirmPassword = confirmPassword;
     }
 
+    @Transient
+    public double getSumTotal() {
+        return sumTotal;
+    }
 
+    public void setSumTotal(double sumTotal) {
+        this.sumTotal = sumTotal;
+    }
+
+    @Transient
+    public int getSumCountProduct() {
+        return sumCountProduct;
+    }
+
+    public void setSumCountProduct(int sumCountProduct) {
+        this.sumCountProduct = sumCountProduct;
+    }
 }

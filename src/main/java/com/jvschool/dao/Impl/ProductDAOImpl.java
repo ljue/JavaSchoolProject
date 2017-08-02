@@ -1,18 +1,19 @@
 package com.jvschool.dao.Impl;
 
 import com.jvschool.dao.ProductDAO;
+import com.jvschool.entities.OrderEntity;
 import com.jvschool.entities.ProductEntity;
-import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.Root;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Created by Людмила on 23.07.2017.
- */
+
 @Repository
 public class ProductDAOImpl implements ProductDAO {
 
@@ -54,5 +55,22 @@ public class ProductDAOImpl implements ProductDAO {
         .setParameter("list",set).getResultList();
 
         return  products;
+    }
+
+    @Override
+    public List<ProductEntity> getTopProducts() {
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery criteriaQuery = criteriaBuilder.createQuery();
+        Root order = criteriaQuery.from(OrderEntity.class);
+        Join b = order.join("buckets");
+        criteriaQuery.multiselect(b.get("productId"));
+        criteriaQuery.groupBy(b.get("productId"));
+        criteriaQuery.orderBy(criteriaBuilder.desc
+                (criteriaBuilder.sum
+                                (b.get("countProduct"))));
+
+        List<ProductEntity> list = em.createQuery(criteriaQuery).getResultList();
+
+        return list;
     }
 }

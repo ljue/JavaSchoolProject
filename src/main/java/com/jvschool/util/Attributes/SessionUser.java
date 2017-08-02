@@ -24,6 +24,9 @@ public class SessionUser implements Serializable {
     private String role;
     private Map<Long,Integer> products = new HashMap<>();
 
+    private int sumCountProducts;
+    private double sumTotal;
+
 
     public SessionUser() {
         this.role = "ROLE_ANONYM";
@@ -41,13 +44,30 @@ public class SessionUser implements Serializable {
 
         this.products = products;
 
-        if (ue.getAddresses()!=null) {
+        if (!ue.getAddresses().isEmpty()) {
             List<AddressEntity> list = ue.getAddresses();
                 for (AddressEntity adr : list) {
                     this.listAddress.add(adr.getAddressId());
                 }
         }
+    }
 
+    public SessionUser(UserEntity ue) {
+        this.id = ue.getId();
+        this.login = ue.getLogin();
+        this.pass = ue.getPass();
+        this.email = ue.getEmail();
+        this.firstName = ue.getFirstName();
+        this.secondName = ue.getSecondName();
+        this.birthday = ue.getBirthday();
+        this.role = ue.getRoleByRole().getName();
+
+        if (!ue.getAddresses().isEmpty()) {
+            List<AddressEntity> list = ue.getAddresses();
+            for (AddressEntity adr : list) {
+                this.listAddress.add(adr.getAddressId());
+            }
+        }
     }
 
     public long getId() {
@@ -128,5 +148,21 @@ public class SessionUser implements Serializable {
 
     public void setProducts(Map<Long, Integer> products) {
         this.products = products;
+    }
+
+    public int getSumCountProducts() {
+        return sumCountProducts;
+    }
+
+    public void setSumCountProducts(int sumCountProducts) {
+        this.sumCountProducts = sumCountProducts;
+    }
+
+    public double getSumTotal() {
+        return sumTotal;
+    }
+
+    public void setSumTotal(double sumTotal) {
+        this.sumTotal = sumTotal;
     }
 }

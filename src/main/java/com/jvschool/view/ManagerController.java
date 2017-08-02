@@ -45,6 +45,8 @@ public class ManagerController {
     private AddressService addressService;
     @Autowired
     private DeliveryStatusService deliveryStatusService;
+    @Autowired
+    private UserService userService;
 
 
 
@@ -201,7 +203,12 @@ public class ManagerController {
 
 
     @GetMapping(value = "statistics")
-    public String goStatistics() {
+    public String goStatistics(Model model) {
+
+        model.addAttribute("topClients", userService.getTopUsers());
+        model.addAttribute("topProducts", productService.getTopProducts());
+        model.addAttribute("weekProceed", orderService.getWeekProceed());
+        model.addAttribute("monthProceed", orderService.getMonthProceed());
 
         return "statistics";
     }

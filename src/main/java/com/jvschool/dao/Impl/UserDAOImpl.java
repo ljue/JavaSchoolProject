@@ -1,21 +1,19 @@
 package com.jvschool.dao.Impl;
 
 import com.jvschool.dao.UserDAO;
+import com.jvschool.entities.OrderEntity;
 import com.jvschool.entities.UserEntity;
-
-
 import org.springframework.stereotype.Repository;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-
-
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
-/**
- * Created by Людмила on 17.07.2017.
- */
+
 
 @Repository
 public class UserDAOImpl implements UserDAO {
@@ -66,19 +64,7 @@ public class UserDAOImpl implements UserDAO {
 
     public void addUser(UserEntity user) {
 
-
-//        Query query = session.createQuery("INSERT INTO UserEntity (login, firstName, secondName, " +
-//                "pass, email, birthday) values "+
-//                " (:login, :firstName, :secondName, " +
-//                ":pass, :email, :birthday)").setParameter(":login", user.getLogin()).
-//                setParameter(":firstName",user.getFirstName()).
-//                setParameter(":secondName",user.getSecondName()).
-//                setParameter(":pass", user.getPass()).setParameter(":email", user.getEmail()).
-//                setParameter(":birthday",user.getBirthday());
-
         em.persist(user);
-        //int result=query.executeUpdate();
-
 
     }
 
@@ -91,8 +77,6 @@ public class UserDAOImpl implements UserDAO {
                 setParameter("mail",user.getEmail()).setParameter("bday",user.getBirthday());
 
         query.executeUpdate();
-        //em.merge(user);
-
 
     }
 
@@ -108,6 +92,7 @@ public class UserDAOImpl implements UserDAO {
 
     }
 
+
     public UserEntity loginUser(String login, String password) {
 
         List list =  em.createQuery("FROM UserEntity where login=:log" +
@@ -119,4 +104,26 @@ public class UserDAOImpl implements UserDAO {
         else
             return (UserEntity) list.get(0);
     }
+
+    @Override
+    public List<UserEntity> getTopUsers() {
+
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery criteriaQuery = criteriaBuilder.createQuery();
+        Root order = criteriaQuery.from(OrderEntity.class);
+        Join b = order.join("buckets");
+        criteriaQuery.multiselect(order.get("user"));
+        criteriaQuery.groupBy(order.get("user"));
+        criteriaQuery.orderBy(criteriaBuilder.desc
+                (criteriaBuilder.sum
+                        (criteriaBuilder.prod
+                                (b.get("countProduct"),
+                                        b.get("productId").get("cost")))));
+
+        List<UserEntity> list = em.createQuery(criteriaQuery).getResultList();
+
+        return list;
+    }
+
+
 }

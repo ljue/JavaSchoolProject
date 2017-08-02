@@ -2,16 +2,12 @@ package com.jvschool.dao.Impl;
 
 import com.jvschool.dao.PayWayDAO;
 import com.jvschool.entities.PayWayEntity;
-import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
-/**
- * Created by Людмила on 28.07.2017.
- */
+
 @Repository
 public class PayWayDAOImpl implements PayWayDAO {
 

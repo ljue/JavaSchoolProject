@@ -17,4 +17,5 @@ public interface UserDAO {
     void addUser(UserEntity user);
     void editUserInfo(UserEntity user);
     void editUserPassword(UserEntity user);
+    List<UserEntity> getTopUsers();
 }

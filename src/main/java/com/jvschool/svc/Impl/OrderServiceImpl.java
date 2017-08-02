@@ -123,4 +123,15 @@ public class OrderServiceImpl implements OrderService {
         }
         return loa;
     }
+
+    @Override
+    public double getWeekProceed() {
+        return orderDAO.getWeekProceed();
+    }
+
+    @Override
+    public double getMonthProceed() {
+        return orderDAO.getMonthProceed();
+    }
+
 }

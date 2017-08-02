@@ -2,21 +2,21 @@ package com.jvschool.dao.Impl;
 
 import com.jvschool.dao.OrderDAO;
 import com.jvschool.dao.UserDAO;
-import com.jvschool.entities.DeliveryStatusEntity;
 import com.jvschool.entities.OrderEntity;
 import com.jvschool.entities.UserEntity;
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
-import javax.jws.soap.SOAPBinding;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.Root;
+import java.sql.Date;
+import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 
-/**
- * Created by Людмила on 28.07.2017.
- */
 @Repository
 public class OrderDAOImpl implements OrderDAO {
 
@@ -66,9 +66,41 @@ public class OrderDAOImpl implements OrderDAO {
     }
 
     @Override
-    public void editDeliveryStatus(DeliveryStatusEntity deliveryStatusEntity, long id) {
+    public double getWeekProceed() {
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery criteriaQuery = criteriaBuilder.createQuery();
+        Root order = criteriaQuery.from(OrderEntity.class);
+        Join b = order.join("buckets");
+        criteriaQuery.multiselect(criteriaBuilder.sum
+                (criteriaBuilder.prod
+                        (b.get("countProduct"),
+                                b.get("productId").get("cost"))));
+        criteriaQuery.where(criteriaBuilder.greaterThanOrEqualTo(
+                order.get("dateTimeOrder"),
+                new Date(System.currentTimeMillis() - 7L * 24 * 3600 * 1000)));
 
+        double d = (double) em.createQuery(criteriaQuery).getSingleResult();
 
+        return d;
     }
+
+    @Override
+    public double getMonthProceed() {
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery criteriaQuery = criteriaBuilder.createQuery();
+        Root order = criteriaQuery.from(OrderEntity.class);
+        Join b = order.join("buckets");
+        criteriaQuery.multiselect(criteriaBuilder.sum
+                (criteriaBuilder.prod
+                        (b.get("countProduct"),
+                                b.get("productId").get("cost"))));
+        criteriaQuery.where(criteriaBuilder.greaterThanOrEqualTo(
+                order.get("dateTimeOrder"), new Date(System.currentTimeMillis() - 30L * 24 * 3600 * 1000)));
+
+        double d = (double) em.createQuery(criteriaQuery).getSingleResult();
+
+        return d;
+    }
+
 
 }

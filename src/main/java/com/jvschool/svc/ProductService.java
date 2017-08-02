@@ -16,5 +16,6 @@ public interface ProductService {
     ProductEntity getProductById(long id);
     List<ProductAttribute> getAllProducts();
     List<ProductAttribute> getProductsToBuy(Set<Long> list);
+    List<ProductAttribute> getTopProducts();
 
 }
