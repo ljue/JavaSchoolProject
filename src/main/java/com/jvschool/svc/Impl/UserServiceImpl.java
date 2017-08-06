@@ -5,10 +5,7 @@ import com.jvschool.dao.UserDAO;
 import com.jvschool.entities.BucketEntity;
 import com.jvschool.entities.OrderEntity;
 import com.jvschool.entities.UserEntity;
-import com.jvschool.svc.OrderService;
 import com.jvschool.svc.UserService;
-import com.jvschool.util.Attributes.BucketAttribute;
-import com.jvschool.util.Attributes.OrderAttribute;
 import com.jvschool.util.Attributes.SessionUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,9 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Людмила on 17.07.2017.
- */
+
 @Service
 @Transactional
 public class UserServiceImpl implements UserService {

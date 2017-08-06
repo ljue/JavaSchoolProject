@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Людмила
-  Date: 22.07.2017
-  Time: 14:39
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
@@ -20,9 +14,6 @@
 <br>
 <br>
 
-
-<%--<jsp:include page="/countries" />--%>
-<!-- Page Content -->
 <div class="container">
 
     <div class="row">
@@ -42,14 +33,10 @@
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="/adminProducts">Add new goods</a></li>
                     <li><a href="/editCategories">Control categories</a></li>
-                    <%--<li><a data-toggle="tab" href="/editCategories">Control categories</a></li>--%>
 
                 </ul>
 
                 <div class="tab-content">
-
-
-                    <%--<div id="panel1" class="tab-pane fade in active">--%>
                     <br>
                     <form:form method="POST" enctype="multipart/form-data" modelAttribute="productForm"
                                action="${addProduct}" class="form-horizontal">
@@ -98,20 +85,17 @@
                                             <form:option value="${cat.categoryName}"
                                                          label="${cat.categoryName}"></form:option>
                                         </c:forEach>
-                                        <%--<form:options items="${categories}" itemValue="categoryId"--%>
-                                        <%--itemLabel="categoryName"></form:options>--%>
                                     </form:select>
                                 </div>
                                 <form:errors path="productCategoryByCategory"></form:errors>
                             </div>
                         </spring:bind>
-                        <%--itemValue="categoryId"--%>
 
                         <spring:bind path="size">
                             <div class="form-group ${status.error ? 'has-error' : ''}">
                                 <label class="col-lg-3 control-label">Size:</label>
                                 <div class="col-lg-8">
-                                    <form:input type="text" path="size" class="form-control" placeholder="Size (sm)"
+                                    <form:input type="text" path="size" class="form-control" placeholder="Size (cm)"
                                     ></form:input>
                                 </div>
                                 <form:errors path="size"></form:errors>
@@ -135,7 +119,7 @@
                                 <label class="col-lg-3 control-label">Fly time:</label>
                                 <div class="col-lg-8">
                                     <form:input type="text" path="flyTime" class="form-control"
-                                                placeholder="Fly time (min)"
+                                                placeholder="Fly time (minutes)"
                                     ></form:input>
                                 </div>
                                 <form:errors path="flyTime"></form:errors>
@@ -172,42 +156,6 @@
                         <%--</c:forEach>--%>
 
 
-                        <%--<c:forEach items="${radioCategory}" var="radio">--%>
-                        <%--<div class="form-group" >--%>
-                        <%--<label class="col-lg-3 control-label">${radio.name}</label>--%>
-                        <%--<div class="col-lg-8">--%>
-                        <%--<c:forEach items="${radioProperties}" var="radioChild">--%>
-                        <%--<c:if test="${radio eq radioChild.propertyRadioCategoryByRadioCategoryId}">--%>
-                        <%--<form:radiobutton path="radioProperties"--%>
-                        <%--value="${radioChild.id}" label="${radioChild.name}">--%>
-                        <%--</form:radiobutton>--%>
-                        <%--&lt;%&ndash;проблема в path&ndash;%&gt;--%>
-                        <%--<br>--%>
-                        <%--</c:if>--%>
-                        <%--</c:forEach>--%>
-                        <%--</div>--%>
-                        <%--</div>--%>
-
-                        <%--</c:forEach>--%>
-
-                        <%--Нужный блок, но в дебаггере видно странную ошибку(не понимаю как работают связи)--%>
-                        <%--<h4>Choose one item in each block:</h4><br>--%>
-                        <%--<c:forEach items="${radioCategory}" var="radio">--%>
-                        <%--<div class="form-group" >--%>
-                        <%--<label class="col-lg-3 control-label">${radio.name}:</label>--%>
-                        <%--<div class="col-lg-8">--%>
-                        <%--<c:forEach items="${radioProperties}" var="radioChild">--%>
-                        <%--<c:if test="${radio eq radioChild.propertyRadioCategoryByRadioCategoryId}">--%>
-                        <%--<form:checkbox path="radioProperties"--%>
-                        <%--value="${radioChild.name}" label="${radioChild.name}"></form:checkbox>--%>
-                        <%--&lt;%&ndash;проблема в path&ndash;%&gt;--%>
-                        <%--<br>--%>
-                        <%--</c:if>--%>
-                        <%--</c:forEach>--%>
-                        <%--</div>--%>
-                        <%--</div>--%>
-                        <%--</c:forEach>--%>
-
                         <spring:bind path="description">
                             <div class="form-group ${status.error ? 'has-error' : ''}">
                                 <label class="col-lg-3 control-label">Description:</label>
@@ -231,30 +179,6 @@
                         </spring:bind>
 
 
-                        <%--<spring:bind path="images">--%>
-                        <%--<div class="form-group ${status.error ? 'has-error' : ''}" >--%>
-                        <%--<label class="col-lg-3 control-label">Images:</label>--%>
-                        <%--<div class="col-lg-8">--%>
-                        <%--<form:input path="images" type="file" multiple="true"></form:input>--%>
-
-                        <%--</div>--%>
-                        <%--<form:errors path="images"></form:errors>--%>
-                        <%--</div>--%>
-                        <%--</spring:bind>--%>
-
-
-                        <%--<spring:bind path="login">--%>
-                        <%--<div class="form-group ${status.error ? 'has-error' : ''}" >--%>
-                        <%--<label class="col-lg-3 control-label">Login:</label>--%>
-                        <%--<div class="col-lg-8">--%>
-                        <%--<form:input type="text" path="login" class="form-control" value="${user.login}"--%>
-                        <%--></form:input>--%>
-                        <%--</div>--%>
-                        <%--<form:errors path="login"></form:errors>--%>
-                        <%--</div>--%>
-                        <%--</spring:bind>--%>
-
-
                         <div class="form-group">
                             <label class="col-md-3 control-label"></label>
                             <div class="col-md-8">
@@ -265,8 +189,6 @@
                         </div>
 
                     </form:form>
-                    <%--</div>--%>
-
 
                 </div>
             </div>
@@ -278,7 +200,6 @@
 </div>
 
 </div>
-<!-- /.container -->
 
 </body>
 </html>

@@ -23,7 +23,7 @@ create table MYSHOP_SCHEMA.BUCKET
 	COUNT_PRODUCT int null,
 	ORDER_ID bigint null,
 	constraint BUCKET_ID_uindex
-	unique (BUCKET_ID)
+		unique (BUCKET_ID)
 )
 ;
 
@@ -33,7 +33,7 @@ create table MYSHOP_SCHEMA.CATEGORY
 		primary key,
 	NAME varchar(50) null,
 	constraint CATEGORY_NAME_UINDEX
-	unique (NAME)
+		unique (NAME)
 )
 ;
 
@@ -60,7 +60,7 @@ create table MYSHOP_SCHEMA.DELIVERY_STATUS
 		primary key,
 	NAME varchar(30) not null,
 	constraint PayStatusNAME
-	unique (NAME)
+		unique (NAME)
 )
 ;
 
@@ -70,7 +70,7 @@ create table MYSHOP_SCHEMA.DELIVERY_WAY
 		primary key,
 	NAME varchar(50) not null,
 	constraint DELIVERY_STATUSNAME
-	unique (NAME)
+		unique (NAME)
 )
 ;
 
@@ -85,11 +85,11 @@ create table MYSHOP_SCHEMA.`ORDER`
 	DELIVERY_WAY_ID bigint not null,
 	TIME timestamp default CURRENT_TIMESTAMP not null,
 	constraint ORDER_ADDRESS_ID_FK
-	foreign key (USER_ADDRESS_ID) references MYSHOP_SCHEMA.ADDRESS (ADDRESS_ID),
+		foreign key (USER_ADDRESS_ID) references MYSHOP_SCHEMA.ADDRESS (ADDRESS_ID),
 	constraint ORDER_FK3
-	foreign key (DELIVERY_STATUS_ID) references MYSHOP_SCHEMA.DELIVERY_STATUS (DELIVERY_STATUS_ID),
+		foreign key (DELIVERY_STATUS_ID) references MYSHOP_SCHEMA.DELIVERY_STATUS (DELIVERY_STATUS_ID),
 	constraint ORDER_FK4
-	foreign key (DELIVERY_WAY_ID) references MYSHOP_SCHEMA.DELIVERY_WAY (DELIVERY_WAY_ID)
+		foreign key (DELIVERY_WAY_ID) references MYSHOP_SCHEMA.DELIVERY_WAY (DELIVERY_WAY_ID)
 )
 ;
 
@@ -113,38 +113,19 @@ create index ORDER_FK4
 	on `ORDER` (DELIVERY_WAY_ID)
 ;
 
-create table MYSHOP_SCHEMA.ORDER_HAS_PRODUCT
-(
-	ORDER_HAS_PRODUCT_ID bigint auto_increment
-		primary key,
-	ORDER_ID bigint null,
-	PRODUCT_ID bigint null,
-	constraint ORDER_HAS_PRODUCT_ORDER_ID_FK
-	foreign key (ORDER_ID) references MYSHOP_SCHEMA.`ORDER` (ORDER_ID)
-)
-;
-
-create index ORDER_HAS_PRODUCT_ORDER_ID_FK
-	on ORDER_HAS_PRODUCT (ORDER_ID)
-;
-
-create index ORDER_HAS_PRODUCT_PRODUCT_ID_FK
-	on ORDER_HAS_PRODUCT (PRODUCT_ID)
-;
-
 create table MYSHOP_SCHEMA.PAY_WAY
 (
 	PAY_WAY_ID bigint auto_increment
 		primary key,
 	NAME varchar(50) not null,
 	constraint UC_NAME
-	unique (NAME)
+		unique (NAME)
 )
 ;
 
 alter table `ORDER`
 	add constraint ORDER_FK2
-foreign key (PAY_WAY_ID) references MYSHOP_SCHEMA.PAY_WAY (PAY_WAY_ID)
+		foreign key (PAY_WAY_ID) references MYSHOP_SCHEMA.PAY_WAY (PAY_WAY_ID)
 ;
 
 create table MYSHOP_SCHEMA.PICTURE
@@ -169,12 +150,12 @@ create table MYSHOP_SCHEMA.PRODUCT
 	COST double not null,
 	SIZE varchar(50) null,
 	BATTERY varchar(50) null,
-	FLY_TIME varchar(50) null,
-	DISTANCE varchar(50) null,
-	DESCRIPTION varchar(500) null,
+	FLY_TIME int null,
+	DISTANCE int null,
+	DESCRIPTION varchar(2000) null,
 	CATEGORY_ID bigint null,
 	constraint PRODUCT_CATEGORY_ID_FK
-	foreign key (CATEGORY_ID) references MYSHOP_SCHEMA.CATEGORY (CATEGORY_ID)
+		foreign key (CATEGORY_ID) references MYSHOP_SCHEMA.CATEGORY (CATEGORY_ID)
 )
 ;
 
@@ -182,14 +163,9 @@ create index PRODUCT_CATEGORY_ID_FK
 	on PRODUCT (CATEGORY_ID)
 ;
 
-alter table ORDER_HAS_PRODUCT
-	add constraint ORDER_HAS_PRODUCT_PRODUCT_ID_FK
-foreign key (PRODUCT_ID) references MYSHOP_SCHEMA.PRODUCT (PRODUCT_ID)
-;
-
 alter table PICTURE
 	add constraint PICTURE_PRODUCT_ID_FK
-foreign key (PRODUCT_ID) references MYSHOP_SCHEMA.PRODUCT (PRODUCT_ID)
+		foreign key (PRODUCT_ID) references MYSHOP_SCHEMA.PRODUCT (PRODUCT_ID)
 ;
 
 create table MYSHOP_SCHEMA.PRODUCT_HAS_PROPERTY
@@ -199,9 +175,9 @@ create table MYSHOP_SCHEMA.PRODUCT_HAS_PROPERTY
 	PRODUCT_HAS_PROPERTY_ID bigint auto_increment
 		primary key,
 	constraint PRODUCT_HAS_PROPERTY_ID_UINDEX
-	unique (PRODUCT_ID),
+		unique (PRODUCT_ID),
 	constraint PRODUCT_HAS_PROPERTY_PRODUCT_ID_FK
-	foreign key (PRODUCT_ID) references MYSHOP_SCHEMA.PRODUCT (PRODUCT_ID)
+		foreign key (PRODUCT_ID) references MYSHOP_SCHEMA.PRODUCT (PRODUCT_ID)
 )
 ;
 
@@ -224,7 +200,7 @@ create index PROPERTY_GROUP_ID_FK
 
 alter table PRODUCT_HAS_PROPERTY
 	add constraint PRODUCT_HAS_PROPERTY_PROPERTY_ID_FK
-foreign key (PROPERTY_ID) references MYSHOP_SCHEMA.PROPERTY (PROPERTY_ID)
+		foreign key (PROPERTY_ID) references MYSHOP_SCHEMA.PROPERTY (PROPERTY_ID)
 ;
 
 create table MYSHOP_SCHEMA.PROPERTY_GROUP
@@ -237,7 +213,7 @@ create table MYSHOP_SCHEMA.PROPERTY_GROUP
 
 alter table PROPERTY
 	add constraint PROPERTY_GROUP_ID_FK
-foreign key (PROPERTY_GROUP_ID) references MYSHOP_SCHEMA.PROPERTY_GROUP (PROPERTY_GROUP_ID)
+		foreign key (PROPERTY_GROUP_ID) references MYSHOP_SCHEMA.PROPERTY_GROUP (PROPERTY_GROUP_ID)
 ;
 
 create table MYSHOP_SCHEMA.REGION
@@ -255,7 +231,7 @@ create table MYSHOP_SCHEMA.ROLE
 		primary key,
 	NAME varchar(20) null,
 	constraint ROLE_NAME_UINDEX
-	unique (NAME)
+		unique (NAME)
 )
 ;
 
@@ -271,11 +247,11 @@ create table MYSHOP_SCHEMA.USER
 	BIRTHDAY date null,
 	ROLE_ID bigint not null,
 	constraint login
-	unique (LOGIN),
+		unique (LOGIN),
 	constraint email
-	unique (EMAIL),
+		unique (EMAIL),
 	constraint USER_ROLE_IDROLE_FK
-	foreign key (ROLE_ID) references MYSHOP_SCHEMA.ROLE (ROLE_ID)
+		foreign key (ROLE_ID) references MYSHOP_SCHEMA.ROLE (ROLE_ID)
 )
 ;
 
@@ -285,11 +261,11 @@ create index USER_ROLE_IDROLE_FK
 
 alter table ADDRESS
 	add constraint ADDRESS_USER_ID_FK
-foreign key (USER_ID) references MYSHOP_SCHEMA.USER (USER_ID)
+		foreign key (USER_ID) references MYSHOP_SCHEMA.USER (USER_ID)
 ;
 
 alter table `ORDER`
 	add constraint ORDER_FK0
-foreign key (USER_ID) references MYSHOP_SCHEMA.USER (USER_ID)
+		foreign key (USER_ID) references MYSHOP_SCHEMA.USER (USER_ID)
 ;
 

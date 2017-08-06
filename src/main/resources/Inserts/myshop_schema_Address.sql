@@ -1,1 +1,0 @@
-INSERT INTO myshop_schema.Address (Country, Region, City, StreetAddress, PostIndex, UserId) VALUES ('Russia', 'Moscow', 'Moscow', 'Red street, 5', '234234', 3);

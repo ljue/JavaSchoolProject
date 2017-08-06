@@ -30,8 +30,8 @@ public class ProductValidator implements Validator {
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "size", "Required", "This field is required.");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "battery", "Required", "This field is required.");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "flyTime", "Required", "This field is required.");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "distance", "Required", "This field is required.");
+       // ValidationUtils.rejectIfEmptyOrWhitespace(errors, "flyTime", "Required", "This field is required.");
+       // ValidationUtils.rejectIfEmptyOrWhitespace(errors, "distance", "Required", "This field is required.");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "description", "Required", "This field is required.");
 
         if (productEntity.getImages().isEmpty()) {

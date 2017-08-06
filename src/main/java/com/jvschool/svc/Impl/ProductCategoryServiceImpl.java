@@ -6,12 +6,9 @@ import com.jvschool.svc.ProductCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Людмила on 23.07.2017.
- */
 @Service
 @Transactional
 public class ProductCategoryServiceImpl implements ProductCategoryService {
@@ -23,6 +20,18 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
     public List<ProductCategoryEntity> getAllProductCategories() {
         return productCategoryDAO.getAllProductCategories();
 
+    }
+
+    @Override
+    public List<String> getAllProductCategoryNames() {
+        List<ProductCategoryEntity> lce = productCategoryDAO.getAllProductCategories();
+        List<String> categoryNames = new ArrayList<>();
+        if (!lce.isEmpty()) {
+            for(ProductCategoryEntity ce : lce) {
+                categoryNames.add(ce.getCategoryName());
+            }
+        }
+        return categoryNames;
     }
 
     @Override

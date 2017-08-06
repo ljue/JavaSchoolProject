@@ -6,9 +6,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
 
-/**
- * Created by Людмила on 22.07.2017.
- */
+
 @Entity
 @Table(name = "PRODUCT", schema = "MYSHOP_SCHEMA")
 public class ProductEntity  implements Serializable {
@@ -18,8 +16,8 @@ public class ProductEntity  implements Serializable {
     private double cost;
     private String size;
     private String battery;
-    private String flyTime;
-    private String distance;
+    private int flyTime;
+    private int distance;
     private String description;
 
     //private OrderEntity bucketByProductId;
@@ -95,21 +93,21 @@ public class ProductEntity  implements Serializable {
 
     @Basic
     @Column(name = "FLY_TIME")
-    public String getFlyTime() {
+    public int getFlyTime() {
         return flyTime;
     }
 
-    public void setFlyTime(String flyTime) {
+    public void setFlyTime(int flyTime) {
         this.flyTime = flyTime;
     }
 
     @Basic
     @Column(name = "DISTANCE")
-    public String getDistance() {
+    public int getDistance() {
         return distance;
     }
 
-    public void setDistance(String distance) {
+    public void setDistance(int distance) {
         this.distance = distance;
     }
 
@@ -127,8 +125,7 @@ public class ProductEntity  implements Serializable {
         if (size != that.size) return false;
         if (productName != null ? !productName.equals(that.productName) : that.productName != null) return false;
         if (battery != null ? !battery.equals(that.battery) : that.battery != null) return false;
-        if (flyTime != null ? !flyTime.equals(that.flyTime) : that.flyTime != null) return false;
-        return distance != null ? distance.equals(that.distance) : that.distance == null;
+        return true;
     }
 
     @Override
@@ -142,8 +139,6 @@ public class ProductEntity  implements Serializable {
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         result = 31 * result + (size!=null ? size.hashCode() : 0);
         result = 31 * result + (battery != null ? battery.hashCode() : 0);
-        result = 31 * result + (flyTime != null ? flyTime.hashCode() : 0);
-        result = 31 * result + (distance != null ? distance.hashCode() : 0);
         return result;
     }
 

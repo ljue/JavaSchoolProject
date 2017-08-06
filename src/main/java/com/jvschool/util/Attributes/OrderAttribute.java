@@ -3,8 +3,6 @@ package com.jvschool.util.Attributes;
 
 import com.jvschool.entities.BucketEntity;
 import com.jvschool.entities.OrderEntity;
-import com.jvschool.entities.ProductEntity;
-
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;

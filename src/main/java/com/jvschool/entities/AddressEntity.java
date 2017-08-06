@@ -5,9 +5,7 @@ import com.jvschool.util.Attributes.AddressAttribute;
 import javax.persistence.*;
 import java.io.Serializable;
 
-/**
- * Created by Людмила on 19.07.2017.
- */
+
 @Entity
 @Table(name = "ADDRESS", schema = "MYSHOP_SCHEMA")
 public class AddressEntity implements Serializable {

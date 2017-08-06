@@ -12,7 +12,6 @@
 
 <c:url var="editInfo" value="/user/editInfo"/>
 <c:url var="editPass" value="/user/editPass"/>
-<%--<jsp:include page="/countries" />--%>
 
 <br>
 <br>

@@ -5,22 +5,18 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Людмила on 22.07.2017.
- */
+
 @Entity
 @Table(name = "ORDER", schema = "MYSHOP_SCHEMA")
 public class OrderEntity {
     private long orderId;
     private Timestamp dateTimeOrder;
-
     private UserEntity user;
     private AddressEntity address;
     private PayWayEntity payWay;
     private DeliveryStatusEntity deliveryStatus;
     private DeliveryWayEntity deliveryWay;
     private List<BucketEntity> buckets = new ArrayList<>();
-    //private List<ProductEntity> products = new ArrayList<>();
 
     @Id
     @Column(name = "ORDER_ID", nullable = false)
@@ -125,18 +121,5 @@ public class OrderEntity {
     public void setBuckets(List<BucketEntity> buckets) {
         this.buckets = buckets;
     }
-
-    //    @ManyToMany
-//    @JoinTable(name = "ORDER_HAS_PRODUCT",
-//    joinColumns = @JoinColumn(name = "ORDER_ID"),
-//    inverseJoinColumns = @JoinColumn(name = "PRODUCT_ID"))
-//    public List<ProductEntity> getProducts() {
-//        return products;
-//    }
-//
-//    public void setProducts(List<ProductEntity> productByProductId) {
-//        this.products = productByProductId;
-//    }
-//
 
 }

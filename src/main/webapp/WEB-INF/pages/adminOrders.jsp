@@ -16,7 +16,6 @@
 <div class="container">
     <div class="row">
         <div class="col-md-3">
-            <%--<p class="lead">Личный кабинет</p>--%>
             <p class="lead"></p>
             <div class="list-group">
                 <a href="/adminOrders" class="list-group-item">Order list</a>

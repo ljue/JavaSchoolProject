@@ -5,9 +5,7 @@ import com.jvschool.util.Attributes.SessionUser;
 
 import java.util.List;
 
-/**
- * Created by Людмила on 17.07.2017.
- */
+
 public interface UserService {
 
     List<UserEntity> getAllUsers() ;

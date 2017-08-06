@@ -4,7 +4,6 @@ import com.jvschool.dao.*;
 import com.jvschool.entities.BucketEntity;
 import com.jvschool.entities.DeliveryStatusEntity;
 import com.jvschool.entities.OrderEntity;
-import com.jvschool.entities.ProductEntity;
 import com.jvschool.svc.DeliveryStatusService;
 import com.jvschool.svc.DeliveryWayService;
 import com.jvschool.svc.OrderService;
@@ -14,15 +13,11 @@ import com.jvschool.util.Attributes.OrderAttribute;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-/**
- * Created by Людмила on 28.07.2017.
- */
+
+
 @Service
 @Transactional
 public class OrderServiceImpl implements OrderService {

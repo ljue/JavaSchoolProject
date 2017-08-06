@@ -14,10 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 @Controller
@@ -65,8 +62,11 @@ public class OrderController {
         orderAttribute.setBuckets(buckets);
         orderService.saveOrder(orderAttribute);
 
+        user.setProducts(new HashMap<Long, Integer>());
+        model.addAttribute(user);
 
-        return "forward:/history";
+
+        return "redirect:/history";
 
 
 

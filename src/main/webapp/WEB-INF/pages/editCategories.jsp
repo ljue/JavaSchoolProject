@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Людмила
-  Date: 24.07.2017
-  Time: 11:38
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
@@ -36,6 +30,7 @@
             </div>
         </div>
 
+        <br>
         <div class="col-md-9">
             <div class="row">
                 <ul class="nav nav-tabs">

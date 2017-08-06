@@ -3,20 +3,19 @@ package com.jvschool.svc.Impl;
 import com.jvschool.dao.BucketDAO;
 import com.jvschool.dao.ProductDAO;
 import com.jvschool.entities.BucketEntity;
+import com.jvschool.entities.ProductCategoryEntity;
 import com.jvschool.entities.ProductEntity;
+import com.jvschool.svc.ProductCategoryService;
 import com.jvschool.svc.ProductService;
+import com.jvschool.util.Attributes.FilterAttribute;
 import com.jvschool.util.Attributes.ProductAttribute;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Created by Людмила on 23.07.2017.
- */
 @Service
 @Transactional
 public class ProductServiceImpl implements ProductService {
@@ -25,6 +24,8 @@ public class ProductServiceImpl implements ProductService {
     private ProductDAO productDAO;
     @Autowired
     private BucketDAO bucketDAO;
+    @Autowired
+    private ProductCategoryService productCategoryService;
 
     @Override
     public void addProduct(ProductEntity productEntity) {
@@ -53,6 +54,23 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<ProductAttribute> getProductsByCategory(String category) {
+        ProductCategoryEntity pce = productCategoryService.getProductCategoryByName(category);
+
+        List<ProductAttribute> lpa = new ArrayList<>();
+        if (pce!=null) {
+            List<ProductEntity> lpe = productDAO.getProductsByCategory(pce);
+            if (!lpe.isEmpty()) {
+                for (ProductEntity pe : lpe) {
+                    lpa.add(new ProductAttribute(pe));
+                }
+            }
+        }
+
+        return lpa;
+    }
+
+    @Override
     public List<ProductAttribute> getProductsToBuy(Set<Long> list) {
         List<ProductEntity> listEntity = productDAO.getProductsToBuy(list);
         List<ProductAttribute> listAttr = new ArrayList<>();
@@ -78,6 +96,20 @@ public class ProductServiceImpl implements ProductService {
                     }
                 }
                 lpa.add(pa);
+            }
+        }
+
+        return lpa;
+    }
+
+    @Override
+    public List<ProductAttribute> getProductsWithFilter(FilterAttribute filterAttribute) {
+
+        List<ProductEntity> lpe = productDAO.getProductsWithFilter(filterAttribute);
+        List<ProductAttribute> lpa = new ArrayList<>();
+        if (!lpe.isEmpty()) {
+            for (ProductEntity pe : lpe) {
+                lpa.add(new ProductAttribute(pe));
             }
         }
 

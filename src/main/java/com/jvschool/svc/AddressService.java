@@ -5,9 +5,7 @@ import com.jvschool.util.Attributes.AddressAttribute;
 
 import java.util.List;
 
-/**
- * Created by Людмила on 24.07.2017.
- */
+
 public interface AddressService {
 
     List<AddressEntity> getAllAddressesByUserId(long id);

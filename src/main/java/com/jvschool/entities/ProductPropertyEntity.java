@@ -4,9 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
 
-/**
- * Created by Людмила on 22.07.2017.
- */
+
 @Entity
 @Table(name = "PROPERTY", schema = "MYSHOP_SCHEMA")
 public class ProductPropertyEntity  implements Serializable {

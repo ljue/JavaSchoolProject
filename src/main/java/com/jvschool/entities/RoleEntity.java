@@ -3,9 +3,7 @@ package com.jvschool.entities;
 import javax.persistence.*;
 import java.io.Serializable;
 
-/**
- * Created by Людмила on 19.07.2017.
- */
+
 @Entity
 @Table(name = "ROLE", schema = "MYSHOP_SCHEMA")
 public class RoleEntity  implements Serializable {

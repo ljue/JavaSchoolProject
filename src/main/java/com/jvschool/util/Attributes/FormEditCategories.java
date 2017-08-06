@@ -4,20 +4,7 @@ import com.jvschool.entities.ProductCategoryEntity;
 
 
 public class FormEditCategories {
-
-//    List<ProductCategoryEntity> productCategoryEntityList;
-//
-//    public List<ProductCategoryEntity> getProductCategoryEntityList() {
-//        return productCategoryEntityList;
-//    }
-//
-//    public void setProductCategoryEntityList(List<ProductCategoryEntity> productCategoryEntityList) {
-//        this.productCategoryEntityList = productCategoryEntityList;
-//    }
-
-
-
-    private ProductCategoryEntity chooseCategory = new ProductCategoryEntity();
+        private ProductCategoryEntity chooseCategory = new ProductCategoryEntity();
 
     private String editCategory;
 

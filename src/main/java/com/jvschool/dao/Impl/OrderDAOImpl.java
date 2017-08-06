@@ -81,6 +81,8 @@ public class OrderDAOImpl implements OrderDAO {
 
         double d = (double) em.createQuery(criteriaQuery).getSingleResult();
 
+//        double dd = em.createQuery("select sum()")
+
         return d;
     }
 

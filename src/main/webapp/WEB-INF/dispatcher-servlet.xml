@@ -86,7 +86,6 @@
             <set>
                 <bean class="com.jvschool.util.CategoryProductConverter"/>
                 <bean class="com.jvschool.util.ProductCheckBoxPropertyConverter"/>
-                <bean class="com.jvschool.util.ProductRadioPropertyConverter"/>
             </set>
         </property>
     </bean>

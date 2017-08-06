@@ -2,9 +2,7 @@ package com.jvschool.entities;
 
 import javax.persistence.*;
 
-/**
- * Created by Людмила on 22.07.2017.
- */
+
 @Entity
 @Table(name = "PICTURE", schema = "MYSHOP_SCHEMA")
 public class PicturesEntity {

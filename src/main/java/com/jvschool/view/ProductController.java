@@ -1,6 +1,8 @@
 package com.jvschool.view;
 
+import com.jvschool.svc.ProductCategoryService;
 import com.jvschool.svc.ProductService;
+import com.jvschool.util.Attributes.FilterAttribute;
 import com.jvschool.util.Attributes.ProductAttribute;
 import com.jvschool.util.Attributes.SessionUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,14 +19,44 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
+    @Autowired
+    private ProductCategoryService productCategoryService;
+
 
     @RequestMapping(value = "/catalog", method = RequestMethod.GET)
     public String goCatalog(Model model) {
         model.addAttribute("allProducts", productService.getAllProducts());
+        model.addAttribute("filter", new FilterAttribute());
+
+        model.addAttribute("categories", productCategoryService.getAllProductCategoryNames());
 
         return "catalog";
     }
 
+
+    @GetMapping(value = "/catalog/{category}")
+    public String getProductsByCategory(@PathVariable("category") String category, Model model) {
+        if (category.equals("All")) {
+            model.addAttribute("allProducts", productService.getAllProducts());
+        }
+        else {
+            model.addAttribute("allProducts", productService.getProductsByCategory(category));
+        }
+
+        model.addAttribute("filter", new FilterAttribute());
+        model.addAttribute("categories", productCategoryService.getAllProductCategoryNames());
+
+        return "catalog";
+    }
+
+    @PostMapping(value = "/catalog/doFilter")
+    public String doFilterProducts(Model model, @ModelAttribute("filter") FilterAttribute filterAttribute) {
+
+        model.addAttribute("allProducts", productService.getProductsWithFilter(filterAttribute));
+        model.addAttribute("categories", productCategoryService.getAllProductCategoryNames());
+
+        return "catalog";
+    }
 
 
     @RequestMapping(value = "/addToCart/{idProduct}", method = RequestMethod.POST)

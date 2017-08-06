@@ -1,13 +1,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: Людмила
-  Date: 27.07.2017
-  Time: 1:08
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -30,52 +24,71 @@
             <c:url var="goPay" value="/checkout/goPay"/>
             <form:form modelAttribute="orderForm" method="post" action="${goPay}">
 
-                <h4>Address</h4><br>
-                <a data-toggle="modal" href="#modalAddress">Add new address</a><br>
-                <div >
-                    <%--<div class="row">--%>
-                        <c:if test="${!empty addresses}">
-                            <c:forEach items="${addresses}" var="address" varStatus="status">
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Address</label>
+                        <%--<br>--%>
+                    <div class="col-lg-8">
+                        <a data-toggle="modal" href="#modalAddress">Add new address</a><br>
+                        <div>
+                                <%--<div class="row">--%>
+                            <c:if test="${!empty addresses}">
+                                <c:forEach items="${addresses}" var="address" varStatus="status">
 
-                                <div class="container">
-                                <form:radiobutton path="addressId" value="${address.addressId}"></form:radiobutton>
-                                    <br>
-                                <div class="col-lg-4 col-sm-3 text-center">
-                                    <div class="well">
-                                        <strong class="pull-left primary-font">Address ${status.count}</strong>
-                                        <ul class="list-unstyled ui-sortable">
-                                            <hr>
-                                            <li class="ui-state-default">
-                                                    ${address.country},<br>
-                                                    ${address.region},<br>
-                                                    ${address.city},<br>
-                                                    ${address.streetAddress},<br>
-                                                Post code: ${address.postIndex}<br>
-                                            </li>
-                                        </ul>
+                                    <div class="container">
+                                        <form:radiobutton path="addressId"
+                                                          value="${address.addressId}"></form:radiobutton>
+                                        <br>
+                                        <div class="col-lg-4 col-sm-3 text-center">
+                                            <div class="well">
+                                                <strong class="pull-left primary-font">Address ${status.count}</strong>
+                                                <ul class="list-unstyled ui-sortable">
+                                                    <hr>
+                                                    <li class="ui-state-default">
+                                                            ${address.country},<br>
+                                                            ${address.region},<br>
+                                                            ${address.city},<br>
+                                                            ${address.streetAddress},<br>
+                                                        Post code: ${address.postIndex}<br>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                </div>
-                            </c:forEach>
-                        </c:if>
-                    <%--</div>--%>
+                                </c:forEach>
+                            </c:if>
+                                <%--</div>--%>
+                        </div>
+                    </div>
                 </div>
+                <br><br>
                 <br><br>
 
                 <c:if test="${!empty deliveryWays}">
                     <hr>
-                    <h4>Delivery</h4>
-                    <c:forEach items="${deliveryWays}" var="delivery">
-                        <form:radiobutton path="deliveryWay" value="${delivery}" label="${delivery}"/><br>
-                    </c:forEach>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Delivery</label>
+                        <div class="col-lg-8">
+                            <c:forEach items="${deliveryWays}" var="delivery">
+                                <form:radiobutton path="deliveryWay" value="${delivery}" label="${delivery}"/><br>
+                            </c:forEach>
+                        </div>
+                    </div>
                 </c:if>
+
+                <br><br>
                 <br><br>
                 <c:if test="${!empty payWays}">
-                    <h4>Pay Way</h4>
-                    <c:forEach items="${payWays}" var="payW">
-                        <form:radiobutton path="payWay" value="${payW}" label="${payW}"/><br>
-                    </c:forEach>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Pay Way</label>
+                        <div class="col-lg-8">
+                            <c:forEach items="${payWays}" var="payW">
+                                <form:radiobutton path="payWay" value="${payW}" label="${payW}"/><br>
+                            </c:forEach>
+                        </div>
+                    </div>
                 </c:if>
+                <br><br>
+                <br><br>
                 <div class="form-group">
                     <label class="col-md-3 control-label"></label>
                     <div class="col-md-8">

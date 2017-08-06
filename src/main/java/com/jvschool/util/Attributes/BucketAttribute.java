@@ -1,7 +1,6 @@
 package com.jvschool.util.Attributes;
 
 import com.jvschool.entities.BucketEntity;
-import com.jvschool.entities.ProductEntity;
 
 
 public class BucketAttribute {

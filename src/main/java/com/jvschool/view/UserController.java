@@ -2,7 +2,6 @@ package com.jvschool.view;
 
 import com.jvschool.entities.UserEntity;
 import com.jvschool.svc.*;
-import com.jvschool.svc.Impl.OrderServiceImpl;
 import com.jvschool.util.Attributes.BucketAttribute;
 import com.jvschool.util.Attributes.OrderAttribute;
 import com.jvschool.util.Attributes.ProductAttribute;
@@ -14,7 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.Basic;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +40,18 @@ public class UserController {
 
     @Autowired
     private ProductService productService;
+
+
+    @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
+    public String home(Model model) {
+        return "home";
+    }
+
+
+    @RequestMapping(value = {"/navigation"}, method = RequestMethod.GET)
+    public String goNav(Model model) {
+        return "navigation";
+    }
 
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)

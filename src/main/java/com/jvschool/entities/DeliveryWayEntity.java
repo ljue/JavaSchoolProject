@@ -3,9 +3,7 @@ package com.jvschool.entities;
 import javax.persistence.*;
 import java.io.Serializable;
 
-/**
- * Created by Людмила on 19.07.2017.
- */
+
 @Entity
 @Table(name = "DELIVERY_WAY", schema = "MYSHOP_SCHEMA")
 public class DeliveryWayEntity implements Serializable {

@@ -17,10 +17,9 @@ public class ProductAttribute  implements Serializable {
     private double cost;
     private String size;
     private String battery;
-    private String flyTime;
-    private String distance;
+    private int flyTime;
+    private int distance;
     private String description;
-    //private OrderEntity bucketByProductId;
     private String productCategoryByCategory;
 
     private List<MultipartFile> images;
@@ -104,19 +103,19 @@ public class ProductAttribute  implements Serializable {
         this.battery = battery;
     }
 
-    public String getFlyTime() {
+    public int getFlyTime() {
         return flyTime;
     }
 
-    public void setFlyTime(String flyTime) {
+    public void setFlyTime(int flyTime) {
         this.flyTime = flyTime;
     }
 
-    public String getDistance() {
+    public int getDistance() {
         return distance;
     }
 
-    public void setDistance(String distance) {
+    public void setDistance(int distance) {
         this.distance = distance;
     }
 

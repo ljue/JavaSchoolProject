@@ -5,9 +5,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
-/**
- * Created by Людмила on 22.07.2017.
- */
+
 @Entity
 @Table(name = "CATEGORY", schema = "MYSHOP_SCHEMA")
 public class ProductCategoryEntity  implements Serializable {

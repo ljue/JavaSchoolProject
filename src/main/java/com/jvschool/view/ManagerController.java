@@ -49,22 +49,11 @@ public class ManagerController {
     private UserService userService;
 
 
-
-
-    @RequestMapping(value = "/orderList", method = RequestMethod.GET)
-    public String goOrderList(Model model) {
-        return "orderList";
-    }
-
     @RequestMapping(value = "/adminProducts", method = RequestMethod.GET)
     public String goAdminProducts(Model model, @ModelAttribute("productForm")ProductEntity productForm) {
         model.addAttribute("categories", productCategoryService.getAllProductCategories());
         model.addAttribute("propertiesMany", propertyCategoryService.getAllPropertyCategories());
         model.addAttribute("propertyManyChild",productPropertyService.getAllProductProperties());
-
-//        model.addAttribute("radioCategory", propertyRadioCategoryService.getAllRadioCategories());
-//        model.addAttribute("radioProperties", productRadioPropertyService.getAllRadioProperties());
-
 
         return "adminProducts";
     }
@@ -123,6 +112,7 @@ public class ManagerController {
     public String editCategoryGet(@ModelAttribute("formEditCategory") FormEditCategories formEditCategories,
             @ModelAttribute("formNewCategory") ProductCategoryEntity productCategoryEntity,
             Model model){
+
         model.addAttribute("formEditCategory", new FormEditCategories());
         model.addAttribute("formNewCategory", new ProductCategoryEntity());
         model.addAttribute("categories", productCategoryService.getAllProductCategories());
@@ -133,6 +123,11 @@ public class ManagerController {
     @RequestMapping(value = "/editCategories/editCategory", method = RequestMethod.POST)
     public String editCategoryPost(@ModelAttribute("formEditCategory") FormEditCategories formEditCategories,
                                     Model model){
+
+        if(formEditCategories.getEditCategory()==null) {
+//            model.addAttribute("error")
+            return "redirect:/editCategories";
+        }
         ProductCategoryEntity productCategoryEntity=new ProductCategoryEntity();
         productCategoryEntity.setCategoryId(productCategoryService.getProductCategoryByName
                 (formEditCategories.getChooseCategory().getCategoryName()).getCategoryId());
