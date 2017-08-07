@@ -20,7 +20,7 @@ public class PayWayServiceImpl implements PayWayService {
     @Override
     public List<String> getAllPayWays() {
         List<String> ls = new ArrayList<>();
-        if(payWayDAO.getAllPayWays()!=null) {
+        if(!payWayDAO.getAllPayWays().isEmpty()) {
             for (PayWayEntity pwe : payWayDAO.getAllPayWays()) {
                 ls.add(pwe.getPayWayName());
             }

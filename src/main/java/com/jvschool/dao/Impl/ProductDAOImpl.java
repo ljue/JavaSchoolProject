@@ -1,10 +1,12 @@
 package com.jvschool.dao.Impl;
 
+import com.jvschool.dao.ProductCategoryDAO;
 import com.jvschool.dao.ProductDAO;
 import com.jvschool.entities.OrderEntity;
 import com.jvschool.entities.ProductCategoryEntity;
 import com.jvschool.entities.ProductEntity;
 import com.jvschool.util.Attributes.FilterAttribute;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -21,6 +23,9 @@ public class ProductDAOImpl implements ProductDAO {
 
     @PersistenceContext
     private EntityManager em;
+
+    @Autowired
+    private ProductCategoryDAO productCategoryDAO;
 
 
     @Override
@@ -92,10 +97,20 @@ public class ProductDAOImpl implements ProductDAO {
         CriteriaQuery criteriaQuery = criteriaBuilder.createQuery();
         Root product = criteriaQuery.from(ProductEntity.class);
         criteriaQuery.multiselect(product);
-        criteriaQuery.where(criteriaBuilder.and(
-                criteriaBuilder.between(product.get("cost"),filterAttribute.getCostFROM(),filterAttribute.getCostTO()),
-                criteriaBuilder.between(product.get("flyTime"), filterAttribute.getFlyTimeFROM(),filterAttribute.getFlyTimeTO()),
-                criteriaBuilder.between(product.get("distance"), filterAttribute.getDistanceFROM(), filterAttribute.getDistanceTO())));
+        if (filterAttribute.getCategory().equals("All")) {
+            criteriaQuery.where(criteriaBuilder.and(
+                    criteriaBuilder.between(product.get("cost"), filterAttribute.getCostFROM(), filterAttribute.getCostTO()),
+                    criteriaBuilder.between(product.get("flyTime"), filterAttribute.getFlyTimeFROM(), filterAttribute.getFlyTimeTO()),
+                    criteriaBuilder.between(product.get("distance"), filterAttribute.getDistanceFROM(), filterAttribute.getDistanceTO())));
+        }
+        else {
+            criteriaQuery.where(criteriaBuilder.and(
+                criteriaBuilder.between(product.get("cost"), filterAttribute.getCostFROM(), filterAttribute.getCostTO()),
+                criteriaBuilder.between(product.get("flyTime"), filterAttribute.getFlyTimeFROM(), filterAttribute.getFlyTimeTO()),
+                criteriaBuilder.between(product.get("distance"), filterAttribute.getDistanceFROM(), filterAttribute.getDistanceTO()),
+                criteriaBuilder.equal(product.get("productCategoryByCategory"), productCategoryDAO.getProductCategoryByName(filterAttribute.getCategory()))));
+
+        }
         List<ProductEntity> list = em.createQuery(criteriaQuery).getResultList();
 
         return list;

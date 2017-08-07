@@ -8,6 +8,7 @@ public class FilterAttribute {
     private int flyTimeTO;
     private int distanceFROM;
     private int distanceTO;
+    private String category;
 
     public FilterAttribute() {
         this.costFROM = 0;
@@ -73,5 +74,13 @@ public class FilterAttribute {
 
     public void setDistanceTO(int distanceTO) {
         this.distanceTO = distanceTO;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }

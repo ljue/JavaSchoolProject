@@ -25,7 +25,7 @@ public class SessionUser implements Serializable {
     private Map<Long,Integer> products = new HashMap<>();
 
     private int sumCountProducts;
-    private double sumTotal;
+    private String sumTotal;
 
 
     public SessionUser() {
@@ -158,11 +158,11 @@ public class SessionUser implements Serializable {
         this.sumCountProducts = sumCountProducts;
     }
 
-    public double getSumTotal() {
+    public String getSumTotal() {
         return sumTotal;
     }
 
-    public void setSumTotal(double sumTotal) {
+    public void setSumTotal(String sumTotal) {
         this.sumTotal = sumTotal;
     }
 }

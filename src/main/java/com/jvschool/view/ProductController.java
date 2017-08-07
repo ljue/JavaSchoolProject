@@ -22,12 +22,15 @@ public class ProductController {
     @Autowired
     private ProductCategoryService productCategoryService;
 
+    private String suchCategory;
+
 
     @RequestMapping(value = "/catalog", method = RequestMethod.GET)
     public String goCatalog(Model model) {
         model.addAttribute("allProducts", productService.getAllProducts());
         model.addAttribute("filter", new FilterAttribute());
 
+        suchCategory = "All";
         model.addAttribute("categories", productCategoryService.getAllProductCategoryNames());
 
         return "catalog";
@@ -42,6 +45,7 @@ public class ProductController {
         else {
             model.addAttribute("allProducts", productService.getProductsByCategory(category));
         }
+        suchCategory = category;
 
         model.addAttribute("filter", new FilterAttribute());
         model.addAttribute("categories", productCategoryService.getAllProductCategoryNames());
@@ -52,6 +56,7 @@ public class ProductController {
     @PostMapping(value = "/catalog/doFilter")
     public String doFilterProducts(Model model, @ModelAttribute("filter") FilterAttribute filterAttribute) {
 
+        filterAttribute.setCategory(suchCategory);
         model.addAttribute("allProducts", productService.getProductsWithFilter(filterAttribute));
         model.addAttribute("categories", productCategoryService.getAllProductCategoryNames());
 

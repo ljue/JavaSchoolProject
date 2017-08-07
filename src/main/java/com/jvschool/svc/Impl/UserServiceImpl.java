@@ -68,13 +68,15 @@ public class UserServiceImpl implements UserService {
             for(UserEntity ue : lue) {
                 SessionUser su = new SessionUser(ue);
 
+                double total = 0;
                 List<OrderEntity> loe = orderDAO.getOrdersByUserId(su.getId());
                 for ( OrderEntity oa : loe) {
                     for (BucketEntity be : oa.getBuckets()) {
                         su.setSumCountProducts(su.getSumCountProducts()+be.getCountProduct());
-                        su.setSumTotal(su.getSumTotal()+be.getProductId().getCost());
+                        total += be.getProductId().getCost();
                     }
                 }
+                su.setSumTotal(String.format("%.2f", total));
 
                 lsu.add(su);
             }

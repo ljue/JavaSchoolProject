@@ -6,10 +6,7 @@ import com.jvschool.entities.ProductCategoryEntity;
 import com.jvschool.entities.ProductEntity;
 
 import com.jvschool.svc.*;
-import com.jvschool.util.Attributes.BucketAttribute;
-import com.jvschool.util.Attributes.FormEditCategories;
-import com.jvschool.util.Attributes.OrderAttribute;
-import com.jvschool.util.Attributes.ProductAttribute;
+import com.jvschool.util.Attributes.*;
 import com.jvschool.util.ProductValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,6 +24,7 @@ import java.util.*;
 
 
 @Controller
+@SessionAttributes("user")
 public class ManagerController {
 
     @Autowired
@@ -50,7 +48,14 @@ public class ManagerController {
 
 
     @RequestMapping(value = "/adminProducts", method = RequestMethod.GET)
-    public String goAdminProducts(Model model, @ModelAttribute("productForm")ProductEntity productForm) {
+    public String goAdminProducts(Model model, @ModelAttribute("productForm")ProductEntity productForm
+            , @ModelAttribute("user")SessionUser user) {
+
+        if(!user.getRole().equals("ROLE_MANAGER")) {
+            return "forward:/home";
+        }
+
+
         model.addAttribute("categories", productCategoryService.getAllProductCategories());
         model.addAttribute("propertiesMany", propertyCategoryService.getAllPropertyCategories());
         model.addAttribute("propertyManyChild",productPropertyService.getAllProductProperties());
@@ -111,7 +116,11 @@ public class ManagerController {
     @RequestMapping(value = "/editCategories", method = RequestMethod.GET)
     public String editCategoryGet(@ModelAttribute("formEditCategory") FormEditCategories formEditCategories,
             @ModelAttribute("formNewCategory") ProductCategoryEntity productCategoryEntity,
-            Model model){
+            Model model, @ModelAttribute("user")SessionUser user) {
+
+        if(!user.getRole().equals("ROLE_MANAGER")) {
+            return "forward:/home";
+        }
 
         model.addAttribute("formEditCategory", new FormEditCategories());
         model.addAttribute("formNewCategory", new ProductCategoryEntity());
@@ -147,7 +156,11 @@ public class ManagerController {
 
 
     @GetMapping(value = "/adminOrders")
-    public String goAdminOrders(Model model) {
+    public String goAdminOrders(Model model, @ModelAttribute("user")SessionUser user) {
+
+        if(!user.getRole().equals("ROLE_MANAGER")) {
+            return "forward:/home";
+        }
 
         List<OrderAttribute> orders = orderService.getOrdersGroupByDeliveryStatus();
         model.addAttribute("orders", orders);
@@ -157,8 +170,11 @@ public class ManagerController {
 
     @GetMapping(value = "/adminOrders/{orderId}")
     public String goCheckOrder(@PathVariable("orderId") Long orderId, Model model,
-                               HttpServletRequest request) {
+                               HttpServletRequest request, @ModelAttribute("user")SessionUser user) {
 
+        if(!user.getRole().equals("ROLE_MANAGER")) {
+            return "forward:/home";
+        }
 
         OrderAttribute orderAttribute = orderService.getOrderById(orderId);
         List<BucketAttribute> bucketAttributes = orderAttribute.getBuckets();
@@ -198,7 +214,11 @@ public class ManagerController {
 
 
     @GetMapping(value = "statistics")
-    public String goStatistics(Model model) {
+    public String goStatistics(Model model, @ModelAttribute("user")SessionUser user) {
+
+        if(!user.getRole().equals("ROLE_MANAGER")) {
+            return "forward:/home";
+        }
 
         model.addAttribute("topClients", userService.getTopUsers());
         model.addAttribute("topProducts", productService.getTopProducts());
