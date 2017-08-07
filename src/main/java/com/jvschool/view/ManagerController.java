@@ -222,8 +222,8 @@ public class ManagerController {
 
         model.addAttribute("topClients", userService.getTopUsers());
         model.addAttribute("topProducts", productService.getTopProducts());
-        model.addAttribute("weekProceed", orderService.getWeekProceed());
-        model.addAttribute("monthProceed", orderService.getMonthProceed());
+        model.addAttribute("weekProceed", String.format("%.2f", orderService.getWeekProceed()));
+        model.addAttribute("monthProceed", String.format("%.2f", orderService.getMonthProceed()));
 
         return "statistics";
     }

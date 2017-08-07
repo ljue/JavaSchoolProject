@@ -18,7 +18,7 @@ public class UserEntity  implements Serializable {
     private String firstName;
     private String secondName;
     private Date birthday;
-    private List<AddressEntity> addresses;
+    private List<AddressEntity> addresses = new ArrayList<>();
     private RoleEntity roleByRole;
 
 

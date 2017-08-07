@@ -25,8 +25,6 @@ public class ProductEntity  implements Serializable {
 
     private List<MultipartFile> images;
     private List<PicturesEntity> picturesByProductId;
-
-
    // private Set<ProductPropertyEntity> properties = new HashSet<ProductPropertyEntity>();
 
 

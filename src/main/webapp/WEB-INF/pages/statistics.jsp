@@ -113,24 +113,24 @@
                         <div class="form-group">
                             <label class="col-md-3">Proceed for a week:</label>
                             <label class="col-md-8">
-                                <c:if test="${weekProceed eq 0}">
-                                    You haven`t got week proceed statistic.
-                                </c:if>
-                                <c:if test="${weekProceed ne 0}">
+                                <%--<c:if test="${weekProceed eq 0}">--%>
+                                    <%--You haven`t got week proceed statistic.--%>
+                                <%--</c:if>--%>
+                                <%--<c:if test="${weekProceed ne 0}">--%>
                                     ${weekProceed}
-                                </c:if>
+                                <%--</c:if>--%>
                             </label> <br>
                         </div>
                         <br>
                         <div class="form-group">
                             <label class="col-md-3">Proceed for a month:</label>
                             <label class="col-md-8">
-                                <c:if test="${monthProceed eq 0}">
-                                    You haven`t got month proceed statistic.
-                                </c:if>
-                                <c:if test="${monthProceed ne 0}">
+                                <%--<c:if test="${monthProceed eq 0}">--%>
+                                    <%--You haven`t got month proceed statistic.--%>
+                                <%--</c:if>--%>
+                                <%--<c:if test="${monthProceed ne 0}">--%>
                                     ${monthProceed}
-                                </c:if>
+                                <%--</c:if>--%>
                             </label><br>
                         </div>
 

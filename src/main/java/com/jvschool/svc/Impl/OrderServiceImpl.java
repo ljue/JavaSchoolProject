@@ -68,9 +68,6 @@ public class OrderServiceImpl implements OrderService {
             lbe.add(be);
         }
         oe.setBuckets(lbe);
-//        for(Long product : oa.getProducts()) {
-//            oe.getProducts().add(productService.getProductById(product));
-//        }
 
         orderDAO.saveOrder(oe);
     }
@@ -86,19 +83,6 @@ public class OrderServiceImpl implements OrderService {
             }
         }
         return loa;
-//        Map<String,List<OrderAttribute>> ordersByDeliveryStatus = new HashMap();
-//
-//        for (String delivery : deliveries) {
-//            List<OrderEntity> loe = orderDAO.getOrdersGroupByDeliveryStatus(delivery);
-//            List<OrderAttribute> loa = new ArrayList<>();
-//            if (!loe.isEmpty()) {
-//                for (OrderEntity oe : loe) {
-//                    loa.add(new OrderAttribute(oe));
-//                }
-//            }
-//            ordersByDeliveryStatus.put(delivery, loa);
-//        }
-//        return ordersByDeliveryStatus;
 
     }
 

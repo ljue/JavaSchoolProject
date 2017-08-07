@@ -167,7 +167,7 @@ public class UserController {
         model.addAttribute("buckets", bucketAttributes);
         model.addAttribute("addressOrder", addressService.getAddressById(orderAttribute.getAddressId()));
 
-        model.addAttribute("total",total);
+        model.addAttribute("total",String.format("%.2f", total));
 
 
 

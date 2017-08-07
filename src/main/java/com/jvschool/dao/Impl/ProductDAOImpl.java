@@ -32,6 +32,7 @@ public class ProductDAOImpl implements ProductDAO {
     public void addProduct(ProductEntity productEntity) {
 
         em.merge(productEntity);
+        em.flush();
 
     }
 

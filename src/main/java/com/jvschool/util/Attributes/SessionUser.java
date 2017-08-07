@@ -42,7 +42,12 @@ public class SessionUser implements Serializable {
         this.birthday = ue.getBirthday();
         this.role = ue.getRoleByRole().getName();
 
-        this.products = products;
+
+        if(!products.isEmpty()) {
+            for (Map.Entry<Long, Integer> mli : products.entrySet()) {
+                this.products.put(mli.getKey(), mli.getValue());
+            }
+        }
 
         if (!ue.getAddresses().isEmpty()) {
             List<AddressEntity> list = ue.getAddresses();

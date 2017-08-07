@@ -17,7 +17,6 @@ public class OrderAttribute {
     private String payWay;
     private String deliveryStatus;
     private String deliveryWay;
-    //private List<Long> products = new ArrayList<>();
     private List<BucketAttribute> buckets = new ArrayList<>();
 
 
@@ -44,12 +43,6 @@ public class OrderAttribute {
                 this.buckets.add(new BucketAttribute(be));
             }
         }
-//        List<ProductEntity> lpe = oe.getProducts();
-//        if(!lpe.isEmpty()) {
-//            for(ProductEntity pe:lpe) {
-//                products.add(pe.getProductId());
-//            }
-//        }
     }
 
 
@@ -118,11 +111,4 @@ public class OrderAttribute {
         this.buckets = buckets;
     }
 
-    //    public List<Long> getProducts() {
-//        return products;
-//    }
-//
-//    public void setProducts(List<Long> products) {
-//        this.products = products;
-//    }
 }
