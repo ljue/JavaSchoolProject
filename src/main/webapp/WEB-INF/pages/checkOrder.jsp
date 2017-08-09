@@ -129,7 +129,7 @@
 
                                                             <h5>Name: <span>${product.productName}</span></h5>
                                                             <h5>Category:
-                                                                <span>${product.productCategoryByCategory}</span>
+                                                                <span>${product.category}</span>
                                                             </h5>
                                                             <h5>Battery: <span>${product.battery}</span></h5>
                                                             <h5>Fly time: <span>${product.flyTime}</span></h5>

@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
 @Service
 @Transactional
 public class OrderServiceImpl implements OrderService {
@@ -40,24 +39,19 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void saveOrder(OrderAttribute oa) {
         OrderEntity oe = new OrderEntity();
-        if(oa.getOrderId()!=0) {
-            oe.setOrderId(oa.getOrderId());
-        }
+
         oe.setAddress(addressDAO.getAddressById(oa.getAddressId()));
         oe.setUser(userDAO.getUserById(oa.getUserId()));
         oe.setDateTimeOrder(oa.getDateTimeOrder());
         oe.setPayWay(payWayDAO.getPayWayByName(oa.getPayWay()));
         oe.setDeliveryWay(deliveryWayService.getDeliveryWayByName(oa.getDeliveryWay()));
 
-        if(oa.getDeliveryStatus()==null) {
-            DeliveryStatusEntity deliveryStatusEntity = deliveryStatusService.getDeliveryStatusByName("Await");
-            if(deliveryStatusEntity==null) {
-                deliveryStatusEntity = new DeliveryStatusEntity();
-                deliveryStatusEntity.setDeliveryStatusName("Await");
-            }
-            oe.setDeliveryStatus(deliveryStatusEntity);
+        DeliveryStatusEntity deliveryStatusEntity = deliveryStatusService.getDeliveryStatusByName("Await");
+        if(deliveryStatusEntity==null) {
+            deliveryStatusEntity = new DeliveryStatusEntity();
+            deliveryStatusEntity.setDeliveryStatusName("Await");
         }
-        else oe.setDeliveryStatus(deliveryStatusService.getDeliveryStatusByName(oa.getDeliveryStatus()));
+        oe.setDeliveryStatus(deliveryStatusEntity);
 
         List<BucketAttribute> lba = oa.getBuckets();
         List<BucketEntity> lbe = new ArrayList<>();
@@ -69,6 +63,13 @@ public class OrderServiceImpl implements OrderService {
         }
         oe.setBuckets(lbe);
 
+        orderDAO.saveOrder(oe);
+    }
+
+    @Override
+    public void editOrderDeliveryStatus(OrderAttribute oa) {
+        OrderEntity oe = orderDAO.getOrderById(oa.getOrderId());
+        oe.setDeliveryStatus(deliveryStatusService.getDeliveryStatusByName(oa.getDeliveryStatus()));
         orderDAO.saveOrder(oe);
     }
 

@@ -10,6 +10,7 @@ import java.util.List;
 public interface OrderService {
 
     void saveOrder(OrderAttribute orderAttribute);
+    void editOrderDeliveryStatus(OrderAttribute orderAttribute);
     List<OrderAttribute> getOrdersGroupByDeliveryStatus();
     OrderAttribute getOrderById(long id);
     List<OrderAttribute> getOrdersByUserId(long id);

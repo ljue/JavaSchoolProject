@@ -1,8 +1,8 @@
 package com.jvschool.view;
 
-import com.jvschool.entities.AddressEntity;
 import com.jvschool.svc.*;
 import com.jvschool.util.AddressValidator;
+import com.jvschool.util.Attributes.AddressAttribute;
 import com.jvschool.util.Attributes.SessionUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import java.util.List;
 
 @Controller
 @SessionAttributes("user")
@@ -27,25 +26,25 @@ public class AddressController {
 
     @RequestMapping(value = {"/address"}, method = RequestMethod.GET)
     public String goAddressInfo(@ModelAttribute("user") SessionUser user, Model model) {
-        List<AddressEntity> addrlist = addressService.getAllAddressesByUserId(user.getId());
-        model.addAttribute("addresses", addrlist);
-        model.addAttribute("formAddAddress", new AddressEntity());
+
+        model.addAttribute("addresses", addressService.getAllAddressesByUserIdS(user.getId()));
+        model.addAttribute("formAddAddress", new AddressAttribute());
 
         return "address";
     }
 
     @RequestMapping(value = "/address/add", method = RequestMethod.POST)
-    public String addNewAddress(@ModelAttribute("formAddAddress") AddressEntity addressEntity, BindingResult bindingResult,
+    public String addNewAddress(@ModelAttribute("formAddAddress") AddressAttribute addressAttribute, BindingResult bindingResult,
     @ModelAttribute("user") SessionUser user) {
 
-        addressValidator.validate(addressEntity, bindingResult);
+        addressValidator.validate(addressAttribute, bindingResult);
 
         if (bindingResult.hasErrors()) {
             return "address";
         }
 
-        addressEntity.setUserId(user.getId());
-        addressService.addNewAddress(addressEntity);
+        addressAttribute.setUserId(user.getId());
+        addressService.addNewAddress(addressAttribute);
 
         return "redirect:/address";
     }

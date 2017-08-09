@@ -1,6 +1,6 @@
 package com.jvschool.view;
 
-import com.jvschool.svc.ProductCategoryService;
+import com.jvschool.svc.CategoryService;
 import com.jvschool.svc.ProductService;
 import com.jvschool.util.Attributes.FilterAttribute;
 import com.jvschool.util.Attributes.ProductAttribute;
@@ -20,18 +20,18 @@ public class ProductController {
     @Autowired
     private ProductService productService;
     @Autowired
-    private ProductCategoryService productCategoryService;
+    private CategoryService categoryService;
 
     private String suchCategory;
 
 
-    @RequestMapping(value = "/catalog", method = RequestMethod.GET)
+    @GetMapping(value = "/catalog")
     public String goCatalog(Model model) {
         model.addAttribute("allProducts", productService.getAllProducts());
         model.addAttribute("filter", new FilterAttribute());
 
         suchCategory = "All";
-        model.addAttribute("categories", productCategoryService.getAllProductCategoryNames());
+        model.addAttribute("categories", categoryService.getAllProductCategoryNames());
 
         return "catalog";
     }
@@ -48,7 +48,7 @@ public class ProductController {
         suchCategory = category;
 
         model.addAttribute("filter", new FilterAttribute());
-        model.addAttribute("categories", productCategoryService.getAllProductCategoryNames());
+        model.addAttribute("categories", categoryService.getAllProductCategoryNames());
 
         return "catalog";
     }
@@ -58,13 +58,13 @@ public class ProductController {
 
         filterAttribute.setCategory(suchCategory);
         model.addAttribute("allProducts", productService.getProductsWithFilter(filterAttribute));
-        model.addAttribute("categories", productCategoryService.getAllProductCategoryNames());
+        model.addAttribute("categories", categoryService.getAllProductCategoryNames());
 
         return "catalog";
     }
 
 
-    @RequestMapping(value = "/addToCart/{idProduct}", method = RequestMethod.POST)
+    @PostMapping(value = "/addToCart/{idProduct}")
     public void addToCart(@PathVariable("idProduct") Long id, @ModelAttribute("user") SessionUser user, Model model) {
 
         if(user.getProducts()==null) {
@@ -84,7 +84,7 @@ public class ProductController {
         model.addAttribute("user", user);
     }
 
-    @RequestMapping(value = "/deleteFromCart/{idProduct}", method = RequestMethod.POST)
+    @PostMapping(value = "/deleteFromCart/{idProduct}")
     public void deleteFromCart(@PathVariable("idProduct") Long id, @ModelAttribute("user") SessionUser user, Model model) {
 
         Integer val =user.getProducts().get(id);
@@ -103,7 +103,7 @@ public class ProductController {
     }
 
 
-    @RequestMapping(value = {"/bucket"}, method = RequestMethod.GET)
+    @GetMapping(value = "/bucket")
     public String goBucket(@ModelAttribute("user") SessionUser user, Model model) {
 
         Map<ProductAttribute,Integer> productsInCart = new HashMap<>();

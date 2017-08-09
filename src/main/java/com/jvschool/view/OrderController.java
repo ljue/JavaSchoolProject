@@ -32,9 +32,8 @@ public class OrderController {
 
     @GetMapping(value = "/checkout")
     public String goCheckout(@ModelAttribute("user")SessionUser user, Model model) {
-
         if(user.getRole().equals("ROLE_ANONYM")) {
-            return "forward:/login";
+            return "redirect:/login";
         }
 
         model.addAttribute("orderForm", new OrderAttribute());
@@ -65,19 +64,14 @@ public class OrderController {
         user.setProducts(new HashMap<Long, Integer>());
         model.addAttribute(user);
 
-
         return "redirect:/history";
-
-
-
     }
 
-    @RequestMapping(value = "/checkout/addNewAddress", method = RequestMethod.POST)
+    @PostMapping(value = "/checkout/addNewAddress")
     public String addNewAddress(@ModelAttribute("addNewAddress") AddressAttribute addressAttribute,
                                 @ModelAttribute("user") SessionUser user, Model model) {
         addressAttribute.setUserId(user.getId());
         addressService.addNewAddress(addressAttribute);
-
 
         return "redirect:/checkout";
     }

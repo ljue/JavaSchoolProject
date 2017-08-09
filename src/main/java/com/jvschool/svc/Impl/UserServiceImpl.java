@@ -4,7 +4,9 @@ import com.jvschool.dao.OrderDAO;
 import com.jvschool.dao.UserDAO;
 import com.jvschool.entities.BucketEntity;
 import com.jvschool.entities.OrderEntity;
+import com.jvschool.entities.RoleEntity;
 import com.jvschool.entities.UserEntity;
+import com.jvschool.svc.RoleService;
 import com.jvschool.svc.UserService;
 import com.jvschool.util.Attributes.SessionUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,8 @@ public class UserServiceImpl implements UserService {
     private UserDAO userDAO;
     @Autowired
     private OrderDAO orderDAO;
+    @Autowired
+    private RoleService roleService;
 
     @Override
     public List<UserEntity> getAllUsers()  {
@@ -43,21 +47,6 @@ public class UserServiceImpl implements UserService {
         return userDAO.getUserByEmail(email);
     }
 
-    @Override
-    public void addUser(UserEntity user) { userDAO.addUser(user);}
-
-    @Override
-    public UserEntity loginUser(String login, String password) {
-        return userDAO.loginUser(login,password);
-    }
-
-    @Override
-    public void editUserInfo(UserEntity user) {
-        userDAO.editUserInfo(user);
-    }
-
-    @Override
-    public void editUserPassword(UserEntity user) { userDAO.editUserPassword(user);}
 
     @Override
     public List<SessionUser> getTopUsers() {
@@ -81,8 +70,66 @@ public class UserServiceImpl implements UserService {
                 lsu.add(su);
             }
         }
-
-
         return lsu;
     }
+
+    @Override
+    public SessionUser loginUser(String login, String password) {
+        UserEntity ue = userDAO.loginUser(login,password);
+        if(ue!=null)
+            return new SessionUser(ue);
+        else
+            return null;
+    }
+
+    @Override
+    public void addUser(SessionUser user) {
+
+        UserEntity ue = new UserEntity();
+
+        ue.setLogin(user.getLogin());
+        ue.setFirstName(user.getFirstName());
+        ue.setSecondName(user.getSecondName());
+        ue.setPass(user.getPass());
+        ue.setEmail(user.getEmail());
+        ue.setBirthday(user.getBirthday());
+
+        RoleEntity role = roleService.getRoleByName(user.getRole());
+        if (role!=null) {
+            ue.setRoleByRole(role);
+        } else {
+            role = new RoleEntity();
+            role.setRoleName(user.getRole());
+            ue.setRoleByRole(role);
+        }
+
+        userDAO.addUser(ue);
+    }
+
+    @Override
+    public void editUserInfo(SessionUser user) {
+
+        UserEntity ue = userDAO.getUserById(user.getId());
+        ue.setBirthday(user.getBirthday());
+        ue.setEmail(user.getEmail());
+        ue.setSecondName(user.getSecondName());
+        ue.setFirstName(user.getFirstName());
+        ue.setLogin(user.getLogin());
+
+        userDAO.editUserInfo(ue);
+    }
+
+    @Override
+    public void editUserPassword(SessionUser user) {
+        UserEntity ue = userDAO.getUserById(user.getId());
+        ue.setPass(user.getPass());
+        userDAO.editUserPassword(ue);
+    }
+
+    @Override
+    public long getUserIdByEmail(String email) {
+        return userDAO.getUserIdByEmail(email);
+    }
+
+
 }

@@ -1,6 +1,6 @@
 package com.jvschool.dao;
 
-import com.jvschool.entities.ProductCategoryEntity;
+import com.jvschool.entities.CategoryEntity;
 import com.jvschool.entities.ProductEntity;
 import com.jvschool.util.Attributes.FilterAttribute;
 
@@ -13,7 +13,7 @@ public interface ProductDAO {
     void addProduct(ProductEntity productEntity);
     ProductEntity getProductById(long id);
     List<ProductEntity> getAllProducts();
-    List<ProductEntity> getProductsByCategory(ProductCategoryEntity category);
+    List<ProductEntity> getProductsByCategory(CategoryEntity category);
     List<ProductEntity> getProductsToBuy(Set<Long> list);
     List<ProductEntity> getTopProducts();
     List<ProductEntity> getProductsWithFilter(FilterAttribute filterAttribute);

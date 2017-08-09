@@ -22,7 +22,11 @@ public class SessionUser implements Serializable {
     private Date birthday;
     private List<Long> listAddress= new ArrayList<>();
     private String role;
+
+
     private Map<Long,Integer> products = new HashMap<>();
+
+    private String confirmPassword;
 
     private int sumCountProducts;
     private String sumTotal;
@@ -40,7 +44,7 @@ public class SessionUser implements Serializable {
         this.firstName = ue.getFirstName();
         this.secondName = ue.getSecondName();
         this.birthday = ue.getBirthday();
-        this.role = ue.getRoleByRole().getName();
+        this.role = ue.getRoleByRole().getRoleName();
 
 
         if(!products.isEmpty()) {
@@ -65,7 +69,7 @@ public class SessionUser implements Serializable {
         this.firstName = ue.getFirstName();
         this.secondName = ue.getSecondName();
         this.birthday = ue.getBirthday();
-        this.role = ue.getRoleByRole().getName();
+        this.role = ue.getRoleByRole().getRoleName();
 
         if (!ue.getAddresses().isEmpty()) {
             List<AddressEntity> list = ue.getAddresses();
@@ -169,5 +173,13 @@ public class SessionUser implements Serializable {
 
     public void setSumTotal(String sumTotal) {
         this.sumTotal = sumTotal;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
     }
 }

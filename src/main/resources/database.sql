@@ -123,7 +123,7 @@ create table MYSHOP_SCHEMA.PAY_WAY
 )
 ;
 
-alter table `ORDER`
+alter table MYSHOP_SCHEMA.ORDER
 	add constraint ORDER_FK2
 		foreign key (PAY_WAY_ID) references MYSHOP_SCHEMA.PAY_WAY (PAY_WAY_ID)
 ;
@@ -163,7 +163,7 @@ create index PRODUCT_CATEGORY_ID_FK
 	on PRODUCT (CATEGORY_ID)
 ;
 
-alter table PICTURE
+alter table MYSHOP_SCHEMA.PICTURE
 	add constraint PICTURE_PRODUCT_ID_FK
 		foreign key (PRODUCT_ID) references MYSHOP_SCHEMA.PRODUCT (PRODUCT_ID)
 ;
@@ -198,7 +198,7 @@ create index PROPERTY_GROUP_ID_FK
 	on PROPERTY (PROPERTY_GROUP_ID)
 ;
 
-alter table PRODUCT_HAS_PROPERTY
+alter table MYSHOP_SCHEMA.PRODUCT_HAS_PROPERTY
 	add constraint PRODUCT_HAS_PROPERTY_PROPERTY_ID_FK
 		foreign key (PROPERTY_ID) references MYSHOP_SCHEMA.PROPERTY (PROPERTY_ID)
 ;
@@ -211,7 +211,7 @@ create table MYSHOP_SCHEMA.PROPERTY_GROUP
 )
 ;
 
-alter table PROPERTY
+alter table MYSHOP_SCHEMA.PROPERTY
 	add constraint PROPERTY_GROUP_ID_FK
 		foreign key (PROPERTY_GROUP_ID) references MYSHOP_SCHEMA.PROPERTY_GROUP (PROPERTY_GROUP_ID)
 ;
@@ -259,12 +259,12 @@ create index USER_ROLE_IDROLE_FK
 	on USER (ROLE_ID)
 ;
 
-alter table ADDRESS
+alter table MYSHOP_SCHEMA.ADDRESS
 	add constraint ADDRESS_USER_ID_FK
 		foreign key (USER_ID) references MYSHOP_SCHEMA.USER (USER_ID)
 ;
 
-alter table `ORDER`
+alter table MYSHOP_SCHEMA.ORDER
 	add constraint ORDER_FK0
 		foreign key (USER_ID) references MYSHOP_SCHEMA.USER (USER_ID)
 ;

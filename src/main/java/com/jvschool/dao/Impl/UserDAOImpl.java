@@ -125,5 +125,16 @@ public class UserDAOImpl implements UserDAO {
         return list;
     }
 
+    @Override
+    public long getUserIdByEmail(String email) {
+        List list =  em.createQuery("select u.id FROM UserEntity u where u.email=:email")
+                .setParameter("email", email).getResultList();
+
+        if(list.isEmpty())
+            return 0;
+        else
+            return (long) list.get(0);
+    }
+
 
 }

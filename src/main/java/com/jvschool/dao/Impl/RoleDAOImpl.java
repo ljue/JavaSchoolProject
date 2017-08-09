@@ -15,14 +15,19 @@ public class RoleDAOImpl implements RoleDAO {
     private EntityManager em;
 
     @Override
-    public RoleEntity getRoleByName(String nameRole) {
+    public RoleEntity getRoleByName(String name) {
 
-        List list = em.createQuery("FROM RoleEntity where name=:namerole")
-                .setParameter("namerole",nameRole).getResultList();
+        List list = em.createQuery("FROM RoleEntity where roleName=:name")
+                .setParameter("name",name).getResultList();
 
         if(list.isEmpty())
             return null;
         else
             return (RoleEntity) list.get(0);
+    }
+
+    @Override
+    public void addRole(RoleEntity role) {
+        em.merge(role);
     }
 }

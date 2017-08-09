@@ -13,7 +13,6 @@
   <properties>
     <spring.version>4.3.9.RELEASE</spring.version>
     <hibernate-version>5.0.1.Final</hibernate-version>
-
   </properties>
 
 
@@ -45,6 +44,14 @@
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-entitymanager</artifactId>
       <version>${hibernate-version}</version>
+    </dependency>
+
+    <!-- For JPA Annotations (Getter, Setter, etc.) -->
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.16.4</version>
+      <scope>provided</scope>
     </dependency>
 
     <dependency>

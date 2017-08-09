@@ -3,9 +3,10 @@ package com.jvschool.svc.Impl;
 import com.jvschool.dao.BucketDAO;
 import com.jvschool.dao.ProductDAO;
 import com.jvschool.entities.BucketEntity;
-import com.jvschool.entities.ProductCategoryEntity;
+import com.jvschool.entities.PicturesEntity;
+import com.jvschool.entities.CategoryEntity;
 import com.jvschool.entities.ProductEntity;
-import com.jvschool.svc.ProductCategoryService;
+import com.jvschool.svc.CategoryService;
 import com.jvschool.svc.ProductService;
 import com.jvschool.util.Attributes.FilterAttribute;
 import com.jvschool.util.Attributes.ProductAttribute;
@@ -14,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Service
 @Transactional
@@ -25,12 +25,8 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private BucketDAO bucketDAO;
     @Autowired
-    private ProductCategoryService productCategoryService;
+    private CategoryService categoryService;
 
-    @Override
-    public void addProduct(ProductEntity productEntity) {
-        productDAO.addProduct(productEntity);
-    }
 
     @Override
     public ProductAttribute getProductAttributeById(long id) {
@@ -46,8 +42,10 @@ public class ProductServiceImpl implements ProductService {
     public List<ProductAttribute> getAllProducts() {
         List<ProductEntity> listEntity = productDAO.getAllProducts();
         List<ProductAttribute> listAttr = new ArrayList<>();
-        for(ProductEntity pe:listEntity) {
-            listAttr.add(new ProductAttribute(pe));
+        if(!listEntity.isEmpty()) {
+            for (ProductEntity pe : listEntity) {
+                listAttr.add(new ProductAttribute(pe));
+            }
         }
 
         return listAttr;
@@ -55,7 +53,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductAttribute> getProductsByCategory(String category) {
-        ProductCategoryEntity pce = productCategoryService.getProductCategoryByName(category);
+        CategoryEntity pce = categoryService.getProductCategoryByName(category);
 
         List<ProductAttribute> lpa = new ArrayList<>();
         if (pce!=null) {
@@ -70,16 +68,6 @@ public class ProductServiceImpl implements ProductService {
         return lpa;
     }
 
-    @Override
-    public List<ProductAttribute> getProductsToBuy(Set<Long> list) {
-        List<ProductEntity> listEntity = productDAO.getProductsToBuy(list);
-        List<ProductAttribute> listAttr = new ArrayList<>();
-        for(ProductEntity pe:listEntity) {
-            listAttr.add(new ProductAttribute(pe));
-        }
-
-        return listAttr;
-    }
 
     @Override
     public List<ProductAttribute> getTopProducts() {
@@ -114,5 +102,37 @@ public class ProductServiceImpl implements ProductService {
         }
 
         return lpa;
+    }
+
+    @Override
+    public void addProduct(ProductAttribute pa) {
+
+        ProductEntity pe = new ProductEntity();
+
+        pe.setProductName(pa.getProductName());
+        pe.setCost(pa.getCost());
+        pe.setCost(pa.getCount());
+        pe.setBattery(pa.getBattery());
+        pe.setDistance(pa.getDistance());
+        pe.setFlyTime(pa.getFlyTime());
+        pe.setSize(pa.getSize());
+        pe.setDescription(pa.getDescription());
+
+        CategoryEntity pce = categoryService.getProductCategoryByName(pa.getCategory());
+        if(pce==null) {
+            pce = new CategoryEntity();
+            pce.setCategoryName(pa.getCategory());
+        }
+        pe.setCategory(pce);
+
+        if(!pa.getPicturesPath().isEmpty()) {
+            for(String picPath : pa.getPicturesPath()) {
+                PicturesEntity pice = new PicturesEntity();
+                pice.setPicName(picPath);
+                pe.getPictures().add(pice);
+            }
+        }
+
+        productDAO.addProduct(pe);
     }
 }

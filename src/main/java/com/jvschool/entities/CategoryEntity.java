@@ -6,21 +6,23 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.List;
 
 @Getter
 @Setter
 @EqualsAndHashCode
 @Entity
-@Table(name = "PAY_WAY", schema = "MYSHOP_SCHEMA")
-public class PayWayEntity  implements Serializable {
+@Table(name = "CATEGORY", schema = "MYSHOP_SCHEMA")
+public class CategoryEntity implements Serializable {
 
     @Id
-    @Column(name = "PAY_WAY_ID", nullable = false)
+    @Column(name = "CATEGORY_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int payWayId;
+    private int categoryId;
 
     @Basic
-    @Column(name = "NAME", nullable = false)
-    private String payWayName;
+    @Column(name = "NAME")
+    private String categoryName;
 
 }

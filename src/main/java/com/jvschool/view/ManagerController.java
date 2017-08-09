@@ -1,10 +1,5 @@
 package com.jvschool.view;
 
-
-import com.jvschool.entities.PicturesEntity;
-import com.jvschool.entities.ProductCategoryEntity;
-import com.jvschool.entities.ProductEntity;
-
 import com.jvschool.svc.*;
 import com.jvschool.util.Attributes.*;
 import com.jvschool.util.ProductValidator;
@@ -14,8 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
-
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
@@ -28,11 +21,7 @@ import java.util.*;
 public class ManagerController {
 
     @Autowired
-    private ProductCategoryService productCategoryService;
-    @Autowired
-    private PropertyCategoryService propertyCategoryService;
-    @Autowired
-    private ProductPropertyService productPropertyService;
+    private CategoryService categoryService;
     @Autowired
     private ProductValidator productValidator;
     @Autowired
@@ -47,59 +36,49 @@ public class ManagerController {
     private UserService userService;
 
 
-    @RequestMapping(value = "/adminProducts", method = RequestMethod.GET)
-    public String goAdminProducts(Model model, @ModelAttribute("productForm")ProductEntity productForm
+    @GetMapping(value = "/adminProducts")
+    public String goAdminProducts(Model model, @ModelAttribute("productForm")ProductAttribute productForm
             , @ModelAttribute("user")SessionUser user) {
-
         if(!user.getRole().equals("ROLE_MANAGER")) {
-            return "forward:/home";
+            return "redirect:/home";
         }
 
-
-        model.addAttribute("categories", productCategoryService.getAllProductCategories());
-        model.addAttribute("propertiesMany", propertyCategoryService.getAllPropertyCategories());
-        model.addAttribute("propertyManyChild",productPropertyService.getAllProductProperties());
+        model.addAttribute("categories", categoryService.getAllProductCategoryNames());
+       // model.addAttribute("propertiesMany", propertyCategoryService.getAllPropertyCategories());
+        //model.addAttribute("propertyManyChild",productPropertyService.getAllProductProperties());
 
         return "adminProducts";
     }
 
-    @RequestMapping(value = "/adminProducts", method = RequestMethod.POST)
-    public String addProduct(@ModelAttribute("productForm")ProductEntity productForm,
+
+    @PostMapping(value = "/adminProducts")
+    public String addProduct(@ModelAttribute("productForm")ProductAttribute productForm,
                            BindingResult bindingResult, Model model, HttpServletRequest request) {
 
         productValidator.validate(productForm, bindingResult);
         if (bindingResult.hasErrors()) {
+            model.addAttribute("categories", categoryService.getAllProductCategoryNames());
             return "adminProducts";
         }
 
-
         List<MultipartFile> files = productForm.getImages();
-        List<String> fileNames = new ArrayList<String>();
-        List<PicturesEntity> picNames=new ArrayList<>();
+        List<String> picNames = new ArrayList<String>();
         if (null != files && files.size() > 0)
         {
             for (MultipartFile multipartFile : files) {
 
-                String fileName = multipartFile.getOriginalFilename();
-                fileNames.add(fileName);
+                String picName = multipartFile.getOriginalFilename();
+                picNames.add(picName);
 
-                File imageFile = new File(request.getSession().getServletContext().getRealPath("/resources/Images/"), fileName);
-                try
-                {
+                File imageFile = new File(request.getSession().getServletContext().getRealPath("/resources/Images/"), picName);
+                try {
                     multipartFile.transferTo(imageFile);
-
-                    PicturesEntity pic = new PicturesEntity();
-                    pic.setPicName(fileName);
-                    picNames.add(pic);
-
-                } catch (IOException e)
-                {
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         }
-        productForm.setPicturesByProductId(picNames);
-
+        productForm.setPicturesPath(picNames);
 
         productService.addProduct(productForm);
         return "redirect:/adminProducts";
@@ -108,48 +87,41 @@ public class ManagerController {
 
 
 
-
-
-
-
-
-    @RequestMapping(value = "/editCategories", method = RequestMethod.GET)
-    public String editCategoryGet(@ModelAttribute("formEditCategory") FormEditCategories formEditCategories,
-            @ModelAttribute("formNewCategory") ProductCategoryEntity productCategoryEntity,
+    @GetMapping(value = "/editCategories")
+    public String editCategoryGet(@ModelAttribute("formEditCategory") CategoryAttribute categoryAttribute,
+            @ModelAttribute("formAddCategory") CategoryAttribute addCategoryAttribute,
             Model model, @ModelAttribute("user")SessionUser user) {
 
         if(!user.getRole().equals("ROLE_MANAGER")) {
-            return "forward:/home";
+            return "redirect:/home";
         }
 
-        model.addAttribute("formEditCategory", new FormEditCategories());
-        model.addAttribute("formNewCategory", new ProductCategoryEntity());
-        model.addAttribute("categories", productCategoryService.getAllProductCategories());
+        model.addAttribute("formEditCategory", new CategoryAttribute());
+        model.addAttribute("formAddCategory", new CategoryAttribute());
+        model.addAttribute("categories", categoryService.getAllProductCategoryNames());
 
         return "editCategories";
     }
 
-    @RequestMapping(value = "/editCategories/editCategory", method = RequestMethod.POST)
-    public String editCategoryPost(@ModelAttribute("formEditCategory") FormEditCategories formEditCategories,
+    @PostMapping(value = "/editCategories/editCategoryName")
+    public String editCategoryPost(@ModelAttribute("formEditCategory") CategoryAttribute categoryAttribute,
                                     Model model){
 
-        if(formEditCategories.getEditCategory()==null) {
-//            model.addAttribute("error")
+        if(categoryAttribute.getEditCategoryName()==null) {
+            model.addAttribute("categories", categoryService.getAllProductCategoryNames());
+            model.addAttribute("error", "This field is required.");
             return "redirect:/editCategories";
         }
-        ProductCategoryEntity productCategoryEntity=new ProductCategoryEntity();
-        productCategoryEntity.setCategoryId(productCategoryService.getProductCategoryByName
-                (formEditCategories.getChooseCategory().getCategoryName()).getCategoryId());
-        productCategoryEntity.setCategoryName(formEditCategories.getEditCategory());
-        productCategoryService.editCategory(productCategoryEntity);
+
+        categoryService.editCategory(categoryAttribute);
 
         return "redirect:/editCategories";
     }
 
-    @RequestMapping(value = "/editCategories/addCategory", method = RequestMethod.POST)
-    public String addCategoryPost(@ModelAttribute("formNewCategory") ProductCategoryEntity productCategoryEntity,
+    @PostMapping(value = "/editCategories/addCategory")
+    public String addCategoryPost(@ModelAttribute("formAddCategory") CategoryAttribute categoryAttribute,
                                 Model model){
-        productCategoryService.addProductCategory(productCategoryEntity.getCategoryName());
+        categoryService.addProductCategory(categoryAttribute.getCategoryName());
         return "redirect:/editCategories";
     }
 
@@ -159,7 +131,7 @@ public class ManagerController {
     public String goAdminOrders(Model model, @ModelAttribute("user")SessionUser user) {
 
         if(!user.getRole().equals("ROLE_MANAGER")) {
-            return "forward:/home";
+            return "redirect:/home";
         }
 
         List<OrderAttribute> orders = orderService.getOrdersGroupByDeliveryStatus();
@@ -173,7 +145,7 @@ public class ManagerController {
                                HttpServletRequest request, @ModelAttribute("user")SessionUser user) {
 
         if(!user.getRole().equals("ROLE_MANAGER")) {
-            return "forward:/home";
+            return "redirect:/home";
         }
 
         OrderAttribute orderAttribute = orderService.getOrderById(orderId);
@@ -183,8 +155,10 @@ public class ManagerController {
         if(!bucketAttributes.isEmpty()) {
             for (BucketAttribute ba : bucketAttributes) {
                 ProductAttribute pa = productService.getProductAttributeById(ba.getProductId());
-                productAttributes.add(pa);
-                total = total+pa.getCost()*ba.getCountProduct();
+                if(pa!=null) {
+                    productAttributes.add(pa);
+                    total = total + pa.getCost() * ba.getCountProduct();
+                }
             }
         }
         model.addAttribute("products",productAttributes);
@@ -207,7 +181,7 @@ public class ManagerController {
 
         OrderAttribute orderAttribute = (OrderAttribute) request.getSession().getAttribute("editOrder");
         orderAttribute.setDeliveryStatus(orderEditAttribute.getDeliveryStatus());
-        orderService.saveOrder(orderAttribute);
+        orderService.editOrderDeliveryStatus(orderAttribute);
 
         return "redirect:/adminOrders/"+orderAttribute.getOrderId();
     }
@@ -217,7 +191,7 @@ public class ManagerController {
     public String goStatistics(Model model, @ModelAttribute("user")SessionUser user) {
 
         if(!user.getRole().equals("ROLE_MANAGER")) {
-            return "forward:/home";
+            return "redirect:/home";
         }
 
         model.addAttribute("topClients", userService.getTopUsers());

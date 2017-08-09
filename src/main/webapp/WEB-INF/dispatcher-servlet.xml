@@ -32,8 +32,8 @@
           destroy-method="close">
         <property name="driverClassName" value="net.sf.log4jdbc.DriverSpy"/>
         <property name="url" value="jdbc:log4jdbc:mysql://localhost:3306"/>
-        <!--<property name="driverClassName" value="com.mysql.jdbc.Driver"/>-->
-        <!--<property name="url" value="jdbc:mysql://localhost:3306/"/>-->
+        <!--<properoleNamename="driverClassName" value="com.mysql.jdbc.Driver"/>-->
+        <!--<properoleNamename="url" value="jdbc:mysql://localhost:3306/"/>-->
         <property name="username" value="root"/>
         <property name="password" value="password"/>
     </bean>
@@ -84,24 +84,23 @@
     <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean" >
         <property name="converters">
             <set>
-                <bean class="com.jvschool.util.CategoryProductConverter"/>
                 <bean class="com.jvschool.util.ProductCheckBoxPropertyConverter"/>
             </set>
         </property>
     </bean>
 
     <!--<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">-->
-        <!--<property name="basename" value="validation" />-->
-        <!--<property name="defaultEncoding" value="UTF-8"/>-->
+        <!--<properoleNamename="basename" value="validation" />-->
+        <!--<properoleNamename="defaultEncoding" value="UTF-8"/>-->
     <!--</bean>-->
 
 
     <!--<bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">-->
-        <!--<property name="paramName" value="lang" />-->
+        <!--<properoleNamename="paramName" value="lang" />-->
     <!--</bean>-->
 
     <!--<bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver">-->
-        <!--<property name="defaultLocale" value="en" />-->
+        <!--<properoleNamename="defaultLocale" value="en" />-->
     <!--</bean>-->
 
 </beans>

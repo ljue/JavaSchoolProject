@@ -16,4 +16,5 @@ public interface UserDAO {
     void editUserInfo(UserEntity user);
     void editUserPassword(UserEntity user);
     List<UserEntity> getTopUsers();
+    long getUserIdByEmail(String email);
 }

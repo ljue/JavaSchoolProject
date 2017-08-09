@@ -43,10 +43,10 @@
 
                         <spring:bind path="productName">
                             <div class="form-group ${status.error ? 'has-error' : ''}">
-                                <label class="col-lg-3 control-label">Goods name:</label>
+                                <label class="col-lg-3 control-label">Goods roleName:</label>
                                 <div class="col-lg-8">
                                     <form:input type="text" path="productName" class="form-control"
-                                                placeholder="Goods name"
+                                                placeholder="Goods roleName"
                                     ></form:input>
                                 </div>
                                 <form:errors path="productName"></form:errors>
@@ -76,18 +76,18 @@
                         </spring:bind>
 
 
-                        <spring:bind path="productCategoryByCategory">
+                        <spring:bind path="category">
                             <div class="form-group ${status.error ? 'has-error' : ''}">
                                 <label class="col-lg-3 control-label">Category:</label>
                                 <div class="col-lg-8">
-                                    <form:select path="productCategoryByCategory" class="form-control">
+                                    <form:select path="category" class="form-control">
                                         <c:forEach items="${categories}" var="cat">
-                                            <form:option value="${cat.categoryName}"
-                                                         label="${cat.categoryName}"></form:option>
+                                            <form:option value="${cat}"
+                                                         label="${cat}"></form:option>
                                         </c:forEach>
                                     </form:select>
                                 </div>
-                                <form:errors path="productCategoryByCategory"></form:errors>
+                                <form:errors path="category"></form:errors>
                             </div>
                         </spring:bind>
 
@@ -161,7 +161,7 @@
                                 <label class="col-lg-3 control-label">Description:</label>
                                 <div class="col-lg-8">
                                     <form:textarea path="description" class="form-control"
-                                                   placeholder="Add description less 500 characters"
+                                                   placeholder="Add description less 2000 characters"
                                     ></form:textarea>
                                 </div>
                                 <form:errors path="description"></form:errors>

@@ -20,10 +20,10 @@ public class ProductAttribute  implements Serializable {
     private int flyTime;
     private int distance;
     private String description;
-    private String productCategoryByCategory;
+    private String category;
 
-    private List<MultipartFile> images;
-    private List<String> picturesPath= new ArrayList<>();
+    private List<MultipartFile> images = new ArrayList<>();
+    private List<String> picturesPath = new ArrayList<>();
     private String presentPic;
 
     private int sumCount;
@@ -42,13 +42,13 @@ public class ProductAttribute  implements Serializable {
         this.flyTime = productEntity.getFlyTime();
         this.distance = productEntity.getDistance();
         this.description = productEntity.getDescription();
-        this.productCategoryByCategory = productEntity.getProductCategoryByCategory().getCategoryName();
+        this.category = productEntity.getCategory().getCategoryName();
 
 
-        if(!productEntity.getPicturesByProductId().isEmpty()) {
-            presentPic=productEntity.getPicturesByProductId().get(0).getPicName();
+        if(!productEntity.getPictures().isEmpty()) {
+            presentPic=productEntity.getPictures().get(0).getPicName();
 
-            for(PicturesEntity picPath:productEntity.getPicturesByProductId()) {
+            for(PicturesEntity picPath:productEntity.getPictures()) {
                 picturesPath.add(picPath.getPicName());
             }
         }
@@ -127,12 +127,12 @@ public class ProductAttribute  implements Serializable {
         this.description = description;
     }
 
-    public String getProductCategoryByCategory() {
-        return productCategoryByCategory;
+    public String getCategory() {
+        return category;
     }
 
-    public void setProductCategoryByCategory(String productCategoryByCategory) {
-        this.productCategoryByCategory = productCategoryByCategory;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public List<MultipartFile> getImages() {

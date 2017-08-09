@@ -2,6 +2,7 @@ package com.jvschool.util;
 
 import com.jvschool.entities.UserEntity;
 import com.jvschool.svc.UserService;
+import com.jvschool.util.Attributes.SessionUser;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -26,7 +27,7 @@ public class UserValidator implements Validator {
     @Override
     public void validate(Object o, Errors errors) {
 
-        UserEntity user = (UserEntity) o;
+        SessionUser user = (SessionUser) o;
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "login", "Required", "This field is required.");
         if (user.getLogin().length() < 4 || user.getLogin().length() > 30) {

@@ -99,7 +99,7 @@
                                                 <h4>Product Id: <span>${product.productId}</span></h4>
 
                                                 <h5>Name: <span>${product.productName}</span></h5>
-                                                <h5>Category: <span>${product.productCategoryByCategory}</span></h5>
+                                                <h5>Category: <span>${product.category}</span></h5>
                                                 <h5>Battery: <span>${product.battery}</span></h5>
                                                 <h5>Fly time: <span>${product.flyTime}</span></h5>
                                                 <h5>Distance: <span>${product.distance}</span></h5>

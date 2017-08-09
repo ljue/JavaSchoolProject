@@ -14,7 +14,6 @@
 
 <c:url var="editInfo" value="/user/editInfo"/>
 <c:url var="editPass" value="/user/editPass"/>
-<%--<jsp:include page="/countries" />--%>
 
 <br>
 <br>
@@ -22,7 +21,6 @@
 <div class="container">
     <div class="row">
         <div class="col-md-3">
-            <%--<p class="lead">Личный кабинет</p>--%>
                 <p class="lead">   </p>
             <div class="list-group">
                 <a href="/user" class="list-group-item">My Profile</a>
@@ -36,14 +34,7 @@
 
                 <!-- edit form column -->
                 <div class="col-md-8 col-sm-6 col-xs-12 personal-info">
-                    <%--<div class="alert alert-info alert-dismissable">--%>
-                        <%--<a class="panel-close close" data-dismiss="alert">×</a>--%>
-                        <%--<i class="fa fa-coffee"></i>--%>
-                        <%--This is an <strong>.alert</strong>. Use this to show important messages to the user.--%>
-                    <%--</div>--%>
                     <h3>Personal info</h3>
-
-
 
 
                     <form:form method="POST" modelAttribute="userForm" action="${editInfo}" class="form-horizontal">
@@ -51,7 +42,7 @@
 
                         <spring:bind path="firstName">
                         <div class="form-group ${status.error ? 'has-error' : ''}" >
-                            <label class="col-lg-3 control-label">First name:</label>
+                            <label class="col-lg-3 control-label">First roleName:</label>
                             <div class="col-lg-8">
                                 <form:input type="text" path="firstName" class="form-control" value="${user.firstName}"
                                 ></form:input>
@@ -62,7 +53,7 @@
 
                         <spring:bind path="secondName">
                             <div class="form-group ${status.error ? 'has-error' : ''}" >
-                                <label class="col-lg-3 control-label">Second name:</label>
+                                <label class="col-lg-3 control-label">Second roleName:</label>
                                 <div class="col-lg-8">
                                     <form:input type="text" path="secondName" class="form-control" value="${user.secondName}"
                                     ></form:input>

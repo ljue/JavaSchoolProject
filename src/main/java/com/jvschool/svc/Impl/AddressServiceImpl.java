@@ -36,11 +36,15 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public List<AddressAttribute> getAllAddressesByUserIdS(long id) {
-        List<AddressAttribute> lae = new ArrayList<>();
-        for(AddressEntity ae:addressDAO.getAllAddressesByUserId(id)) {
-            lae.add(new AddressAttribute(ae));
+        List<AddressAttribute> laa = new ArrayList<>();
+        List<AddressEntity> lae = addressDAO.getAllAddressesByUserId(id);
+        if(!lae.isEmpty()) {
+            //lae.stream().forEachOrdered((ae) -> laa.add(new AddressAttribute(ae)));
+            for (AddressEntity ae : lae) {
+                laa.add(new AddressAttribute(ae));
+            }
         }
-        return lae;
+        return laa;
     }
 
     @Override

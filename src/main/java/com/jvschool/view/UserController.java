@@ -1,6 +1,5 @@
 package com.jvschool.view;
 
-import com.jvschool.entities.UserEntity;
 import com.jvschool.svc.*;
 import com.jvschool.util.Attributes.BucketAttribute;
 import com.jvschool.util.Attributes.OrderAttribute;
@@ -27,9 +26,6 @@ public class UserController {
     private UserService userService;
 
     @Autowired
-    private RoleService roleService;
-
-    @Autowired
     private UserValidator userValidator;
 
     @Autowired
@@ -42,31 +38,27 @@ public class UserController {
     private ProductService productService;
 
 
-    @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
-    public String home(Model model) {
+
+    @GetMapping(value = {"/", "/home"})
+    public String home() {
         return "home";
     }
 
 
-    @RequestMapping(value = {"/navigation"}, method = RequestMethod.GET)
-    public String goNav(Model model) {
-        return "navigation";
-    }
-
-
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String start(Model model) {
+    @GetMapping(value = "/login")
+    public String start() {
         return "login";
     }
 
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @PostMapping(value = "/login")
     public String login(@ModelAttribute("user") SessionUser user,
                         Model model, HttpServletRequest request, String error, String logout) {
 
-        UserEntity use = userService.loginUser(user.getLogin(),user.getPass());
-        if (use!=null) {
-            model.addAttribute("user", new SessionUser(use,user.getProducts()));
+        SessionUser su = userService.loginUser(user.getLogin(),user.getPass());
+        if (su!=null) {
+            su.setProducts(user.getProducts());
+            model.addAttribute("user", su);
             return "redirect:/home";
         }
         else {
@@ -75,23 +67,22 @@ public class UserController {
         }
     }
 
-    @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public String logout(@ModelAttribute("user") SessionUser user, Model model,
-                         HttpServletRequest request) {
+    @GetMapping(value = "/logout")
+    public String logout(@ModelAttribute("user") SessionUser user, Model model) {
         model.addAttribute("user",new SessionUser());
         return "/login";
     }
 
 
-    @RequestMapping(value = "/registration", method = RequestMethod.GET)
+    @GetMapping(value = "/registration")
     public String registration(Model model) {
-        model.addAttribute("userForm", new UserEntity());
+        model.addAttribute("userForm", new SessionUser());
 
         return "registration";
     }
 
-    @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String registration(@ModelAttribute("userForm") UserEntity userForm, BindingResult bindingResult,
+    @PostMapping(value = "/registration")
+    public String registration(@ModelAttribute("userForm") SessionUser userForm, BindingResult bindingResult,
             @ModelAttribute("user") SessionUser user, Model model) {
         userValidator.validate(userForm, bindingResult);
 
@@ -99,48 +90,49 @@ public class UserController {
             return "registration";
         }
 
-        userForm.setRoleByRole(roleService.getRoleByName("ROLE_CLIENT"));
+        userForm.setRole("ROLE_CLIENT");
         userService.addUser(userForm);
-        SessionUser us = new SessionUser(userForm, user.getProducts());
-        model.addAttribute("user",us);
+        userForm.setId(userService.getUserIdByEmail(user.getEmail()));
+        userForm.setProducts(user.getProducts());
+        model.addAttribute("user",userForm);
         return "redirect:/home";
     }
 
-    @RequestMapping(value = "/user", method = RequestMethod.GET)
+    @GetMapping(value = "/user")
     public String editUser(@ModelAttribute("user") SessionUser sessionUser,Model model) {
-        model.addAttribute("userForm", new UserEntity());
+        model.addAttribute("userForm", new SessionUser());
         return "user";
     }
 
-    @RequestMapping(value = "/user/editInfo", method = RequestMethod.POST)
-    public String editUser(@ModelAttribute("userForm") UserEntity userForm, @ModelAttribute("user") SessionUser sessionUser,
+    @PostMapping(value = "/user/editInfo")
+    public String editUser(@ModelAttribute("userForm") SessionUser userForm, @ModelAttribute("user") SessionUser user,
                            BindingResult bindingResult, Model model) {
-        userForm.setId(sessionUser.getId());
+        userForm.setId(user.getId());
         //userValidator.validate(userForm, bindingResult);!!!!!!!!!!!!!!!!!!!!!!!!!!!
         if (bindingResult.hasErrors()) {
             return "user";
         }
         userService.editUserInfo(userForm);
-        SessionUser us = new SessionUser(userService.getUserById(userForm.getId()), sessionUser.getProducts());
-        model.addAttribute("user",us);
+        userForm.setProducts(user.getProducts());
+        model.addAttribute("user",userForm);
         return "redirect:/user";
     }
 
-    @RequestMapping(value = "/user/editPass", method = RequestMethod.POST)
-    public String editPass(@ModelAttribute("userForm") UserEntity userForm, @ModelAttribute("user") SessionUser sessionUser,
+    @PostMapping(value = "/user/editPass")
+    public String editPass(@ModelAttribute("userForm") SessionUser userForm, @ModelAttribute("user") SessionUser user,
                            BindingResult bindingResult, Model model) {
-        userForm.setId(sessionUser.getId());
+        userForm.setId(user.getId());
         //userValidator.validate(userForm, bindingResult);
         if (bindingResult.hasErrors()) {
             return "user";
         }
         userService.editUserPassword(userForm);
-        SessionUser us = new SessionUser(userService.getUserById(userForm.getId()),sessionUser.getProducts());
-        model.addAttribute("user",us);
+        userForm.setProducts(user.getProducts());
+        model.addAttribute("user",userForm);
         return "redirect:/user";
     }
 
-    @RequestMapping(value = {"/history"}, method = RequestMethod.GET)
+    @GetMapping(value = "/history")
     public String goOrdersHistoryInfo(@ModelAttribute("user") SessionUser user, Model model) {
 
         model.addAttribute("ordersHistory", orderService.getOrdersByUserId(user.getId()));
@@ -154,7 +146,7 @@ public class UserController {
         OrderAttribute orderAttribute = orderService.getOrderById(orderId);
         List<BucketAttribute> bucketAttributes = orderAttribute.getBuckets();
         List<ProductAttribute> productAttributes = new ArrayList<>();
-        Double total=0d;
+        double total=0;
         if(!bucketAttributes.isEmpty()) {
             for (BucketAttribute ba : bucketAttributes) {
                 ProductAttribute pa = productService.getProductAttributeById(ba.getProductId());
@@ -166,10 +158,7 @@ public class UserController {
         model.addAttribute("orderIn", orderAttribute);
         model.addAttribute("buckets", bucketAttributes);
         model.addAttribute("addressOrder", addressService.getAddressById(orderAttribute.getAddressId()));
-
         model.addAttribute("total",String.format("%.2f", total));
-
-
 
         return "orderInHistory";
     }

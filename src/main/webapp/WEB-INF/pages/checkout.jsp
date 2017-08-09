@@ -159,7 +159,7 @@
                                         <form:input id="address1" type="text" path="streetAddress"
                                                     class="form-control" placeholder=""
                                         ></form:input>
-                                        <span class="help-block">Street address, P.O. box, company name, c/o</span>
+                                        <span class="help-block">Street address, P.O. box, company roleName, c/o</span>
                                     </div>
                                 </div>
                             </spring:bind>

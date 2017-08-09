@@ -76,7 +76,7 @@
                                         <h4>Product Id: <span>${productInCart.key.productId}</span></h4>
 
                                         <h5>Name: <span>${productInCart.key.productName}</span></h5>
-                                        <h5>Category: <span>${productInCart.key.productCategoryByCategory}</span></h5>
+                                        <h5>Category: <span>${productInCart.key.category}</span></h5>
                                         <h5>Battery: <span>${productInCart.key.battery}</span></h5>
                                         <h5>Fly time: <span>${productInCart.key.flyTime}</span></h5>
                                         <h5>Distance: <span>${productInCart.key.distance}</span></h5>
