@@ -6,6 +6,7 @@ import com.jvschool.svc.PayWayService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,11 +21,8 @@ public class PayWayServiceImpl implements PayWayService {
     @Override
     public List<String> getAllPayWays() {
         List<String> ls = new ArrayList<>();
-        if(!payWayDAO.getAllPayWays().isEmpty()) {
-            for (PayWayEntity pwe : payWayDAO.getAllPayWays()) {
-                ls.add(pwe.getPayWayName());
-            }
-        }
+        payWayDAO.getAllPayWays()
+                .stream().forEachOrdered(payWayEntity -> ls.add(payWayEntity.getPayWayName()));
         return ls;
     }
 

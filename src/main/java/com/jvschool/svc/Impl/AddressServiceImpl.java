@@ -18,6 +18,8 @@ public class AddressServiceImpl implements AddressService {
     @Autowired
     private AddressDAO addressDAO;
 
+
+
     @Override
     public List<AddressEntity> getAllAddressesByUserId(long id) {
         return addressDAO.getAllAddressesByUserId(id);
@@ -37,13 +39,8 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public List<AddressAttribute> getAllAddressesByUserIdS(long id) {
         List<AddressAttribute> laa = new ArrayList<>();
-        List<AddressEntity> lae = addressDAO.getAllAddressesByUserId(id);
-        if(!lae.isEmpty()) {
-            //lae.stream().forEachOrdered((ae) -> laa.add(new AddressAttribute(ae)));
-            for (AddressEntity ae : lae) {
-                laa.add(new AddressAttribute(ae));
-            }
-        }
+        addressDAO.getAllAddressesByUserId(id)
+                .stream().forEachOrdered((ae) -> laa.add(new AddressAttribute(ae)));
         return laa;
     }
 

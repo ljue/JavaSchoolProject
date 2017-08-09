@@ -21,13 +21,9 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<String> getAllProductCategoryNames() {
-        List<CategoryEntity> lce = categoryDAO.getAllProductCategories();
         List<String> categoryNames = new ArrayList<>();
-        if (!lce.isEmpty()) {
-            for(CategoryEntity ce : lce) {
-                categoryNames.add(ce.getCategoryName());
-            }
-        }
+        categoryDAO.getAllProductCategories().stream()
+                .forEachOrdered(categoryEntity -> categoryNames.add(categoryEntity.getCategoryName()));
         return categoryNames;
     }
 

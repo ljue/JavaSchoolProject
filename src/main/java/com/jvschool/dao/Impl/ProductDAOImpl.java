@@ -65,14 +65,6 @@ public class ProductDAOImpl implements ProductDAO {
         return  products;
     }
 
-    @Override
-    public List<ProductEntity> getProductsToBuy(Set<Long> set) {
-
-        List<ProductEntity> products = em.createQuery("from ProductEntity pe where pe.id in (:list) ")
-        .setParameter("list",set).getResultList();
-
-        return  products;
-    }
 
     @Override
     public List<ProductEntity> getTopProducts() {

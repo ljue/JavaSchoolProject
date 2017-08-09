@@ -6,6 +6,7 @@ import com.jvschool.svc.DeliveryWayService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,11 +21,8 @@ public class DeliveryWayServiceImpl implements DeliveryWayService {
     @Override
     public List<String> getAllDeliveryWays() {
         List<String> ls = new ArrayList<>();
-        if(deliveryWayDAO.getAllDeliveryWays()!=null) {
-            for(DeliveryWayEntity ds : deliveryWayDAO.getAllDeliveryWays()) {
-                ls.add(ds.getDeliveryWayName());
-            }
-        }
+        deliveryWayDAO.getAllDeliveryWays()
+                .stream().forEachOrdered(dwe -> ls.add(dwe.getDeliveryWayName()));
         return ls;
     }
 

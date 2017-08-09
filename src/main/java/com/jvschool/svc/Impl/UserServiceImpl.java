@@ -42,6 +42,7 @@ public class UserServiceImpl implements UserService {
     public UserEntity getUserByLogin(String login) {
         return userDAO.getUserByLogin(login);
     }
+
     @Override
     public UserEntity getUserByEmail(String email) {
         return userDAO.getUserByEmail(email);
@@ -53,7 +54,6 @@ public class UserServiceImpl implements UserService {
 
         List<UserEntity> lue = userDAO.getTopUsers();
         List<SessionUser> lsu = new ArrayList<>();
-        if(!lue.isEmpty()) {
             for(UserEntity ue : lue) {
                 SessionUser su = new SessionUser(ue);
 
@@ -69,7 +69,6 @@ public class UserServiceImpl implements UserService {
 
                 lsu.add(su);
             }
-        }
         return lsu;
     }
 

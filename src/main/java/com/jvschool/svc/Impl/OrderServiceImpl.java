@@ -13,6 +13,7 @@ import com.jvschool.util.Attributes.OrderAttribute;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,7 +48,7 @@ public class OrderServiceImpl implements OrderService {
         oe.setDeliveryWay(deliveryWayService.getDeliveryWayByName(oa.getDeliveryWay()));
 
         DeliveryStatusEntity deliveryStatusEntity = deliveryStatusService.getDeliveryStatusByName("Await");
-        if(deliveryStatusEntity==null) {
+        if (deliveryStatusEntity == null) {
             deliveryStatusEntity = new DeliveryStatusEntity();
             deliveryStatusEntity.setDeliveryStatusName("Await");
         }
@@ -76,13 +77,12 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<OrderAttribute> getOrdersGroupByDeliveryStatus() {
 
-        List <OrderEntity> loe = orderDAO.getOrdersGroupByDeliveryStatus();
-        List <OrderAttribute> loa = new ArrayList<>();
-        if (!loe.isEmpty()) {
-            for(OrderEntity oe : loe) {
-                loa.add(new OrderAttribute(oe));
-            }
+        List<OrderEntity> loe = orderDAO.getOrdersGroupByDeliveryStatus();
+        List<OrderAttribute> loa = new ArrayList<>();
+        for (OrderEntity oe : loe) {
+            loa.add(new OrderAttribute(oe));
         }
+
         return loa;
 
     }
@@ -94,13 +94,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<OrderAttribute> getOrdersByUserId(long id) {
-        List<OrderEntity> loe = orderDAO.getOrdersByUserId(id);
         List<OrderAttribute> loa = new ArrayList<>();
-        if(!loe.isEmpty()) {
-            for(OrderEntity oe : loe) {
-                loa.add(new OrderAttribute(oe));
-            }
-        }
+        orderDAO.getOrdersByUserId(id)
+                .stream().forEachOrdered(oe -> loa.add(new OrderAttribute(oe)));
         return loa;
     }
 

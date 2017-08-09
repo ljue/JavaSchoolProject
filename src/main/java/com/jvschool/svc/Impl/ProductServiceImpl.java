@@ -13,6 +13,7 @@ import com.jvschool.util.Attributes.ProductAttribute;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,38 +34,32 @@ public class ProductServiceImpl implements ProductService {
         return new ProductAttribute(productDAO.getProductById(id));
     }
 
+
     @Override
     public ProductEntity getProductById(long id) {
         return productDAO.getProductById(id);
     }
 
+
     @Override
     public List<ProductAttribute> getAllProducts() {
-        List<ProductEntity> listEntity = productDAO.getAllProducts();
-        List<ProductAttribute> listAttr = new ArrayList<>();
-        if(!listEntity.isEmpty()) {
-            for (ProductEntity pe : listEntity) {
-                listAttr.add(new ProductAttribute(pe));
-            }
-        }
 
-        return listAttr;
+        List<ProductAttribute> lpa = new ArrayList<>();
+        productDAO.getAllProducts()
+                .stream().forEachOrdered(productEntity -> lpa.add(new ProductAttribute(productEntity)));
+        return lpa;
     }
+
 
     @Override
     public List<ProductAttribute> getProductsByCategory(String category) {
+
         CategoryEntity pce = categoryService.getProductCategoryByName(category);
-
         List<ProductAttribute> lpa = new ArrayList<>();
-        if (pce!=null) {
-            List<ProductEntity> lpe = productDAO.getProductsByCategory(pce);
-            if (!lpe.isEmpty()) {
-                for (ProductEntity pe : lpe) {
-                    lpa.add(new ProductAttribute(pe));
-                }
-            }
+        if (pce != null) {
+            productDAO.getProductsByCategory(pce)
+                    .stream().forEachOrdered(productEntity -> lpa.add(new ProductAttribute(productEntity)));
         }
-
         return lpa;
     }
 
@@ -74,18 +69,18 @@ public class ProductServiceImpl implements ProductService {
 
         List<ProductEntity> lpe = productDAO.getTopProducts();
         List<ProductAttribute> lpa = new ArrayList<>();
-        if (!lpe.isEmpty()) {
-            for (ProductEntity pe : lpe) {
-                ProductAttribute pa = new ProductAttribute(pe);
-                List<BucketEntity> lbe = bucketDAO.getBucketsByProductId(pe.getProductId());
-                if (!lbe.isEmpty()) {
-                    for (BucketEntity be : lbe) {
-                        pa.setSumCount(pa.getSumCount() + be.getCountProduct());
-                    }
-                }
-                lpa.add(pa);
+
+        for (ProductEntity pe : lpe) {
+            ProductAttribute pa = new ProductAttribute(pe);
+            List<BucketEntity> lbe = bucketDAO.getBucketsByProductId(pe.getProductId());
+
+            for (BucketEntity be : lbe) {
+                pa.setSumCount(pa.getSumCount() + be.getCountProduct());
             }
+
+            lpa.add(pa);
         }
+
 
         return lpa;
     }
@@ -93,16 +88,12 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<ProductAttribute> getProductsWithFilter(FilterAttribute filterAttribute) {
 
-        List<ProductEntity> lpe = productDAO.getProductsWithFilter(filterAttribute);
         List<ProductAttribute> lpa = new ArrayList<>();
-        if (!lpe.isEmpty()) {
-            for (ProductEntity pe : lpe) {
-                lpa.add(new ProductAttribute(pe));
-            }
-        }
-
+        productDAO.getProductsWithFilter(filterAttribute)
+                .stream().forEachOrdered(productEntity -> lpa.add(new ProductAttribute(productEntity)));
         return lpa;
     }
+
 
     @Override
     public void addProduct(ProductAttribute pa) {
@@ -119,18 +110,16 @@ public class ProductServiceImpl implements ProductService {
         pe.setDescription(pa.getDescription());
 
         CategoryEntity pce = categoryService.getProductCategoryByName(pa.getCategory());
-        if(pce==null) {
+        if (pce == null) {
             pce = new CategoryEntity();
             pce.setCategoryName(pa.getCategory());
         }
         pe.setCategory(pce);
 
-        if(!pa.getPicturesPath().isEmpty()) {
-            for(String picPath : pa.getPicturesPath()) {
-                PicturesEntity pice = new PicturesEntity();
-                pice.setPicName(picPath);
-                pe.getPictures().add(pice);
-            }
+        for (String picPath : pa.getPicturesPath()) {
+            PicturesEntity pice = new PicturesEntity();
+            pice.setPicName(picPath);
+            pe.getPictures().add(pice);
         }
 
         productDAO.addProduct(pe);

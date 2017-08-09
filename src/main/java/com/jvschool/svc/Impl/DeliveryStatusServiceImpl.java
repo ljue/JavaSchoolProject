@@ -6,6 +6,7 @@ import com.jvschool.svc.DeliveryStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,11 +21,8 @@ public class DeliveryStatusServiceImpl implements DeliveryStatusService {
     @Override
     public List<String> getAllDeliveryStatuses() {
         List<String> ls = new ArrayList<>();
-        if(deliveryStatusDAO.getAllDeliveryStatuses()!=null) {
-            for(DeliveryStatusEntity ps : deliveryStatusDAO.getAllDeliveryStatuses()) {
-                ls.add(ps.getDeliveryStatusName());
-            }
-        }
+        deliveryStatusDAO.getAllDeliveryStatuses()
+                .stream().forEachOrdered(de -> ls.add(de.getDeliveryStatusName()));
         return ls;
     }
 
