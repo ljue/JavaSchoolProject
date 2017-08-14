@@ -38,40 +38,40 @@ public class OrderServiceImpl implements OrderService {
     private DeliveryStatusService deliveryStatusService;
 
     @Override
-    public void saveOrder(OrderAttribute oa) {
-        OrderEntity oe = new OrderEntity();
+    public void saveOrder(final OrderAttribute orderAttribute) {
+        final OrderEntity orderEntity = new OrderEntity();
 
-        oe.setAddress(addressDAO.getAddressById(oa.getAddressId()));
-        oe.setUser(userDAO.getUserById(oa.getUserId()));
-        oe.setDateTimeOrder(oa.getDateTimeOrder());
-        oe.setPayWay(payWayDAO.getPayWayByName(oa.getPayWay()));
-        oe.setDeliveryWay(deliveryWayService.getDeliveryWayByName(oa.getDeliveryWay()));
+        orderEntity.setAddress(addressDAO.getAddressById(orderAttribute.getAddressId()));
+        orderEntity.setUser(userDAO.getUserById(orderAttribute.getUserId()));
+        orderEntity.setDateTimeOrder(orderAttribute.getDateTimeOrder());
+        orderEntity.setPayWay(payWayDAO.getPayWayByName(orderAttribute.getPayWay()));
+        orderEntity.setDeliveryWay(deliveryWayService.getDeliveryWayByName(orderAttribute.getDeliveryWay()));
 
         DeliveryStatusEntity deliveryStatusEntity = deliveryStatusService.getDeliveryStatusByName("Await");
         if (deliveryStatusEntity == null) {
             deliveryStatusEntity = new DeliveryStatusEntity();
             deliveryStatusEntity.setDeliveryStatusName("Await");
         }
-        oe.setDeliveryStatus(deliveryStatusEntity);
+        orderEntity.setDeliveryStatus(deliveryStatusEntity);
 
-        List<BucketAttribute> lba = oa.getBuckets();
+        List<BucketAttribute> lba = orderAttribute.getBuckets();
         List<BucketEntity> lbe = new ArrayList<>();
-        for (BucketAttribute ba : lba) {
-            BucketEntity be = new BucketEntity();
-            be.setCountProduct(ba.getCountProduct());
-            be.setProductId(productService.getProductById(ba.getProductId()));
-            lbe.add(be);
+        for (BucketAttribute bucketAttribute : lba) {
+            BucketEntity bucketEntity = new BucketEntity();
+            bucketEntity.setCountProduct(bucketAttribute.getCountProduct());
+            bucketEntity.setProductId(productService.getProductById(bucketAttribute.getProductId()));
+            lbe.add(bucketEntity);
         }
-        oe.setBuckets(lbe);
+        orderEntity.setBuckets(lbe);
 
-        orderDAO.saveOrder(oe);
+        orderDAO.saveOrder(orderEntity);
     }
 
     @Override
-    public void editOrderDeliveryStatus(OrderAttribute oa) {
-        OrderEntity oe = orderDAO.getOrderById(oa.getOrderId());
-        oe.setDeliveryStatus(deliveryStatusService.getDeliveryStatusByName(oa.getDeliveryStatus()));
-        orderDAO.saveOrder(oe);
+    public void editOrderDeliveryStatus(OrderAttribute orderAttribute) {
+        OrderEntity orderEntity = orderDAO.getOrderById(orderAttribute.getOrderId());
+        orderEntity.setDeliveryStatus(deliveryStatusService.getDeliveryStatusByName(orderAttribute.getDeliveryStatus()));
+        orderDAO.saveOrder(orderEntity);
     }
 
     @Override

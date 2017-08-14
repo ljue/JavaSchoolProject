@@ -2,20 +2,20 @@ package com.jvschool.dao.Impl;
 
 import com.jvschool.dao.CategoryDAO;
 import com.jvschool.dao.ProductDAO;
-import com.jvschool.entities.OrderEntity;
+import com.jvschool.dao.PropertyDAO;
 import com.jvschool.entities.CategoryEntity;
+import com.jvschool.entities.OrderEntity;
 import com.jvschool.entities.ProductEntity;
+import com.jvschool.entities.PropertyEntity;
 import com.jvschool.util.Attributes.FilterAttribute;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Join;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 
 @Repository
@@ -26,6 +26,8 @@ public class ProductDAOImpl implements ProductDAO {
 
     @Autowired
     private CategoryDAO categoryDAO;
+    @Autowired
+    private PropertyDAO propertyDAO;
 
 
     @Override
@@ -86,18 +88,42 @@ public class ProductDAOImpl implements ProductDAO {
     @Override
     public List<ProductEntity> getProductsWithFilter(FilterAttribute filterAttribute) {
 
+        List<PropertyEntity> propertySoloEntityList = new ArrayList<>();
+        List<PropertyEntity> propertyNotSoloEntityList = new ArrayList<>();
+
+        for (String property : filterAttribute.getProperties()) {
+            PropertyEntity propertyEntity = propertyDAO.getPropertyByName(property);
+            if (propertyEntity.getPropertyGroup().isSolo()) {
+                propertySoloEntityList.add(propertyEntity);
+            } else {
+                propertyNotSoloEntityList.add(propertyEntity);
+            }
+        }
+
+
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery criteriaQuery = criteriaBuilder.createQuery();
         Root product = criteriaQuery.from(ProductEntity.class);
-        criteriaQuery.multiselect(product);
+
+        Predicate propertiesNotSolo = criteriaBuilder.conjunction();
+        for (PropertyEntity propertyEntity : propertyNotSoloEntityList) {
+                propertiesNotSolo = criteriaBuilder.and(propertiesNotSolo, criteriaBuilder.
+                        equal(product.join("properties"), propertyEntity));
+        }
+
+        criteriaQuery.multiselect(product).distinct(true);
         if (filterAttribute.getCategory().equals("All")) {
             criteriaQuery.where(criteriaBuilder.and(
+                    propertiesNotSolo,
+                    product.join("properties").in(propertySoloEntityList),
                     criteriaBuilder.between(product.get("cost"), filterAttribute.getCostFROM(), filterAttribute.getCostTO()),
                     criteriaBuilder.between(product.get("flyTime"), filterAttribute.getFlyTimeFROM(), filterAttribute.getFlyTimeTO()),
                     criteriaBuilder.between(product.get("distance"), filterAttribute.getDistanceFROM(), filterAttribute.getDistanceTO())));
         }
         else {
             criteriaQuery.where(criteriaBuilder.and(
+                    propertiesNotSolo,
+                    product.join("properties").in(propertySoloEntityList),
                 criteriaBuilder.between(product.get("cost"), filterAttribute.getCostFROM(), filterAttribute.getCostTO()),
                 criteriaBuilder.between(product.get("flyTime"), filterAttribute.getFlyTimeFROM(), filterAttribute.getFlyTimeTO()),
                 criteriaBuilder.between(product.get("distance"), filterAttribute.getDistanceFROM(), filterAttribute.getDistanceTO()),

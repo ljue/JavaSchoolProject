@@ -10,8 +10,8 @@
 <jsp:include page="../templates/navigation.jsp"/>
 <jsp:include page="../templates/scripts.jsp"/>
 
-<c:url var="editInfo" value="/user/editInfo"/>
-<c:url var="editPass" value="/user/editPass"/>
+<c:url var="editInfo" value="/my-webapp/user/editInfo"/>
+<c:url var="editPass" value="/my-webapp/user/editPass"/>
 
 <br>
 <br>

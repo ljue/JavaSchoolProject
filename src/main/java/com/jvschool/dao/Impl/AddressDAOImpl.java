@@ -3,7 +3,6 @@ package com.jvschool.dao.Impl;
 import com.jvschool.dao.AddressDAO;
 import com.jvschool.dao.UserDAO;
 import com.jvschool.entities.AddressEntity;
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

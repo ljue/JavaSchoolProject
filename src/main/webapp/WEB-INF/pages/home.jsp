@@ -9,7 +9,7 @@
 <jsp:include page="../templates/navigation.jsp" />
 <jsp:include page="../templates/scripts.jsp" />
 
-/><div class="page-flexbox-wrapper">
+<div class="page-flexbox-wrapper">
     <div class="parallax-container">
         <div class="parallax"><img src="../resources/Images/zakat.jpg" class="img-responsive"></div>
     </div>
@@ -18,24 +18,19 @@
 
 
 
-        <script src="//yandex.st/jquery/1.9.1/jquery.min.js"></script>
+        <%--<script src="//yandex.st/jquery/1.9.1/jquery.min.js"></script>--%>
 
-        <!-- arcticModal -->
-        <script src="js/arcticmodal/jquery.arcticmodal-0.3.min.js"></script>
-        <link rel="stylesheet" href="js/arcticmodal/jquery.arcticmodal-0.3.css">
+        <%--<!-- arcticModal -->--%>
+        <%--<script src="js/arcticmodal/jquery.arcticmodal-0.3.min.js"></script>--%>
+        <%--<link rel="stylesheet" href="js/arcticmodal/jquery.arcticmodal-0.3.css">--%>
 
-        <!-- arcticModal theme -->
-        <link rel="stylesheet" href="js/arcticmodal/themes/simple.css">
+        <%--<!-- arcticModal theme -->--%>
+        <%--<link rel="stylesheet" href="js/arcticmodal/themes/simple.css">--%>
 
-        <div style="display: none;">
-            <div class="box-modal" id="exampleModal">
-                <div class="box-modal_close arcticmodal-close">закрыть</div>
-                Пример модального окна
-            </div>
-        </div>
-<script>$(function(){
-    $('#exampleModal').arcticmodal();
-});</script>
+       <%----%>
+<%--<script>$(function(){--%>
+    <%--$('#exampleModal').arcticmodal();--%>
+<%--});</script>--%>
 
 
 

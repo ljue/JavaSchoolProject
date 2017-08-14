@@ -8,7 +8,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @Getter
@@ -55,8 +54,6 @@ public class UserEntity  implements Serializable {
     @JoinColumn(name = "ROLE_ID")
     private RoleEntity roleByRole;
 
-    @Transient
-    private String confirmPassword;
     @Transient
     private double sumTotal;
     @Transient

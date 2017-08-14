@@ -23,28 +23,18 @@
             <div class="row">
                 <div class="list-group">
 
-                    <a href="/catalog/All" class="list-group-item">All goods</a>
+                    <a href="/my-webapp/catalog/All" class="list-group-item">All goods</a>
 
                     <c:if test="${!empty categories}">
                         <c:forEach var="category" items="${categories}">
-                            <a href="/catalog/${category}"
+                            <a href="/my-webapp/catalog/${category}"
                                class="list-group-item">${category}</a>
                         </c:forEach>
                     </c:if>
-                    <%--<button type="button" value="All"--%>
-                    <%--onclick="sortProducts(this)" class="list-group-item">All goods--%>
-                    <%--</button>--%>
-                    <%----%>
-                    <%--<c:if test="${!empty categories}">--%>
-                    <%--<c:forEach var="category" items="${categories}">--%>
-                    <%----%>
-                    <%--<button type="button" type="button" value="${category}"--%>
-                    <%--class="list-group-item changeListProducts">${category}</button>--%>
-                    <%--</c:forEach>--%>
-                    <%--</c:if>--%>
                 </div>
 
-                <sping:form modelAttribute="filter" action="/catalog/doFilter" method="post">
+                <sping:form modelAttribute="filter" action="/catalog/doFilter" method="post"
+                class="form-horizontal">
                     <label>Cost:</label>
                     <div class="form-group">
                         <div class="col-lg-5">
@@ -54,7 +44,7 @@
                         <div class="col-lg-5">
                             <form:input path="costTO" class="form-control"></form:input>
                         </div>
-                    </div><br><br>
+                    </div>
 
                     <label>Fly time:</label>
                     <div class="form-group">
@@ -65,7 +55,7 @@
                         <div class="col-lg-5">
                         <form:input path="flyTimeTO" class="form-control"></form:input>
                         </div>
-                    </div><br><br>
+                    </div>
 
                     <label>Distance:</label>
                     <div class="form-group">
@@ -76,7 +66,22 @@
                         <div class="col-lg-5">
                         <form:input path="distanceTO" class="form-control"></form:input>
                         </div>
-                    </div><br><br>
+                    </div>
+
+                    <c:forEach items="${allProperties}" var="propertyGroup">
+
+                            <label>${propertyGroup.key}:</label><br>
+                        <div class="form-group">
+                            <div class="col-lg-8">
+                                <c:forEach items="${propertyGroup.value}" var="currentProperty">
+                                <form:checkbox path="properties"
+                                               value="${currentProperty}" label="  ${currentProperty}"
+                                ></form:checkbox><br>
+                                </c:forEach>
+                            <br>
+                            </div>
+                            </div>
+                        </c:forEach>
 
                     <div class="form-group">
                         <div class="col-md-8">
@@ -95,8 +100,10 @@
 
             <div class="row">
                 <div class="catalog-products-by-category">
+                    <div class="container-my-mini">
                     <div class="row">
                         <jsp:include page="catalogProducts.jsp"/>
+                    </div>
                     </div>
                 </div>
             </div>

@@ -2,6 +2,7 @@ package com.jvschool.view;
 
 import com.jvschool.svc.CategoryService;
 import com.jvschool.svc.ProductService;
+import com.jvschool.svc.PropertyService;
 import com.jvschool.util.Attributes.FilterAttribute;
 import com.jvschool.util.Attributes.ProductAttribute;
 import com.jvschool.util.Attributes.SessionUser;
@@ -21,6 +22,8 @@ public class ProductController {
     private ProductService productService;
     @Autowired
     private CategoryService categoryService;
+    @Autowired
+    private PropertyService propertyService;
 
     private String suchCategory;
 
@@ -29,6 +32,7 @@ public class ProductController {
     public String goCatalog(Model model) {
         model.addAttribute("allProducts", productService.getAllProducts());
         model.addAttribute("filter", new FilterAttribute());
+        model.addAttribute("allProperties", propertyService.getProperties());
 
         suchCategory = "All";
         model.addAttribute("categories", categoryService.getAllProductCategoryNames());
@@ -49,6 +53,8 @@ public class ProductController {
 
         model.addAttribute("filter", new FilterAttribute());
         model.addAttribute("categories", categoryService.getAllProductCategoryNames());
+        model.addAttribute("allProperties", propertyService.getProperties());
+
 
         return "catalog";
     }
@@ -59,6 +65,7 @@ public class ProductController {
         filterAttribute.setCategory(suchCategory);
         model.addAttribute("allProducts", productService.getProductsWithFilter(filterAttribute));
         model.addAttribute("categories", categoryService.getAllProductCategoryNames());
+        model.addAttribute("allProperties", propertyService.getProperties());
 
         return "catalog";
     }

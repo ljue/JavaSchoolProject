@@ -27,46 +27,68 @@
     <context:component-scan base-package="com.jvschool"/>
 
 
-    <!-- Database Information -->
-    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
-          destroy-method="close">
-        <property name="driverClassName" value="net.sf.log4jdbc.DriverSpy"/>
-        <property name="url" value="jdbc:log4jdbc:mysql://localhost:3306"/>
-        <!--<properoleNamename="driverClassName" value="com.mysql.jdbc.Driver"/>-->
-        <!--<properoleNamename="url" value="jdbc:mysql://localhost:3306/"/>-->
-        <property name="username" value="root"/>
-        <property name="password" value="password"/>
-    </bean>
+     <!--Database Information -->
+    <!--<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"-->
+          <!--destroy-method="close">-->
+        <!--<property name="driverClassName" value="net.sf.log4jdbc.DriverSpy"/>-->
+        <!--<property name="url" value="jdbc:log4jdbc:mysql://localhost:3306/MYSHOP_SCHEMA"/>-->
+        <!--&lt;!&ndash;<properoleNamename="driverClassName" value="com.mysql.jdbc.Driver"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;<properoleNamename="url" value="jdbc:mysql://localhost:3306/"/>&ndash;&gt;-->
+        <!--<property name="username" value="root"/>-->
+        <!--<property name="password" value="password"/>-->
+    <!--</bean>-->
 
-    <bean id="mms-persistence-unit" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="dataSource" ref="dataSource"/>
-        <property name="persistenceProviderClass" value="org.hibernate.jpa.HibernatePersistenceProvider"/>
+    <!--<bean id="mms-persistence-unit" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">-->
+        <!--<property name="dataSource" ref="dataSource"/>-->
+        <!--<property name="persistenceProviderClass" value="org.hibernate.jpa.HibernatePersistenceProvider"/>-->
+        <!--<property name="jpaVendorAdapter">-->
+            <!--<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>-->
+        <!--</property>-->
+        <!--<property name="jpaProperties">-->
+            <!--<props>-->
+                <!--<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>-->
+                <!--<prop key="hibernate.show_sql">true</prop>-->
+                <!--&lt;!&ndash;<prop key="hibernate.format_sql">true</prop>&ndash;&gt;-->
+
+            <!--</props>-->
+        <!--</property>-->
+        <!--<property name="packagesToScan">-->
+            <!--<list>-->
+                <!--<value>com.jvschool.entities</value>-->
+            <!--</list>-->
+        <!--</property>-->
+    <!--</bean>-->
+
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
+        <property name="persistenceUnitName" value="mms-persistence-unit" />
         <property name="jpaVendorAdapter">
             <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
         </property>
-        <property name="jpaProperties">
-            <props>
-                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
-                <prop key="hibernate.show_sql">true</prop>
-                <!--<prop key="hibernate.format_sql">true</prop>-->
-
-            </props>
-        </property>
-        <property name="packagesToScan">
-            <list>
-                <value>com.jvschool.entities</value>
-            </list>
-        </property>
+        <!--<property name="persistenceProviderClass" value="org.hibernate.jpa.HibernatePersistenceProvider"/>-->
     </bean>
 
 
-    <context:component-scan base-package="com.jvschool"/>
 
-    <tx:annotation-driven transaction-manager="txManager"/>
 
-    <bean id="txManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-        <property name="entityManagerFactory" ref="mms-persistence-unit"/>
-    </bean>
+    <bean id="transactionManager" class="org.springframework.transaction.jta.JtaTransactionManager" />
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+
+    <!--to inject instances of EntityManager using @PersistenceContext-->
+    <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+
+
+    <!--<bean id="txManager" class="org.springframework.orm.jpa.JpaTransactionManager">-->
+        <!--<property name="entityManagerFactory" ref="entityManagerFactory" />-->
+    <!--</bean>-->
+
+    <!--<context:component-scan base-package="com.jvschool"/>-->
+
+
+
+    <!--<bean id="txManager" class="org.springframework.orm.jpa.JpaTransactionManager">-->
+        <!--<property name="entityManagerFactory" ref="mms-persistence-unit"/>-->
+    <!--</bean>-->
 
 
     <mvc:default-servlet-handler/>

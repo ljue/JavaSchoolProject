@@ -12,8 +12,8 @@
 <jsp:include page="../templates/navigation.jsp" />
 <jsp:include page="../templates/scripts.jsp" />
 
-<c:url var="editInfo" value="/user/editInfo"/>
-<c:url var="editPass" value="/user/editPass"/>
+<c:url var="editInfo" value="/my-webapp/user/editInfo"/>
+<c:url var="editPass" value="/my-webapp/user/editPass"/>
 
 <br>
 <br>
@@ -23,9 +23,9 @@
         <div class="col-md-3">
                 <p class="lead">   </p>
             <div class="list-group">
-                <a href="/user" class="list-group-item">My Profile</a>
-                <a href="/address" class="list-group-item">My Address</a>
-                <a href="/history" class="list-group-item">My Orders</a>
+                <a href="/my-webapp/user" class="list-group-item">My Profile</a>
+                <a href="/my-webapp/address" class="list-group-item">My Address</a>
+                <a href="/my-webapp/history" class="list-group-item">My Orders</a>
             </div>
         </div>
 

@@ -1,6 +1,7 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set value="${pageContext.request.contextPath}" var="myContext"/>
 <!-- Navigation -->
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
@@ -8,36 +9,32 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li>
-                    <a href="/home">Home</a>
+                    <a href="/my-webapp/home">Home</a>
                 </li>
                 <li>
-                    <a href="/catalog">Catalog</a>
+                    <a href="/my-webapp/catalog">Catalog</a>
                 </li>
                 <c:if test="${user.role ne 'ROLE_ANONYM'}">
                     <li>
-                        <a href="/user">My Room</a>
+                        <a href="/my-webapp/user">My Room</a>
                     </li>
                 </c:if>
                 <c:if test="${user.role eq 'ROLE_ANONYM'}">
                     <li>
-                        <a href="/login">Log in</a>
+                        <a href="/my-webapp/login">Log in</a>
                     </li>
                 </c:if>
                 <c:if test="${user.role eq 'ROLE_MANAGER'}">
                     <li>
-                        <a href="/adminOrders">Administration</a>
+                        <a href="/my-webapp/adminOrders">Administration</a>
                     </li>
                 </c:if>
-                <%--<li>--%>
-                    <%--<a href="/countries">Tests</a>--%>
-                <%--</li>--%>
-
                 <li>
-                    <a href="/bucket">Shopping cart</a>
+                    <a href="/my-webapp/bucket">Shopping cart</a>
                 </li>
                 <c:if test="${user.role ne 'ROLE_ANONYM'}">
                     <li>
-                        <a href="/logout">Log out</a>
+                        <a href="/my-webapp/logout">Log out</a>
                     </li>
                 </c:if>
             </ul>

@@ -18,6 +18,10 @@ public class PayWayServiceImpl implements PayWayService {
     @Autowired
     private PayWayDAO payWayDAO;
 
+    /**
+     * {@inheritDoc}
+     * @return
+     */
     @Override
     public List<String> getAllPayWays() {
         List<String> ls = new ArrayList<>();

@@ -5,7 +5,6 @@ import com.jvschool.util.Attributes.FilterAttribute;
 import com.jvschool.util.Attributes.ProductAttribute;
 
 import java.util.List;
-import java.util.Set;
 
 
 public interface ProductService {

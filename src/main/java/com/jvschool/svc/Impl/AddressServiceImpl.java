@@ -45,15 +45,15 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public void addNewAddress(AddressAttribute aa) {
-        AddressEntity ae = new AddressEntity();
-        ae.setUserId(aa.getUserId());
-        ae.setStreetAddress(aa.getStreetAddress());
-        ae.setPostIndex(aa.getPostIndex());
-        ae.setCity(aa.getCity());
-        ae.setRegion(aa.getRegion());
-        ae.setCountry(aa.getCountry());
-        addressDAO.addNewAddress(ae);
+    public void addNewAddress(final AddressAttribute addressAttribute) {
+        final AddressEntity addressEntity = new AddressEntity();
+        addressEntity.setUserId(addressAttribute.getUserId());
+        addressEntity.setStreetAddress(addressAttribute.getStreetAddress());
+        addressEntity.setPostIndex(addressAttribute.getPostIndex());
+        addressEntity.setCity(addressAttribute.getCity());
+        addressEntity.setRegion(addressAttribute.getRegion());
+        addressEntity.setCountry(addressAttribute.getCountry());
+        addressDAO.addNewAddress(addressEntity);
     }
 
 

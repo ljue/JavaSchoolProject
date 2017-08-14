@@ -61,7 +61,7 @@ public class OrderController {
         orderAttribute.setBuckets(buckets);
         orderService.saveOrder(orderAttribute);
 
-        user.setProducts(new HashMap<Long, Integer>());
+        user.setProducts(new HashMap<>());
         model.addAttribute(user);
 
         return "redirect:/history";

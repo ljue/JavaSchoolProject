@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
@@ -21,9 +20,9 @@
         <div class="col-md-3">
             <p class="lead"></p>
             <div class="list-group">
-                <a href="/adminOrders" class="list-group-item">Order list</a>
-                <a href="/statistics" class="list-group-item">Shop statistic</a>
-                <a href="/adminProducts" class="list-group-item">Goods management</a>
+                <a href="/my-webapp/adminOrders" class="list-group-item">Order list</a>
+                <a href="/my-webapp/statistics" class="list-group-item">Shop statistic</a>
+                <a href="/my-webapp/adminProducts" class="list-group-item">Goods management</a>
             </div>
         </div>
 
@@ -31,8 +30,8 @@
             <div class="row">
                 <br>
                 <ul class="nav nav-tabs">
-                    <li class="active"><a href="/adminProducts">Add new goods</a></li>
-                    <li><a href="/editCategories">Control categories</a></li>
+                    <li class="active"><a href="/my-webapp/adminProducts">Add new goods</a></li>
+                    <li><a href="/my-webapp/editCategories">Control categories</a></li>
 
                 </ul>
 
@@ -138,23 +137,32 @@
                             </div>
                         </spring:bind>
 
-                        <%--<c:forEach items="${propertiesMany}" var="property">--%>
-                            <%--<div class="form-group">--%>
-                                <%--<label class="col-lg-3 control-label">${property.propCatName}:</label>--%>
-                                <%--<div class="col-lg-8">--%>
-                                    <%--<c:forEach items="${propertyManyChild}" var="propChild">--%>
-                                        <%--<c:if test="${property eq propChild.propertyCategoryByProdPropCatId}">--%>
-                                            <%--<form:checkbox path="properties"--%>
-                                                           <%--value="${propChild.prodPropName}"--%>
-                                                           <%--label="${propChild.prodPropName}"></form:checkbox>--%>
-                                            <%--<br>--%>
-                                        <%--</c:if>--%>
-                                    <%--</c:forEach>--%>
-                                <%--</div>--%>
-                            <%--</div>--%>
 
-                        <%--</c:forEach>--%>
+                        <c:forEach items="${propertiesNotSolo}" var="properties">
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">${properties.key}:</label>
+                                <div class="col-lg-8">
+                                    <c:forEach items="${properties.value}" var="currentProperty">
+                                            <form:checkbox path="saveProperties"
+                                                           value="${currentProperty}" label="${currentProperty}"
+                                            ></form:checkbox><br>
+                                    </c:forEach>
+                                </div>
+                            </div>
+                        </c:forEach>
 
+
+                        <c:forEach items="${propertiesSolo}" var="properties">
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">${properties.key}:</label>
+                                <div class="col-lg-8">
+                                    <form:select path="saveProperties">
+                                        <form:options items="${properties.value}"></form:options>
+                                    </form:select>
+                                    <br>
+                                </div>
+                            </div>
+                        </c:forEach>
 
                         <spring:bind path="description">
                             <div class="form-group ${status.error ? 'has-error' : ''}">
@@ -169,13 +177,13 @@
                         </spring:bind>
 
                         <spring:bind path="images">
-                        <div class="form-group ${status.error ? 'has-error' : ''}">
-                            <label class="col-lg-3 control-label">Add picture:</label>
-                            <div class="col-lg-8">
-                                <input type="file" name="images" multiple="multiple"/>
+                            <div class="form-group ${status.error ? 'has-error' : ''}">
+                                <label class="col-lg-3 control-label">Add picture:</label>
+                                <div class="col-lg-8">
+                                    <input type="file" name="images" multiple="multiple"/>
+                                </div>
+                                <form:errors path="images"></form:errors>
                             </div>
-                            <form:errors path="images"></form:errors>
-                        </div>
                         </spring:bind>
 
 
@@ -189,15 +197,13 @@
                         </div>
 
                     </form:form>
-
                 </div>
             </div>
+
+
         </div>
 
-
     </div>
-
-</div>
 
 </div>
 

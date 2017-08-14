@@ -6,7 +6,10 @@ import java.util.List;
 
 
 public interface PayWayService {
-
+    /**
+     * Some Desription
+     *
+     */
     List<String> getAllPayWays();
     PayWayEntity getPayWayByName(String name);
 }

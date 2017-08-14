@@ -2,13 +2,19 @@ package com.jvschool.util.Attributes;
 
 import com.jvschool.entities.PicturesEntity;
 import com.jvschool.entities.ProductEntity;
+import com.jvschool.entities.PropertyEntity;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-
+@Getter
+@Setter
 public class ProductAttribute  implements Serializable {
 
     private long productId;
@@ -25,6 +31,8 @@ public class ProductAttribute  implements Serializable {
     private List<MultipartFile> images = new ArrayList<>();
     private List<String> picturesPath = new ArrayList<>();
     private String presentPic;
+    private List<String> saveProperties = new ArrayList<>();
+    private Map<String, List<String>> properties = new HashMap<>();
 
     private int sumCount;
 
@@ -44,6 +52,10 @@ public class ProductAttribute  implements Serializable {
         this.description = productEntity.getDescription();
         this.category = productEntity.getCategory().getCategoryName();
 
+        for (PropertyEntity propertyEntity : productEntity.getProperties()) {
+            properties.computeIfAbsent(propertyEntity.getPropertyGroup().getPropertyGroupName(),
+                    v -> new ArrayList<>()).add(propertyEntity.getPropertyName());
+        }
 
         if(!productEntity.getPictures().isEmpty()) {
             presentPic=productEntity.getPictures().get(0).getPicName();
@@ -54,116 +66,4 @@ public class ProductAttribute  implements Serializable {
         }
     }
 
-
-    public long getProductId() {
-        return productId;
-    }
-
-    public void setProductId(long productId) {
-        this.productId = productId;
-    }
-
-    public String getProductName() {
-        return productName;
-    }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
-
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
-    }
-
-    public double getCost() {
-        return cost;
-    }
-
-    public void setCost(double cost) {
-        this.cost = cost;
-    }
-
-    public String getSize() {
-        return size;
-    }
-
-    public void setSize(String size) {
-        this.size = size;
-    }
-
-    public String getBattery() {
-        return battery;
-    }
-
-    public void setBattery(String battery) {
-        this.battery = battery;
-    }
-
-    public int getFlyTime() {
-        return flyTime;
-    }
-
-    public void setFlyTime(int flyTime) {
-        this.flyTime = flyTime;
-    }
-
-    public int getDistance() {
-        return distance;
-    }
-
-    public void setDistance(int distance) {
-        this.distance = distance;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public List<MultipartFile> getImages() {
-        return images;
-    }
-
-    public void setImages(List<MultipartFile> images) {
-        this.images = images;
-    }
-
-    public List<String> getPicturesPath() {
-        return picturesPath;
-    }
-
-    public void setPicturesPath(List<String> picturesPath) {
-        this.picturesPath = picturesPath;
-    }
-
-    public String getPresentPic() {
-        return presentPic;
-    }
-
-    public void setPresentPic(String presentPic) {
-        this.presentPic = presentPic;
-    }
-
-    public int getSumCount() {
-        return sumCount;
-    }
-
-    public void setSumCount(int sumCount) {
-        this.sumCount = sumCount;
-    }
 }

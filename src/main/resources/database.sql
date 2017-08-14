@@ -123,7 +123,7 @@ create table MYSHOP_SCHEMA.PAY_WAY
 )
 ;
 
-alter table MYSHOP_SCHEMA.ORDER
+alter table MYSHOP_SCHEMA."ORDER"
 	add constraint ORDER_FK2
 		foreign key (PAY_WAY_ID) references MYSHOP_SCHEMA.PAY_WAY (PAY_WAY_ID)
 ;
@@ -207,7 +207,8 @@ create table MYSHOP_SCHEMA.PROPERTY_GROUP
 (
 	PROPERTY_GROUP_ID bigint not null
 		primary key,
-	NAME varchar(255) null
+	NAME varchar(255) null,
+	SOLO tinyint(1) null
 )
 ;
 
@@ -264,7 +265,7 @@ alter table MYSHOP_SCHEMA.ADDRESS
 		foreign key (USER_ID) references MYSHOP_SCHEMA.USER (USER_ID)
 ;
 
-alter table MYSHOP_SCHEMA.ORDER
+alter table MYSHOP_SCHEMA."ORDER"
 	add constraint ORDER_FK0
 		foreign key (USER_ID) references MYSHOP_SCHEMA.USER (USER_ID)
 ;

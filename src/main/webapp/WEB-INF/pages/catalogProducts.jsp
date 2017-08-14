@@ -10,7 +10,7 @@
                     <img src="../resources/Images/${product.presentPic}" alt="...">
                     </a>
 
-                    <h5>${product.productName}</h5>
+                    <div class="size-div-name"><h5>${product.productName}</h5></div>
                     <hr class="line">
                     <div class="row">
                         <div class="col-md-6 col-sm-6">
@@ -40,11 +40,21 @@
                             <div class="col-md-6 product_content">
                                 <h4>Product Id: <span>${product.productId}</span></h4>
 
+
                                 <h5>Name: <span>${product.productName}</span></h5>
                                 <h5>Category: <span>${product.category}</span></h5>
                                 <h5>Battery: <span>${product.battery}</span></h5>
                                 <h5>Fly time: <span>${product.flyTime}</span></h5>
                                 <h5>Distance: <span>${product.distance}</span></h5>
+                                <c:forEach items="${product.properties}" var="propertyGroup">
+                                    <h5>${propertyGroup.key}: <span>
+                                        <c:forEach items="${propertyGroup.value}" var="property" varStatus="status">
+                                            <c:if test="${status.index eq 0}">${property}</c:if>
+                                            <c:if test="${status.index gt 0}">, ${property}</c:if>
+                                            <%--${property},--%>
+                                        </c:forEach>
+                                    </span></h5>
+                                </c:forEach>
                                 <h5>Description: <span>${product.description}</span></h5>
 
                                 <h3 class="cost"></span> $${product.cost}</h3>
@@ -66,7 +76,7 @@
         </div>
     </c:forEach>
 </c:if>
-<c:if test="${empty allProducts}"> <p>We don`t have goods such category. </p></c:if>
+<c:if test="${empty allProducts}"> <h4>We don`t have goods such category. </h4></c:if>
 
 <script>
     function addProductToCart(obj) {

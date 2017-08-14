@@ -2,11 +2,9 @@ package com.jvschool.svc.Impl;
 
 import com.jvschool.dao.BucketDAO;
 import com.jvschool.dao.ProductDAO;
-import com.jvschool.entities.BucketEntity;
-import com.jvschool.entities.PicturesEntity;
-import com.jvschool.entities.CategoryEntity;
-import com.jvschool.entities.ProductEntity;
+import com.jvschool.entities.*;
 import com.jvschool.svc.CategoryService;
+import com.jvschool.svc.PropertyService;
 import com.jvschool.svc.ProductService;
 import com.jvschool.util.Attributes.FilterAttribute;
 import com.jvschool.util.Attributes.ProductAttribute;
@@ -15,7 +13,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -27,6 +27,8 @@ public class ProductServiceImpl implements ProductService {
     private BucketDAO bucketDAO;
     @Autowired
     private CategoryService categoryService;
+    @Autowired
+    private PropertyService propertyService;
 
 
     @Override
@@ -96,32 +98,40 @@ public class ProductServiceImpl implements ProductService {
 
 
     @Override
-    public void addProduct(ProductAttribute pa) {
+    public void addProduct(ProductAttribute productAttribute) {
 
-        ProductEntity pe = new ProductEntity();
+        ProductEntity productEntity = new ProductEntity();
 
-        pe.setProductName(pa.getProductName());
-        pe.setCost(pa.getCost());
-        pe.setCost(pa.getCount());
-        pe.setBattery(pa.getBattery());
-        pe.setDistance(pa.getDistance());
-        pe.setFlyTime(pa.getFlyTime());
-        pe.setSize(pa.getSize());
-        pe.setDescription(pa.getDescription());
+        productEntity.setProductName(productAttribute.getProductName());
+        productEntity.setCost(productAttribute.getCost());
+        productEntity.setCost(productAttribute.getCount());
+        productEntity.setBattery(productAttribute.getBattery());
+        productEntity.setDistance(productAttribute.getDistance());
+        productEntity.setFlyTime(productAttribute.getFlyTime());
+        productEntity.setSize(productAttribute.getSize());
+        productEntity.setDescription(productAttribute.getDescription());
 
-        CategoryEntity pce = categoryService.getProductCategoryByName(pa.getCategory());
+        Set<PropertyEntity> propertyEntities = new HashSet<>();
+        for (String property : productAttribute.getSaveProperties()) {
+            PropertyEntity propertyEntity = propertyService.getPropertyByName(property);
+            if (propertyEntity!=null)
+                propertyEntities.add(propertyEntity);
+        }
+        productEntity.setProperties(propertyEntities);
+
+        CategoryEntity pce = categoryService.getProductCategoryByName(productAttribute.getCategory());
         if (pce == null) {
             pce = new CategoryEntity();
-            pce.setCategoryName(pa.getCategory());
+            pce.setCategoryName(productAttribute.getCategory());
         }
-        pe.setCategory(pce);
+        productEntity.setCategory(pce);
 
-        for (String picPath : pa.getPicturesPath()) {
+        for (String picPath : productAttribute.getPicturesPath()) {
             PicturesEntity pice = new PicturesEntity();
             pice.setPicName(picPath);
-            pe.getPictures().add(pice);
+            productEntity.getPictures().add(pice);
         }
 
-        productDAO.addProduct(pe);
+        productDAO.addProduct(productEntity);
     }
 }

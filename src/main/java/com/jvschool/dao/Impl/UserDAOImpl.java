@@ -21,6 +21,7 @@ public class UserDAOImpl implements UserDAO {
     @PersistenceContext
     private EntityManager em;
 
+    @Override
     public UserEntity getUserById(Long id) {
 
         List list  = em.createQuery("FROM UserEntity where id=:id")
@@ -32,6 +33,7 @@ public class UserDAOImpl implements UserDAO {
             return (UserEntity) list.get(0);
     }
 
+    @Override
     public UserEntity getUserByLogin(String login){
 
         List list = em.createQuery("FROM UserEntity where login=:log")
@@ -43,6 +45,7 @@ public class UserDAOImpl implements UserDAO {
             return (UserEntity) list.get(0);
     }
 
+    @Override
     public UserEntity getUserByEmail(String email){
 
         List list = em.createQuery("FROM UserEntity where email=:mail")
@@ -55,6 +58,7 @@ public class UserDAOImpl implements UserDAO {
 
     }
 
+    @Override
     public List<UserEntity> getAllUsers() {
 
         List users = em.createQuery("FROM UserEntity ").getResultList();
@@ -62,12 +66,14 @@ public class UserDAOImpl implements UserDAO {
         return users;
     }
 
+    @Override
     public void addUser(UserEntity user) {
 
         em.persist(user);
 
     }
 
+    @Override
     public void editUserInfo(UserEntity user) {
 
          Query query = em.createQuery("UPDATE UserEntity set login=:log, " +
@@ -80,6 +86,7 @@ public class UserDAOImpl implements UserDAO {
 
     }
 
+    @Override
     public void editUserPassword(UserEntity user) {
 
 
@@ -93,6 +100,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
 
+    @Override
     public UserEntity loginUser(String login, String password) {
 
         List list =  em.createQuery("FROM UserEntity where login=:log" +
@@ -130,10 +138,8 @@ public class UserDAOImpl implements UserDAO {
         List list =  em.createQuery("select u.id FROM UserEntity u where u.email=:email")
                 .setParameter("email", email).getResultList();
 
-        if(list.isEmpty())
-            return 0;
-        else
-            return (long) list.get(0);
+        if(list.isEmpty()) { return 0; }
+        else { return (long) list.get(0); }
     }
 
 

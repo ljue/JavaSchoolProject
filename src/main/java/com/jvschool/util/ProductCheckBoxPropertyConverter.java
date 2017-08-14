@@ -1,28 +1,28 @@
 package com.jvschool.util;
 
-import com.jvschool.entities.ProductPropertyEntity;
-import com.jvschool.svc.ProductPropertyService;
+import com.jvschool.entities.PropertyEntity;
+import com.jvschool.svc.PropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 
 
-public class ProductCheckBoxPropertyConverter implements Converter<String, ProductPropertyEntity> {
+public class ProductCheckBoxPropertyConverter implements Converter<String, PropertyEntity> {
 
     @Autowired
-    private ProductPropertyService productPropertyService;
+    private PropertyService propertyService;
 
     @Override
-    public ProductPropertyEntity convert(String s) {
+    public PropertyEntity convert(String s) {
 
 
-        return productPropertyService.getProductPropertyByName(s);
+        return propertyService.getPropertyByName(s);
     }
 
 //    @Override
-//    public List<ProductPropertyEntity> convert(List<String> strings) {
-//        List<ProductPropertyEntity> list = new ArrayList<ProductPropertyEntity>();
+//    public List<PropertyEntity> convert(List<String> strings) {
+//        List<PropertyEntity> list = new ArrayList<PropertyEntity>();
 //        for (String s:strings) {
-//            list.add(productPropertyService.getProductPropertyByName(s));
+//            list.add(propertyService.getPropertyByName(s));
 //        }
 //        return list;
 //    }

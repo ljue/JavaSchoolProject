@@ -13,9 +13,8 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
 import java.sql.Date;
-import java.util.Calendar;
 import java.util.List;
-import java.util.TimeZone;
+
 
 @Repository
 public class OrderDAOImpl implements OrderDAO {

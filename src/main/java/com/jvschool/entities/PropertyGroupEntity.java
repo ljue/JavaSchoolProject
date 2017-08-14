@@ -6,22 +6,25 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Collection;
 
 @Getter
 @Setter
 @EqualsAndHashCode
 @Entity
 @Table(name = "PROPERTY_GROUP", schema = "MYSHOP_SCHEMA")
-public class PropertyCategoryEntity  implements Serializable {
+public class PropertyGroupEntity implements Serializable {
 
     @Id
     @Column(name = "PROPERTY_GROUP_ID", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int propCatId;
+    private int propertyGroupId;
 
     @Basic
     @Column(name = "NAME")
-    private String propCatName;
+    private String propertyGroupName;
+
+    @Basic
+    @Column(name = "SOLO")
+    private boolean solo;
 
 }

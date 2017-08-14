@@ -1,5 +1,13 @@
 package com.jvschool.util.Attributes;
 
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Getter
+@Setter
 public class FilterAttribute {
 
     private double costFROM;
@@ -9,6 +17,7 @@ public class FilterAttribute {
     private int distanceFROM;
     private int distanceTO;
     private String category;
+    private List<String> properties = new ArrayList<>();
 
     public FilterAttribute() {
         this.costFROM = 0;
@@ -27,60 +36,5 @@ public class FilterAttribute {
         this.distanceFROM = distanceFROM;
         this.distanceTO = distanceTO;
     }
-
-    public double getCostFROM() {
-        return costFROM;
-    }
-
-    public void setCostFROM(double costFROM) {
-        this.costFROM = costFROM;
-    }
-
-    public double getCostTO() {
-        return costTO;
-    }
-
-    public void setCostTO(double costTO) {
-        this.costTO = costTO;
-    }
-
-    public int getFlyTimeFROM() {
-        return flyTimeFROM;
-    }
-
-    public void setFlyTimeFROM(int flyTimeFROM) {
-        this.flyTimeFROM = flyTimeFROM;
-    }
-
-    public int getFlyTimeTO() {
-        return flyTimeTO;
-    }
-
-    public void setFlyTimeTO(int flyTimeTO) {
-        this.flyTimeTO = flyTimeTO;
-    }
-
-    public int getDistanceFROM() {
-        return distanceFROM;
-    }
-
-    public void setDistanceFROM(int distanceFROM) {
-        this.distanceFROM = distanceFROM;
-    }
-
-    public int getDistanceTO() {
-        return distanceTO;
-    }
-
-    public void setDistanceTO(int distanceTO) {
-        this.distanceTO = distanceTO;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
+    
 }

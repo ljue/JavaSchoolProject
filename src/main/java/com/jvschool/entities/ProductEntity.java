@@ -3,11 +3,13 @@ package com.jvschool.entities;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -61,14 +63,11 @@ public class ProductEntity  implements Serializable {
     @JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID")
     private List<PicturesEntity> pictures = new ArrayList<>();
 
-    //@ManyToMany(cascade = CascadeType.ALL)//, fetch = FetchType.EAGER)//(fetch = FetchType.LAZY)//(mappedBy = "product")
-//    @JoinTable(roleName = "Prod_Prop",
-//            joinColumns = @JoinColumn(roleName = "ProductId"),
-//            inverseJoinColumns = @JoinColumn(roleName = "ProductPropertyId"))
-//    @ManyToMany(cascade = CascadeType.ALL)
-//    @JoinTable(roleName = "PRODUCT_HAS_PROPERTY",
-//            joinColumns = @JoinColumn(roleName = "PRODUCT_ID"),
-//            inverseJoinColumns = @JoinColumn(roleName = "PROPERTY_ID"))
-   // private Set<ProductPropertyEntity> properties = new HashSet<ProductPropertyEntity>();
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "PRODUCT_HAS_PROPERTY",
+            joinColumns = @JoinColumn(name = "PRODUCT_ID"),
+            inverseJoinColumns = @JoinColumn(name = "PROPERTY_ID"))
+    private Set<PropertyEntity> properties = new HashSet<>();
 
 }

@@ -2,7 +2,6 @@ package com.jvschool.svc;
 
 import com.jvschool.entities.UserEntity;
 import com.jvschool.util.Attributes.SessionUser;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.util.List;
 

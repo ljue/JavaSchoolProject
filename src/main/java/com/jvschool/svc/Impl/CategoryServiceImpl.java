@@ -39,12 +39,12 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void editCategory(CategoryAttribute categoryAttribute) {
-        CategoryEntity pce = categoryDAO.getProductCategoryByName(categoryAttribute.getCategoryName());
-        if(pce==null) {
-            pce = new CategoryEntity();
+        CategoryEntity categoryEntity = categoryDAO.getProductCategoryByName(categoryAttribute.getCategoryName());
+        if(categoryEntity==null) {
+            categoryEntity = new CategoryEntity();
         }
-        pce.setCategoryName(categoryAttribute.getEditCategoryName());
-        categoryDAO.editCategory(pce);
+        categoryEntity.setCategoryName(categoryAttribute.getEditCategoryName());
+        categoryDAO.editCategory(categoryEntity);
     }
 
 }

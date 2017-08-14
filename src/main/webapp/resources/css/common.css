@@ -4,6 +4,25 @@
     border-radius:3px;
 }
 
+
+.container-my-mini {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.size-div-name {
+    height: 50px;
+    overflow: hidden;
+    -moz-transition: overflow 1s ease-out 0.5s;
+}
+
+.size-div-name:hover {
+    overflow: visible;
+}
+
+
 .product_view .modal-dialog{max-width: 800px; width: 100%;}
 .pre-cost{text-decoration: line-through; color: #a5a5a5;}
 .space-ten{padding: 10px 0;}

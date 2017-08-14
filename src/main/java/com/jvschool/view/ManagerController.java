@@ -34,6 +34,11 @@ public class ManagerController {
     private DeliveryStatusService deliveryStatusService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private PropertyService propertyService;
+    @Autowired
+    private PropertyGroupService propertyGroupService;
+
 
 
     @GetMapping(value = "/adminProducts")
@@ -44,11 +49,12 @@ public class ManagerController {
         }
 
         model.addAttribute("categories", categoryService.getAllProductCategoryNames());
-       // model.addAttribute("propertiesMany", propertyCategoryService.getAllPropertyCategories());
-        //model.addAttribute("propertyManyChild",productPropertyService.getAllProductProperties());
+        model.addAttribute("propertiesSolo", propertyService.getSoloProperties());
+        model.addAttribute("propertiesNotSolo", propertyService.getNotSoloProperties());
 
         return "adminProducts";
     }
+
 
 
     @PostMapping(value = "/adminProducts")
@@ -58,11 +64,13 @@ public class ManagerController {
         productValidator.validate(productForm, bindingResult);
         if (bindingResult.hasErrors()) {
             model.addAttribute("categories", categoryService.getAllProductCategoryNames());
+            model.addAttribute("propertiesSolo", propertyService.getSoloProperties());
+            model.addAttribute("propertiesNotSolo", propertyService.getNotSoloProperties());
             return "adminProducts";
         }
 
         List<MultipartFile> files = productForm.getImages();
-        List<String> picNames = new ArrayList<String>();
+        List<String> picNames = new ArrayList<>();
         if (null != files && files.size() > 0)
         {
             for (MultipartFile multipartFile : files) {
@@ -86,7 +94,6 @@ public class ManagerController {
 
 
 
-
     @GetMapping(value = "/editCategories")
     public String editCategoryGet(@ModelAttribute("formEditCategory") CategoryAttribute categoryAttribute,
             @ModelAttribute("formAddCategory") CategoryAttribute addCategoryAttribute,
@@ -103,6 +110,8 @@ public class ManagerController {
         return "editCategories";
     }
 
+
+
     @PostMapping(value = "/editCategories/editCategoryName")
     public String editCategoryPost(@ModelAttribute("formEditCategory") CategoryAttribute categoryAttribute,
                                     Model model){
@@ -118,9 +127,9 @@ public class ManagerController {
         return "redirect:/editCategories";
     }
 
+
     @PostMapping(value = "/editCategories/addCategory")
-    public String addCategoryPost(@ModelAttribute("formAddCategory") CategoryAttribute categoryAttribute,
-                                Model model){
+    public String addCategoryPost(@ModelAttribute("formAddCategory") CategoryAttribute categoryAttribute){
         categoryService.addProductCategory(categoryAttribute.getCategoryName());
         return "redirect:/editCategories";
     }
@@ -139,6 +148,8 @@ public class ManagerController {
 
         return "adminOrders";
     }
+
+
 
     @GetMapping(value = "/adminOrders/{orderId}")
     public String goCheckOrder(@PathVariable("orderId") Long orderId, Model model,
@@ -175,8 +186,9 @@ public class ManagerController {
     }
 
 
+
     @PostMapping(value = "editDeliveryStatus")
-    public String editDeliveryStatus(HttpServletRequest request, Model model,
+    public String editDeliveryStatus(HttpServletRequest request,
                                      @ModelAttribute("editDeliveryStatus") OrderAttribute orderEditAttribute) {
 
         OrderAttribute orderAttribute = (OrderAttribute) request.getSession().getAttribute("editOrder");
@@ -185,6 +197,7 @@ public class ManagerController {
 
         return "redirect:/adminOrders/"+orderAttribute.getOrderId();
     }
+
 
 
     @GetMapping(value = "statistics")

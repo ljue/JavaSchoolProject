@@ -10,8 +10,8 @@
 <jsp:include page="../templates/navigation.jsp" />
 <jsp:include page="../templates/scripts.jsp" />
 
-<c:url var="editInfo" value="/user/editInfo"/>
-<c:url var="editPass" value="/user/editPass"/>
+<c:url var="editInfo" value="/my-webapp/user/editInfo"/>
+<c:url var="editPass" value="/my-webapp/user/editPass"/>
 <%--<jsp:include page="/countries" />--%>
 
 <br>
@@ -23,9 +23,9 @@
             <%--<p class="lead">Личный кабинет</p>--%>
             <p class="lead">   </p>
             <div class="list-group">
-                <a href="/orderList" class="list-group-item">Order list</a>
-                <a href="/statistics" class="list-group-item">Shop statistic</a>
-                <a href="/adminProducts" class="list-group-item">Goods management</a>
+                <a href="/my-webapp/orderList" class="list-group-item">Order list</a>
+                <a href="/my-webapp/statistics" class="list-group-item">Shop statistic</a>
+                <a href="/my-webapp/adminProducts" class="list-group-item">Goods management</a>
             </div>
         </div>
 

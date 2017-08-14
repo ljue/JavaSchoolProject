@@ -84,38 +84,38 @@ public class UserServiceImpl implements UserService {
     @Override
     public void addUser(SessionUser user) {
 
-        UserEntity ue = new UserEntity();
+        UserEntity userEntity = new UserEntity();
 
-        ue.setLogin(user.getLogin());
-        ue.setFirstName(user.getFirstName());
-        ue.setSecondName(user.getSecondName());
-        ue.setPass(user.getPass());
-        ue.setEmail(user.getEmail());
-        ue.setBirthday(user.getBirthday());
+        userEntity.setLogin(user.getLogin());
+        userEntity.setFirstName(user.getFirstName());
+        userEntity.setSecondName(user.getSecondName());
+        userEntity.setPass(user.getPass());
+        userEntity.setEmail(user.getEmail());
+        userEntity.setBirthday(user.getBirthday());
 
         RoleEntity role = roleService.getRoleByName(user.getRole());
         if (role!=null) {
-            ue.setRoleByRole(role);
+            userEntity.setRoleByRole(role);
         } else {
             role = new RoleEntity();
             role.setRoleName(user.getRole());
-            ue.setRoleByRole(role);
+            userEntity.setRoleByRole(role);
         }
 
-        userDAO.addUser(ue);
+        userDAO.addUser(userEntity);
     }
 
     @Override
     public void editUserInfo(SessionUser user) {
 
-        UserEntity ue = userDAO.getUserById(user.getId());
-        ue.setBirthday(user.getBirthday());
-        ue.setEmail(user.getEmail());
-        ue.setSecondName(user.getSecondName());
-        ue.setFirstName(user.getFirstName());
-        ue.setLogin(user.getLogin());
+        UserEntity userEntity = userDAO.getUserById(user.getId());
+        userEntity.setBirthday(user.getBirthday());
+        userEntity.setEmail(user.getEmail());
+        userEntity.setSecondName(user.getSecondName());
+        userEntity.setFirstName(user.getFirstName());
+        userEntity.setLogin(user.getLogin());
 
-        userDAO.editUserInfo(ue);
+        userDAO.editUserInfo(userEntity);
     }
 
     @Override
