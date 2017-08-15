@@ -10,6 +10,7 @@
 
 
 
+
   <properties>
     <spring.version>4.3.9.RELEASE</spring.version>
     <hibernate-version>5.0.1.Final</hibernate-version>
@@ -39,12 +40,12 @@
       <version>${hibernate-version}</version>
     </dependency>
 
-    <dependency>
-      <groupId>dom4j</groupId>
-      <artifactId>dom4j</artifactId>
-      <version>1.6.1</version>
-      <scope>provided</scope>
-    </dependency>
+    <!--<dependency>-->
+      <!--<groupId>dom4j</groupId>-->
+      <!--<artifactId>dom4j</artifactId>-->
+      <!--<version>1.6.1</version>-->
+      <!--<scope>provided</scope>-->
+    <!--</dependency>-->
 
     <!-- For JPA Annotations (Getter, Setter, etc.) -->
     <dependency>
@@ -159,6 +160,14 @@
         <configuration>
           <source>1.8</source>
           <target>1.8</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <configuration>
+          <warSourceDirectory>src/main/webapp</warSourceDirectory>
+          <failOnMissingWebXml>false</failOnMissingWebXml>
         </configuration>
       </plugin>
     </plugins>

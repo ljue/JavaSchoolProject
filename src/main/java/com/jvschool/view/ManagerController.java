@@ -18,7 +18,7 @@ import java.util.*;
 
 @Controller
 @SessionAttributes("user")
-@RequestMapping("/my-webapp")
+//@RequestMapping("/my-webapp")
 public class ManagerController {
 
     @Autowired

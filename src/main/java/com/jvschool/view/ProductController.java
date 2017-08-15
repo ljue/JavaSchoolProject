@@ -11,12 +11,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 
 @Controller
 @SessionAttributes("user")
-@RequestMapping("/my-webapp")
+//@RequestMapping("/my-webapp")
 public class ProductController {
 
     @Autowired
@@ -30,13 +31,16 @@ public class ProductController {
 
 
     @GetMapping(value = "/catalog")
-    public String goCatalog(Model model) {
+    public String goCatalog(Model model, ServletResponse response) {
         model.addAttribute("allProducts", productService.getAllProducts());
         model.addAttribute("filter", new FilterAttribute());
         model.addAttribute("allProperties", propertyService.getProperties());
 
         suchCategory = "All";
         model.addAttribute("categories", categoryService.getAllProductCategoryNames());
+
+        model.addAttribute("ca", "Helloworld");
+//        System.out.println(response);
 
         return "catalog";
     }

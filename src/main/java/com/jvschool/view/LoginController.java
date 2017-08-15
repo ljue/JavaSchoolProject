@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @SessionAttributes("user")
-@RequestMapping("/my-webapp")
+//@RequestMapping("/my-webapp")
 public class LoginController {
 
 

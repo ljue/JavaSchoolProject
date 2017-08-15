@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @SessionAttributes("user")
-@RequestMapping("/my-webapp")
 public class AddressController {
 
     @Autowired

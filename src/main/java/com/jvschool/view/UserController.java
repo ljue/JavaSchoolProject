@@ -21,7 +21,6 @@ import java.util.List;
 
 @Controller
 @SessionAttributes("user")
-@RequestMapping("/my-webapp")
 public class UserController {
 
     @Autowired

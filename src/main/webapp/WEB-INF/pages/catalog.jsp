@@ -2,6 +2,8 @@
 <%@ taglib prefix="sping" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
+<%@ page isELIgnored="false" %>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -32,6 +34,8 @@
                         </c:forEach>
                     </c:if>
                 </div>
+                <%--<div> здесь ${pageContext.response.ca} </div>--%>
+
 
                 <sping:form modelAttribute="filter" action="${pageContext.request.contextPath}/catalog/doFilter" method="post"
                 class="form-horizontal">
