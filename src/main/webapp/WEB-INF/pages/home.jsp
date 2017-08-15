@@ -3,47 +3,26 @@
 <html>
 <head>
     <title>Start page</title>
-    <jsp:include page="../templates/head.jsp" />
 </head>
 <body>
-<jsp:include page="../templates/navigation.jsp" />
-<jsp:include page="../templates/scripts.jsp" />
+<jsp:include page="${pageContext.request.contextPath}../templates/navigation.jsp" />
 <br>
 <div class="page-flexbox-wrapper">
     <div class="parallax-container">
-        <div class="parallax"><img src="../resources/Images/zakat.jpg" class="img-responsive"></div>
+        <div class="parallax"><img src="${pageContext.request.contextPath}/../resources/Images/zakat.jpg" class="img-responsive"></div>
     </div>
     <div class="row">
 
 
 
-
-        <%--<script src="//yandex.st/jquery/1.9.1/jquery.min.js"></script>--%>
-
-        <%--<!-- arcticModal -->--%>
-        <%--<script src="js/arcticmodal/jquery.arcticmodal-0.3.min.js"></script>--%>
-        <%--<link rel="stylesheet" href="js/arcticmodal/jquery.arcticmodal-0.3.css">--%>
-
-        <%--<!-- arcticModal theme -->--%>
-        <%--<link rel="stylesheet" href="js/arcticmodal/themes/simple.css">--%>
-
-       <%----%>
-<%--<script>$(function(){--%>
-    <%--$('#exampleModal').arcticmodal();--%>
-<%--});</script>--%>
-
-
-
-
-
-
-
     </div>
 </div>
-<!-- /.container -->
+<c:out value="${pageContext.request.contextPath}">${pageContext.request.contextPath}</c:out>
+<c:out value="${request.contextPath}">${request.contextPath}</c:out>
 
-<!-- /.container -->
 
+<p>я здесь${pageContext.request.contextPath}</p>
+<p> и здесь ${request.contextPath}</p>
 
 <%--<script>$(document).ready(function () {--%>
     <%--$('.parallax').parallax();--%>

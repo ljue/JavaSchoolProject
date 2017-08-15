@@ -5,11 +5,9 @@
 <head>
     <title>History</title>
 
-    <jsp:include page="../templates/head.jsp"/>
 </head>
 <body>
-<jsp:include page="../templates/navigation.jsp"/>
-<jsp:include page="../templates/scripts.jsp"/>
+<jsp:include page="${pageContext.request.contextPath}../templates/navigation.jsp"/>
 
 <c:url var="editInfo" value="/my-webapp/user/editInfo"/>
 <c:url var="editPass" value="/my-webapp/user/editPass"/>

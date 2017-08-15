@@ -9,7 +9,7 @@
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
-<script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/some.js"></script>
+<script src="/resources/js/bootstrap.min.js"></script>
+<script src="/resources/js/some.js"></script>
 
 

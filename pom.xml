@@ -40,12 +40,12 @@
       <version>${hibernate-version}</version>
     </dependency>
 
-    <!--<dependency>-->
-      <!--<groupId>dom4j</groupId>-->
-      <!--<artifactId>dom4j</artifactId>-->
-      <!--<version>1.6.1</version>-->
-      <!--<scope>provided</scope>-->
-    <!--</dependency>-->
+    <dependency>
+      <groupId>dom4j</groupId>
+      <artifactId>dom4j</artifactId>
+      <version>1.6.1</version>
+      <scope>provided</scope>
+    </dependency>
 
     <!-- For JPA Annotations (Getter, Setter, etc.) -->
     <dependency>
@@ -112,6 +112,12 @@
       <version>1.2</version>
     </dependency>
 
+    <!--<dependency>-->
+      <!--<groupId>javax.servlet.jsp.jstl</groupId>-->
+      <!--<artifactId>javax.servlet.jsp.jstl-api</artifactId>-->
+      <!--<version>1.2.1</version>-->
+    <!--</dependency>-->
+
     <dependency>
     <groupId>javax.servlet</groupId>
     <artifactId>javax.servlet-api</artifactId>
@@ -119,11 +125,6 @@
       <scope>provided</scope>
     </dependency>
 
-    <!--<dependency>-->
-      <!--<groupId>taglibs</groupId>-->
-      <!--<artifactId>standard</artifactId>-->
-      <!--<version>1.1.2</version>-->
-    <!--</dependency>-->
 
     <dependency>
       <groupId>com.googlecode.log4jdbc</groupId>

@@ -2,7 +2,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set value="${pageContext.request.contextPath}" var="myContext"/>
-<jsp:include page="../templates/scripts.jsp"/>
+<head>
+    <jsp:include page="${pageContext.request.contextPath}head.jsp"/>
+</head>
+
+<jsp:include page="${pageContext.request.contextPath}scripts.jsp" />
 <!-- Navigation -->
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">

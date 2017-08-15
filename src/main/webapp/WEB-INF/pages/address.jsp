@@ -7,11 +7,9 @@
 <head>
     <title>Address</title>
 
-    <jsp:include page="../templates/head.jsp"/>
 </head>
 <body>
-<jsp:include page="../templates/navigation.jsp"/>
-<jsp:include page="../templates/scripts.jsp"/>
+<jsp:include page="${pageContext.request.contextPath}../templates/navigation.jsp"/>
 <br>
 <br>
 

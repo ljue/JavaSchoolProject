@@ -1,5 +1,6 @@
 package com.jvschool.config;
 
+import com.jvschool.util.RoleFilter;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
@@ -21,5 +22,7 @@ public class WebAppInitializer implements WebApplicationInitializer{
         ServletRegistration.Dynamic servlet = servletContext.addServlet("dispatcher", new DispatcherServlet(ctx));
         servlet.setLoadOnStartup(1);
         servlet.addMapping("/");
+
+        servletContext.addFilter("RoleFilter", RoleFilter.class).addMappingForUrlPatterns(null, false, "/*");
     }
 }

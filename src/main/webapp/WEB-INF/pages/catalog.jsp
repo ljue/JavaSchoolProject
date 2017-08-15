@@ -9,11 +9,9 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Catalog</title>
-    <jsp:include page="../templates/head.jsp"/>
 </head>
 <body>
-<jsp:include page="../templates/navigation.jsp"/>
-<jsp:include page="../templates/scripts.jsp"/>
+<jsp:include page="${pageContext.request.contextPath}../templates/navigation.jsp"/>
 
 <div class="container">
     <br>
@@ -106,7 +104,7 @@
                 <div class="catalog-products-by-category">
                     <div class="container-my-mini">
                     <div class="row">
-                        <jsp:include page="${pageContext.request.contextPath}/catalogProducts.jsp"/>
+                        <jsp:include page="${pageContext.request.contextPath}catalogProducts.jsp"/>
                     </div>
                     </div>
                 </div>

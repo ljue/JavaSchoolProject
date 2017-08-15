@@ -4,8 +4,6 @@
 <html>
 <head>
     <title>Bucket</title>
-    <jsp:include page="../templates/head.jsp"/>
-
     <style>
         @import url(//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
 
@@ -19,8 +17,7 @@
     </style>
 </head>
 <body>
-<jsp:include page="../templates/navigation.jsp"/>
-<jsp:include page="../templates/scripts.jsp"/>
+<jsp:include page="${pageContext.request.contextPath}../templates/navigation.jsp"/>
 
 
 </div>
