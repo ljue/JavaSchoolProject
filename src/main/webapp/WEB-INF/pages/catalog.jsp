@@ -23,17 +23,17 @@
             <div class="row">
                 <div class="list-group">
 
-                    <a href="/my-webapp/catalog/All" class="list-group-item">All goods</a>
+                    <a href="${pageContext.request.contextPath}/catalog/All" class="list-group-item">All goods</a>
 
                     <c:if test="${!empty categories}">
                         <c:forEach var="category" items="${categories}">
-                            <a href="/my-webapp/catalog/${category}"
+                            <a href="/catalog/${category}"
                                class="list-group-item">${category}</a>
                         </c:forEach>
                     </c:if>
                 </div>
 
-                <sping:form modelAttribute="filter" action="/catalog/doFilter" method="post"
+                <sping:form modelAttribute="filter" action="${pageContext.request.contextPath}/catalog/doFilter" method="post"
                 class="form-horizontal">
                     <label>Cost:</label>
                     <div class="form-group">
@@ -102,7 +102,7 @@
                 <div class="catalog-products-by-category">
                     <div class="container-my-mini">
                     <div class="row">
-                        <jsp:include page="catalogProducts.jsp"/>
+                        <jsp:include page="${pageContext.request.contextPath}/catalogProducts.jsp"/>
                     </div>
                     </div>
                 </div>

@@ -8,7 +8,7 @@
 <body>
 <jsp:include page="../templates/navigation.jsp" />
 <jsp:include page="../templates/scripts.jsp" />
-
+<br>
 <div class="page-flexbox-wrapper">
     <div class="parallax-container">
         <div class="parallax"><img src="../resources/Images/zakat.jpg" class="img-responsive"></div>

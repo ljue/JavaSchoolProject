@@ -25,9 +25,9 @@
             <%--<p class="lead">Личный кабинет</p>--%>
             <p class="lead"></p>
             <div class="list-group">
-                <a href="/my-webapp/adminOrders" class="list-group-item">Order list</a>
-                <a href="/my-webapp/statistics" class="list-group-item">Shop statistic</a>
-                <a href="/my-webapp/adminProducts" class="list-group-item">Goods management</a>
+                <a href="${pageContext.request.contextPath}/adminOrders" class="list-group-item">Order list</a>
+                <a href="${pageContext.request.contextPath}/statistics" class="list-group-item">Shop statistic</a>
+                <a href="${pageContext.request.contextPath}/adminProducts" class="list-group-item">Goods management</a>
             </div>
         </div>
 
@@ -48,7 +48,7 @@
                         </div><br>
                         <%--<h4>#User Id: ${orderIn.userId}</h4><br>--%>
                         <%--<h4>Delivery status: ${orderIn.deliveryStatus}</h4>--%>
-                        <form:form modelAttribute="editDeliveryStatus" method="post" action="/editDeliveryStatus">
+                        <form:form modelAttribute="editDeliveryStatus" method="post" action="${pageContext.request.contextPath}/editDeliveryStatus">
                             <div class="form-group">
                                 <label class="col-md-3">Edit delivery status:</label>
                                 <div class="col-md-5">

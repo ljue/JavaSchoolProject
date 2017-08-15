@@ -21,8 +21,8 @@
         </div>
 
         <div class="col-md-9">
-            <c:url var="goPay" value="/checkout/goPay"/>
-            <form:form modelAttribute="orderForm" method="post" action="${goPay}">
+            <%--<c:url var="goPay" value="/checkout/goPay"/>--%>
+            <form:form modelAttribute="orderForm" method="post" action="${pageContext.request.contextPath}/checkout/goPay">
 
                 <div class="form-group">
                     <label class="col-lg-3 control-label">Address</label>
@@ -114,9 +114,9 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <c:url var="addNewAddress" value="/checkout/addNewAddress"/>
+                    <%--<c:url var="addNewAddress" value="/checkout/addNewAddress"/>--%>
 
-                    <form:form modelAttribute="newAddress" method="post" action="${addNewAddress}"
+                    <form:form modelAttribute="newAddress" method="post" action="${pageContext.request.contextPath}/checkout/addNewAddress"
                                class="form-horizontal">
                         <fieldset>
                             <spring:bind path="country">

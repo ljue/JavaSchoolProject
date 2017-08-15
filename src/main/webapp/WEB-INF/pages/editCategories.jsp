@@ -20,9 +20,9 @@
         <div class="col-md-3">
             <p class="lead"></p>
             <div class="list-group">
-                <a href="/my-webapp/adminOrders" class="list-group-item">Order list</a>
-                <a href="/my-webapp/statistics" class="list-group-item">Shop statistic</a>
-                <a href="/my-webapp/adminProducts" class="list-group-item">Goods management</a>
+                <a href="${pageContext.request.contextPath}/adminOrders" class="list-group-item">Order list</a>
+                <a href="${pageContext.request.contextPath}/statistics" class="list-group-item">Shop statistic</a>
+                <a href="${pageContext.request.contextPath}/adminProducts" class="list-group-item">Goods management</a>
             </div>
         </div>
 
@@ -30,18 +30,18 @@
         <div class="col-md-9">
             <div class="row">
                 <ul class="nav nav-tabs">
-                    <li><a href="/my-webapp/adminProducts">Add new goods</a></li>
-                    <li class="active"><a href="/my-webapp/editCategories">Control categories</a></li>
+                    <li><a href="${pageContext.request.contextPath}/adminProducts">Add new goods</a></li>
+                    <li class="active"><a href="${pageContext.request.contextPath}/editCategories">Control categories</a></li>
 
                 </ul>
 
                 <div class="row">
-                    <c:url var="edit" value="/editCategories/editCategoryName"/>
+                    <%--<c:url var="edit" value="${pageContext.request.contextPath}/editCategories/editCategoryName"/>--%>
 
                     <div class="tab-content">
                         <br>
 
-                        <form:form modelAttribute="formEditCategory" method="POST" action="${edit}"
+                        <form:form modelAttribute="formEditCategory" method="POST" action="${pageContext.request.contextPath}/editCategories/editCategoryName"
                                    class="form-horizontal">
 
                             <spring:bind path="categoryName">
@@ -85,10 +85,10 @@
 
                     <div class="tab-content">
 
-                        <c:url var="add" value="/editCategories/addCategory"/>
+                        <%--<c:url var="add" value="/editCategories/addCategory"/>--%>
                         <br>
 
-                        <form:form modelAttribute="formAddCategory" method="POST" action="${add}"
+                        <form:form modelAttribute="formAddCategory" method="POST" action="${pageContext.request.contextPath}/editCategories/addCategory"
                                    class="form-horizontal">
 
                             <spring:bind path="categoryName">

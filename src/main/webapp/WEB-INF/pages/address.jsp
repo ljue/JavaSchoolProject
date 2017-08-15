@@ -25,9 +25,9 @@
         <div class="col-md-3">
             <p class="lead"></p>
             <div class="list-group">
-                <a href="/my-webapp/user" class="list-group-item">My Profile</a>
-                <a href="/my-webapp/address" class="list-group-item">My Address</a>
-                <a href="/my-webapp/history" class="list-group-item">My orders</a>
+                <a href="${pageContext.request.contextPath}/user" class="list-group-item">My Profile</a>
+                <a href="${pageContext.request.contextPath}/address" class="list-group-item">My Address</a>
+                <a href="${pageContext.request.contextPath}/history" class="list-group-item">My orders</a>
             </div>
         </div>
 
@@ -81,11 +81,11 @@
                     </div>
 
 
-                    <c:url var="addaddress" value="address/add"/>
+                    <%--<c:url var="addaddress" value="${pageContext.request.contextPath}/address/add"/>--%>
 
                     <div id="panel2" class="tab-pane fade">
                         <br>
-                        <form:form modelAttribute="formAddAddress" method="post" action="${addaddress}"
+                        <form:form modelAttribute="formAddAddress" method="post" action="${pageContext.request.contextPath}/address/add"
                                    class="form-horizontal">
                             <fieldset>
                                 <spring:bind path="country">

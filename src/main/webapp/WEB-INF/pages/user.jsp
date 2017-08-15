@@ -23,9 +23,9 @@
         <div class="col-md-3">
                 <p class="lead">   </p>
             <div class="list-group">
-                <a href="/my-webapp/user" class="list-group-item">My Profile</a>
-                <a href="/my-webapp/address" class="list-group-item">My Address</a>
-                <a href="/my-webapp/history" class="list-group-item">My Orders</a>
+                <a href="${pageContext.request.contextPath}/user" class="list-group-item">My Profile</a>
+                <a href="${pageContext.request.contextPath}/address" class="list-group-item">My Address</a>
+                <a href="${pageContext.request.contextPath}/history" class="list-group-item">My Orders</a>
             </div>
         </div>
 

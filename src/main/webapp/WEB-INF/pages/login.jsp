@@ -16,11 +16,11 @@
 <jsp:include page="../templates/scripts.jsp" />
 
 
-<c:url var="checkaction" value="/login"/>
+<%--<c:url var="checkaction" value="${pageContext.request.contextPath}/login"/>--%>
 
 <div class="container">
 
-    <form method="POST"  action="${checkaction}" class="form-signin">
+    <form method="POST"  action="${pageContext.request.contextPath}/login" class="form-signin">
         <h2 class="form-heading">Log in</h2>
 
         <div class="form-group ${error != null ? 'has-error' : ''}">

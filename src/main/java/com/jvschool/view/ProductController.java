@@ -16,6 +16,7 @@ import java.util.Map;
 
 @Controller
 @SessionAttributes("user")
+@RequestMapping("/my-webapp")
 public class ProductController {
 
     @Autowired

@@ -23,9 +23,9 @@
             <%--<p class="lead">Личный кабинет</p>--%>
             <p class="lead">   </p>
             <div class="list-group">
-                <a href="/my-webapp/orderList" class="list-group-item">Order list</a>
-                <a href="/my-webapp/statistics" class="list-group-item">Shop statistic</a>
-                <a href="/my-webapp/adminProducts" class="list-group-item">Goods management</a>
+                <a href="${pageContext.request.contextPath}/orderList" class="list-group-item">Order list</a>
+                <a href="${pageContext.request.contextPath}/statistics" class="list-group-item">Shop statistic</a>
+                <a href="${pageContext.request.contextPath}/adminProducts" class="list-group-item">Goods management</a>
             </div>
         </div>
 

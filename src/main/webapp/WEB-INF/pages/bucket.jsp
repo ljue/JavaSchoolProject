@@ -180,14 +180,14 @@
         var idProduct = obj.value;
         $.ajax({
             type: "POST",
-            url: "/addToCart/" + idProduct
+            url: "${pageContext.request.contextPath}/addToCart/" + idProduct
         })
     };
     function deleteProductFromCart(obj) {
         var idProduct = obj.value;
         $.ajax({
             type: "POST",
-            url: "/deleteFromCart/" + idProduct
+            url: "${pageContext.request.contextPath}/deleteFromCart/" + idProduct
         })
     };
 
