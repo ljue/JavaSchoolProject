@@ -7,10 +7,10 @@
         <div class="col-md-4 col-sm-3">
                 <span class="thumbnail">
                     <a role="button" data-toggle="modal" href="#product${product.productId}">
-                    <img src="../resources/Images/${product.presentPic}" alt="...">
+                    <img src="resources/Images/${product.presentPic}" alt="...">
                     </a>
 
-                    <div class="size-div-name"><h5>${product.productName}</h5></div>
+                    <div class="size-div-name" data-toggle="tooltip" title="${product.productName}"><h5>${product.presentProductName}</h5></div>
                     <hr class="line">
                     <div class="row">
                         <div class="col-md-6 col-sm-6">
@@ -23,6 +23,7 @@
 
                     </div>
                 </span>
+
         </div>
         <div class="modal fade product_view" id="product${product.productId}">
             <div class="modal-dialog">
@@ -86,4 +87,10 @@
             url: "/addToCart/" + idProduct
         })
     }
+</script>
+
+<script>
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();
+    });
 </script>

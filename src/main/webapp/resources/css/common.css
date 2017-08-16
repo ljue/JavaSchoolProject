@@ -13,13 +13,7 @@
 }
 
 .size-div-name {
-    height: 50px;
-    overflow: hidden;
-    -moz-transition: overflow 1s ease-out 0.5s;
-}
-
-.size-div-name:hover {
-    overflow: visible;
+    height: 40px;
 }
 
 

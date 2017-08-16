@@ -9,7 +9,7 @@
 
 </head>
 <body>
-<jsp:include page="${pageContext.request.contextPath}../templates/navigation.jsp"/>
+<jsp:include page="../templates/navigation.jsp"/>
 <br>
 <br>
 
@@ -66,7 +66,7 @@
                                                             ${address.streetAddress},<br>
                                                         Post code: ${address.postIndex}<br>
                                                     </li>
-                                                    <br><br><br></br>
+                                                    <br><br><br>
                                                 </ul>
                                             </div>
                                         </div>
@@ -83,7 +83,7 @@
 
                     <div id="panel2" class="tab-pane fade">
                         <br>
-                        <form:form modelAttribute="formAddAddress" method="post" action="${pageContext.request.contextPath}/address/add"
+                        <form:form modelAttribute="formAddAddress" method="post" action="/address/add"
                                    class="form-horizontal">
                             <fieldset>
                                 <spring:bind path="country">

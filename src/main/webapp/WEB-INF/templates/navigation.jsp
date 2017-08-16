@@ -3,10 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set value="${pageContext.request.contextPath}" var="myContext"/>
 <head>
-    <jsp:include page="${pageContext.request.contextPath}head.jsp"/>
+    <jsp:include page="head.jsp"/>
 </head>
 
-<jsp:include page="${pageContext.request.contextPath}scripts.jsp" />
+<jsp:include page="scripts.jsp" />
 <!-- Navigation -->
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">

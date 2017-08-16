@@ -11,7 +11,7 @@
     <title>Log in</title>
 </head>
 <body>
-<jsp:include page="${pageContext.request.contextPath}../templates/navigation.jsp"/>
+<jsp:include page="../templates/navigation.jsp"/>
 
 
 <%--<c:url var="checkaction" value="${pageContext.request.contextPath}/login"/>--%>

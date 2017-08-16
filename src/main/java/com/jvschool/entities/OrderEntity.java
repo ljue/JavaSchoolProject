@@ -13,7 +13,7 @@ import java.util.List;
 @Setter
 @EqualsAndHashCode
 @Entity
-@Table(name = "ORDER", schema = "MYSHOP_SCHEMA")
+@Table(name = "ORDERS", schema = "MYSHOP_SCHEMA")
 public class OrderEntity {
 
     @Id
@@ -37,7 +37,7 @@ public class OrderEntity {
     @JoinColumn(name = "PAY_WAY_ID", referencedColumnName = "PAY_WAY_ID", nullable = false)
     private PayWayEntity payWay;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinColumn(name = "DELIVERY_STATUS_ID", referencedColumnName = "DELIVERY_STATUS_ID")
     private DeliveryStatusEntity deliveryStatus;
 

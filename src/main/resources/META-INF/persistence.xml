@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
 
-    <persistence-unit name="mms-persistence-unit" transaction-type="JTA">
-    <!--<persistence-unit name="mms-persistence-unit" transaction-type="RESOURCE_LOCAL">-->
+    <!--<persistence-unit name="mms-persistence-unit" transaction-type="JTA">-->
+    <persistence-unit name="mms-persistence-unit" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
+        <class>com.jvschool.entities.OrderEntity</class>
         <class>com.jvschool.entities.PropertyEntity</class>
         <class>com.jvschool.entities.DeliveryWayEntity</class>
         <class>com.jvschool.entities.PropertyGroupEntity</class>
@@ -17,7 +18,7 @@
         <class>com.jvschool.entities.ProductEntity</class>
         <class>com.jvschool.entities.PicturesEntity</class>
         <class>com.jvschool.entities.RoleEntity</class>
-        <class>com.jvschool.entities.OrderEntity</class>
+
 
         <properties>
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
@@ -26,7 +27,7 @@
             <property name="hibernate.connection.username" value="root"/>
             <property name="hibernate.connection.password" value="password"/>
             <!--<property name="hibernate.connection.url" value="jdbc:log4jdbc:mysql://localhost:3306/MYSHOP_SCHEMA"/>-->
-            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
             <property name="hibernate.show_sql" value = "true"/>
             <!--<property name="openjpa.TransactionMode" value="managed"/>-->
             <!--<property name="openjpa.ManagedRuntime" value="jndi(TransactionManagerName=java:/TransactionManager)"/>-->

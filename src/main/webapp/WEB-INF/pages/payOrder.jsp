@@ -5,7 +5,7 @@
     <title>Pay order</title>
 </head>
 <body>
-<jsp:include page="${pageContext.request.contextPath}../templates/navigation.jsp"/>
+<jsp:include page="../templates/navigation.jsp"/>
 
 <div class="container">
 

@@ -5,11 +5,10 @@
     <title>Start page</title>
 </head>
 <body>
-<jsp:include page="${pageContext.request.contextPath}../templates/navigation.jsp" />
-<br>
+<jsp:include page="../templates/navigation.jsp" />
 <div class="page-flexbox-wrapper">
     <div class="parallax-container">
-        <div class="parallax"><img src="${pageContext.request.contextPath}/../resources/Images/zakat.jpg" class="img-responsive"></div>
+        <div class="parallax"><img src="resources/Images/zakat.jpg" class="img-responsive"></div>
     </div>
     <div class="row">
 
