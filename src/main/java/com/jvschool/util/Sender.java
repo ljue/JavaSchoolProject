@@ -1,15 +1,17 @@
 package com.jvschool.util;
 
+import lombok.extern.log4j.Log4j;
+
 import javax.jms.*;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import java.util.Hashtable;
 
-
+@Log4j
 public class Sender {
 
-    public static void send() throws NamingException, JMSException {
+    public void send() {
 
         Hashtable<String, String> props = new Hashtable<>();
         props.put("java.naming.factory.initial", "org.apache.activemq.jndi.ActiveMQInitialContextFactory");
@@ -17,23 +19,31 @@ public class Sender {
         props.put("queue.js-queue", "my_jms_queue");
         props.put("connectionFactoryNames", "queueCF");
 
-        Context context = new InitialContext(props);
-        QueueConnectionFactory connectionFactory = (QueueConnectionFactory) context.lookup("queueCF");
-        Queue queue = (Queue) context.lookup("js-queue");
+        try {
 
-        QueueConnection connection = connectionFactory.createQueueConnection();
-        connection.start();
+            Context context = new InitialContext(props);
+            QueueConnectionFactory connectionFactory = (QueueConnectionFactory) context.lookup("queueCF");
+            Queue queue = (Queue) context.lookup("js-queue");
 
-        QueueSession session = connection.createQueueSession(false, QueueSession.AUTO_ACKNOWLEDGE);
+            QueueConnection connection = connectionFactory.createQueueConnection();
+            connection.start();
 
-        QueueSender sender = session.createSender(queue);
-        TextMessage message = session.createTextMessage("Need for speed");
+            QueueSession session = connection.createQueueSession(false, QueueSession.AUTO_ACKNOWLEDGE);
 
-        sender.send(message);
+            QueueSender sender = session.createSender(queue);
+            TextMessage message = session.createTextMessage("Need for speed");
 
-        sender.close();
-        session.close();
-        connection.close();
+            sender.send(message);
+
+            log.info("Message send");
+            sender.close();
+            session.close();
+            connection.close();
+        } catch ( NamingException e) {
+            log.info(e.toString());
+        } catch (JMSException e) {
+            e.printStackTrace();
+        }
     }
 
 }

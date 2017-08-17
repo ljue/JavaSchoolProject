@@ -9,10 +9,12 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
 import java.io.IOException;
+import java.util.Properties;
 
 
 @Configuration
@@ -47,6 +49,34 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         CommonsMultipartResolver resolver = new CommonsMultipartResolver();
         resolver.setMaxUploadSizePerFile(5242880);
         return resolver;
+    }
+
+    @Bean(name = "simpleMappingExceptionResolver")
+    public SimpleMappingExceptionResolver simpleMappingExceptionResolver() {
+        SimpleMappingExceptionResolver exceptionResolver = new SimpleMappingExceptionResolver();
+
+        Properties exceptionMappings = new Properties();
+
+        exceptionMappings.put("TodoNotFoundException", "error/404");
+        exceptionMappings.put("java.lang.Exception", "error/error");
+        exceptionMappings.put("java.lang.RuntimeException", "error/error");
+
+        exceptionResolver.setExceptionMappings(exceptionMappings);
+
+        Properties statusCodes = new Properties();
+
+        statusCodes.put("error/404", "404");
+        statusCodes.put("error/error", "500");
+
+        exceptionResolver.setStatusCodes(statusCodes);
+
+        exceptionResolver.setDefaultErrorView("wrong"); // wrong.jsp
+        exceptionResolver.setDefaultStatusCode (500);
+        exceptionResolver.setDefaultStatusCode (400);
+        exceptionResolver.setDefaultStatusCode (404);
+
+        return exceptionResolver;
+
     }
 
 

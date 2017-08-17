@@ -1,6 +1,9 @@
 package com.jvschool.svc.Impl;
 
-import com.jvschool.dao.*;
+import com.jvschool.dao.AddressDAO;
+import com.jvschool.dao.OrderDAO;
+import com.jvschool.dao.PayWayDAO;
+import com.jvschool.dao.UserDAO;
 import com.jvschool.entities.BucketEntity;
 import com.jvschool.entities.DeliveryStatusEntity;
 import com.jvschool.entities.OrderEntity;
@@ -10,6 +13,8 @@ import com.jvschool.svc.OrderService;
 import com.jvschool.svc.ProductService;
 import com.jvschool.util.Attributes.BucketAttribute;
 import com.jvschool.util.Attributes.OrderAttribute;
+import com.jvschool.util.Attributes.ProductAttribute;
+import com.jvschool.util.Sender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -64,7 +69,15 @@ public class OrderServiceImpl implements OrderService {
         }
         orderEntity.setBuckets(lbe);
 
+        List<ProductAttribute> productAttributesBefore = productService.getTopProducts();
+
         orderDAO.saveOrder(orderEntity);
+
+        List<ProductAttribute> productAttributesAfter = productService.getTopProducts();
+
+        if(!productAttributesAfter.equals(productAttributesBefore)) {
+            new Sender().send();
+        }
     }
 
     @Override

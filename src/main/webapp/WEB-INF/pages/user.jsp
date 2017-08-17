@@ -35,7 +35,7 @@
                     <h3>Personal info</h3>
 
 
-                    <form:form method="POST" modelAttribute="userForm" action="${pageContext.request.contextPath}user/editInfo" class="form-horizontal">
+                    <form:form method="POST" modelAttribute="userForm" action="${pageContext.request.contextPath}/user/editInfo" class="form-horizontal">
 
 
                         <spring:bind path="firstName">
@@ -112,7 +112,7 @@
                 <div class="col-md-8 col-sm-6 col-xs-12 personal-info">
                     <h4>Change Password</h4>
 
-                    <form:form method="POST" modelAttribute="userForm" action="${pageContext.request.contextPath}user/editPass"  class="form-horizontal">
+                    <form:form method="POST" modelAttribute="userForm" action="${pageContext.request.contextPath}/user/editPass"  class="form-horizontal">
 
                         <spring:bind path="pass">
                         <div class="form-group ${status.error ? 'has-error' : ''}" >

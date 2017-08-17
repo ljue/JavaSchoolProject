@@ -84,7 +84,7 @@
         var idProduct = obj.value;
         $.ajax({
             type: "POST",
-            url: "/addToCart/" + idProduct
+            url: "${pageContext.request.contextPath}/addToCart/" + idProduct
         })
     }
 </script>

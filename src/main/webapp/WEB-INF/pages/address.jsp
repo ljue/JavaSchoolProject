@@ -83,7 +83,7 @@
 
                     <div id="panel2" class="tab-pane fade">
                         <br>
-                        <form:form modelAttribute="formAddAddress" method="post" action="/address/add"
+                        <form:form modelAttribute="formAddAddress" method="post" action="${pageContext.request.contextPath}/address/add"
                                    class="form-horizontal">
                             <fieldset>
                                 <spring:bind path="country">
