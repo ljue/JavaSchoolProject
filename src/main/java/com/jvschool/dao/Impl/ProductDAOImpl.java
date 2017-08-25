@@ -3,11 +3,10 @@ package com.jvschool.dao.Impl;
 import com.jvschool.dao.CategoryDAO;
 import com.jvschool.dao.ProductDAO;
 import com.jvschool.dao.PropertyDAO;
-import com.jvschool.entities.CategoryEntity;
-import com.jvschool.entities.OrderEntity;
-import com.jvschool.entities.ProductEntity;
-import com.jvschool.entities.PropertyEntity;
+import com.jvschool.dao.PropertyGroupDAO;
+import com.jvschool.entities.*;
 import com.jvschool.util.Attributes.FilterAttribute;
+import javafx.beans.property.Property;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -28,6 +27,8 @@ public class ProductDAOImpl implements ProductDAO {
     private CategoryDAO categoryDAO;
     @Autowired
     private PropertyDAO propertyDAO;
+    @Autowired
+    private PropertyGroupDAO propertyGroupDAO;
 
 
     @Override
@@ -82,7 +83,10 @@ public class ProductDAOImpl implements ProductDAO {
 
         List<ProductEntity> list = em.createQuery(criteriaQuery).getResultList();
 
-        return list;
+        int countTop = 10;
+        countTop = countTop < list.size() ? countTop : list.size();
+
+        return list.subList(0,countTop-1);
     }
 
     @Override
@@ -99,7 +103,6 @@ public class ProductDAOImpl implements ProductDAO {
                 propertyNotSoloEntityList.add(propertyEntity);
             }
         }
-
 
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery criteriaQuery = criteriaBuilder.createQuery();

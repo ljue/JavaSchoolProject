@@ -5,14 +5,8 @@
 <head>
     <title>Bucket</title>
     <style>
-        @import url(//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
-
         tbody > tr {
             cursor: pointer;
-        }
-
-        .result {
-            margin-top: 20px;
         }
     </style>
 </head>

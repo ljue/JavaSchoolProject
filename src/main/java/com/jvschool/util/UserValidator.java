@@ -15,8 +15,8 @@ import org.springframework.validation.Validator;
 @Component
 public class UserValidator implements Validator {
 
-    @Autowired
-    private UserService userService;
+//    @Autowired
+//    private UserService userService;
 
 
     @Override
@@ -34,9 +34,9 @@ public class UserValidator implements Validator {
             errors.rejectValue("login", "Size.userForm.login", "Username must be between 4 and 30 characters.");
         }
 
-        if (userService.getUserByLogin(user.getLogin()) != null) {
-            errors.rejectValue("login", "Duplicate.userForm.login", "Such username already exists.");
-        }
+//        if (userService.getUserByLogin(user.getLogin()) != null) {
+//            errors.rejectValue("login", "Duplicate.userForm.login", "Such username already exists.");
+//        }
 
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "pass", "Required", "This field is required.");
@@ -59,9 +59,9 @@ public class UserValidator implements Validator {
         if (!EmailValidator.getInstance(allowLocal).isValid(user.getEmail())) {
             errors.rejectValue("email","Unvalidated.userForm.email", "Email is unvalidated.");
         }
-        if (userService.getUserByEmail(user.getEmail())!=null) {
-            errors.rejectValue("email","Duplicate.userForm.email", "Such email already exists.");
-        }
+//        if (userService.getUserByEmail(user.getEmail())!=null) {
+//            errors.rejectValue("email","Duplicate.userForm.email", "Such email already exists.");
+//        }
 
     }
 

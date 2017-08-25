@@ -130,5 +130,10 @@ public class UserServiceImpl implements UserService {
         return userDAO.getUserIdByEmail(email);
     }
 
+    @Override
+    public long getUserIdByLogin(String login) {
+        return userDAO.getUserIdByLogin(login);
+    }
+
 
 }

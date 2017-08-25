@@ -8,11 +8,24 @@ import java.util.List;
 
 public interface AddressService {
 
-    List<AddressEntity> getAllAddressesByUserId(long id);
-    void addNewAddress(AddressEntity addressEntity);
+
+    /**
+     * Get address entity by id.
+     * @param id
+     * @return
+     */
     AddressEntity getAddressById(long id);
 
+    /**
+     * Get all address entities by user id and convert it to list of address dto.
+     * @param id
+     * @return
+     */
+    List<AddressAttribute> getAllAddressesByUserId(long id);
 
-    List<AddressAttribute> getAllAddressesByUserIdS(long id);
+    /**
+     * Convert address dto to address entity and save it in database.
+     * @param addressAttribute
+     */
     void addNewAddress(AddressAttribute addressAttribute);
 }

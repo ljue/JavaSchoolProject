@@ -130,7 +130,10 @@ public class UserDAOImpl implements UserDAO {
 
         List<UserEntity> list = em.createQuery(criteriaQuery).getResultList();
 
-        return list;
+        int countTop = 10;
+        countTop = countTop < list.size() ? countTop : list.size();
+
+        return list.subList(0,countTop-1);
     }
 
     @Override
@@ -142,5 +145,13 @@ public class UserDAOImpl implements UserDAO {
         else { return (long) list.get(0); }
     }
 
+    @Override
+    public long getUserIdByLogin(String login) {
+        List list =  em.createQuery("select u.id FROM UserEntity u where u.login=:login")
+                .setParameter("login", login).getResultList();
+
+        if(list.isEmpty()) { return 0; }
+        else { return (long) list.get(0); }
+    }
 
 }

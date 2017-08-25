@@ -4,6 +4,7 @@
 <c:set value="${pageContext.request.contextPath}" var="myContext"/>
 <head>
     <jsp:include page="head.jsp"/>
+
 </head>
 
 <jsp:include page="scripts.jsp" />
@@ -35,10 +36,11 @@
                     </li>
                 </c:if>
                 <li>
-                    <a href="${pageContext.request.contextPath}/bucket">Shopping cart</a>
+                    <a href="${pageContext.request.contextPath}/bucket">
+                        <i class="fa fa-shopping-cart" style="font-size:16px"></i> Cart</a>
                 </li>
                 <c:if test="${user.role ne 'ROLE_ANONYM'}">
-                    <li>
+                    <li >
                         <a href="${pageContext.request.contextPath}/logout">Log out</a>
                     </li>
                 </c:if>

@@ -10,10 +10,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @SessionAttributes("user")
-//@RequestMapping("/my-webapp")
 public class LoginController {
 
 
@@ -69,7 +70,8 @@ public class LoginController {
     public String registration(@ModelAttribute("userForm") SessionUser userForm, BindingResult bindingResult,
                                @ModelAttribute("user") SessionUser user, Model model) {
         userValidator.validate(userForm, bindingResult);
-        userService.addUser(user);
+      //  userService.addUser(user);
+
 
         if (bindingResult.hasErrors()) {
             return "registration";
@@ -82,4 +84,23 @@ public class LoginController {
         model.addAttribute("user",userForm);
         return "redirect:/home";
     }
+
+    @PostMapping(value = "/registration/findEmail/")
+    @ResponseBody
+    public String checkEmailExisting(@RequestParam String email) {
+        if (userService.getUserIdByEmail(email)!=0) {
+            return "this email already exists";
+        } else
+            return "";
+    }
+
+    @PostMapping(value = "/registration/findLogin/")
+    @ResponseBody
+    public String checkLoginExisting(@RequestParam String login) {
+        if (userService.getUserIdByLogin(login)!=0) {
+            return "this login already exists";
+        } else
+            return "";
+    }
+
 }

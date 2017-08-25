@@ -39,7 +39,7 @@ public class OrderController {
 
         model.addAttribute("orderForm", new OrderAttribute());
         model.addAttribute("newAddress", new AddressAttribute());
-        model.addAttribute("addresses", addressService.getAllAddressesByUserIdS(user.getId()));
+        model.addAttribute("addresses", addressService.getAllAddressesByUserId(user.getId()));
 
         model.addAttribute("payWays", payWayService.getAllPayWays());
         model.addAttribute("deliveryWays",deliveryWayService.getAllDeliveryWays());

@@ -7,7 +7,7 @@
         <div class="col-md-4 col-sm-3">
                 <span class="thumbnail">
                     <a role="button" data-toggle="modal" href="#product${product.productId}">
-                    <img src="resources/Images/${product.presentPic}" alt="...">
+                    <img src="${pageContext.request.contextPath}/resources/Images/${product.presentPic}" alt="...">
                     </a>
 
                     <div class="size-div-name" data-toggle="tooltip" title="${product.productName}"><h5>${product.presentProductName}</h5></div>
@@ -35,7 +35,7 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-6 product_img">
-                                <img src="../resources/Images/${product.presentPic}"
+                                <img src="${pageContext.request.contextPath}/resources/Images/${product.presentPic}"
                                      class="img-responsive">
                             </div>
                             <div class="col-md-6 product_content">

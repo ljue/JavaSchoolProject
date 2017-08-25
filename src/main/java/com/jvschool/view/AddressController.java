@@ -25,7 +25,7 @@ public class AddressController {
     @GetMapping(value = "/address")
     public String goAddressInfo(@ModelAttribute("user") SessionUser user, Model model) {
 
-        model.addAttribute("addresses", addressService.getAllAddressesByUserIdS(user.getId()));
+        model.addAttribute("addresses", addressService.getAllAddressesByUserId(user.getId()));
         model.addAttribute("formAddAddress", new AddressAttribute());
 
         return "address";

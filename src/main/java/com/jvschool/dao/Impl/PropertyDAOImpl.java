@@ -2,6 +2,7 @@ package com.jvschool.dao.Impl;
 
 import com.jvschool.dao.PropertyDAO;
 import com.jvschool.entities.PropertyEntity;
+import com.jvschool.entities.PropertyGroupEntity;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -21,6 +22,14 @@ public class PropertyDAOImpl implements PropertyDAO {
         List <PropertyEntity> properties = em.createQuery("FROM PropertyEntity ").getResultList();
 
         return properties;
+    }
+
+    @Override
+    public List<PropertyEntity> getPropertiesFromGroup(PropertyGroupEntity group) {
+
+        List<PropertyEntity> propertyEntityList = em.createQuery("FROM PropertyEntity " +
+                " where propertyGroup=:propertyGroup").setParameter("propertyGroup", group).getResultList();
+        return  propertyEntityList;
     }
 
     @Override

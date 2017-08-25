@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -51,33 +52,34 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         return resolver;
     }
 
-    @Bean(name = "simpleMappingExceptionResolver")
-    public SimpleMappingExceptionResolver simpleMappingExceptionResolver() {
-        SimpleMappingExceptionResolver exceptionResolver = new SimpleMappingExceptionResolver();
 
-        Properties exceptionMappings = new Properties();
-
-        exceptionMappings.put("TodoNotFoundException", "error/404");
-        exceptionMappings.put("java.lang.Exception", "error/error");
-        exceptionMappings.put("java.lang.RuntimeException", "error/error");
-
-        exceptionResolver.setExceptionMappings(exceptionMappings);
-
-        Properties statusCodes = new Properties();
-
-        statusCodes.put("error/404", "404");
-        statusCodes.put("error/error", "500");
-
-        exceptionResolver.setStatusCodes(statusCodes);
-
-        exceptionResolver.setDefaultErrorView("wrong"); // wrong.jsp
-        exceptionResolver.setDefaultStatusCode (500);
-        exceptionResolver.setDefaultStatusCode (400);
-        exceptionResolver.setDefaultStatusCode (404);
-
-        return exceptionResolver;
-
-    }
+//    @Bean(name = "simpleMappingExceptionResolver")
+//    public SimpleMappingExceptionResolver simpleMappingExceptionResolver() {
+//        SimpleMappingExceptionResolver exceptionResolver = new SimpleMappingExceptionResolver();
+//
+//        Properties exceptionMappings = new Properties();
+//
+//        exceptionMappings.put("TodoNotFoundException", "errors/wrong");
+//        exceptionMappings.put("java.lang.Exception", "errors/wrong");
+//        exceptionMappings.put("java.lang.RuntimeException", "errors/wrong");
+//
+//        exceptionResolver.setExceptionMappings(exceptionMappings);
+//
+//        Properties statusCodes = new Properties();
+//
+//        statusCodes.put("error/404", "404");
+//        statusCodes.put("error/error", "500");
+//
+//        exceptionResolver.setStatusCodes(statusCodes);
+//
+//        exceptionResolver.setDefaultErrorView("wrong"); // error.jsp
+//        exceptionResolver.setDefaultStatusCode (500);
+//        exceptionResolver.setDefaultStatusCode (400);
+//        exceptionResolver.setDefaultStatusCode (404);
+//
+//        return exceptionResolver;
+//
+//    }
 
 
 }

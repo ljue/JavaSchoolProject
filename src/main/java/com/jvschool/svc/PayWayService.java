@@ -7,9 +7,15 @@ import java.util.List;
 
 public interface PayWayService {
     /**
-     * Some Desription
-     *
+     * Get list of names all pay ways
+     * @return
      */
     List<String> getAllPayWays();
+
+    /**
+     * Get pay way entity by name
+     * @param name
+     * @return
+     */
     PayWayEntity getPayWayByName(String name);
 }

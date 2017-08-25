@@ -33,12 +33,13 @@ public class ReportRestController {
             ProductDTO productDTO = new ProductDTO();
             productDTO.setProductId(productAttribute.getProductId());
             productDTO.setProductName(productAttribute.getProductName());
-            productDTO.setPresentProductName(productAttribute.getPresentProductName());
+           // productDTO.setPresentProductName(productAttribute.getPresentProductName());
             productDTO.setCost(productAttribute.getCost());
-            productDTO.setCategory(productAttribute.getCategory());
-            productDTO.setDescription(productAttribute.getDescription());
+           // productDTO.setCategory(productAttribute.getCategory());
+          //  productDTO.setDescription(productAttribute.getDescription());
+            productDTO.setPicture(productAttribute.getPresentPic());
             productDTOList.add(productDTO);
-            log.info(productDTO.toString());
+//            log.info(productDTO.toString());
         }
         productsDTO.setProducts(productDTOList);
 

@@ -28,7 +28,7 @@
             <property name="hibernate.connection.password" value="password"/>
             <!--<property name="hibernate.connection.url" value="jdbc:log4jdbc:mysql://localhost:3306/MYSHOP_SCHEMA"/>-->
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
-            <property name="hibernate.show_sql" value = "true"/>
+            <!--<property name="hibernate.show_sql" value = "true"/>-->
             <!--<property name="openjpa.TransactionMode" value="managed"/>-->
             <!--<property name="openjpa.ManagedRuntime" value="jndi(TransactionManagerName=java:/TransactionManager)"/>-->
             <property name="hibernate.transaction.jta.platform" value="org.hibernate.service.jta.platform.internal.JBossAppServerJtaPlatform" />

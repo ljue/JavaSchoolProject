@@ -14,7 +14,7 @@
     <div class="container" align="center">
         <h2 align="center"style="color: lightseagreen">Something went wrong on our site</h2>
         <h3 align="center"style="color: dodgerblue">Keep calm and come back later</h3>
-        <div style="margin-bottom: 20px"><img src="/resources/Images/rasswet.jpg"></div>
+        <div style="margin-bottom: 20px"><img src="${pageContext.request.contextPath}/resources/Images/rasswet.jpg"></div>
     </div>
 </section>
 

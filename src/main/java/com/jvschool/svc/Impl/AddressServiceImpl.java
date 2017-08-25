@@ -21,23 +21,13 @@ public class AddressServiceImpl implements AddressService {
 
 
     @Override
-    public List<AddressEntity> getAllAddressesByUserId(long id) {
-        return addressDAO.getAllAddressesByUserId(id);
-    }
-
-    @Override
-    public void addNewAddress(AddressEntity addressEntity) {
-        addressDAO.addNewAddress(addressEntity);
-    }
-
-    @Override
     public AddressEntity getAddressById(long id) {
         return addressDAO.getAddressById(id);
     }
 
 
     @Override
-    public List<AddressAttribute> getAllAddressesByUserIdS(long id) {
+    public List<AddressAttribute> getAllAddressesByUserId(long id) {
         List<AddressAttribute> laa = new ArrayList<>();
         addressDAO.getAllAddressesByUserId(id)
                 .stream().forEachOrdered((ae) -> laa.add(new AddressAttribute(ae)));

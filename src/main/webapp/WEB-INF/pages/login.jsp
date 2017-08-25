@@ -13,9 +13,6 @@
 <body>
 <jsp:include page="../templates/navigation.jsp"/>
 
-
-<%--<c:url var="checkaction" value="${pageContext.request.contextPath}/login"/>--%>
-
 <div class="container">
 
     <form method="POST"  action="${pageContext.request.contextPath}/login" class="form-signin">
@@ -23,21 +20,19 @@
 
         <div class="form-group ${error != null ? 'has-error' : ''}">
             <span>${message}</span>
-            <input name="login" type="text" class="form-control" placeholder="Login"
+            <input required name="login" type="text" class="form-control" placeholder="Login"
                    autofocus="true"/>
-            <input name="pass" type="password" class="form-control" placeholder="Password"/>
+            <input required name="pass" type="password" class="form-control" placeholder="Password"/>
             <span>${error}</span>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
             <button class="btn btn-lg btn-primary btn-block" type="submit">Log In</button>
-            <h4 class="text-center"><a href="/registration">Create an account</a></h4>
+            <h4 class="text-center"><a href="${pageContext.request.contextPath}/registration">Create an account</a></h4>
         </div>
 
     </form>
 
 </div>
 
-
-<!-- /.container -->
 </body>
 </html>
