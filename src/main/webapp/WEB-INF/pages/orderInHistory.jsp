@@ -4,11 +4,11 @@
 <head>
     <title>Order in history</title>
 
-<jsp:include page="../templates/head.jsp"/>
+    <jsp:include page="../templates/head.jsp"/>
 </head>
 <body>
 <jsp:include page="../templates/navigation.jsp"/>
-<jsp:include page="../templates/scripts.jsp" />
+<jsp:include page="../templates/scripts.jsp"/>
 
 <%--<c:url var="editInfo" value="/my-webapp/user/editInfo"/>--%>
 <%--<c:url var="editPass" value="/my-webapp/user/editPass"/>--%>
@@ -31,31 +31,35 @@
 
             <div class="row">
                 <h3>#Order Id: ${orderIn.orderId}</h3><br>
-                    <%--<h4>Delivery status: ${orderIn.deliveryStatus}</h4>--%>
-                    <%--<h4>Pay way: ${orderIn.payWay}</h4>--%>
-                    <%--<h4>Delivery way: ${orderIn.deliveryWay}</h4>--%>
+                <%--<h4>Delivery status: ${orderIn.deliveryStatus}</h4>--%>
+                <%--<h4>Pay way: ${orderIn.payWay}</h4>--%>
+                <%--<h4>Delivery way: ${orderIn.deliveryWay}</h4>--%>
 
                 <%--<h4>Address: ${addressOrder.country}, ${addressOrder.region}, ${addressOrder.city},--%>
-                    <%--${addressOrder.streetAddress}, post code ${addressOrder.postIndex}</h4>--%>
+                <%--${addressOrder.streetAddress}, post code ${addressOrder.postIndex}</h4>--%>
 
                 <div class="form-group">
                     <label class="col-md-3">Delivery status:</label>
                     <label class="col-md-3">${orderIn.deliveryStatus}</label>
-                </div><br>
+                </div>
+                <br>
                 <div class="form-group">
                     <label class="col-md-3">Pay way:</label>
                     <label class="col-md-3">${orderIn.payWay}</label>
-                </div><br>
+                </div>
+                <br>
                 <div class="form-group">
                     <label class="col-md-3">Delivery way:</label>
                     <label class="col-md-3">${orderIn.deliveryWay}</label>
-                </div><br>
+                </div>
+                <br>
                 <div class="form-group">
                     <label class="col-md-3">Address:</label>
                     <label class="col-md-8">${addressOrder.country}, ${addressOrder.region}, ${addressOrder.city},
                         ${addressOrder.streetAddress}, post code ${addressOrder.postIndex}</h4>
                     </label>
-                </div><br><br><br>
+                </div>
+                <br><br><br>
                 <br>
 
                 <table class="table table-hover">
@@ -69,51 +73,58 @@
                     </thead>
                     <tbody>
                     <c:forEach items="${products}" var="product">
-                    <c:forEach items="${buckets}" var="bucket" varStatus="status">
-                        <c:if test="${product.productId eq bucket.productId}">
-                        <tr data-toggle="modal" href="#productInOrder${product.productId}">
-                            <td>${bucket.productId}</td>
-                            <td>${product.productName}</td>
-                            <td>${bucket.countProduct}</td>
-                            <td>$${product.cost * bucket.countProduct}</td>
-                        </tr>
+                        <c:forEach items="${buckets}" var="bucket" varStatus="status">
+                            <c:if test="${product.productId eq bucket.productId}">
+                                <tr data-toggle="modal" href="#productInOrder${product.productId}">
+                                    <td>${bucket.productId}</td>
+                                    <td>${product.productName}</td>
+                                    <td>${bucket.countProduct}</td>
+                                    <td>$${product.cost * bucket.countProduct}</td>
+                                </tr>
 
 
+                            </c:if>
 
-                        </c:if>
+                            <div class="modal fade product_view" id="productInOrder${product.productId}">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
 
-                        <div class="modal fade product_view" id="productInOrder${product.productId}">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
+                                            <h3 class="modal-title">${product.productName}</h3>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <div class="col-md-6 product_img">
+                                                    <img src="../resources/Images/${product.presentPic}"
+                                                         class="img-responsive">
+                                                </div>
+                                                <div class="col-md-6 product_content">
+                                                    <h4>Product Id: <span>${product.productId}</span></h4>
 
-                                        <h3 class="modal-title">${product.productName}</h3>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="row">
-                                            <div class="col-md-6 product_img">
-                                                <img src="../resources/Images/${product.presentPic}"
-                                                     class="img-responsive">
-                                            </div>
-                                            <div class="col-md-6 product_content">
-                                                <h4>Product Id: <span>${product.productId}</span></h4>
+                                                    <h5>Name: <span>${product.productName}</span></h5>
+                                                    <h5>Category: <span>${product.category}</span></h5>
+                                                    <h5>Battery: <span>${product.battery}</span></h5>
+                                                    <h5>Fly time: <span>${product.flyTime}</span></h5>
+                                                    <h5>Distance: <span>${product.distance}</span></h5>
+                                                    <c:forEach items="${product.properties}" var="propertyGroup">
+                                                        <h5>${propertyGroup.key}: <span>
+                                                        <c:forEach items="${propertyGroup.value}" var="property" varStatus="status">
+                                                            <c:if test="${status.index eq 0}">${property}</c:if>
+                                                            <c:if test="${status.index gt 0}">, ${property}</c:if>
+                                                        </c:forEach>
+                                                    </span></h5>
+                                                    </c:forEach>
+                                                    <h5>${product.description}</h5>
 
-                                                <h5>Name: <span>${product.productName}</span></h5>
-                                                <h5>Category: <span>${product.category}</span></h5>
-                                                <h5>Battery: <span>${product.battery}</span></h5>
-                                                <h5>Fly time: <span>${product.flyTime}</span></h5>
-                                                <h5>Distance: <span>${product.distance}</span></h5>
-                                                <h5>${product.description}</h5>
+                                                    <h3 class="cost"></span> $${product.cost}</h3>
 
-                                                <h3 class="cost"></span> $${product.cost}</h3>
-
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </c:forEach>
+                        </c:forEach>
                     </c:forEach>
                     <tr>
                         <td></td>

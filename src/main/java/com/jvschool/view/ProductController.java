@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 @Controller
@@ -45,8 +46,7 @@ public class ProductController {
     public String getProductsByCategory(@PathVariable("category") String category, Model model) {
         if (category.equals("All")) {
             model.addAttribute("allProducts", productService.getAllProducts());
-        }
-        else {
+        } else {
             model.addAttribute("allProducts", productService.getProductsByCategory(category));
         }
         suchCategory = category;
@@ -74,57 +74,77 @@ public class ProductController {
     @PostMapping(value = "/addToCart/{idProduct}")
     public void addToCart(@PathVariable("idProduct") Long id, @ModelAttribute("user") SessionUser user, Model model) {
 
-        if(user.getProducts()==null) {
-            Map<Long,Integer> map= new HashMap<>();
-            map.put(id,1);
+        if (user.getProducts() == null) {
+            Map<Long, Integer> map = new HashMap<>();
+            map.put(id, 1);
             user.setProducts(map);
         } else {
-            Integer val =user.getProducts().get(id);
-            if(val==null)
-            {
-                user.getProducts().put(id,1);
+            Integer val = user.getProducts().get(id);
+            if (val == null) {
+                user.getProducts().put(id, 1);
             } else {
                 val++;
-                user.getProducts().put(id,val);
-            }
-        }
-        model.addAttribute("user", user);
-    }
-
-    @PostMapping(value = "/deleteFromCart/{idProduct}")
-    public void deleteFromCart(@PathVariable("idProduct") Long id, @ModelAttribute("user") SessionUser user, Model model) {
-
-        Integer val =user.getProducts().get(id);
-        if(val==null) {
-            return;
-        } else {
-            val--;
-            if(val==0){
-                user.getProducts().remove(id);
-            }
-            else {
                 user.getProducts().put(id, val);
             }
         }
         model.addAttribute("user", user);
     }
 
+    @PostMapping(value = "/minusFromCart/{idProduct}")
+    public void minusFromCart(@PathVariable("idProduct") Long id, @ModelAttribute("user") SessionUser user, Model model) {
+
+        Integer val = user.getProducts().get(id);
+        if (val == null) {
+            return;
+        } else {
+            val--;
+            if (val == 0) {
+                user.getProducts().remove(id);
+            } else {
+                user.getProducts().put(id, val);
+            }
+        }
+        model.addAttribute("user", user);
+    }
+
+    @PostMapping(value = "/changeCountInCart/{idProduct}")
+    public String changeCountProductInCart(@PathVariable("idProduct") long id, @RequestParam("count") int count,
+                                           @ModelAttribute("user") SessionUser user, Model model) {
+        if(count>0) {
+            user.getProducts().put(id, count);
+        } else {
+            user.getProducts().remove(id);
+        }
+        model.addAttribute("user", user);
+
+        Map<ProductAttribute, Integer> productsInCart = new HashMap<>();
+        double totalPrice = 0;
+
+        for (Long productKey : user.getProducts().keySet()) {
+            ProductAttribute pa = productService.getProductAttributeById(productKey);
+            productsInCart.put(pa, user.getProducts().get(productKey));
+            totalPrice = totalPrice + pa.getCost() * user.getProducts().get(productKey);
+        }
+        model.addAttribute("productsInCart", productsInCart);
+        model.addAttribute("totalPrice", String.format(Locale.US, "%.2f", totalPrice));
+
+        return "bucketInto";
+    }
+
 
     @GetMapping(value = "/bucket")
     public String goBucket(@ModelAttribute("user") SessionUser user, Model model) {
 
-        Map<ProductAttribute,Integer> productsInCart = new HashMap<>();
-        double commonPrice=0L;
-        if(!user.getProducts().isEmpty()) {
-            for (Long productKey : user.getProducts().keySet()) {
-                ProductAttribute pa= productService.getProductAttributeById(productKey);
-                productsInCart.put(pa,user.getProducts().get(productKey));
-                commonPrice=commonPrice+pa.getCost()*user.getProducts().get(productKey);
-            }
-        }
+        Map<ProductAttribute, Integer> productsInCart = new HashMap<>();
+        double totalPrice = 0;
 
-        model.addAttribute("productsInCart",productsInCart);
-        model.addAttribute("commonPrice",String.format("%.2f", commonPrice));
+        for (Long productKey : user.getProducts().keySet()) {
+            ProductAttribute pa = productService.getProductAttributeById(productKey);
+            productsInCart.put(pa, user.getProducts().get(productKey));
+            totalPrice = totalPrice + pa.getCost() * user.getProducts().get(productKey);
+        }
+        model.addAttribute("productsInCart", productsInCart);
+        model.addAttribute("totalPrice", String.format(Locale.US, "%.2f", totalPrice));
 
         return "bucket";
     }

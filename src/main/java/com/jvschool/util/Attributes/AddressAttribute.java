@@ -1,8 +1,11 @@
 package com.jvschool.util.Attributes;
 
 import com.jvschool.entities.AddressEntity;
+import lombok.Getter;
+import lombok.Setter;
 
-
+@Getter
+@Setter
 public class AddressAttribute {
 
     private long addressId;
@@ -29,60 +32,4 @@ public class AddressAttribute {
 
     }
 
-
-    public long getAddressId() {
-        return addressId;
-    }
-
-    public void setAddressId(long addressId) {
-        this.addressId = addressId;
-    }
-
-    public String getStreetAddress() {
-        return streetAddress;
-    }
-
-    public void setStreetAddress(String streetAddress) {
-        this.streetAddress = streetAddress;
-    }
-
-    public String getPostIndex() {
-        return postIndex;
-    }
-
-    public void setPostIndex(String postIndex) {
-        this.postIndex = postIndex;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public String getRegion() {
-        return region;
-    }
-
-    public void setRegion(String region) {
-        this.region = region;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
 }

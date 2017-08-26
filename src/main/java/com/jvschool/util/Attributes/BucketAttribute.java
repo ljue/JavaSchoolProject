@@ -1,14 +1,20 @@
 package com.jvschool.util.Attributes;
 
 import com.jvschool.entities.BucketEntity;
+import lombok.Getter;
+import lombok.Setter;
 
 
+@Getter
+@Setter
 public class BucketAttribute {
 
     private int bucketId;
     private long productId;
     private int countProduct;
+    private double costProduct;
     private long orderId;
+
 
     public BucketAttribute() {}
 
@@ -16,38 +22,8 @@ public class BucketAttribute {
         this.bucketId = bucketEntity.getBucketId();
         this.productId = bucketEntity.getProductId().getProductId();
         this.countProduct = bucketEntity.getCountProduct();
+        this.costProduct = bucketEntity.getCostProduct();
         this.orderId = bucketEntity.getOrderId();
-    }
 
-    public int getBucketId() {
-        return bucketId;
-    }
-
-    public void setBucketId(int bucketId) {
-        this.bucketId = bucketId;
-    }
-
-    public long getProductId() {
-        return productId;
-    }
-
-    public void setProductId(long productId) {
-        this.productId = productId;
-    }
-
-    public int getCountProduct() {
-        return countProduct;
-    }
-
-    public void setCountProduct(int countProduct) {
-        this.countProduct = countProduct;
-    }
-
-    public long getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(long orderId) {
-        this.orderId = orderId;
     }
 }

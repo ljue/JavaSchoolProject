@@ -7,6 +7,7 @@ import com.jvschool.dao.UserDAO;
 import com.jvschool.entities.BucketEntity;
 import com.jvschool.entities.DeliveryStatusEntity;
 import com.jvschool.entities.OrderEntity;
+import com.jvschool.entities.ProductEntity;
 import com.jvschool.svc.DeliveryStatusService;
 import com.jvschool.svc.DeliveryWayService;
 import com.jvschool.svc.OrderService;
@@ -64,7 +65,9 @@ public class OrderServiceImpl implements OrderService {
         for (BucketAttribute bucketAttribute : lba) {
             BucketEntity bucketEntity = new BucketEntity();
             bucketEntity.setCountProduct(bucketAttribute.getCountProduct());
-            bucketEntity.setProductId(productService.getProductById(bucketAttribute.getProductId()));
+            ProductEntity productEntity = productService.getProductById(bucketAttribute.getProductId());
+            bucketEntity.setProductId(productEntity);
+            bucketEntity.setCostProduct(productEntity.getCost());
             lbe.add(bucketEntity);
         }
         orderEntity.setBuckets(lbe);

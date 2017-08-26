@@ -3,6 +3,7 @@ package com.jvschool.svc;
 import com.jvschool.entities.ProductEntity;
 import com.jvschool.util.Attributes.FilterAttribute;
 import com.jvschool.util.Attributes.ProductAttribute;
+import com.jvschool.util.Attributes.SessionUser;
 
 import java.util.List;
 
@@ -55,5 +56,6 @@ public interface ProductService {
      * @param productAttribute
      */
     void addProduct(ProductAttribute productAttribute);
+
 
 }

@@ -28,6 +28,10 @@ public class BucketEntity implements Serializable {
     private int countProduct;
 
     @Basic
+    @Column(name = "COST_PRODUCT")
+    private double costProduct;
+
+    @Basic
     @Column(name = "ORDER_ID")
     private long orderId;
 

@@ -8,14 +8,12 @@ import com.jvschool.svc.PropertyService;
 import com.jvschool.svc.ProductService;
 import com.jvschool.util.Attributes.FilterAttribute;
 import com.jvschool.util.Attributes.ProductAttribute;
+import com.jvschool.util.Attributes.SessionUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 @Transactional
@@ -134,4 +132,5 @@ public class ProductServiceImpl implements ProductService {
 
         productDAO.addProduct(productEntity);
     }
+
 }
