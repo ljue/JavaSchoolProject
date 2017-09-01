@@ -25,4 +25,8 @@ public class CategoryEntity implements Serializable {
     @Column(name = "NAME")
     private String categoryName;
 
+    @Basic
+    @Column(name = "VISIBLE")
+    private boolean visible;
+
 }

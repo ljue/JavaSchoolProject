@@ -44,4 +44,8 @@ public class AddressEntity implements Serializable {
     @Column(name = "CITY")
     private String city;
 
+    @Basic
+    @Column(name = "VISIBLE")
+    private boolean visible;
+
 }

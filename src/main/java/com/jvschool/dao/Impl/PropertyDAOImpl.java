@@ -55,4 +55,11 @@ public class PropertyDAOImpl implements PropertyDAO {
         else
             return (PropertyEntity) list.get(0);
     }
+
+    @Override
+    public List<PropertyEntity> getSoloProperties() {
+        List<PropertyEntity> propertyEntityList = em.createQuery("FROM PropertyEntity " +
+                " where propertyGroup.solo=:solo").setParameter("solo", true).getResultList();
+        return  propertyEntityList;
+    }
 }

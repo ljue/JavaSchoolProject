@@ -27,4 +27,8 @@ public class PropertyEntity implements Serializable {
     @JoinColumn(name = "PROPERTY_GROUP_ID")
     private PropertyGroupEntity propertyGroup;
 
+    @Basic
+    @Column(name = "VISIBLE")
+    private boolean visible;
+
 }

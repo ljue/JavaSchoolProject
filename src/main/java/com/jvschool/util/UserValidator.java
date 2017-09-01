@@ -21,7 +21,7 @@ public class UserValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> aClass) {
-        return UserEntity.class.equals(aClass);
+        return SessionUser.class.equals(aClass);
     }
 
     @Override

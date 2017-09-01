@@ -50,16 +50,19 @@
 
                                 <c:forEach items="${addresses}" var="address" varStatus="status">
 
-                                    <div class="container">
+                                    <div class="container" id="panel-address-${address.addressId}">
                                         <div class="col-lg-6 col-sm-4 text-center">
-                                            <div class="well">
+                                            <div class="well" style="background: #fdf7f7">
+                                                <a title="Remove address" data-seq="${address.addressId}"
+                                                   class="pull-right remove-address-panel">
+                                                    <span><i class="fa fa-times fa-lg"></i></span></a>
                                                 <strong class="pull-left primary-font">Address ${status.count}</strong>
 
                                                 <ul data-brackets-id="12674" id="sortable"
                                                     class="list-unstyled ui-sortable">
                                                     <hr data-brackets-id="12673">
                                                     </br>
-                                                    <li class="ui-state-default">
+                                                    <li class="ui-state-default" style="font-size: 1.2em">
                                                             ${address.country},<br>
                                                             ${address.region},<br>
                                                             ${address.city},<br>
@@ -173,5 +176,17 @@
 </div>
 <!-- /.container -->
 
+<script>
+    $('a.remove-address-panel').click(function (e) {
+        e.preventDefault();
+        var addressId = $(this).data('seq');
+        var panelId = "#panel-address-" + addressId;
+        $(panelId).slideUp();//400mc
+        $.ajax({
+            type: "POST",
+            url: "${pageContext.request.contextPath}/address/remove/" + addressId
+        })
+    })
+</script>
 </body>
 </html>

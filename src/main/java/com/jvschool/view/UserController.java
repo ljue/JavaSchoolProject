@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 
 @Controller
@@ -93,17 +94,33 @@ public class UserController {
         if(!bucketAttributes.isEmpty()) {
             for (BucketAttribute ba : bucketAttributes) {
                 ProductAttribute pa = productService.getProductAttributeById(ba.getProductId());
+                pa.setCost(ba.getCostProduct());
                 productAttributes.add(pa);
-                total = total+pa.getCost()*ba.getCountProduct();
+                total = total+ba.getCostProduct()*ba.getCountProduct();
             }
         }
         model.addAttribute("products",productAttributes);
         model.addAttribute("orderIn", orderAttribute);
         model.addAttribute("buckets", bucketAttributes);
         model.addAttribute("addressOrder", addressService.getAddressById(orderAttribute.getAddressId()));
-        model.addAttribute("total",String.format("%.2f", total));
+        model.addAttribute("total",String.format(Locale.US, "%.2f", total));
 
         return "orderInHistory";
+    }
+
+    @PostMapping(value = "/orderInHistory/repeatOrder/{orderId}")
+    public void repeatOrder(@PathVariable("orderId") long id, @ModelAttribute("user") SessionUser user, Model model) {
+
+        OrderAttribute orderAttribute = orderService.getOrderById(id);
+        for(BucketAttribute bucketAttribute : orderAttribute.getBuckets()) {
+            Integer val = user.getProducts().get(bucketAttribute.getProductId());
+            if(val == null) {
+                val = 0;
+            }
+            val += bucketAttribute.getCountProduct();
+            user.getProducts().put(bucketAttribute.getProductId(), val);
+        }
+      //  model.addAttribute("user", user);
     }
 
 

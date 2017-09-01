@@ -8,9 +8,11 @@ import com.jvschool.util.Attributes.AddressAttribute;
 import com.jvschool.util.Attributes.BucketAttribute;
 import com.jvschool.util.Attributes.OrderAttribute;
 import com.jvschool.util.Attributes.SessionUser;
+import com.jvschool.util.OrderValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
@@ -30,6 +32,8 @@ public class OrderController {
     private DeliveryWayService deliveryWayService;
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private OrderValidator orderValidator;
 
     @GetMapping(value = "/checkout")
     public String goCheckout(@ModelAttribute("user")SessionUser user, Model model) {
@@ -48,7 +52,17 @@ public class OrderController {
 
     @PostMapping(value = "/checkout/goPay")
     public String goPay(@ModelAttribute("orderForm") OrderAttribute orderAttribute,
-                        @ModelAttribute("user") SessionUser user, Model model) {
+                        @ModelAttribute("user") SessionUser user, Model model, BindingResult bindingResult) {
+
+        orderValidator.validate(orderAttribute, bindingResult);
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("newAddress", new AddressAttribute());
+            model.addAttribute("orderForm", orderAttribute);
+            model.addAttribute("addresses", addressService.getAllAddressesByUserId(user.getId()));
+            model.addAttribute("payWays", payWayService.getAllPayWays());
+            model.addAttribute("deliveryWays",deliveryWayService.getAllDeliveryWays());
+            return "checkout";
+        }
 
         orderAttribute.setUserId(user.getId());
         orderAttribute.setDateTimeOrder(new Timestamp(Calendar.getInstance().getTime().getTime()));
@@ -65,8 +79,10 @@ public class OrderController {
         user.setProducts(new HashMap<>());
         model.addAttribute(user);
 
-        return "redirect:/history";
+        return "checkoutSuccess";
     }
+
+
 
     @PostMapping(value = "/checkout/addNewAddress")
     public String addNewAddress(@ModelAttribute("addNewAddress") AddressAttribute addressAttribute,

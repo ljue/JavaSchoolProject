@@ -56,7 +56,7 @@
                                         </c:forEach>
                                     </span></h5>
                                 </c:forEach>
-                                <h5>Description: <span>${product.description}</span></h5>
+                                <%--<h5>Description: <span>${product.description}</span></h5>--%>
 
                                 <h3 class="cost"></span> $${product.cost}</h3>
 
@@ -77,20 +77,19 @@
         </div>
     </c:forEach>
 </c:if>
-<c:if test="${empty allProducts}"> <h4>We don`t have goods such category. </h4></c:if>
+<c:if test="${empty allProducts}"> <h4 style="padding-left: 20px;">We don`t have goods such category. </h4></c:if>
+
+<div id="count-all-filtered-products" style="visibility: hidden;">${countProducts}</div>
+<div id="max-count-products-on-page" style="visibility: hidden;">12</div>
 
 <script>
     function addProductToCart(obj) {
         var idProduct = obj.value;
+        $(".message-success-add-to-cart").fadeIn(500);
+        setTimeout(function(){$(".message-success-add-to-cart").fadeOut(1000)}, 2000);
         $.ajax({
             type: "POST",
             url: "${pageContext.request.contextPath}/addToCart/" + idProduct
         })
     }
-</script>
-
-<script>
-    $(document).ready(function(){
-        $('[data-toggle="tooltip"]').tooltip();
-    });
 </script>

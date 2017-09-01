@@ -3,26 +3,28 @@
 <html>
 <head>
     <title>Start page</title>
+<style>
+    body {
+    background: url(${pageContext.request.contextPath}/resources/Images/zakat.jpg) no-repeat;
+    -moz-background-size: 100%; /* Firefox 3.6+ */
+    -webkit-background-size: 100%; /* Safari 3.1+ и Chrome 4.0+ */
+    -o-background-size: 100%; /* Opera 9.6+ */
+    background-size: 100%; /* Современные браузеры */
+    }
+</style>
 </head>
 <body>
 <jsp:include page="../templates/navigation.jsp" />
 <div class="page-flexbox-wrapper">
-    <div class="parallax-container">
-        <div class="parallax"><img src="resources/Images/zakat.jpg" class="img-responsive"></div>
-    </div>
+    <%--<div class="parallax-container">--%>
+        <%--<div class="parallax"><img src="resources/Images/zakat.jpg" class="img-responsive"></div>--%>
+    <%--</div>--%>
     <div class="row">
 
 
 
     </div>
 </div>
-<c:out value="${pageContext.request.contextPath}">${pageContext.request.contextPath}</c:out>
-<c:out value="${request.contextPath}">${request.contextPath}</c:out>
-
-
-<p>я здесь${pageContext.request.contextPath}</p>
-<p> и здесь ${request.contextPath}</p>
-
 <%--<script>$(document).ready(function () {--%>
     <%--$('.parallax').parallax();--%>
 <%--});</script>--%>

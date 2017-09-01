@@ -114,7 +114,7 @@
                                                         </c:forEach>
                                                     </span></h5>
                                                     </c:forEach>
-                                                    <h5>${product.description}</h5>
+                                                    <%--<h5>${product.description}</h5>--%>
 
                                                     <h3 class="cost"></span> $${product.cost}</h3>
 
@@ -135,11 +135,26 @@
                     </tbody>
                 </table>
 
+                <a class="btn btn-primary right"
+                onclick="repeatOrder(this)">
+                    Repeat order
+                </a>
 
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    function repeatOrder(obj) {
+        $.ajax({
+            type: "POST",
+            url: "${pageContext.request.contextPath}/orderInHistory/repeatOrder/"+${orderIn.orderId},
+        });
+
+        location.href="${pageContext.request.contextPath}/bucket";
+    }
+</script>
 
 </body>
 </html>

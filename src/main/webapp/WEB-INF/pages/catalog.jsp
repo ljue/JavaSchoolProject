@@ -12,31 +12,28 @@
 </head>
 <body>
 <jsp:include page="../templates/navigation.jsp"/>
-
+<br><br><br>
 <div class="container">
-    <br>
-    <br>
-    <br>
+
     <div class="row">
 
         <div class="col-md-3">
             <div class="row">
-                <div class="list-group">
+                <div class="list-group list-category-item-in-catalog-js">
 
-                    <a href="${pageContext.request.contextPath}/catalog/All" class="list-group-item">All goods</a>
+                    <a class="list-group-item category-item-in-catalog-js">All goods</a>
 
                     <c:if test="${!empty categories}">
                         <c:forEach var="category" items="${categories}">
-                            <a href="${pageContext.request.contextPath}/catalog/${category}"
-                               class="list-group-item">${category}</a>
+                        <a class="list-group-item category-item-in-catalog-js">${category}</a>
                         </c:forEach>
                     </c:if>
+
                 </div>
-                <%--<div> здесь ${pageContext.response.ca} </div>--%>
-
-
-                <sping:form modelAttribute="filter" action="${pageContext.request.contextPath}/catalog/doFilter" method="post"
-                class="form-horizontal">
+                <sping:form id="filter-form-in-catalog" modelAttribute="filter"
+                            action="${pageContext.request.contextPath}/catalog/doFilter"
+                            method="post"
+                            class="form-horizontal">
                     <label>Cost:</label>
                     <div class="form-group">
                         <div class="col-lg-5">
@@ -51,43 +48,43 @@
                     <label>Fly time:</label>
                     <div class="form-group">
                         <div class="col-lg-5">
-                        <form:input path="flyTimeFROM" class="form-control"></form:input>
+                            <form:input path="flyTimeFROM" class="form-control"></form:input>
                         </div>
                         <label class="col-lg-1">-</label>
                         <div class="col-lg-5">
-                        <form:input path="flyTimeTO" class="form-control"></form:input>
+                            <form:input path="flyTimeTO" class="form-control"></form:input>
                         </div>
                     </div>
 
                     <label>Distance:</label>
                     <div class="form-group">
                         <div class="col-lg-5">
-                        <form:input path="distanceFROM" class="form-control"></form:input>
+                            <form:input path="distanceFROM" class="form-control"></form:input>
                         </div>
                         <label class="col-lg-1">-</label>
                         <div class="col-lg-5">
-                        <form:input path="distanceTO" class="form-control"></form:input>
+                            <form:input path="distanceTO" class="form-control"></form:input>
                         </div>
                     </div>
 
                     <c:forEach items="${allProperties}" var="propertyGroup">
 
-                            <label>${propertyGroup.key}:</label><br>
+                        <label>${propertyGroup.key}:</label><br>
                         <div class="form-group">
                             <div class="col-lg-8">
                                 <c:forEach items="${propertyGroup.value}" var="currentProperty">
-                                <form:checkbox path="properties"
-                                               value="${currentProperty}" label="  ${currentProperty}"
-                                ></form:checkbox><br>
+                                    <form:checkbox path="properties"
+                                                   value="${currentProperty}" label="  ${currentProperty}"
+                                    ></form:checkbox><br>
                                 </c:forEach>
-                            <br>
+                                <br>
                             </div>
-                            </div>
-                        </c:forEach>
+                        </div>
+                    </c:forEach>
 
                     <div class="form-group">
                         <div class="col-md-8">
-                            <input class="btn btn-primary" value="Apply" type="submit">
+                            <input id="filter-submit-btn" class="btn btn-primary" value="Apply" type="submit">
                             <input class="btn btn-default" value="Cancel" type="reset">
                         </div>
                     </div>
@@ -103,31 +100,117 @@
             <div class="row">
                 <div class="catalog-products-by-category">
                     <div class="container-my-mini">
-                    <div class="row">
-                        <jsp:include page="catalogProducts.jsp"/>
-                    </div>
+                        <div class="row">
+                            <div id="current-catalog-page">
+                                <jsp:include page="catalogProducts.jsp"/>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
+
             </div>
         </div>
 
+    </div>
 
-    </div><!-------container----->
+    <div class="text-center">
+        <ul id="pagination-demo" class="pagination-sm"></ul>
+    </div>
 
-    <%--<script>--%>
-    <%--$(".changeListProducts").click(--%>
-    <%--function sortProducts(obj) {--%>
-    <%--var cat = obj.value;--%>
-    <%--$.ajax({--%>
-    <%--type: "POST",--%>
-    <%--url: "/catalog/" + cat,--%>
-    <%--success: function (response) {--%>
-    <%--alert(response);--%>
-    <%--$(".catalog-products-by-category").html(response);--%>
+    <div id="category-in-catalog" style="visibility: hidden;"></div>
+</div>
 
-    <%--}--%>
-    <%--})--%>
-    <%--})--%>
-    <%--</script>--%>
+
 </body>
+    <div class="message-success-add-to-cart alert alert-success">
+        <p style="font-size: 1.1em">Product was added to cart.</p>
+    </div>
+
+
+<script>
+    function displayPage(newTotal){
+        var pageData = $('#pagination-demo').data();
+        if (newTotal === 0) { newTotal = 1;};
+        if (pageData.twbsPagination.options.totalPages !== newTotal) {
+            $('#pagination-demo').twbsPagination('destroy');
+            $('#pagination-demo').twbsPagination($.extend(oops, {
+                totalPages: newTotal,
+                startPage: 1
+            }));
+        }
+
+    }
+
+    var oops = {
+        initiateStartPageClick: false,
+        totalPages: calcTotalPages($("#count-all-filtered-products").text(), $("#max-count-products-on-page").text()),
+        visiblePages: 7,
+        onPageClick: function (event, page) {
+            var form = $('#filter-form-in-catalog').serialize();
+            var count = $("#max-count-products-on-page").text();
+            var category = $("#category-in-catalog").text();
+            if(category) { form = form + "&category=" + category; };
+            $.ajax({
+                type: "POST",
+                data: form,
+                url: "${pageContext.request.contextPath}/catalog/getProductsOnPageWithFilter/" + page + "/" + count,
+                success: function (responsePage) {
+                    $('#current-catalog-page').html(responsePage);
+                    $('html, body').animate({scrollTop: 0}, 300);
+                    var newTotalPages = calcTotalPages($("#count-all-filtered-products").text(), $("#max-count-products-on-page").text());
+                    displayPage(newTotalPages);
+                }
+            })
+
+        }
+    };
+
+    $('#pagination-demo').twbsPagination(oops);
+
+    $('#filter-submit-btn').click(function (event) {
+        event.preventDefault();
+        $('#pagination-demo').twbsPagination('show', 1);
+    });
+
+    $(".category-item-in-catalog-js").click(function (event) {
+        event.preventDefault();
+
+        $(".list-group-item.active").removeClass('active');
+        $(this).addClass('active');
+
+        $('#filter-form-in-catalog').trigger('reset');
+        var currentCategory = $(this).text();
+        if (currentCategory === "All goods") {
+            $("#category-in-catalog").empty();
+        } else {
+            $("#category-in-catalog").text(currentCategory);
+        }
+        $('#pagination-demo').twbsPagination('show', 1);
+    })
+
+//    $('.list-category-item-in-catalog-js').find('.category-item-in-catalog-js').on('click', function () {
+//        if ($(this).hasClass('active')) {
+//            return;
+//        }
+//        $('.list-category-item-in-catalog-js').find('.list-group-item category-item-in-catalog-js active').removeClass('active');
+//        $(this).addClass('active');
+//    });
+
+
+
+//    $(".all-category-item-in-catalog-js").click(function (event) {
+//        event.preventDefault();
+//        $('#filter-form-in-catalog').trigger('reset');
+//
+//        $('#pagination-demo').twbsPagination('show', 1);
+//    })
+
+    function calcTotalPages(countProducts, countProductsOnPage) {
+        var countPages = countProducts / countProductsOnPage;
+        countPages = (parseInt(countPages) < countPages) ? parseInt(countPages) + 1 : countPages;
+        return countPages;
+    }
+
+</script>
 </html>

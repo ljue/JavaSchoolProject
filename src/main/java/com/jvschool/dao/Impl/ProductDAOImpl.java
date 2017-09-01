@@ -27,13 +27,12 @@ public class ProductDAOImpl implements ProductDAO {
     private CategoryDAO categoryDAO;
     @Autowired
     private PropertyDAO propertyDAO;
-    @Autowired
-    private PropertyGroupDAO propertyGroupDAO;
 
 
     @Override
     public void addProduct(ProductEntity productEntity) {
 
+        productEntity.setVisible(true);
         em.merge(productEntity);
         em.flush();
 
@@ -43,9 +42,9 @@ public class ProductDAOImpl implements ProductDAO {
     public ProductEntity getProductById(long id) {
 
         List list = em.createQuery("from ProductEntity where id=:id")
-                .setParameter("id",id).getResultList();
+                .setParameter("id", id).getResultList();
 
-        if(list.isEmpty())
+        if (list.isEmpty())
             return null;
         else
             return (ProductEntity) list.get(0);
@@ -54,18 +53,38 @@ public class ProductDAOImpl implements ProductDAO {
     @Override
     public List<ProductEntity> getAllProducts() {
 
-        List<ProductEntity> products = em.createQuery("FROM ProductEntity ").getResultList();
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery criteriaQuery = criteriaBuilder.createQuery();
+        Root order = criteriaQuery.from(OrderEntity.class);
+        Join b = order.join("buckets");
+        criteriaQuery.multiselect(b.get("productId"));
+        criteriaQuery.where(
+                criteriaBuilder.equal(b.get("productId").get("visible"), true));
+        criteriaQuery.groupBy(b.get("productId"));
+        criteriaQuery.orderBy(criteriaBuilder.desc
+                (criteriaBuilder.sum
+                        (b.get("countProduct"))));
 
-        return  products;
+        List<ProductEntity> topProducts = em.createQuery(criteriaQuery).getResultList();
+
+        List<ProductEntity> allProducts = em.createQuery("FROM ProductEntity where visible=:visible order by productId desc")
+                .setParameter("visible", true).getResultList();
+        for (ProductEntity productEntity : topProducts) {
+            allProducts.remove(productEntity);
+        }
+        topProducts.addAll(allProducts);
+
+        return topProducts;
     }
 
     @Override
     public List<ProductEntity> getProductsByCategory(CategoryEntity category) {
 
         List<ProductEntity> products = em.createQuery("FROM ProductEntity " +
-                " where category=:category").setParameter("category", category).getResultList();
+                " where category=:category and visible=:visible ").setParameter("category", category)
+                .setParameter("visible", true).getResultList();
 
-        return  products;
+        return products;
     }
 
 
@@ -75,18 +94,19 @@ public class ProductDAOImpl implements ProductDAO {
         CriteriaQuery criteriaQuery = criteriaBuilder.createQuery();
         Root order = criteriaQuery.from(OrderEntity.class);
         Join b = order.join("buckets");
+//        Join p = b.join("productId");
         criteriaQuery.multiselect(b.get("productId"));
         criteriaQuery.groupBy(b.get("productId"));
         criteriaQuery.orderBy(criteriaBuilder.desc
                 (criteriaBuilder.sum
-                                (b.get("countProduct"))));
+                        (b.get("countProduct"))));
 
         List<ProductEntity> list = em.createQuery(criteriaQuery).getResultList();
 
         int countTop = 10;
         countTop = countTop < list.size() ? countTop : list.size();
 
-        return list.subList(0,countTop-1);
+        return list.subList(0, countTop);
     }
 
     @Override
@@ -110,31 +130,92 @@ public class ProductDAOImpl implements ProductDAO {
 
         Predicate propertiesNotSolo = criteriaBuilder.conjunction();
         for (PropertyEntity propertyEntity : propertyNotSoloEntityList) {
-                propertiesNotSolo = criteriaBuilder.and(propertiesNotSolo, criteriaBuilder.
-                        equal(product.join("properties"), propertyEntity));
+            propertiesNotSolo = criteriaBuilder.and(propertiesNotSolo, criteriaBuilder.
+                    equal(product.join("properties"), propertyEntity));
         }
 
         criteriaQuery.multiselect(product).distinct(true);
-        if (filterAttribute.getCategory().equals("All")) {
-            criteriaQuery.where(criteriaBuilder.and(
-                    propertiesNotSolo,
-                    product.join("properties").in(propertySoloEntityList),
-                    criteriaBuilder.between(product.get("cost"), filterAttribute.getCostFROM(), filterAttribute.getCostTO()),
-                    criteriaBuilder.between(product.get("flyTime"), filterAttribute.getFlyTimeFROM(), filterAttribute.getFlyTimeTO()),
-                    criteriaBuilder.between(product.get("distance"), filterAttribute.getDistanceFROM(), filterAttribute.getDistanceTO())));
-        }
-        else {
-            criteriaQuery.where(criteriaBuilder.and(
-                    propertiesNotSolo,
-                    product.join("properties").in(propertySoloEntityList),
-                criteriaBuilder.between(product.get("cost"), filterAttribute.getCostFROM(), filterAttribute.getCostTO()),
-                criteriaBuilder.between(product.get("flyTime"), filterAttribute.getFlyTimeFROM(), filterAttribute.getFlyTimeTO()),
-                criteriaBuilder.between(product.get("distance"), filterAttribute.getDistanceFROM(), filterAttribute.getDistanceTO()),
-                criteriaBuilder.equal(product.get("category"), categoryDAO.getProductCategoryByName(filterAttribute.getCategory()))));
 
+        if(propertySoloEntityList.isEmpty()) {
+            if (filterAttribute.getCategory() == null) {
+                criteriaQuery.where(criteriaBuilder.and(
+                        propertiesNotSolo,
+                        criteriaBuilder.equal(product.get("visible"), true),
+                        criteriaBuilder.between(product.get("cost"), filterAttribute.getCostFROM(), filterAttribute.getCostTO()),
+                        criteriaBuilder.between(product.get("flyTime"), filterAttribute.getFlyTimeFROM(), filterAttribute.getFlyTimeTO()),
+                        criteriaBuilder.between(product.get("distance"), filterAttribute.getDistanceFROM(), filterAttribute.getDistanceTO())));
+            } else {
+                criteriaQuery.where(criteriaBuilder.and(
+                        propertiesNotSolo,
+                        criteriaBuilder.equal(product.get("visible"), true),
+                        criteriaBuilder.between(product.get("cost"), filterAttribute.getCostFROM(), filterAttribute.getCostTO()),
+                        criteriaBuilder.between(product.get("flyTime"), filterAttribute.getFlyTimeFROM(), filterAttribute.getFlyTimeTO()),
+                        criteriaBuilder.between(product.get("distance"), filterAttribute.getDistanceFROM(), filterAttribute.getDistanceTO()),
+                        criteriaBuilder.equal(product.get("category"), categoryDAO.getProductCategoryByName(filterAttribute.getCategory()))));
+
+            }
+        } else {
+            if (filterAttribute.getCategory() == null) {
+                criteriaQuery.where(criteriaBuilder.and(
+                        propertiesNotSolo,
+                        product.join("properties").in(propertySoloEntityList),
+                        criteriaBuilder.equal(product.get("visible"), true),
+                        criteriaBuilder.between(product.get("cost"), filterAttribute.getCostFROM(), filterAttribute.getCostTO()),
+                        criteriaBuilder.between(product.get("flyTime"), filterAttribute.getFlyTimeFROM(), filterAttribute.getFlyTimeTO()),
+                        criteriaBuilder.between(product.get("distance"), filterAttribute.getDistanceFROM(), filterAttribute.getDistanceTO())));
+            } else {
+                criteriaQuery.where(criteriaBuilder.and(
+                        propertiesNotSolo,
+                        product.join("properties").in(propertySoloEntityList),
+                        criteriaBuilder.equal(product.get("visible"), true),
+                        criteriaBuilder.between(product.get("cost"), filterAttribute.getCostFROM(), filterAttribute.getCostTO()),
+                        criteriaBuilder.between(product.get("flyTime"), filterAttribute.getFlyTimeFROM(), filterAttribute.getFlyTimeTO()),
+                        criteriaBuilder.between(product.get("distance"), filterAttribute.getDistanceFROM(), filterAttribute.getDistanceTO()),
+                        criteriaBuilder.equal(product.get("category"), categoryDAO.getProductCategoryByName(filterAttribute.getCategory()))));
+
+            }
         }
         List<ProductEntity> list = em.createQuery(criteriaQuery).getResultList();
 
         return list;
+    }
+
+    @Override
+    public long getCountProducts() {
+
+        long count = (long) em.createQuery("select count(p.productId) from ProductEntity p where p.visible=:visible ")
+                .setParameter("visible", true).getSingleResult();
+
+        return count;
+    }
+
+    @Override
+    public List<ProductEntity> getProductsFromTo(int page, int count) {
+
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery criteriaQuery = criteriaBuilder.createQuery();
+        Root order = criteriaQuery.from(OrderEntity.class);
+        Join b = order.join("buckets");
+        criteriaQuery.multiselect(b.get("productId"));
+        criteriaQuery.groupBy(b.get("productId"));
+        criteriaQuery.orderBy(criteriaBuilder.desc
+                (criteriaBuilder.sum
+                        (b.get("countProduct"))));
+
+        List<ProductEntity> topProducts = em.createQuery(criteriaQuery).getResultList();
+
+        List<ProductEntity> allProducts = em.createQuery("FROM ProductEntity where visible=:visible order by productId desc")
+                .setParameter("visible", true).getResultList();
+        for (ProductEntity productEntity : topProducts) {
+            allProducts.remove(productEntity);
+        }
+        topProducts.addAll(allProducts);
+
+        int from = (page - 1) * count;
+        int to = page * count;
+        if ( to > topProducts.size()) {
+            to = topProducts.size();
+        }
+        return topProducts.subList(from, to);
     }
 }

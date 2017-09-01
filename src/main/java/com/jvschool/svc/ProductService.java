@@ -6,6 +6,7 @@ import com.jvschool.util.Attributes.ProductAttribute;
 import com.jvschool.util.Attributes.SessionUser;
 
 import java.util.List;
+import java.util.Map;
 
 
 public interface ProductService {
@@ -25,7 +26,7 @@ public interface ProductService {
     ProductEntity getProductById(long id);
 
     /**
-     * Get list of all products and transform it to list of products dto.
+     * Get list of all products sorted by popular and transform it to list of products dto.
      * @return
      */
     List<ProductAttribute> getAllProducts();
@@ -57,5 +58,30 @@ public interface ProductService {
      */
     void addProduct(ProductAttribute productAttribute);
 
+
+    /**
+     * Get count of products.
+     * @return
+     */
+    long getCountProducts();
+
+    /**
+     *  Get list of products sorted by popular and transform it to list of products dto.
+     *  list.size = count and products "popular" indexes are in [ (page - 1) * count, page * count - 1]
+     * @param page
+     * @param count
+     * @return
+     */
+    List<ProductAttribute> getProductsFromTo(int page, int count);
+
+
+    /**
+     *  Get list of products with filter sorted by popular and transform it to list of products dto.
+     *  list.size = count and products "popular" indexes are in [ (page - 1) * count, page * count - 1]
+     * @param page
+     * @param count
+     * @return
+     */
+    Map<Integer, List<ProductAttribute>> getProductsByFilterFromTo(int page, int count, FilterAttribute filterAttribute);
 
 }

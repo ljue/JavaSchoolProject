@@ -112,7 +112,7 @@ public class ProductServiceImpl implements ProductService {
         Set<PropertyEntity> propertyEntities = new HashSet<>();
         for (String property : productAttribute.getSaveProperties()) {
             PropertyEntity propertyEntity = propertyService.getPropertyByName(property);
-            if (propertyEntity!=null)
+            if (propertyEntity != null)
                 propertyEntities.add(propertyEntity);
         }
         productEntity.setProperties(propertyEntities);
@@ -131,6 +131,36 @@ public class ProductServiceImpl implements ProductService {
         }
 
         productDAO.addProduct(productEntity);
+    }
+
+    @Override
+    public long getCountProducts() {
+        return productDAO.getCountProducts();
+    }
+
+    @Override
+    public List<ProductAttribute> getProductsFromTo(int page, int count) {
+        List<ProductAttribute> lpa = new ArrayList<>();
+        productDAO.getProductsFromTo(page, count)
+                .stream().forEachOrdered(productEntity -> lpa.add(new ProductAttribute(productEntity)));
+        return lpa;
+    }
+
+    @Override
+    public Map<Integer, List<ProductAttribute>>  getProductsByFilterFromTo(int page, int count, FilterAttribute filterAttribute) {
+
+        List<ProductAttribute> lpa = new ArrayList<>();
+        List<ProductEntity> productEntityList = productDAO.getProductsWithFilter(filterAttribute);
+        int from = (page - 1) * count;
+        int to = page * count;
+        to = (to > productEntityList.size()) ? productEntityList.size() : to;
+        productEntityList.subList(from, to)
+                .stream().forEachOrdered(productEntity -> lpa.add(new ProductAttribute(productEntity)));
+
+        Map<Integer, List<ProductAttribute>> map = new HashMap<>();
+        map.put(productEntityList.size(),lpa);
+        return map;
+
     }
 
 }

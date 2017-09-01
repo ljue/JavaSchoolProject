@@ -32,7 +32,7 @@ public class AddressController {
     }
 
 
-    @RequestMapping(value = "/address/add", method = RequestMethod.POST)
+    @PostMapping(value = "/address/add")
     public String addNewAddress(@ModelAttribute("formAddAddress") AddressAttribute addressAttribute, BindingResult bindingResult,
     @ModelAttribute("user") SessionUser user) {
 
@@ -46,5 +46,12 @@ public class AddressController {
         addressService.addNewAddress(addressAttribute);
 
         return "redirect:/address";
+    }
+
+    @PostMapping(value = "/address/remove/{addressId}")
+    public void removeAddress(@PathVariable("addressId") long addressId) {
+
+        addressService.removeAddress(addressId);
+
     }
 }

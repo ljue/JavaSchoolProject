@@ -13,6 +13,7 @@ import com.jvschool.svc.DeliveryWayService;
 import com.jvschool.svc.OrderService;
 import com.jvschool.svc.ProductService;
 import com.jvschool.util.Attributes.BucketAttribute;
+import com.jvschool.util.Attributes.EmailSender;
 import com.jvschool.util.Attributes.OrderAttribute;
 import com.jvschool.util.Attributes.ProductAttribute;
 import com.jvschool.util.Sender;
@@ -81,6 +82,8 @@ public class OrderServiceImpl implements OrderService {
         if(!productAttributesAfter.equals(productAttributesBefore)) {
             new Sender().send();
         }
+
+        new EmailSender().send(orderEntity.getUser().getEmail(), "Order in shop quadcopters", "Order was successful. You bought quadcopters ;))");
     }
 
     @Override

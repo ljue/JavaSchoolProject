@@ -46,5 +46,10 @@ public class AddressServiceImpl implements AddressService {
         addressDAO.addNewAddress(addressEntity);
     }
 
+    @Override
+    public void removeAddress(long id) {
+        addressDAO.removeAddress(id);
+    }
+
 
 }

@@ -16,5 +16,8 @@ public interface ProductDAO {
     List<ProductEntity> getProductsByCategory(CategoryEntity category);
     List<ProductEntity> getTopProducts();
     List<ProductEntity> getProductsWithFilter(FilterAttribute filterAttribute);
+    long getCountProducts();
+    List<ProductEntity> getProductsFromTo(int page, int count);
+
 
 }

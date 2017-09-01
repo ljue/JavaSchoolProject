@@ -14,83 +14,85 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-2">
 
         </div>
 
-        <div class="col-md-9">
-            <%--<c:url var="goPay" value="/checkout/goPay"/>--%>
-            <form:form modelAttribute="orderForm" method="post" action="${pageContext.request.contextPath}/checkout/goPay">
+        <div class="col-md-8">
+            <form:form modelAttribute="orderForm" method="post" class="form-horizontal"
+                       action="${pageContext.request.contextPath}/checkout/goPay">
 
                 <div class="form-group">
                     <label class="col-lg-3 control-label">Address</label>
-                        <%--<br>--%>
                     <div class="col-lg-8">
                         <a data-toggle="modal" href="#modalAddress">Add new address</a><br>
                         <div>
-                                <%--<div class="row">--%>
                             <c:if test="${!empty addresses}">
-                                <c:forEach items="${addresses}" var="address" varStatus="status">
+                                <spring:bind path="addressId">
+                                    <div class="${status.error ? 'has-error' : ''}">
+                                    <c:forEach items="${addresses}" var="address" varStatus="status">
 
-                                    <div class="container">
-                                        <form:radiobutton path="addressId"
-                                                          value="${address.addressId}"></form:radiobutton>
-                                        <br>
-                                        <div class="col-lg-4 col-sm-3 text-center">
-                                            <div class="well">
-                                                <strong class="pull-left primary-font">Address ${status.count}</strong>
-                                                <ul class="list-unstyled ui-sortable">
-                                                    <hr>
-                                                    <li class="ui-state-default">
-                                                            ${address.country},<br>
-                                                            ${address.region},<br>
-                                                            ${address.city},<br>
-                                                            ${address.streetAddress},<br>
-                                                        Post code: ${address.postIndex}<br>
-                                                    </li>
-                                                </ul>
+                                        <div class="container">
+                                            <form:radiobutton path="addressId"
+                                                              value="${address.addressId}"></form:radiobutton>
+                                            <br>
+                                            <div class="col-lg-4 col-sm-3 text-center">
+                                                <div class="well" style="background: #fdf7f7">
+                                                    <strong class="pull-left primary-font">Address ${status.count}</strong>
+                                                    <ul class="list-unstyled ui-sortable">
+                                                        <hr>
+                                                        <li class="ui-state-default">
+                                                                ${address.country},<br>
+                                                                ${address.region},<br>
+                                                                ${address.city},<br>
+                                                                ${address.streetAddress},<br>
+                                                            Post code: ${address.postIndex}<br>
+                                                        </li>
+                                                    </ul>
+                                                </div>
                                             </div>
                                         </div>
+                                    </c:forEach>
                                     </div>
-                                </c:forEach>
+                                    <form:errors path="addressId"></form:errors>
+                                </spring:bind>
                             </c:if>
-                                <%--</div>--%>
                         </div>
                     </div>
                 </div>
-                <br><br>
-                <br><br>
 
                 <c:if test="${!empty deliveryWays}">
-                    <hr>
-                    <div class="form-group">
-                        <label class="col-lg-3 control-label">Delivery</label>
-                        <div class="col-lg-8">
-                            <c:forEach items="${deliveryWays}" var="delivery">
-                                <form:radiobutton path="deliveryWay" value="${delivery}" label="${delivery}"/><br>
-                            </c:forEach>
+                    <spring:bind path="deliveryWay">
+                        <div class="form-group ${status.error ? 'has-error' : ''}">
+                            <label class="col-lg-3 control-label">Delivery</label>
+                            <div class="col-lg-8">
+                                <c:forEach items="${deliveryWays}" var="delivery">
+                                    <form:radiobutton path="deliveryWay" value="${delivery}" label="${delivery}"/><br>
+                                </c:forEach>
+                            </div>
                         </div>
-                    </div>
+                        <form:errors path="deliveryWay"></form:errors>
+                    </spring:bind>
                 </c:if>
 
-                <br><br>
-                <br><br>
                 <c:if test="${!empty payWays}">
-                    <div class="form-group">
-                        <label class="col-lg-3 control-label">Pay Way</label>
-                        <div class="col-lg-8">
-                            <c:forEach items="${payWays}" var="payW">
-                                <form:radiobutton path="payWay" value="${payW}" label="${payW}"/><br>
-                            </c:forEach>
+                    <spring:bind path="payWay">
+                        <div class="form-group ${status.error ? 'has-error' : ''}">
+                            <label class="col-lg-3 control-label">Pay Way</label>
+                            <div class="col-lg-8">
+                                <c:forEach items="${payWays}" var="payW">
+                                    <form:radiobutton path="payWay" value="${payW}" label="${payW}"/><br>
+                                </c:forEach>
+                            </div>
                         </div>
-                    </div>
+                        <form:errors path="payWay"></form:errors>
+                    </spring:bind>
                 </c:if>
-                <br><br>
-                <br><br>
+                <br>
                 <div class="form-group">
                     <label class="col-md-3 control-label"></label>
                     <div class="col-md-8">
-                        <input class="btn btn-primary" value="Next" type="submit">
+                        <input class="btn btn-primary" value="Checkout" type="submit">
                     </div>
                 </div>
 
@@ -114,14 +116,15 @@
                 <div class="row">
                     <%--<c:url var="addNewAddress" value="/checkout/addNewAddress"/>--%>
 
-                    <form:form modelAttribute="newAddress" method="post" action="${pageContext.request.contextPath}/checkout/addNewAddress"
+                    <form:form modelAttribute="newAddress" method="post"
+                               action="${pageContext.request.contextPath}/checkout/addNewAddress"
                                class="form-horizontal">
                         <fieldset>
                             <spring:bind path="country">
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Country</label>
                                     <div class="col-md-6">
-                                        <form:input type="text" path="country" class="form-control"
+                                        <form:input  required="required" type="text" path="country" class="form-control"
                                                     placeholder="Country"
                                         ></form:input>
                                     </div>
@@ -131,7 +134,7 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Region</label>
                                     <div class="col-md-6">
-                                        <form:input type="text" path="region" class="form-control"
+                                        <form:input  required="required" type="text" path="region" class="form-control"
                                                     placeholder="Region"
                                         ></form:input>
                                     </div>
@@ -142,7 +145,7 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">City/Town</label>
                                     <div class="col-md-6">
-                                        <form:input type="text" path="city" class="form-control"
+                                        <form:input  required="required" type="text" path="city" class="form-control"
                                                     placeholder="City / Town"
                                         ></form:input>
                                     </div>
@@ -154,7 +157,7 @@
                                     <label class="col-md-3 control-label" for="address1">Address
                                         Line</label>
                                     <div class="col-md-8">
-                                        <form:input id="address1" type="text" path="streetAddress"
+                                        <form:input  required="required" id="address1" type="text" path="streetAddress"
                                                     class="form-control" placeholder=""
                                         ></form:input>
                                         <span class="help-block">Street address, P.O. box, company roleName, c/o</span>
@@ -167,7 +170,7 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label" for="zip">Postal code</label>
                                     <div class="col-md-4">
-                                        <form:input id="zip" type="text" path="postIndex"
+                                        <form:input  required="required" id="zip" type="text" path="postIndex"
                                                     class="form-control"
                                                     placeholder="Zip or Postal code"
                                         ></form:input>

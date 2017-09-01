@@ -8,8 +8,8 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import java.util.List;
-
 
 @Repository
 public class AddressDAOImpl implements AddressDAO {
@@ -23,8 +23,8 @@ public class AddressDAOImpl implements AddressDAO {
     @Override
     public List<AddressEntity> getAllAddressesByUserId(long userId) {
 
-        List addresses = em.createQuery("FROM AddressEntity where userId=:userId")
-                .setParameter("userId",userId).getResultList();
+        List addresses = em.createQuery("FROM AddressEntity where userId=:userId and visible=:visible")
+                .setParameter("userId",userId).setParameter("visible", true).getResultList();
 
         return addresses;
     }
@@ -32,7 +32,18 @@ public class AddressDAOImpl implements AddressDAO {
     @Override
     public void addNewAddress(AddressEntity addressEntity) {
 
+        addressEntity.setVisible(true);
         em.persist(addressEntity);
+
+    }
+
+    @Override
+    public void removeAddress(long id) {
+
+        Query query = em.createQuery("UPDATE AddressEntity set visible=:visible where addressId=:addressId")
+                .setParameter("addressId", id).setParameter("visible", false);
+
+        query.executeUpdate();
 
     }
 

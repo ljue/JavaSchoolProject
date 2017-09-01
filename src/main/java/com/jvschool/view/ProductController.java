@@ -11,9 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @SessionAttributes("user")
@@ -31,44 +29,84 @@ public class ProductController {
 
     @GetMapping(value = "/catalog")
     public String goCatalog(Model model) {
-        model.addAttribute("allProducts", productService.getAllProducts());
+//        List<ProductAttribute> productAttributes = productService.getAllProducts();
+        model.addAttribute("countProducts", productService.getCountProducts());
+        model.addAttribute("allProducts", productService.getProductsFromTo(1, 12));
+//        model.addAttribute("allProducts", productAttributes);
         model.addAttribute("filter", new FilterAttribute());
         model.addAttribute("allProperties", propertyService.getProperties());
 
-        suchCategory = "All";
+        //suchCategory = "All";
         model.addAttribute("categories", categoryService.getAllProductCategoryNames());
 
         return "catalog";
     }
 
+//    @PostMapping(value = "/catalog/getProductsOnPage/{page}")
+//    public String getProductsOnPage(@PathVariable("page") int page, Model model,
+//                                    @RequestParam("countProductsOnPage") int count) {
+//
+//        model.addAttribute("allProducts", productService.getProductsFromTo(page, count));
+//
+//        return "catalogProducts";
+//    }
 
-    @GetMapping(value = "/catalog/{category}")
-    public String getProductsByCategory(@PathVariable("category") String category, Model model) {
-        if (category.equals("All")) {
-            model.addAttribute("allProducts", productService.getAllProducts());
-        } else {
-            model.addAttribute("allProducts", productService.getProductsByCategory(category));
+
+
+    @PostMapping(value = "/catalog/getProductsOnPageWithFilter/{page}/{count}")
+    public String getProductsOnPageWithFilter(@PathVariable("page") int page,
+                                              @PathVariable("count") int count,
+                                              @ModelAttribute("filter") FilterAttribute filterAttribute,
+                                              Model model) {
+        Map<Integer, List<ProductAttribute>> map =
+                productService.getProductsByFilterFromTo(page, count, filterAttribute);
+        for(int i : map.keySet()) {
+            model.addAttribute("countProducts", i);
+            model.addAttribute("allProducts", map.get(i));
         }
-        suchCategory = category;
-
-        model.addAttribute("filter", new FilterAttribute());
-        model.addAttribute("categories", categoryService.getAllProductCategoryNames());
-        model.addAttribute("allProperties", propertyService.getProperties());
-
-
-        return "catalog";
+        return "catalogProducts";
     }
 
-    @PostMapping(value = "/catalog/doFilter")
-    public String doFilterProducts(Model model, @ModelAttribute("filter") FilterAttribute filterAttribute) {
 
-        filterAttribute.setCategory(suchCategory);
-        model.addAttribute("allProducts", productService.getProductsWithFilter(filterAttribute));
-        model.addAttribute("categories", categoryService.getAllProductCategoryNames());
-        model.addAttribute("allProperties", propertyService.getProperties());
+//    @GetMapping(value = "/catalog/{category}")
+//    public String getProductsByCategory(@PathVariable("category") String category, Model model) {
+//        List<ProductAttribute> productAttributes = new ArrayList<>();
+//        if (category.equals("All")) {
+//            productAttributes = productService.getAllProducts();
+//            model.addAttribute("allProducts", productAttributes);
+//        } else {
+//            productAttributes = productService.getProductsByCategory(category);
+//            model.addAttribute("allProducts", productAttributes);
+//        }
+//        suchCategory = category;
+//
+//        //model.addAttribute("countProducts", productAttributes.size());
+//        model.addAttribute("filter", new FilterAttribute());
+//        model.addAttribute("categories", categoryService.getAllProductCategoryNames());
+//        model.addAttribute("allProperties", propertyService.getProperties());
+//
+//
+//        return "catalog";
+//    }
 
-        return "catalog";
-    }
+//    @PostMapping(value = "/catalog/doFilter")
+//    public String doFilterProducts(Model model, @ModelAttribute("filter") FilterAttribute filterAttribute) {
+//
+//
+//        filterAttribute.setCategory(suchCategory);
+//        List<ProductAttribute> productAttributes = productService.getProductsWithFilter(filterAttribute);
+//        //model.addAttribute("countProducts", productAttributes.size());
+//
+//
+//        model.addAttribute("countProducts", productAttributes.size());
+//
+//        model.addAttribute("allProducts", productAttributes);
+//        model.addAttribute("categories", categoryService.getAllProductCategoryNames());
+//        model.addAttribute("allProperties", propertyService.getProperties());
+//        model.addAttribute("filter", filterAttribute);
+//
+//        return "catalog";
+//    }
 
 
     @PostMapping(value = "/addToCart/{idProduct}")

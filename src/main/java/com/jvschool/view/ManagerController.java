@@ -9,11 +9,11 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
-
 
 
 @Controller
@@ -41,11 +41,10 @@ public class ManagerController {
     private PropertyGroupService propertyGroupService;
 
 
-
     @GetMapping(value = "/adminProducts")
-    public String goAdminProducts(Model model, @ModelAttribute("productForm")ProductAttribute productForm
-            , @ModelAttribute("user")SessionUser user) {
-        if(!user.getRole().equals("ROLE_MANAGER")) {
+    public String goAdminProducts(Model model, @ModelAttribute("productForm") ProductAttribute productForm
+            , @ModelAttribute("user") SessionUser user) {
+        if (!user.getRole().equals("ROLE_MANAGER")) {
             return "redirect:/home";
         }
 
@@ -57,10 +56,9 @@ public class ManagerController {
     }
 
 
-
     @PostMapping(value = "/adminProducts")
-    public String addProduct(@ModelAttribute("productForm")ProductAttribute productForm,
-                           BindingResult bindingResult, Model model, HttpServletRequest request) {
+    public String addProduct(@ModelAttribute("productForm") ProductAttribute productForm,
+                             BindingResult bindingResult, Model model, HttpServletRequest request) {
 
         productValidator.validate(productForm, bindingResult);
         if (bindingResult.hasErrors()) {
@@ -72,8 +70,7 @@ public class ManagerController {
 
         List<MultipartFile> files = productForm.getImages();
         List<String> picNames = new ArrayList<>();
-        if (null != files && files.size() > 0)
-        {
+        if (null != files && files.size() > 0) {
             for (MultipartFile multipartFile : files) {
 
                 String picName = multipartFile.getOriginalFilename();
@@ -94,13 +91,12 @@ public class ManagerController {
     }
 
 
-
     @GetMapping(value = "/editCategories")
     public String editCategoryGet(@ModelAttribute("formEditCategory") CategoryAttribute categoryAttribute,
-            @ModelAttribute("formAddCategory") CategoryAttribute addCategoryAttribute,
-            Model model, @ModelAttribute("user")SessionUser user) {
+                                  @ModelAttribute("formAddCategory") CategoryAttribute addCategoryAttribute,
+                                  Model model, @ModelAttribute("user") SessionUser user) {
 
-        if(!user.getRole().equals("ROLE_MANAGER")) {
+        if (!user.getRole().equals("ROLE_MANAGER")) {
             return "redirect:/home";
         }
 
@@ -112,12 +108,11 @@ public class ManagerController {
     }
 
 
-
     @PostMapping(value = "/editCategories/editCategoryName")
     public String editCategoryPost(@ModelAttribute("formEditCategory") CategoryAttribute categoryAttribute,
-                                    Model model){
+                                   Model model) {
 
-        if(categoryAttribute.getEditCategoryName()==null) {
+        if (categoryAttribute.getEditCategoryName() == null) {
             model.addAttribute("categories", categoryService.getAllProductCategoryNames());
             model.addAttribute("error", "This field is required.");
             return "redirect:/editCategories";
@@ -130,17 +125,16 @@ public class ManagerController {
 
 
     @PostMapping(value = "/editCategories/addCategory")
-    public String addCategoryPost(@ModelAttribute("formAddCategory") CategoryAttribute categoryAttribute){
+    public String addCategoryPost(@ModelAttribute("formAddCategory") CategoryAttribute categoryAttribute) {
         categoryService.addProductCategory(categoryAttribute.getCategoryName());
         return "redirect:/editCategories";
     }
 
 
-
     @GetMapping(value = "/adminOrders")
-    public String goAdminOrders(Model model, @ModelAttribute("user")SessionUser user) {
+    public String goAdminOrders(Model model, @ModelAttribute("user") SessionUser user) {
 
-        if(!user.getRole().equals("ROLE_MANAGER")) {
+        if (!user.getRole().equals("ROLE_MANAGER")) {
             return "redirect:/home";
         }
 
@@ -151,41 +145,39 @@ public class ManagerController {
     }
 
 
-
     @GetMapping(value = "/adminOrders/{orderId}")
     public String goCheckOrder(@PathVariable("orderId") Long orderId, Model model,
-                               HttpServletRequest request, @ModelAttribute("user")SessionUser user) {
+                               HttpServletRequest request, @ModelAttribute("user") SessionUser user) {
 
-        if(!user.getRole().equals("ROLE_MANAGER")) {
+        if (!user.getRole().equals("ROLE_MANAGER")) {
             return "redirect:/home";
         }
 
         OrderAttribute orderAttribute = orderService.getOrderById(orderId);
         List<BucketAttribute> bucketAttributes = orderAttribute.getBuckets();
         List<ProductAttribute> productAttributes = new ArrayList<>();
-        Double total=0d;
-        if(!bucketAttributes.isEmpty()) {
+        Double total = 0d;
+        if (!bucketAttributes.isEmpty()) {
             for (BucketAttribute ba : bucketAttributes) {
                 ProductAttribute pa = productService.getProductAttributeById(ba.getProductId());
-                if(pa!=null) {
+                if (pa != null) {
+                    pa.setCost(ba.getCostProduct());
                     productAttributes.add(pa);
-                    total = total + pa.getCost() * ba.getCountProduct();
+                    total = total + ba.getCostProduct() * ba.getCountProduct();
                 }
             }
         }
-        model.addAttribute("products",productAttributes);
+        model.addAttribute("products", productAttributes);
         model.addAttribute("orderIn", orderAttribute);
         model.addAttribute("buckets", bucketAttributes);
         model.addAttribute("addressOrder", addressService.getAddressById(orderAttribute.getAddressId()));
         model.addAttribute("deliveryStatuses", deliveryStatusService.getAllDeliveryStatuses());
-        model.addAttribute("total",total);
+        model.addAttribute("total", String.format(Locale.US, "%.2f", total));
         model.addAttribute("editDeliveryStatus", new OrderAttribute());
         request.getSession().setAttribute("editOrder", orderAttribute);
 
-
         return "checkOrder";
     }
-
 
 
     @PostMapping(value = "editDeliveryStatus")
@@ -196,22 +188,21 @@ public class ManagerController {
         orderAttribute.setDeliveryStatus(orderEditAttribute.getDeliveryStatus());
         orderService.editOrderDeliveryStatus(orderAttribute);
 
-        return "redirect:/adminOrders/"+orderAttribute.getOrderId();
+        return "redirect:/adminOrders/" + orderAttribute.getOrderId();
     }
 
 
-
     @GetMapping(value = "statistics")
-    public String goStatistics(Model model, @ModelAttribute("user")SessionUser user) {
+    public String goStatistics(Model model, @ModelAttribute("user") SessionUser user) {
 
-        if(!user.getRole().equals("ROLE_MANAGER")) {
+        if (!user.getRole().equals("ROLE_MANAGER")) {
             return "redirect:/home";
         }
 
         model.addAttribute("topClients", userService.getTopUsers());
         model.addAttribute("topProducts", productService.getTopProducts());
-        //model.addAttribute("weekProceed", String.format("%.2f", orderService.getWeekProceed()));
-        //model.addAttribute("monthProceed", String.format("%.2f", orderService.getMonthProceed()));
+        //model.addAttribute("weekProceed", String.format(Locale.US, "%.2f", orderService.getWeekProceed()));
+        //model.addAttribute("monthProceed", String.format(Locale.US, "%.2f", orderService.getMonthProceed()));
 
         return "statistics";
     }

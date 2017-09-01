@@ -70,4 +70,8 @@ public class ProductEntity  implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "PROPERTY_ID"))
     private Set<PropertyEntity> properties = new HashSet<>();
 
+    @Basic
+    @Column(name = "VISIBLE")
+    private boolean visible;
+
 }

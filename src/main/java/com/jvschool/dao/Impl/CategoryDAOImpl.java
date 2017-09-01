@@ -19,7 +19,8 @@ public class CategoryDAOImpl implements CategoryDAO {
     @Override
     public List<CategoryEntity> getAllProductCategories() {
 
-        List<CategoryEntity> categories = em.createQuery("FROM CategoryEntity ").getResultList();
+        List<CategoryEntity> categories = em.createQuery("FROM CategoryEntity where visible=:visible ")
+                .setParameter("visible", true).getResultList();
 
         return categories;
     }
@@ -52,6 +53,7 @@ public class CategoryDAOImpl implements CategoryDAO {
     public void addProductCategory(String name) {
         final CategoryEntity categoryEntity = new CategoryEntity();
         categoryEntity.setCategoryName(name);
+        categoryEntity.setVisible(true);
 
         em.persist(categoryEntity);
 

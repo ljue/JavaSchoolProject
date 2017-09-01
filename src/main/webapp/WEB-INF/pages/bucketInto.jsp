@@ -22,7 +22,7 @@
 
         <c:forEach items="${productsInCart}" var="productInCart" varStatus="status">
             <%--<c:if test="${status.count }"--%>
-            <tr>
+            <tr id="tr-in-bucket-table${productInCart.key.productId}">
                 <td class="col-md-1">
                         ${productInCart.key.productId}
                 </td>
@@ -57,7 +57,7 @@
                 <td style="text-align: center">
                     <button type="button" class="btn btn-link btn-xs" value="${productInCart.key.productId}"
                             onclick="deleteProductFromCart(this)">
-                        <span><i class="fa fa-trash-o fa-2"></i> </span>
+                        <span><i class="fa fa-trash-o fa-lg"></i> </span>
                     </button>
                 </td>
             </tr>
@@ -92,7 +92,7 @@
                                         </c:forEach>
                                     </span></h5>
                                     </c:forEach>
-                                    <h5>${productInCart.key.description}</h5>
+                                    <%--<h5>${productInCart.key.description}</h5>--%>
 
                                     <h3 class="cost"></span> $${productInCart.key.cost}</h3>
 
@@ -110,6 +110,7 @@
         <td></td>
         <td style="text-align: center"><b>Total:</b></td>
         <td id="calc-total-price" style="text-align: center">${totalPrice}</td>
+        <td></td>
         </tbody>
     </table>
 
@@ -188,13 +189,12 @@
     function deleteProductFromCart(obj) {
         var idProduct = obj.value;
         var count = 0;
-//        $("#products-in-bucket").fadeOut(200);
+        //$("#tr-in-bucket-table"+idProduct).slideUp();
         $.ajax({
             type: "POST",
             data: {count: count},
             url: "${pageContext.request.contextPath}/changeCountInCart/" + idProduct,
             success: function (page) {
-//                $("#products-in-bucket").fadeIn(200);
                 $("#products-in-bucket").html(page);
             }
         })

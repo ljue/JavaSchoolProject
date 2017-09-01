@@ -10,7 +10,6 @@
 
 <br>
 <br>
-<!-- Page Content -->
 <div class="container">
     <div class="row">
         <div class="col-md-3">
@@ -37,7 +36,7 @@
                     <div id="panelTopClients" class="tab-pane fade in active">
 
                         <c:if test="${!empty topClients}"> <br>
-                            <table class="table table-hover">
+                            <table class="table">
                                 <thead>
                                 <tr>
                                     <th>#Id</th>
@@ -90,13 +89,61 @@
 
 
                                 <c:forEach items="${topProducts}" var="product">
-                                    <tr>
+                                    <tr data-toggle="modal"
+                                        href="#product-in-top-modal${product.productId}">
+
                                         <td>${product.productId}</td>
                                         <td>${product.productName}</td>
                                         <td>${product.cost}</td>
                                         <td>${product.sumCount}</td>
 
                                     </tr>
+
+                                    <div class="modal fade product_view"
+                                         id="product-in-top-modal${product.productId}">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+
+                                                    <h3 class="modal-title">${product.productName}</h3>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="row">
+                                                        <div class="col-md-6 product_img">
+                                                            <img src="${pageContext.request.contextPath}/resources/Images/${product.presentPic}"
+                                                                 class="img-responsive">
+                                                        </div>
+                                                        <div class="col-md-6 product_content">
+                                                            <h4>Product Id: <span>${product.productId}</span></h4>
+
+                                                            <h5>Name: <span>${product.productName}</span></h5>
+                                                            <h5>Category: <span>${product.category}</span></h5>
+                                                            <h5>Battery: <span>${product.battery}</span></h5>
+                                                            <h5>Fly time: <span>${product.flyTime}</span></h5>
+                                                            <h5>Distance: <span>${product.distance}</span></h5>
+                                                            <c:forEach items="${product.properties}"
+                                                                       var="propertyGroup">
+                                                                <h5>${propertyGroup.key}:
+                                                                    <span>
+                                                                    <c:forEach items="${propertyGroup.value}"
+                                                                               var="property" varStatus="status">
+                                                                        <c:if test="${status.index eq 0}">${property}</c:if>
+                                                                        <c:if test="${status.index gt 0}">, ${property}</c:if>
+                                                                    </c:forEach>
+                                                                    </span>
+                                                                </h5>
+                                                            </c:forEach>
+                                                            <h5>${product.description}</h5>
+
+                                                            <h3 class="cost"></span> $${product.cost}</h3>
+
+                                                            <div class="space-ten"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
                                 </c:forEach>
 
@@ -106,16 +153,16 @@
 
                     </div>
 
-                    <div id="panelProceed" class="tab-pane fade"> <br>
+                    <div id="panelProceed" class="tab-pane fade"><br>
 
                         <div class="form-group">
                             <label class="col-md-3">Proceed for a week:</label>
                             <label class="col-md-8">
                                 <%--<c:if test="${weekProceed eq 0}">--%>
-                                    <%--You haven`t got week proceed statistic.--%>
+                                <%--You haven`t got week proceed statistic.--%>
                                 <%--</c:if>--%>
                                 <%--<c:if test="${weekProceed ne 0}">--%>
-                                    ${weekProceed}
+                                ${weekProceed}
                                 <%--</c:if>--%>
                             </label> <br>
                         </div>
@@ -124,10 +171,10 @@
                             <label class="col-md-3">Proceed for a month:</label>
                             <label class="col-md-8">
                                 <%--<c:if test="${monthProceed eq 0}">--%>
-                                    <%--You haven`t got month proceed statistic.--%>
+                                <%--You haven`t got month proceed statistic.--%>
                                 <%--</c:if>--%>
                                 <%--<c:if test="${monthProceed ne 0}">--%>
-                                    ${monthProceed}
+                                ${monthProceed}
                                 <%--</c:if>--%>
                             </label><br>
                         </div>

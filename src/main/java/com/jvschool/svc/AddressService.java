@@ -28,4 +28,10 @@ public interface AddressService {
      * @param addressAttribute
      */
     void addNewAddress(AddressAttribute addressAttribute);
+
+    /**
+     * Set 'false' to field 'visible' in address entity where addressId = id.
+     * @param id
+     */
+    void removeAddress(long id);
 }

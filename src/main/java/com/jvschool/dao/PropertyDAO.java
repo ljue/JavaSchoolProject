@@ -12,4 +12,5 @@ public interface PropertyDAO {
     List<PropertyEntity> getPropertiesFromGroup(PropertyGroupEntity group);
     PropertyEntity getPropertyByName(String name);
     PropertyEntity getPropertyById(int id);
+    List<PropertyEntity> getSoloProperties();
 }

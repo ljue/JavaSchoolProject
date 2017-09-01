@@ -19,6 +19,8 @@ public class FilterAttribute {
     private String category;
     private List<String> properties = new ArrayList<>();
 
+    private int countOnPage;
+
     public FilterAttribute() {
         this.costFROM = 0;
         this.costTO = 99999;
