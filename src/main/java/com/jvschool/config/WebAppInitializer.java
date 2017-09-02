@@ -1,5 +1,6 @@
 package com.jvschool.config;
 
+
 import com.jvschool.util.RoleFilter;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;

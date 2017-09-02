@@ -20,10 +20,10 @@
 
         <div class="form-group ${error != null ? 'has-error' : ''}">
             <span>${message}</span>
-            <input required name="login" type="text" class="form-control" placeholder="Login"
+            <input id="login-login" required name="login" type="text" class="form-control" placeholder="Login"
                    autofocus="true"/>
-            <input required name="pass" type="password" class="form-control" placeholder="Password"/>
-            <span>${error}</span>
+            <input id="login-password" required name="pass" type="password" class="form-control" placeholder="Password"/>
+            <span id="login-error">${error}</span>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
             <button class="btn btn-lg btn-primary btn-block" type="submit">Log In</button>

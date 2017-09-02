@@ -46,13 +46,15 @@ public class SessionUser implements Serializable {
         this.firstName = ue.getFirstName();
         this.secondName = ue.getSecondName();
         this.birthday = ue.getBirthday();
-        this.role = ue.getRoleByRole().getRoleName();
+        if (ue.getRoleByRole() == null) {
+            this.role = "ROLE_CLIENT";
+        } else {
+            this.role = ue.getRoleByRole().getRoleName();
+        }
 
-        if (!ue.getAddresses().isEmpty()) {
-            List<AddressEntity> list = ue.getAddresses();
-            for (AddressEntity adr : list) {
-                this.listAddress.add(adr.getAddressId());
-            }
+        List<AddressEntity> list = ue.getAddresses();
+        for (AddressEntity adr : list) {
+            this.listAddress.add(adr.getAddressId());
         }
     }
 
