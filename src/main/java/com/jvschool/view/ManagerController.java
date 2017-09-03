@@ -52,7 +52,7 @@ public class ManagerController {
         model.addAttribute("propertiesSolo", propertyService.getSoloProperties());
         model.addAttribute("propertiesNotSolo", propertyService.getNotSoloProperties());
 
-        return "adminProducts";
+        return "manager/adminProducts";
     }
 
 
@@ -65,7 +65,7 @@ public class ManagerController {
             model.addAttribute("categories", categoryService.getAllProductCategoryNames());
             model.addAttribute("propertiesSolo", propertyService.getSoloProperties());
             model.addAttribute("propertiesNotSolo", propertyService.getNotSoloProperties());
-            return "adminProducts";
+            return "manager/adminProducts";
         }
 
         List<MultipartFile> files = productForm.getImages();
@@ -87,7 +87,7 @@ public class ManagerController {
         productForm.setPicturesPath(picNames);
 
         productService.addProduct(productForm);
-        return "redirect:/adminProducts";
+        return "redirect:/manager/adminProducts";
     }
 
 
@@ -109,7 +109,7 @@ public class ManagerController {
         model.addAttribute("categoriesForRemove", categoryAttributes);
         model.addAttribute("removedCategories", categoryService.getRemovedCategories());
 
-        return "editCategories";
+        return "manager/editCategories";
     }
 
 
@@ -120,38 +120,37 @@ public class ManagerController {
         if (categoryAttribute.getEditCategoryName() == null) {
             model.addAttribute("categories", categoryService.getAllProductCategoryNames());
             model.addAttribute("error", "This field is required.");
-            return "redirect:/editCategories";
+            return "redirect:/manager/editCategories";
         }
 
         categoryService.editCategory(categoryAttribute);
 
-        return "redirect:/editCategories";
+        return "redirect:/manager/editCategories";
     }
 
 
     @PostMapping(value = "/editCategories/addCategory")
     public String addCategoryPost(@ModelAttribute("formAddCategory") CategoryAttribute categoryAttribute) {
         categoryService.addProductCategory(categoryAttribute.getAddCategoryName());
-        return "redirect:/editCategories";
+        return "redirect:/manager/editCategories";
     }
 
     @PostMapping(value = "/editCategories/removeCategory")
     public String removeCategory(@ModelAttribute("formRemoveCategory") CategoryAttribute categoryAttribute) {
         categoryService.removeCategory(categoryAttribute.getRemoveCategoryName());
-        return "redirect:/editCategories";
+        return "redirect:/manager/editCategories";
     }
 
     @PostMapping(value = "/editCategories/returnCategory")
     public String returnCategory(@ModelAttribute("formReturnCategory") CategoryAttribute categoryAttribute) {
         categoryService.returnCategory(categoryAttribute.getReturnCategoryName());
-        return "redirect:/editCategories";
+        return "redirect:/manager/editCategories";
     }
 
     @PostMapping(value = "/editCategories/checkExisting")
     @ResponseBody
     public boolean checkExistingCategory(@RequestParam String addCategoryName) {
-        boolean b = (categoryService.getProductCategoryByName(addCategoryName) != null) ? true : false;
-        return b;
+        return (categoryService.getProductCategoryByName(addCategoryName) != null) ? true : false;
     }
 
 
@@ -166,7 +165,7 @@ public class ManagerController {
         List<OrderAttribute> orders = orderService.getOrdersGroupByDeliveryStatus();
         model.addAttribute("orders", orders);
 
-        return "adminOrders";
+        return "manager/adminOrders";
     }
 
 
@@ -201,7 +200,7 @@ public class ManagerController {
         model.addAttribute("editDeliveryStatus", new OrderAttribute());
         request.getSession().setAttribute("editOrder", orderAttribute);
 
-        return "checkOrder";
+        return "manager/checkOrder";
     }
 
 
@@ -213,7 +212,7 @@ public class ManagerController {
         orderAttribute.setDeliveryStatus(orderEditAttribute.getDeliveryStatus());
         orderService.editOrderDeliveryStatus(orderAttribute);
 
-        return "redirect:/adminOrders/" + orderAttribute.getOrderId();
+        return "redirect:/manager/adminOrders/" + orderAttribute.getOrderId();
     }
 
 
@@ -229,6 +228,6 @@ public class ManagerController {
         //model.addAttribute("weekProceed", String.format(Locale.US, "%.2f", orderService.getWeekProceed()));
         //model.addAttribute("monthProceed", String.format(Locale.US, "%.2f", orderService.getMonthProceed()));
 
-        return "statistics";
+        return "manager/statistics";
     }
 }

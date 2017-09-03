@@ -4,18 +4,15 @@
 <head>
     <title>Order in history</title>
 
-    <jsp:include page="../templates/head.jsp"/>
+    <jsp:include page="../../templates/head.jsp"/>
 </head>
 <body>
-<jsp:include page="../templates/navigation.jsp"/>
-<jsp:include page="../templates/scripts.jsp"/>
+<jsp:include page="../../templates/navigation.jsp"/>
+<jsp:include page="../../templates/scripts.jsp"/>
 
-<%--<c:url var="editInfo" value="/my-webapp/user/editInfo"/>--%>
-<%--<c:url var="editPass" value="/my-webapp/user/editPass"/>--%>
 
 <br>
 <br>
-<!-- Page Content -->
 <div class="container">
     <div class="row">
         <div class="col-md-3">

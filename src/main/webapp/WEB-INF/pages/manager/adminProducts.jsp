@@ -7,7 +7,7 @@
     <title>Goods management</title>
 </head>
 <body>
-<jsp:include page="../templates/navigation.jsp"/>
+<jsp:include page="../../templates/navigation.jsp"/>
 <br>
 <br>
 

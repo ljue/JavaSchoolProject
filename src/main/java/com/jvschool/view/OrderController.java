@@ -47,7 +47,7 @@ public class OrderController {
 
         model.addAttribute("payWays", payWayService.getAllPayWays());
         model.addAttribute("deliveryWays",deliveryWayService.getAllDeliveryWays());
-        return "checkout";
+        return "user/checkout";
     }
 
     @PostMapping(value = "/checkout/goPay")
@@ -61,7 +61,7 @@ public class OrderController {
             model.addAttribute("addresses", addressService.getAllAddressesByUserId(user.getId()));
             model.addAttribute("payWays", payWayService.getAllPayWays());
             model.addAttribute("deliveryWays",deliveryWayService.getAllDeliveryWays());
-            return "checkout";
+            return "user/checkout";
         }
 
         orderAttribute.setUserId(user.getId());
@@ -79,7 +79,7 @@ public class OrderController {
         user.setProducts(new HashMap<>());
         model.addAttribute(user);
 
-        return "checkoutSuccess";
+        return "user/checkoutSuccess";
     }
 
 
@@ -90,7 +90,7 @@ public class OrderController {
         addressAttribute.setUserId(user.getId());
         addressService.addNewAddress(addressAttribute);
 
-        return "redirect:/checkout";
+        return "redirect:/user/checkout";
     }
 
 

@@ -28,7 +28,7 @@ public class AddressController {
         model.addAttribute("addresses", addressService.getAllAddressesByUserId(user.getId()));
         model.addAttribute("formAddAddress", new AddressAttribute());
 
-        return "address";
+        return "user/address";
     }
 
 
@@ -39,13 +39,13 @@ public class AddressController {
         addressValidator.validate(addressAttribute, bindingResult);
 
         if (bindingResult.hasErrors()) {
-            return "address";
+            return "user/address";
         }
 
         addressAttribute.setUserId(user.getId());
         addressService.addNewAddress(addressAttribute);
 
-        return "redirect:/address";
+        return "redirect:/user/address";
     }
 
     @PostMapping(value = "/address/remove/{addressId}")

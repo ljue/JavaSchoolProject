@@ -7,15 +7,10 @@
 
 </head>
 <body>
-<jsp:include page="../templates/navigation.jsp"/>
-
-<%--<c:url var="editInfo" value="/my-webapp/user/editInfo"/>--%>
-<%--<c:url var="editPass" value="/my-webapp/user/editPass"/>--%>
-<%--<jsp:include page="/countries" />--%>
+<jsp:include page="../../templates/navigation.jsp"/>
 
 <br>
 <br>
-<!-- Page Content -->
 <div class="container">
     <div class="row">
         <div class="col-md-3">

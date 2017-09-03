@@ -45,7 +45,7 @@ public class UserController {
     @GetMapping(value = "/user")
     public String editUser(@ModelAttribute("user") SessionUser sessionUser,Model model) {
         model.addAttribute("userForm", sessionUser);
-        return "user";
+        return "user/user";
     }
 
     @PostMapping(value = "/user/editInfo")
@@ -55,14 +55,14 @@ public class UserController {
         userValidator.validate(userForm, bindingResult);
         if (bindingResult.hasErrors()) {
             model.addAttribute("userForm", user);
-            return "user";
+            return "user/user";
         }
         userForm.setId(user.getId());
         userService.editUserInfo(userForm);
         userForm.setProducts(user.getProducts());
         userForm.setRole(user.getRole());
         model.addAttribute("user",userForm);
-        return "redirect:/user";
+        return "redirect:/user/user";
     }
 
     @PostMapping(value = "/user/editPass")
@@ -71,12 +71,12 @@ public class UserController {
         userForm.setId(user.getId());
         userValidator.validate(userForm, bindingResult);
         if (bindingResult.hasErrors()) {
-            return "user";
+            return "user/user";
         }
         userService.editUserPassword(userForm);
         userForm.setProducts(user.getProducts());
         model.addAttribute("user",userForm);
-        return "redirect:/user";
+        return "redirect:/user/user";
     }
 
     @GetMapping(value = "/history")
@@ -84,7 +84,7 @@ public class UserController {
 
         model.addAttribute("ordersHistory", orderService.getOrdersByUserId(user.getId()));
 
-        return "history";
+        return "user/history";
     }
 
     @GetMapping(value = "/orderInHistory/{orderId}")
@@ -108,7 +108,7 @@ public class UserController {
         model.addAttribute("addressOrder", addressService.getAddressById(orderAttribute.getAddressId()));
         model.addAttribute("total",String.format(Locale.US, "%.2f", total));
 
-        return "orderInHistory";
+        return "user/orderInHistory";
     }
 
     @PostMapping(value = "/orderInHistory/repeatOrder/{orderId}")
