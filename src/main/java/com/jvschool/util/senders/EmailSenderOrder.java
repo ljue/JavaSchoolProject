@@ -19,7 +19,7 @@ import java.util.Properties;
 public class EmailSenderOrder implements Runnable {
 
     private OrderEntity order;
-    final static private String PICTURES_DIR = "D:/JavaSchoolProject/mywebapp/src/main/webapp/resources/Images/";
+    private static final String PICTURES_DIR = "D:/JavaSchoolProject/mywebapp/src/main/webapp/resources/Images/";
 
     public EmailSenderOrder(OrderEntity order) {
 
@@ -40,6 +40,7 @@ public class EmailSenderOrder implements Runnable {
         properties.put("mail.smtp.port", "587");
 
         Session session = Session.getDefaultInstance(properties,  new javax.mail.Authenticator() {
+            @Override
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(fromEmail,fromEmailPassword);}});
 
@@ -51,22 +52,21 @@ public class EmailSenderOrder implements Runnable {
 
             message.setSubject("Order details.");
 
-
             MimeMultipart multipart = new MimeMultipart("related");
 
-
-            String htmlText = "<H1>Hello, " + order.getUser().getFirstName() + "!</H1>" +
-                    "<div><p>You registered order:</p></div><br>";
+            StringBuilder builder = new StringBuilder();
+            builder.append("<H1>Hello, " + order.getUser().getFirstName() + "!</H1>" +
+                    "<div><p>You registered order:</p></div><br>");
             BodyPart messageBodyPart;
 
             int i = 0;
             double total = 0;
             for (BucketEntity bucket: order.getBuckets()) {
-                htmlText += "<H4>"+ bucket.getProductId().getProductName() + "</H4>" +
+                builder.append("<H4>"+ bucket.getProductId().getProductName() + "</H4>" +
                         "<p>Count: " + bucket.getCountProduct() + "</p>" +
                         "<p>Cost: " + bucket.getCostProduct() + "$</p>" +
                         "<img style=\"height: 300px; width: 300px;\" src=\"cid:image"
-                        + (++i) + "\"><br><br>";
+                        + (++i) + "\"><br><br>");
                 total += bucket.getCostProduct()*bucket.getCountProduct();
 
                 messageBodyPart = new MimeBodyPart();
@@ -79,10 +79,10 @@ public class EmailSenderOrder implements Runnable {
                 multipart.addBodyPart(messageBodyPart);
             }
 
-            htmlText += "<br><H3>Total: " + String.format(Locale.US, "%.2f", total) + "$</H3>";
-            htmlText += "<hr><br><p>Best regards,</p><p>Favorite copters.</p>";
+            builder.append("<br><H3>Total: " + String.format(Locale.US, "%.2f", total) + "$</H3>");
+            builder.append("<hr><br><p>Best regards,</p><p>Favorite copters.</p>");
             messageBodyPart = new MimeBodyPart();
-            messageBodyPart.setContent(htmlText, "text/html");
+            messageBodyPart.setContent(builder.toString(), "text/html");
             multipart.addBodyPart(messageBodyPart);
 
             message.setContent(multipart);

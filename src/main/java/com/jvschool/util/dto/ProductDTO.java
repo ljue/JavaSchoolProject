@@ -20,7 +20,7 @@ public class ProductDTO  implements Serializable {
     private double cost;
     private String picture;
 
-    final static private String PICTURES_DIR = "D:/JavaSchoolProject/mywebapp/src/main/webapp/resources/Images/";
+    private static final  String PICTURES_DIR = "D:/JavaSchoolProject/mywebapp/src/main/webapp/resources/Images/";
 
     @Override
     public String toString() {
@@ -28,7 +28,6 @@ public class ProductDTO  implements Serializable {
                 "productId=" + productId +
                 ", productName='" + productName + '\'' +
                 ", cost=" + cost +
-                //", picture='" + picture + '\'' +
                 '}';
     }
 

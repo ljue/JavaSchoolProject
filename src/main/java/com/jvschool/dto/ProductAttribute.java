@@ -45,7 +45,7 @@ public class ProductAttribute  implements Serializable {
         this.productId = productEntity.getProductId();
         this.productName = productEntity.getProductName();
 
-        this.presentProductName = this.productName.substring(0, this.productName.substring(0,60).lastIndexOf(" ")) + "...";
+        this.presentProductName = this.productName.substring(0, this.productName.substring(0,60).lastIndexOf(' ')) + "...";
 
         this.count = productEntity.getCount();
         this.cost = productEntity.getCost();

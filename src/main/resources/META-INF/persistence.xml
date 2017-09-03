@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
 
-    <!--<persistence-unit name="mms-persistence-unit" transaction-type="JTA">-->
-    <persistence-unit name="mms-persistence-unit" transaction-type="RESOURCE_LOCAL">
+    <persistence-unit name="mms-persistence-unit" transaction-type="JTA">
+    <!--<persistence-unit name="mms-persistence-unit" transaction-type="RESOURCE_LOCAL">-->
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
         <class>com.jvschool.model.OrderEntity</class>
@@ -29,10 +29,9 @@
             <!--<property name="hibernate.connection.url" value="jdbc:log4jdbc:mysql://localhost:3306/MYSHOP_SCHEMA"/>-->
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
             <!--<property name="hibernate.show_sql" value = "true"/>-->
-            <property name="openjpa.TransactionMode" value="managed"/>
-            <property name="openjpa.ManagedRuntime" value="jndi(TransactionManagerName=java:/TransactionManager)"/>
-            <!--<property name="userTransactionName" value="UserTransaction"/>-->
-            <!--<property name="hibernate.transaction.jta.platform" value="org.hibernate.service.jta.platform.internal.JBossAppServerJtaPlatform" />-->
+            <!--<property name="openjpa.TransactionMode" value="managed"/>-->
+            <!--<property name="openjpa.ManagedRuntime" value="jndi(TransactionManagerName=java:/TransactionManager)"/>-->
+            <property name="hibernate.transaction.jta.platform" value="org.hibernate.service.jta.platform.internal.JBossAppServerJtaPlatform" />
 
         </properties>
     </persistence-unit>

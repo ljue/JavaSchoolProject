@@ -2,7 +2,7 @@ package junit;
 
 import com.jvschool.dao.api.UserDAO;
 import com.jvschool.model.UserEntity;
-import com.jvschool.svc.Impl.UserServiceImpl;
+import com.jvschool.svc.impl.UserServiceImpl;
 import com.jvschool.dto.SessionUser;
 import org.junit.Assert;
 import org.junit.Before;

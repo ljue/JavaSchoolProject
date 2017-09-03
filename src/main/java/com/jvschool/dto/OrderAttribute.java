@@ -3,12 +3,14 @@ package com.jvschool.dto;
 
 import com.jvschool.model.BucketEntity;
 import com.jvschool.model.OrderEntity;
+
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class OrderAttribute {
+public class OrderAttribute implements Serializable {
 
     private long orderId;
     private Timestamp dateTimeOrder;

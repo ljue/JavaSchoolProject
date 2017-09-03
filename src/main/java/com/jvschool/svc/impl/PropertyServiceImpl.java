@@ -1,6 +1,8 @@
-package com.jvschool.svc.Impl;
+package com.jvschool.svc.impl;
 
 import com.jvschool.dao.api.PropertyDAO;
+import com.jvschool.dao.api.PropertyGroupDAO;
+import com.jvschool.dto.EditForm;
 import com.jvschool.model.PropertyEntity;
 import com.jvschool.svc.api.PropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +21,18 @@ public class PropertyServiceImpl implements PropertyService {
 
     @Autowired
     private PropertyDAO propertyDAO;
+    @Autowired
+    private PropertyGroupDAO propertyGroupDAO;
 
     @Override
-    public List<PropertyEntity> getAllProperties() {
-        return propertyDAO.getAllProperties();
+    public List<String> getAllVisibleProperties() {
+        List<String> propertyNames = new ArrayList<>();
+        for(PropertyEntity property : propertyDAO.getAllProperties()) {
+            if(property.getPropertyGroup().isVisible() && property.isVisible()) {
+                propertyNames.add(property.getPropertyName());
+            }
+        }
+        return propertyNames;
     }
 
     @Override
@@ -70,6 +80,40 @@ public class PropertyServiceImpl implements PropertyService {
                     v -> new ArrayList<>()).add(propertyEntity.getPropertyName());
         }
         return properties;
+    }
+
+    @Override
+    public void addProperty(EditForm form) {
+        PropertyEntity property = new PropertyEntity();
+        property.setVisible(true);
+        property.setPropertyName(form.getAdd());
+        property.setPropertyGroup(propertyGroupDAO.getPropertyGroupByName(form.getType()));
+        propertyDAO.addProperty(property);
+    }
+
+    @Override
+    public void editProperty(EditForm editForm) {
+        PropertyEntity property = propertyDAO.getPropertyByName(editForm.getCurrent());
+        property.setPropertyName(editForm.getEdit());
+        propertyDAO.editProperty(property);
+    }
+
+    @Override
+    public void removeProperty(String name) {
+        propertyDAO.removeProperty(name);
+    }
+
+    @Override
+    public List<String> getRemovedProperties() {
+        List<String> propertyNames = new ArrayList<>();
+        propertyDAO.getRemovedPropertiesVisibleGroups().stream()
+                .forEachOrdered(property -> propertyNames.add(property.getPropertyName()));
+        return propertyNames;
+    }
+
+    @Override
+    public void returnProperty(String name) {
+        propertyDAO.returnProperty(name);
     }
 
 

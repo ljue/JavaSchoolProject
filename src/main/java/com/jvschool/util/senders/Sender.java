@@ -40,9 +40,9 @@ public class Sender {
             session.close();
             connection.close();
         } catch ( NamingException e) {
-            log.info(e.toString());
+            log.error(e.toString());
         } catch (JMSException e) {
-            e.printStackTrace();
+            log.error(e.toString());
         }
     }
 

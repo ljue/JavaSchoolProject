@@ -1,4 +1,4 @@
-package com.jvschool.dao.Impl;
+package com.jvschool.dao.impl;
 
 import com.jvschool.dao.api.OrderDAO;
 import com.jvschool.dao.api.UserDAO;
@@ -36,9 +36,8 @@ public class OrderDAOImpl implements OrderDAO {
     @Override
     public List<OrderEntity> getOrdersGroupByDeliveryStatus() {
 
-        List list = em.createQuery("FROM OrderEntity " +
+        return em.createQuery("FROM OrderEntity " +
                 " order by deliveryStatus.deliveryStatusId, dateTimeOrder").getResultList();
-        return list;
     }
 
     @Override
@@ -47,10 +46,7 @@ public class OrderDAOImpl implements OrderDAO {
         List list = em.createQuery("FROM OrderEntity where orderId=:id")
                 .setParameter("id",id).getResultList();
 
-        if (list.isEmpty())
-            return null;
-        else
-            return (OrderEntity) list.get(0);
+        return (list.isEmpty()) ? null : (OrderEntity) list.get(0);
 
     }
 
@@ -58,10 +54,8 @@ public class OrderDAOImpl implements OrderDAO {
     public List<OrderEntity> getOrdersByUserId(long id) {
 
         UserEntity user = userDAO.getUserById(id);
-        List<OrderEntity> list = em.createQuery("FROM OrderEntity where user=:user")
+        return em.createQuery("FROM OrderEntity where user=:user")
                 .setParameter("user",user).getResultList();
-
-        return list;
     }
 
     @Override
@@ -78,11 +72,7 @@ public class OrderDAOImpl implements OrderDAO {
                 order.get("dateTimeOrder"),
                 new Date(System.currentTimeMillis() - 7L * 24 * 3600 * 1000)));
 
-        double d = (double) em.createQuery(criteriaQuery).getSingleResult();
-
-//        double dd = em.createQuery("select sum()")
-
-        return d;
+        return (double) em.createQuery(criteriaQuery).getSingleResult();
     }
 
     @Override
@@ -98,10 +88,6 @@ public class OrderDAOImpl implements OrderDAO {
         criteriaQuery.where(criteriaBuilder.greaterThanOrEqualTo(
                 order.get("dateTimeOrder"), new Date(System.currentTimeMillis() - 30L * 24 * 3600 * 1000)));
 
-        double d = (double) em.createQuery(criteriaQuery).getSingleResult();
-
-        return d;
+        return (double) em.createQuery(criteriaQuery).getSingleResult();
     }
-
-
 }

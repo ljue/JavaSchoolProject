@@ -1,4 +1,4 @@
-package com.jvschool.dao.Impl;
+package com.jvschool.dao.impl;
 
 import com.jvschool.dao.api.PayWayDAO;
 import com.jvschool.model.PayWayEntity;
@@ -17,9 +17,7 @@ public class PayWayDAOImpl implements PayWayDAO {
     @Override
     public List<PayWayEntity> getAllPayWays() {
 
-        List<PayWayEntity> ways = em.createQuery("from PayWayEntity ").getResultList();
-
-        return  ways;
+        return em.createQuery("from PayWayEntity ").getResultList();
     }
 
     @Override
@@ -28,9 +26,6 @@ public class PayWayDAOImpl implements PayWayDAO {
         List list = em.createQuery("FROM PayWayEntity where payWayName=:name")
                 .setParameter("name",name).getResultList();
 
-        if(list.isEmpty())
-            return null;
-        else
-            return (PayWayEntity) list.get(0);
+        return (list.isEmpty()) ? null : (PayWayEntity) list.get(0);
     }
 }

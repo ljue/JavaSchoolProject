@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.List;
 @EqualsAndHashCode
 @Entity
 @Table(name = "ORDERS", schema = "MYSHOP_SCHEMA")
-public class OrderEntity {
+public class OrderEntity implements Serializable {
 
     @Id
     @Column(name = "ORDER_ID", nullable = false)

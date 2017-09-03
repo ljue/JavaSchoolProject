@@ -1,4 +1,4 @@
-package com.jvschool.dao.Impl;
+package com.jvschool.dao.impl;
 
 import com.jvschool.dao.api.RoleDAO;
 import com.jvschool.model.RoleEntity;
@@ -20,10 +20,7 @@ public class RoleDAOImpl implements RoleDAO {
         List list = em.createQuery("FROM RoleEntity where roleName=:name")
                 .setParameter("name",name).getResultList();
 
-        if(list.isEmpty())
-            return null;
-        else
-            return (RoleEntity) list.get(0);
+        return (list.isEmpty()) ? null : (RoleEntity) list.get(0);
     }
 
     @Override

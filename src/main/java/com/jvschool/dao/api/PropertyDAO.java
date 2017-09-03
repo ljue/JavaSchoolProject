@@ -13,4 +13,10 @@ public interface PropertyDAO {
     PropertyEntity getPropertyByName(String name);
     PropertyEntity getPropertyById(int id);
     List<PropertyEntity> getSoloProperties();
+
+    void addProperty(PropertyEntity property);
+    void editProperty(PropertyEntity property);
+    void removeProperty(String name);
+    List<PropertyEntity> getRemovedPropertiesVisibleGroups();
+    void returnProperty(String name);
 }

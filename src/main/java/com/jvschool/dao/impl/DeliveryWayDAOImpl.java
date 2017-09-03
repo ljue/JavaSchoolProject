@@ -1,4 +1,4 @@
-package com.jvschool.dao.Impl;
+package com.jvschool.dao.impl;
 
 import com.jvschool.dao.api.DeliveryWayDAO;
 import com.jvschool.model.DeliveryWayEntity;
@@ -17,9 +17,7 @@ public class DeliveryWayDAOImpl implements DeliveryWayDAO {
     @Override
     public List<DeliveryWayEntity> getAllDeliveryWays() {
 
-        List<DeliveryWayEntity> ways = em.createQuery("from DeliveryWayEntity ").getResultList();
-
-        return  ways;
+        return em.createQuery("from DeliveryWayEntity ").getResultList();
     }
 
     @Override

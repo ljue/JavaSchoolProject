@@ -3,8 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set value="${pageContext.request.contextPath}" var="myContext"/>
 <head>
+    <title>FavCopters</title>
     <jsp:include page="head.jsp"/>
-
 </head>
 
 <jsp:include page="scripts.jsp" />

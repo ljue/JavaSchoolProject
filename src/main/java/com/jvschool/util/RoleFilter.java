@@ -13,7 +13,7 @@ public class RoleFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-
+        // default implementation ignored
     }
 
     @Override
@@ -31,6 +31,6 @@ public class RoleFilter implements Filter {
 
     @Override
     public void destroy() {
-
+        // default implementation ignored
     }
 }

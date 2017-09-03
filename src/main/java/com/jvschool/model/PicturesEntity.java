@@ -5,13 +5,14 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Getter
 @Setter
 @EqualsAndHashCode
 @Entity
 @Table(name = "PICTURE", schema = "MYSHOP_SCHEMA")
-public class PicturesEntity {
+public class PicturesEntity implements Serializable {
 
     @Id
     @Column(name = "PICTURE_ID", nullable = false)

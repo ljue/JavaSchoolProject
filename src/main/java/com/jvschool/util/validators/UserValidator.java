@@ -12,8 +12,8 @@ import org.springframework.validation.Validator;
 @Component
 public class UserValidator implements Validator {
 
-//    @Autowired
-//    private UserService userService;
+    private static final String REQUIRED = "Required";
+    private static final String REQ_STR = "This field is required.";
 
 
     @Override
@@ -26,17 +26,12 @@ public class UserValidator implements Validator {
 
         SessionUser user = (SessionUser) o;
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "login", "Required", "This field is required.");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "login", REQUIRED, REQ_STR);
         if (user.getLogin().length() < 4 || user.getLogin().length() > 30) {
             errors.rejectValue("login", "Size.userForm.login", "Username must be between 4 and 30 characters.");
         }
 
-//        if (userService.getUserByLogin(user.getLogin()) != null) {
-//            errors.rejectValue("login", "Duplicate.userForm.login", "Such username already exists.");
-//        }
-
-
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "pass", "Required", "This field is required.");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "pass", REQUIRED, REQ_STR);
         if ( user.getPass()!=null &&
                 (user.getPass().length() < 4 || user.getPass().length() > 30)) {
             errors.rejectValue("pass", "Size.userForm.pass", "Password must be between 4 and 30 characters.");
@@ -47,18 +42,15 @@ public class UserValidator implements Validator {
             errors.rejectValue("confirmPassword", "Different.userForm.pass", "Password don't match.");
         }
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firstName", "Required", "This field is required.");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "secondName", "Required", "This field is required.");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "Required", "This field is required.");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firstName", REQUIRED, REQ_STR);
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "secondName", REQUIRED, REQ_STR);
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", REQUIRED, REQ_STR);
 
 
         boolean allowLocal = true;
         if (!EmailValidator.getInstance(allowLocal).isValid(user.getEmail())) {
             errors.rejectValue("email","Unvalidated.userForm.email", "Email is unvalidated.");
         }
-//        if (userService.getUserByEmail(user.getEmail())!=null) {
-//            errors.rejectValue("email","Duplicate.userForm.email", "Such email already exists.");
-//        }
 
     }
 

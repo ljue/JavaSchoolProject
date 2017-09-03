@@ -15,7 +15,7 @@ import java.io.Serializable;
 public class PropertyGroupEntity implements Serializable {
 
     @Id
-    @Column(name = "PROPERTY_GROUP_ID", nullable = false)
+    @Column(name = "PROPERTY_GROUP_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int propertyGroupId;
 
@@ -26,5 +26,9 @@ public class PropertyGroupEntity implements Serializable {
     @Basic
     @Column(name = "SOLO")
     private boolean solo;
+
+    @Basic
+    @Column(name = "VISIBLE")
+    private boolean visible;
 
 }

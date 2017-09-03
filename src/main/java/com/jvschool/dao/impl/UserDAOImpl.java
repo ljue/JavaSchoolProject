@@ -1,4 +1,4 @@
-package com.jvschool.dao.Impl;
+package com.jvschool.dao.impl;
 
 import com.jvschool.dao.api.UserDAO;
 import com.jvschool.model.OrderEntity;
@@ -27,10 +27,7 @@ public class UserDAOImpl implements UserDAO {
         List list  = em.createQuery("FROM UserEntity where id=:id")
             .setParameter("id",id).getResultList();
 
-        if(list.isEmpty())
-            return null;
-        else
-            return (UserEntity) list.get(0);
+        return (list.isEmpty()) ? null : (UserEntity) list.get(0);
     }
 
     @Override
@@ -39,10 +36,7 @@ public class UserDAOImpl implements UserDAO {
         List list = em.createQuery("FROM UserEntity where login=:log")
                 .setParameter("log",login).getResultList();
 
-        if(list.isEmpty())
-            return null;
-        else
-            return (UserEntity) list.get(0);
+        return (list.isEmpty()) ? null : (UserEntity) list.get(0);
     }
 
     @Override
@@ -51,19 +45,14 @@ public class UserDAOImpl implements UserDAO {
         List list = em.createQuery("FROM UserEntity where email=:mail")
                 .setParameter("mail",email).getResultList();
 
-        if(list.isEmpty())
-            return null;
-        else
-            return (UserEntity) list.get(0);
+        return (list.isEmpty()) ? null : (UserEntity) list.get(0);
 
     }
 
     @Override
     public List<UserEntity> getAllUsers() {
 
-        List users = em.createQuery("FROM UserEntity ").getResultList();
-
-        return users;
+        return em.createQuery("FROM UserEntity ").getResultList();
     }
 
     @Override
@@ -107,10 +96,7 @@ public class UserDAOImpl implements UserDAO {
                 " and pass=:passw").setParameter("log", login)
                 .setParameter("passw", password).getResultList();
 
-        if(list.isEmpty())
-            return null;
-        else
-            return (UserEntity) list.get(0);
+        return (list.isEmpty()) ? null : (UserEntity) list.get(0);
     }
 
     @Override
@@ -141,8 +127,7 @@ public class UserDAOImpl implements UserDAO {
         List list =  em.createQuery("select u.id FROM UserEntity u where u.email=:email")
                 .setParameter("email", email).getResultList();
 
-        if(list.isEmpty()) { return 0; }
-        else { return (long) list.get(0); }
+        return (list.isEmpty()) ? 0 : (long) list.get(0);
     }
 
     @Override
@@ -150,8 +135,7 @@ public class UserDAOImpl implements UserDAO {
         List list =  em.createQuery("select u.id FROM UserEntity u where u.login=:login")
                 .setParameter("login", login).getResultList();
 
-        if(list.isEmpty()) { return 0; }
-        else { return (long) list.get(0); }
+        return (list.isEmpty()) ? 0 : (long) list.get(0);
     }
 
 }

@@ -6,10 +6,10 @@
 
 body {
     padding-top: 70px;
+    /*padding-right: 0;*/
 }
-/*.container {*/
-    /*padding-right: 17px;*/
-/*}*/
+
+
 
 
 .my-message-success{
@@ -149,3 +149,22 @@ body {
 .has-error {
     color: red
 }
+
+.modal {
+    overflow-y: auto;
+}
+
+.modal-open {
+    overflow: auto;
+}
+
+.modal-open[style] {
+    padding-right: 0px !important;
+}
+/*body.modal-open {*/
+/*overflow:auto;*/
+/*padding-right: 0px !important;*/
+/*}*/
+/*.container {*/
+/*padding-right: 17px;*/
+/*}*/

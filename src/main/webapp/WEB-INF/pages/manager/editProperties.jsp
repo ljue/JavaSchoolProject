@@ -1,11 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html lang="en">
-<head>
-    <title>Goods management</title>
-</head>
+
 <body>
 <jsp:include page="../../templates/navigation.jsp"/>
 <br>
@@ -29,28 +26,30 @@
             <div class="row">
                 <ul class="nav nav-tabs">
                     <li><a href="${pageContext.request.contextPath}/adminProducts">Add new goods</a></li>
-                    <li class="active"><a href="${pageContext.request.contextPath}/editCategories">Control
-                        categories</a></li>
-                    <li><a href="${pageContext.request.contextPath}/editPropertyGroups">Control property groups</a></li>
-                    <li><a href="${pageContext.request.contextPath}/editProperties">Control properties</a></li>
+                    <li><a href="${pageContext.request.contextPath}/editCategories">Control categories</a></li>
+                    <li><a href="${pageContext.request.contextPath}/editPropertyGroups">Control
+                        property groups</a></li>
+                    <li class="active"><a href="${pageContext.request.contextPath}/editProperties">Control
+                        properties</a></li>
+
                 </ul>
 
                 <div class="row">
-                    <c:if test="${!empty categories}">
+                    <c:if test="${!empty properties}">
                         <div class="tab-content">
                             <br>
 
 
-                            <spring:form modelAttribute="formEditCategory" method="POST"
-                                         action="${pageContext.request.contextPath}/editCategories/editCategoryName"
-                                         class="form-horizontal">
+                            <form:form modelAttribute="formEditProperty" method="POST"
+                                       action="${pageContext.request.contextPath}/editProperties/editProperty"
+                                       class="form-horizontal">
 
                                 <div class="form-group">
-                                    <label class="col-lg-3 control-label">Edit product category:</label>
+                                    <label class="col-lg-3 control-label">Edit property:</label>
                                     <div class="col-lg-6">
-                                        <form:select path="categoryName" class="form-control">
-                                            <c:forEach items="${categories}" var="cat">
-                                                <form:option value="${cat}" label="${cat}"></form:option>
+                                        <form:select path="current" class="form-control">
+                                            <c:forEach items="${properties}" var="prop">
+                                                <form:option value="${prop}" label="${prop}"></form:option>
                                             </c:forEach>
                                         </form:select>
                                     </div>
@@ -59,7 +58,7 @@
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label"></label>
                                     <div class="col-lg-6">
-                                        <form:input required="required" type="text" path="editCategoryName"
+                                        <form:input required="required" type="text" path="edit"
                                                     class="form-control"
                                         ></form:input>
                                     </div>
@@ -73,22 +72,32 @@
                                         <input class="btn btn-default" value="Cancel" type="reset"/>
                                     </div>
                                 </div>
-                            </spring:form>
+                            </form:form>
                         </div>
                     </c:if>
 
                     <div class="tab-content">
                         <br>
-                        <spring:form modelAttribute="formAddCategory" method="POST" id="form-add-category"
-                                     action="${pageContext.request.contextPath}/editCategories/addCategory"
-                                     class="form-horizontal">
+                        <form:form modelAttribute="formAddProperty" method="POST" id="form-add-property"
+                                   action="${pageContext.request.contextPath}/editProperties/addProperty"
+                                   class="form-horizontal">
 
                             <div class="form-group">
-                                <label class="col-lg-3 control-label">Add product category:</label>
-
+                                <label class="col-lg-3 control-label">Add property to group:</label>
                                 <div class="col-lg-6">
-                                    <form:input required="required" type="text" path="addCategoryName"
-                                                class="form-control" id="add-category-input"
+                                    <form:select path="type" class="form-control">
+                                        <c:forEach items="${propertyGroups}" var="prop">
+                                            <form:option value="${prop}" label="${prop}"></form:option>
+                                        </c:forEach>
+                                    </form:select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label"></label>
+                                <div class="col-lg-6">
+                                    <form:input required="required" type="text" path="add"
+                                                class="form-control" id="add-property-input"
                                     ></form:input>
                                 </div>
                             </div>
@@ -96,25 +105,25 @@
                             <div class="form-group">
                                 <label class="col-md-3 control-label"></label>
                                 <div class="col-md-6">
-                                    <input id="add-new-category-product" class="btn btn-primary" value="Add"
+                                    <input id="add-new-property-btn" class="btn btn-primary" value="Add"
                                            type="submit">
                                 </div>
                             </div>
-                        </spring:form>
+                        </form:form>
                     </div>
 
-                    <c:if test="${!empty categoriesForRemove}">
+                    <c:if test="${!empty propertiesForRemove}">
                         <div class="tab-content">
                             <br>
-                            <spring:form method="POST" modelAttribute="formRemoveCategory"
-                                         action="${pageContext.request.contextPath}/editCategories/removeCategory"
-                                         class="form-horizontal">
+                            <form:form method="POST" modelAttribute="formRemoveProperty"
+                                       action="${pageContext.request.contextPath}/editProperties/removeProperty"
+                                       class="form-horizontal">
                                 <div class="form-group">
-                                    <label class="col-lg-3 control-label">Remove product category:</label>
+                                    <label class="col-lg-3 control-label">Remove property:</label>
                                     <div class="col-lg-6">
-                                        <form:select class="form-control" path="removeCategoryName">
-                                            <c:forEach items="${categoriesForRemove}" var="cat">
-                                                <form:option value="${cat}" label="${cat}"></form:option>
+                                        <form:select class="form-control" path="remove">
+                                            <c:forEach items="${propertiesForRemove}" var="prop">
+                                                <form:option value="${prop}" label="${prop}"></form:option>
                                             </c:forEach>
                                         </form:select>
                                     </div>
@@ -125,22 +134,22 @@
                                         <input type="submit" value="Remove" class="btn btn-primary"/>
                                     </div>
                                 </div>
-                            </spring:form>
+                            </form:form>
                         </div>
                     </c:if>
 
-                    <c:if test="${!empty removedCategories}">
+                    <c:if test="${!empty removedProperties}">
                         <div class="tab-content">
                             <br>
-                            <spring:form method="POST" modelAttribute="formReturnCategory"
-                                         action="${pageContext.request.contextPath}/editCategories/returnCategory"
-                                         class="form-horizontal">
+                            <form:form method="POST" modelAttribute="formReturnProperty"
+                                       action="${pageContext.request.contextPath}/editProperties/returnProperty"
+                                       class="form-horizontal">
                                 <div class="form-group">
-                                    <label class="col-lg-3 control-label">Return product category:</label>
+                                    <label class="col-lg-3 control-label">Return property:</label>
                                     <div class="col-lg-6">
-                                        <form:select class="form-control" path="returnCategoryName">
-                                            <c:forEach items="${removedCategories}" var="cat">
-                                                <form:option value="${cat}" label="${cat}"></form:option>
+                                        <form:select class="form-control" path="returns">
+                                            <c:forEach items="${removedProperties}" var="prop">
+                                                <form:option value="${prop}" label="${prop}"></form:option>
                                             </c:forEach>
                                         </form:select>
                                     </div>
@@ -151,7 +160,7 @@
                                         <input type="submit" value="Return" class="btn btn-primary"/>
                                     </div>
                                 </div>
-                            </spring:form>
+                            </form:form>
                         </div>
                     </c:if>
                 </div>
@@ -168,27 +177,27 @@
 </div>
 <!-- /.container -->
 
-<div id="message-fail-add-category" class="my-message-success alert alert-danger">
-    <p style="font-size: 1.1em">Such category was removed later.</p>
+<div id="message-fail-add-property" class="my-message-success alert alert-danger">
+    <p style="font-size: 1.1em">Error. May be such property group was removed later.</p>
 </div>
 
 <script>
-    $("#add-new-category-product").click(function (e) {
-        var form = $("#add-category-input").val();
+    $("#add-new-property-btn").click(function (e) {
+        var form = $("#add-property-input").val();
         if (form.replace(/\s/g, "")) {
             e.preventDefault();
             $.ajax({
                 type: "POST",
-                data: {addCategoryName: form},
-                url: "${pageContext.request.contextPath}/editCategories/checkExisting",
+                data: {add : form},
+                url: "${pageContext.request.contextPath}/editProperties/checkExisting",
                 success: function (resp) {
                     if (resp) {
-                        $("#message-fail-add-category").fadeIn(500);
+                        $("#message-fail-add-property").fadeIn(500);
                         setTimeout(function () {
-                            $("#message-fail-add-category").fadeOut(1000)
+                            $("#message-fail-add-property").fadeOut(1000)
                         }, 2000);
                     } else {
-                        $("#form-add-category").submit();
+                        $("#form-add-property").submit();
                     }
                 }
             })
@@ -197,3 +206,4 @@
 </script>
 </body>
 </html>
+

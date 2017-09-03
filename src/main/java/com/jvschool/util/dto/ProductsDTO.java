@@ -9,7 +9,8 @@ import java.util.List;
 @Getter
 @Setter
 public class ProductsDTO implements Serializable {
-    List<ProductDTO> products;
+
+    private List<ProductDTO> products;
 
     @Override
     public String toString() {

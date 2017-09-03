@@ -1,4 +1,4 @@
-package com.jvschool.dao.Impl;
+package com.jvschool.dao.impl;
 
 import com.jvschool.dao.api.BucketDAO;
 import com.jvschool.dao.api.ProductDAO;
@@ -21,9 +21,7 @@ public class BucketDAOImpl implements BucketDAO {
     @Override
     public List<BucketEntity> getBucketsByProductId(long id) {
 
-        List<BucketEntity> buckets = em.createQuery("from BucketEntity where productId=:id")
+        return  em.createQuery("from BucketEntity where productId=:id")
                 .setParameter("id", productDAO.getProductById(id)).getResultList();
-
-        return  buckets;
     }
 }

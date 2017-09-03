@@ -42,12 +42,12 @@
       <version>${hibernate-version}</version>
     </dependency>
 
-    <!--<dependency>-->
-      <!--<groupId>dom4j</groupId>-->
-      <!--<artifactId>dom4j</artifactId>-->
-      <!--<version>1.6.1</version>-->
-      <!--<scope>provided</scope>-->
-    <!--</dependency>-->
+    <dependency>
+      <groupId>dom4j</groupId>
+      <artifactId>dom4j</artifactId>
+      <version>1.6.1</version>
+      <scope>provided</scope>
+    </dependency>
 
     <!-- For JPA Annotations (Getter, Setter, etc.) -->
     <dependency>
@@ -203,6 +203,12 @@
       <groupId>org.springframework</groupId>
       <artifactId>spring-context-support</artifactId>
       <version>4.3.3.RELEASE</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.codehaus.sonar</groupId>
+      <artifactId>sonar-maven-plugin</artifactId>
+      <version>5.1</version>
     </dependency>
 
 

@@ -1,4 +1,4 @@
-package com.jvschool.dao.Impl;
+package com.jvschool.dao.impl;
 
 import com.jvschool.dao.api.DeliveryStatusDAO;
 import com.jvschool.model.DeliveryStatusEntity;
@@ -17,10 +17,8 @@ public class DeliveryStatusDAOImpl implements DeliveryStatusDAO {
     @Override
     public List<DeliveryStatusEntity> getAllDeliveryStatuses() {
 
-        List<DeliveryStatusEntity> statuses = em.createQuery("from DeliveryStatusEntity order by deliveryStatusId")
+        return  em.createQuery("from DeliveryStatusEntity order by deliveryStatusId")
                 .getResultList();
-
-        return  statuses;
     }
 
     @Override

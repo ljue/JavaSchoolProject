@@ -1,4 +1,4 @@
-package com.jvschool.dao.Impl;
+package com.jvschool.dao.impl;
 
 import com.jvschool.dao.api.CategoryDAO;
 import com.jvschool.dao.api.ProductDAO;
@@ -42,10 +42,7 @@ public class ProductDAOImpl implements ProductDAO {
         List list = em.createQuery("from ProductEntity where id=:id")
                 .setParameter("id", id).getResultList();
 
-        if (list.isEmpty())
-            return null;
-        else
-            return (ProductEntity) list.get(0);
+        return (list.isEmpty()) ? null : (ProductEntity) list.get(0);
     }
 
     @Override
@@ -79,11 +76,9 @@ public class ProductDAOImpl implements ProductDAO {
     @Override
     public List<ProductEntity> getProductsByCategory(CategoryEntity category) {
 
-        List<ProductEntity> products = em.createQuery("FROM ProductEntity " +
+        return  em.createQuery("FROM ProductEntity " +
                 " where category=:category and visible=:visible ").setParameter("category", category)
                 .setParameter("visible", true).getResultList();
-
-        return products;
     }
 
 
@@ -93,7 +88,6 @@ public class ProductDAOImpl implements ProductDAO {
         CriteriaQuery criteriaQuery = criteriaBuilder.createQuery();
         Root order = criteriaQuery.from(OrderEntity.class);
         Join b = order.join("buckets");
-//        Join p = b.join("productId");
         criteriaQuery.multiselect(b.get("productId"));
         criteriaQuery.groupBy(b.get("productId"));
         criteriaQuery.orderBy(criteriaBuilder.desc
@@ -178,19 +172,16 @@ public class ProductDAOImpl implements ProductDAO {
 
             }
         }
-        List<ProductEntity> list = em.createQuery(criteriaQuery).getResultList();
 
-        return list;
+        return em.createQuery(criteriaQuery).getResultList();
     }
 
     @Override
     public long getCountProducts() {
 
-        long count = (long) em.createQuery("select count(p.productId) from ProductEntity p where p.visible=:visible " +
+        return (long) em.createQuery("select count(p.productId) from ProductEntity p where p.visible=:visible " +
                 " and p.category.visible=:visibleCategory ")
                 .setParameter("visible", true).setParameter("visibleCategory", true).getSingleResult();
-
-        return count;
     }
 
     @Override

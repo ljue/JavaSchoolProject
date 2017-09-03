@@ -123,7 +123,6 @@ public class UserController {
             val += bucketAttribute.getCountProduct();
             user.getProducts().put(bucketAttribute.getProductId(), val);
         }
-      //  model.addAttribute("user", user);
     }
 
 

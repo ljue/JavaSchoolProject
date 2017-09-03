@@ -28,7 +28,7 @@
 
             <button class="btn btn-lg btn-primary btn-block" type="submit">Log In</button>
             <h4 class="text-center"><a href="${pageContext.request.contextPath}/registration">Create an account</a></h4>
-            <h5 class="text-center"><a id="click-forgot-password">I forgot my password</a></h5>
+            <p class="text-center" style="color: #a5a5a5; text-decoration: underline"><a id="click-forgot-password">I forgot my password</a></p>
         </div>
 
     </form>

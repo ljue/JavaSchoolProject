@@ -1,5 +1,6 @@
 package com.jvschool.svc.api;
 
+import com.jvschool.dto.EditForm;
 import com.jvschool.model.PropertyEntity;
 
 import java.util.List;
@@ -9,10 +10,10 @@ import java.util.Map;
 public interface PropertyService {
 
     /**
-     * Get list of all property model
+     * Gets list of all visible properties and return list of their names.
      * @return
      */
-    List<PropertyEntity> getAllProperties();
+    List<String> getAllVisibleProperties();
 
     /**
      * Get property entity by name
@@ -45,4 +46,39 @@ public interface PropertyService {
      * @return map: key - name group of properties, value - list properties names into group
      */
     Map<String, List<String>> getProperties();
+
+    /**
+     * Create new {@link PropertyEntity} and sets new name, property group, true visible.
+     * Saves it in database.
+     * @param form
+     */
+    void addProperty(EditForm form);
+
+    /**
+     * Gets {@link PropertyEntity} by {@link PropertyEntity#propertyName}
+     * and sets new name.
+     * @param editForm
+     */
+    void editProperty(EditForm editForm);
+
+    /**
+     * Sets {@link PropertyEntity#visible} false to {@link PropertyEntity}
+     * by {@link PropertyEntity#propertyName}
+     * @param name
+     */
+    void removeProperty(String name);
+
+    /**
+     * Gets list of {@link PropertyEntity} where {@link PropertyEntity#visible}
+     * is false but {@link PropertyEntity#propertyGroup#visible} is true. And transform it to list of String names.
+     * @return
+     */
+    List<String> getRemovedProperties();
+
+    /**
+     * Sets {@link PropertyEntity#visible} true to {@link PropertyEntity}
+     * by {@link PropertyEntity#propertyName}
+     * @param name
+     */
+    void returnProperty(String name);
 }

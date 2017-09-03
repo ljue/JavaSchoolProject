@@ -14,8 +14,6 @@ public class BucketAttribute {
     private int countProduct;
     private double costProduct;
     private long orderId;
-//    private String imageProduct;
-//    private String nameProduct;
 
 
     public BucketAttribute() {}
@@ -26,7 +24,5 @@ public class BucketAttribute {
         this.countProduct = bucketEntity.getCountProduct();
         this.costProduct = bucketEntity.getCostProduct();
         this.orderId = bucketEntity.getOrderId();
-//        this.imageProduct = bucketEntity.getProductId().getPictures().get(0).getPicName();
-//        this.nameProduct = bucketEntity.getProductId().getProductName();
     }
 }

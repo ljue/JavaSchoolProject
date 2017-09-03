@@ -1,4 +1,4 @@
-package com.jvschool.dao.Impl;
+package com.jvschool.dao.impl;
 
 
 import com.jvschool.dao.api.CategoryDAO;
@@ -19,22 +19,16 @@ public class CategoryDAOImpl implements CategoryDAO {
     @Override
     public List<CategoryEntity> getAllProductCategories() {
 
-        List<CategoryEntity> categories = em.createQuery("FROM CategoryEntity where visible=:visible ")
+        return em.createQuery("FROM CategoryEntity where visible=:visible ")
                 .setParameter("visible", true).getResultList();
-
-        return categories;
     }
 
     @Override
     public CategoryEntity getProductCategoryById(int id) {
-        //CategoryEntity category = em.find(CategoryEntity.class, id);
         List list = em.createQuery("FROM CategoryEntity " +
                 "where categoryId=:id").setParameter("id", id).getResultList();
 
-        if (list.isEmpty())
-            return null;
-        else
-            return (CategoryEntity) list.get(0);
+        return (list.isEmpty()) ? null : (CategoryEntity) list.get(0);
     }
 
     @Override
@@ -43,10 +37,7 @@ public class CategoryDAOImpl implements CategoryDAO {
         List list = em.createQuery("FROM CategoryEntity " +
                 "where categoryName=:name").setParameter("name", name).getResultList();
 
-        if (list.isEmpty())
-            return null;
-        else
-            return (CategoryEntity) list.get(0);
+        return (list.isEmpty()) ? null : (CategoryEntity) list.get(0);
     }
 
     @Override
@@ -54,14 +45,11 @@ public class CategoryDAOImpl implements CategoryDAO {
         final CategoryEntity categoryEntity = new CategoryEntity();
         categoryEntity.setCategoryName(name);
         categoryEntity.setVisible(true);
-
         em.persist(categoryEntity);
-
     }
 
     @Override
     public void editCategory(CategoryEntity category) {
-
         em.merge(category);
     }
 
@@ -72,16 +60,13 @@ public class CategoryDAOImpl implements CategoryDAO {
                 .setParameter("categoryId", category.getCategoryId()).setParameter("visible", false);
 
         query.executeUpdate();
-
     }
 
     @Override
     public List<CategoryEntity> getRemovedCategories() {
 
-        List<CategoryEntity> categories = em.createQuery("FROM CategoryEntity where visible=:visible ")
+        return em.createQuery("FROM CategoryEntity where visible=:visible ")
                 .setParameter("visible", false).getResultList();
-
-        return categories;
     }
 
     @Override
@@ -90,7 +75,6 @@ public class CategoryDAOImpl implements CategoryDAO {
                 .setParameter("categoryId", category.getCategoryId()).setParameter("visible", true);
 
         query.executeUpdate();
-
     }
 
 

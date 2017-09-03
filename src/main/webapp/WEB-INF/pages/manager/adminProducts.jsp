@@ -30,6 +30,8 @@
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="${pageContext.request.contextPath}/adminProducts">Add new goods</a></li>
                     <li><a href="${pageContext.request.contextPath}/editCategories">Control categories</a></li>
+                    <li><a href="${pageContext.request.contextPath}/editPropertyGroups">Control property groups</a></li>
+                    <li><a href="${pageContext.request.contextPath}/editProperties">Control properties</a></li>
 
                 </ul>
 
@@ -154,8 +156,10 @@
                             <div class="form-group">
                                 <label class="col-lg-3 control-label">${properties.key}:</label>
                                 <div class="col-lg-8">
-                                    <form:select path="saveProperties">
-                                        <form:options items="${properties.value}"></form:options>
+                                    <form:select path="saveProperties" class="form-control">
+                                        <c:forEach items="${properties.value}" var="property">
+                                            <form:option value="${property}" label="${property}"></form:option>
+                                        </c:forEach>
                                     </form:select>
                                     <br>
                                 </div>

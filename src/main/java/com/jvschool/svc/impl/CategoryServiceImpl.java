@@ -1,4 +1,4 @@
-package com.jvschool.svc.Impl;
+package com.jvschool.svc.impl;
 
 
 import com.jvschool.dao.api.CategoryDAO;

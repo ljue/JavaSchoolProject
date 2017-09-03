@@ -48,7 +48,7 @@ public class LoginController {
     @GetMapping(value = "/logout")
     public String logout(@ModelAttribute("user") SessionUser user, Model model) {
         model.addAttribute("user",new SessionUser());
-        return "login";
+        return "redirect:/login";
     }
 
     @PostMapping(value = "/sendPassword")

@@ -15,7 +15,7 @@ import java.io.Serializable;
 public class PropertyEntity implements Serializable {
 
     @Id
-    @Column(name = "PROPERTY_ID", nullable = false)
+    @Column(name = "PROPERTY_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int propertyId;
 

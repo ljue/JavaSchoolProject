@@ -1,4 +1,4 @@
-package com.jvschool.svc.Impl;
+package com.jvschool.svc.impl;
 
 import com.jvschool.dao.api.AddressDAO;
 import com.jvschool.model.AddressEntity;
@@ -30,7 +30,7 @@ public class AddressServiceImpl implements AddressService {
     public List<AddressAttribute> getAllAddressesByUserId(long id) {
         List<AddressAttribute> laa = new ArrayList<>();
         addressDAO.getAllAddressesByUserId(id)
-                .stream().forEachOrdered((ae) -> laa.add(new AddressAttribute(ae)));
+                .stream().forEachOrdered(ae -> laa.add(new AddressAttribute(ae)));
         return laa;
     }
 
