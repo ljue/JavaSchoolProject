@@ -1,22 +1,22 @@
 package com.jvschool.svc.Impl;
 
-import com.jvschool.dao.AddressDAO;
-import com.jvschool.dao.OrderDAO;
-import com.jvschool.dao.PayWayDAO;
-import com.jvschool.dao.UserDAO;
-import com.jvschool.entities.BucketEntity;
-import com.jvschool.entities.DeliveryStatusEntity;
-import com.jvschool.entities.OrderEntity;
-import com.jvschool.entities.ProductEntity;
-import com.jvschool.svc.DeliveryStatusService;
-import com.jvschool.svc.DeliveryWayService;
-import com.jvschool.svc.OrderService;
-import com.jvschool.svc.ProductService;
-import com.jvschool.util.Attributes.BucketAttribute;
-import com.jvschool.util.Attributes.EmailSender;
-import com.jvschool.util.Attributes.OrderAttribute;
-import com.jvschool.util.Attributes.ProductAttribute;
-import com.jvschool.util.Sender;
+import com.jvschool.dao.api.AddressDAO;
+import com.jvschool.dao.api.OrderDAO;
+import com.jvschool.dao.api.PayWayDAO;
+import com.jvschool.dao.api.UserDAO;
+import com.jvschool.model.BucketEntity;
+import com.jvschool.model.DeliveryStatusEntity;
+import com.jvschool.model.OrderEntity;
+import com.jvschool.model.ProductEntity;
+import com.jvschool.svc.api.DeliveryStatusService;
+import com.jvschool.svc.api.DeliveryWayService;
+import com.jvschool.svc.api.OrderService;
+import com.jvschool.svc.api.ProductService;
+import com.jvschool.dto.BucketAttribute;
+import com.jvschool.dto.OrderAttribute;
+import com.jvschool.dto.ProductAttribute;
+import com.jvschool.util.senders.EmailSenderOrder;
+import com.jvschool.util.senders.Sender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -83,7 +83,8 @@ public class OrderServiceImpl implements OrderService {
             new Sender().send();
         }
 
-        new EmailSender().send(orderEntity.getUser().getEmail(), "Order in shop quadcopters", "Order was successful. You bought quadcopters ;))");
+        Runnable r = new EmailSenderOrder(orderEntity);
+        new Thread(r).start();
     }
 
     @Override

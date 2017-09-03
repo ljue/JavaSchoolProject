@@ -6,9 +6,9 @@
 //import com.jvschool.dao.*;
 //import com.jvschool.svc.*;
 //import com.jvschool.util.AddressValidator;
-//import com.jvschool.util.OrderValidator;
-//import com.jvschool.util.ProductValidator;
-//import com.jvschool.util.UserValidator;
+//import com.jvschool.util.validators.OrderValidator;
+//import com.jvschool.util.validators.ProductValidator;
+//import com.jvschool.util.validators.UserValidator;
 //import org.jboss.arquillian.container.test.api.Deployment;
 //import org.jboss.arquillian.junit.Arquillian;
 //import org.jboss.shrinkwrap.api.ShrinkWrap;

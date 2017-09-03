@@ -1,8 +1,8 @@
 package com.jvschool.dao.Impl;
 
-import com.jvschool.dao.PropertyDAO;
-import com.jvschool.entities.PropertyEntity;
-import com.jvschool.entities.PropertyGroupEntity;
+import com.jvschool.dao.api.PropertyDAO;
+import com.jvschool.model.PropertyEntity;
+import com.jvschool.model.PropertyGroupEntity;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;

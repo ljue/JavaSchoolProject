@@ -40,9 +40,9 @@
 
                         <spring:bind path="firstName">
                         <div class="form-group ${status.error ? 'has-error' : ''}" >
-                            <label class="col-lg-3 control-label">First roleName:</label>
+                            <label class="col-lg-3 control-label">First name:</label>
                             <div class="col-lg-8">
-                                <form:input type="text" path="firstName" class="form-control" value="${user.firstName}"
+                                <form:input  type="text" path="firstName" class="form-control" value="${user.firstName}"
                                 ></form:input>
                             </div>
                             <form:errors path="firstName"></form:errors>
@@ -51,9 +51,9 @@
 
                         <spring:bind path="secondName">
                             <div class="form-group ${status.error ? 'has-error' : ''}" >
-                                <label class="col-lg-3 control-label">Second roleName:</label>
+                                <label class="col-lg-3 control-label">Last name:</label>
                                 <div class="col-lg-8">
-                                    <form:input type="text" path="secondName" class="form-control" value="${user.secondName}"
+                                    <form:input required="required"  type="text" path="secondName" class="form-control" value="${user.secondName}"
                                     ></form:input>
                                 </div>
                                 <form:errors path="secondName"></form:errors>
@@ -64,7 +64,7 @@
                             <div class="form-group ${status.error ? 'has-error' : ''}" >
                                 <label class="col-lg-3 control-label">Birthday:</label>
                                 <div class="col-lg-8">
-                                    <form:input type="date" path="birthday" class="form-control" value="${user.birthday}"
+                                    <form:input required="required"  type="date" path="birthday" class="form-control" value="${user.birthday}"
                                     ></form:input>
                                 </div>
                                 <form:errors path="birthday"></form:errors>
@@ -76,7 +76,7 @@
                             <div class="form-group ${status.error ? 'has-error' : ''}" >
                                 <label class="col-lg-3 control-label">Email:</label>
                                 <div class="col-lg-8">
-                                    <form:input type="text" path="email" class="form-control" value="${user.email}"
+                                    <form:input required="required"  type="text" path="email" class="form-control" value="${user.email}"
                                     ></form:input>
                                 </div>
                                 <form:errors path="email"></form:errors>
@@ -87,7 +87,7 @@
                             <div class="form-group ${status.error ? 'has-error' : ''}" >
                                 <label class="col-lg-3 control-label">Login:</label>
                                 <div class="col-lg-8">
-                                    <form:input type="text" path="login" class="form-control" value="${user.login}"
+                                    <form:input required="required"  type="text" path="login" class="form-control" value="${user.login}"
                                     ></form:input>
                                 </div>
                                 <form:errors path="login"></form:errors>
@@ -118,7 +118,7 @@
                         <div class="form-group ${status.error ? 'has-error' : ''}" >
                         <label class="col-lg-3 control-label">Password:</label>
                         <div class="col-lg-8">
-                        <form:input type="password" path="login" class="form-control" placeholder="Password"
+                        <form:input required="required"  type="password" path="login" class="form-control" placeholder="Password"
                         ></form:input>
                         </div>
                         <form:errors path="pass"></form:errors>
@@ -129,7 +129,7 @@
                         <div class="form-group ${status.error ? 'has-error' : ''}" >
                         <label class="col-lg-3 control-label">Confirm password:</label>
                         <div class="col-lg-8">
-                        <form:input type="password" path="pass" class="form-control" placeholder="Confirm password"
+                        <form:input required="required"  type="password" path="pass" class="form-control" placeholder="Confirm password"
                         ></form:input>
                         </div>
                         <form:errors path="pass"></form:errors>

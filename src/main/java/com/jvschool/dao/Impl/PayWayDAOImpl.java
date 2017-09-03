@@ -1,7 +1,7 @@
 package com.jvschool.dao.Impl;
 
-import com.jvschool.dao.PayWayDAO;
-import com.jvschool.entities.PayWayEntity;
+import com.jvschool.dao.api.PayWayDAO;
+import com.jvschool.model.PayWayEntity;
 import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

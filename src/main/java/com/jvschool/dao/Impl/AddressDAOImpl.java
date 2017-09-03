@@ -1,8 +1,8 @@
 package com.jvschool.dao.Impl;
 
-import com.jvschool.dao.AddressDAO;
-import com.jvschool.dao.UserDAO;
-import com.jvschool.entities.AddressEntity;
+import com.jvschool.dao.api.AddressDAO;
+import com.jvschool.dao.api.UserDAO;
+import com.jvschool.model.AddressEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

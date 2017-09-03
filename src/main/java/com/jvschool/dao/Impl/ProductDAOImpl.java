@@ -1,12 +1,10 @@
 package com.jvschool.dao.Impl;
 
-import com.jvschool.dao.CategoryDAO;
-import com.jvschool.dao.ProductDAO;
-import com.jvschool.dao.PropertyDAO;
-import com.jvschool.dao.PropertyGroupDAO;
-import com.jvschool.entities.*;
-import com.jvschool.util.Attributes.FilterAttribute;
-import javafx.beans.property.Property;
+import com.jvschool.dao.api.CategoryDAO;
+import com.jvschool.dao.api.ProductDAO;
+import com.jvschool.dao.api.PropertyDAO;
+import com.jvschool.model.*;
+import com.jvschool.dto.FilterAttribute;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -58,8 +56,8 @@ public class ProductDAOImpl implements ProductDAO {
         Root order = criteriaQuery.from(OrderEntity.class);
         Join b = order.join("buckets");
         criteriaQuery.multiselect(b.get("productId"));
-        criteriaQuery.where(
-                criteriaBuilder.equal(b.get("productId").get("visible"), true));
+        criteriaQuery.where(criteriaBuilder.and(criteriaBuilder.equal(b.get("productId").get("visible"), true),
+                criteriaBuilder.equal(b.get("productId").get("category").get("visible"), true)));
         criteriaQuery.groupBy(b.get("productId"));
         criteriaQuery.orderBy(criteriaBuilder.desc
                 (criteriaBuilder.sum
@@ -67,8 +65,9 @@ public class ProductDAOImpl implements ProductDAO {
 
         List<ProductEntity> topProducts = em.createQuery(criteriaQuery).getResultList();
 
-        List<ProductEntity> allProducts = em.createQuery("FROM ProductEntity where visible=:visible order by productId desc")
-                .setParameter("visible", true).getResultList();
+        List<ProductEntity> allProducts = em.createQuery("FROM ProductEntity " +
+                "where visible=:visible and category.visible=:visibleCategory order by productId desc")
+                .setParameter("visible", true).setParameter("visibleCategory", true).getResultList();
         for (ProductEntity productEntity : topProducts) {
             allProducts.remove(productEntity);
         }
@@ -141,6 +140,7 @@ public class ProductDAOImpl implements ProductDAO {
                 criteriaQuery.where(criteriaBuilder.and(
                         propertiesNotSolo,
                         criteriaBuilder.equal(product.get("visible"), true),
+                        criteriaBuilder.equal(product.get("category").get("visible"), true),
                         criteriaBuilder.between(product.get("cost"), filterAttribute.getCostFROM(), filterAttribute.getCostTO()),
                         criteriaBuilder.between(product.get("flyTime"), filterAttribute.getFlyTimeFROM(), filterAttribute.getFlyTimeTO()),
                         criteriaBuilder.between(product.get("distance"), filterAttribute.getDistanceFROM(), filterAttribute.getDistanceTO())));
@@ -148,6 +148,7 @@ public class ProductDAOImpl implements ProductDAO {
                 criteriaQuery.where(criteriaBuilder.and(
                         propertiesNotSolo,
                         criteriaBuilder.equal(product.get("visible"), true),
+                        criteriaBuilder.equal(product.get("category").get("visible"), true),
                         criteriaBuilder.between(product.get("cost"), filterAttribute.getCostFROM(), filterAttribute.getCostTO()),
                         criteriaBuilder.between(product.get("flyTime"), filterAttribute.getFlyTimeFROM(), filterAttribute.getFlyTimeTO()),
                         criteriaBuilder.between(product.get("distance"), filterAttribute.getDistanceFROM(), filterAttribute.getDistanceTO()),
@@ -160,6 +161,7 @@ public class ProductDAOImpl implements ProductDAO {
                         propertiesNotSolo,
                         product.join("properties").in(propertySoloEntityList),
                         criteriaBuilder.equal(product.get("visible"), true),
+                        criteriaBuilder.equal(product.get("category").get("visible"), true),
                         criteriaBuilder.between(product.get("cost"), filterAttribute.getCostFROM(), filterAttribute.getCostTO()),
                         criteriaBuilder.between(product.get("flyTime"), filterAttribute.getFlyTimeFROM(), filterAttribute.getFlyTimeTO()),
                         criteriaBuilder.between(product.get("distance"), filterAttribute.getDistanceFROM(), filterAttribute.getDistanceTO())));
@@ -168,6 +170,7 @@ public class ProductDAOImpl implements ProductDAO {
                         propertiesNotSolo,
                         product.join("properties").in(propertySoloEntityList),
                         criteriaBuilder.equal(product.get("visible"), true),
+                        criteriaBuilder.equal(product.get("category").get("visible"), true),
                         criteriaBuilder.between(product.get("cost"), filterAttribute.getCostFROM(), filterAttribute.getCostTO()),
                         criteriaBuilder.between(product.get("flyTime"), filterAttribute.getFlyTimeFROM(), filterAttribute.getFlyTimeTO()),
                         criteriaBuilder.between(product.get("distance"), filterAttribute.getDistanceFROM(), filterAttribute.getDistanceTO()),
@@ -183,8 +186,9 @@ public class ProductDAOImpl implements ProductDAO {
     @Override
     public long getCountProducts() {
 
-        long count = (long) em.createQuery("select count(p.productId) from ProductEntity p where p.visible=:visible ")
-                .setParameter("visible", true).getSingleResult();
+        long count = (long) em.createQuery("select count(p.productId) from ProductEntity p where p.visible=:visible " +
+                " and p.category.visible=:visibleCategory ")
+                .setParameter("visible", true).setParameter("visibleCategory", true).getSingleResult();
 
         return count;
     }
@@ -197,6 +201,8 @@ public class ProductDAOImpl implements ProductDAO {
         Root order = criteriaQuery.from(OrderEntity.class);
         Join b = order.join("buckets");
         criteriaQuery.multiselect(b.get("productId"));
+        criteriaQuery.where(criteriaBuilder.and(criteriaBuilder.equal(b.get("productId").get("visible"), true),
+                criteriaBuilder.equal(b.get("productId").get("category").get("visible"), true)));
         criteriaQuery.groupBy(b.get("productId"));
         criteriaQuery.orderBy(criteriaBuilder.desc
                 (criteriaBuilder.sum
@@ -204,8 +210,9 @@ public class ProductDAOImpl implements ProductDAO {
 
         List<ProductEntity> topProducts = em.createQuery(criteriaQuery).getResultList();
 
-        List<ProductEntity> allProducts = em.createQuery("FROM ProductEntity where visible=:visible order by productId desc")
-                .setParameter("visible", true).getResultList();
+        List<ProductEntity> allProducts = em.createQuery("FROM ProductEntity where visible=:visible " +
+                " and category.visible=:visibleCategory order by productId desc")
+                .setParameter("visible", true).setParameter("visibleCategory", true).getResultList();
         for (ProductEntity productEntity : topProducts) {
             allProducts.remove(productEntity);
         }

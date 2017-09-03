@@ -1,8 +1,8 @@
 package com.jvschool.view;
 
-import com.jvschool.svc.*;
-import com.jvschool.util.Attributes.*;
-import com.jvschool.util.ProductValidator;
+import com.jvschool.dto.*;
+import com.jvschool.svc.api.*;
+import com.jvschool.util.validators.ProductValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -102,7 +102,12 @@ public class ManagerController {
 
         model.addAttribute("formEditCategory", new CategoryAttribute());
         model.addAttribute("formAddCategory", new CategoryAttribute());
-        model.addAttribute("categories", categoryService.getAllProductCategoryNames());
+        model.addAttribute("formRemoveCategory", new CategoryAttribute());
+        model.addAttribute("formReturnCategory", new CategoryAttribute());
+        List<String> categoryAttributes = categoryService.getAllProductCategoryNames();
+        model.addAttribute("categories", categoryAttributes);
+        model.addAttribute("categoriesForRemove", categoryAttributes);
+        model.addAttribute("removedCategories", categoryService.getRemovedCategories());
 
         return "editCategories";
     }
@@ -126,9 +131,29 @@ public class ManagerController {
 
     @PostMapping(value = "/editCategories/addCategory")
     public String addCategoryPost(@ModelAttribute("formAddCategory") CategoryAttribute categoryAttribute) {
-        categoryService.addProductCategory(categoryAttribute.getCategoryName());
+        categoryService.addProductCategory(categoryAttribute.getAddCategoryName());
         return "redirect:/editCategories";
     }
+
+    @PostMapping(value = "/editCategories/removeCategory")
+    public String removeCategory(@ModelAttribute("formRemoveCategory") CategoryAttribute categoryAttribute) {
+        categoryService.removeCategory(categoryAttribute.getRemoveCategoryName());
+        return "redirect:/editCategories";
+    }
+
+    @PostMapping(value = "/editCategories/returnCategory")
+    public String returnCategory(@ModelAttribute("formReturnCategory") CategoryAttribute categoryAttribute) {
+        categoryService.returnCategory(categoryAttribute.getReturnCategoryName());
+        return "redirect:/editCategories";
+    }
+
+    @PostMapping(value = "/editCategories/checkExisting")
+    @ResponseBody
+    public boolean checkExistingCategory(@RequestParam String addCategoryName) {
+        boolean b = (categoryService.getProductCategoryByName(addCategoryName) != null) ? true : false;
+        return b;
+    }
+
 
 
     @GetMapping(value = "/adminOrders")

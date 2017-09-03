@@ -53,33 +53,4 @@ public class AppConfig extends WebMvcConfigurerAdapter {
     }
 
 
-//    @Bean(name = "simpleMappingExceptionResolver")
-//    public SimpleMappingExceptionResolver simpleMappingExceptionResolver() {
-//        SimpleMappingExceptionResolver exceptionResolver = new SimpleMappingExceptionResolver();
-//
-//        Properties exceptionMappings = new Properties();
-//
-//        exceptionMappings.put("TodoNotFoundException", "errors/wrong");
-//        exceptionMappings.put("java.lang.Exception", "errors/wrong");
-//        exceptionMappings.put("java.lang.RuntimeException", "errors/wrong");
-//
-//        exceptionResolver.setExceptionMappings(exceptionMappings);
-//
-//        Properties statusCodes = new Properties();
-//
-//        statusCodes.put("error/404", "404");
-//        statusCodes.put("error/error", "500");
-//
-//        exceptionResolver.setStatusCodes(statusCodes);
-//
-//        exceptionResolver.setDefaultErrorView("wrong"); // error.jsp
-//        exceptionResolver.setDefaultStatusCode (500);
-//        exceptionResolver.setDefaultStatusCode (400);
-//        exceptionResolver.setDefaultStatusCode (404);
-//
-//        return exceptionResolver;
-//
-//    }
-
-
 }

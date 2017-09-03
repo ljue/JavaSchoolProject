@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html lang="en">
 <head>
@@ -29,87 +29,131 @@
             <div class="row">
                 <ul class="nav nav-tabs">
                     <li><a href="${pageContext.request.contextPath}/adminProducts">Add new goods</a></li>
-                    <li class="active"><a href="${pageContext.request.contextPath}/editCategories">Control categories</a></li>
+                    <li class="active"><a href="${pageContext.request.contextPath}/editCategories">Control
+                        categories</a></li>
 
                 </ul>
 
                 <div class="row">
                     <%--<c:url var="edit" value="${pageContext.request.contextPath}/editCategories/editCategoryName"/>--%>
+                    <c:if test="${!empty categories}">
+                        <div class="tab-content">
+                            <br>
 
-                    <div class="tab-content">
-                        <br>
 
-                        <form:form modelAttribute="formEditCategory" method="POST" action="${pageContext.request.contextPath}/editCategories/editCategoryName"
-                                   class="form-horizontal">
+                            <spring:form modelAttribute="formEditCategory" method="POST"
+                                         action="${pageContext.request.contextPath}/editCategories/editCategoryName"
+                                         class="form-horizontal">
 
-                            <spring:bind path="categoryName">
-                                <div class="form-group ${status.error ? 'has-error' : ''}">
+                                <div class="form-group">
                                     <label class="col-lg-3 control-label">Edit product category:</label>
-                                    <div class="col-lg-8">
+                                    <div class="col-lg-6">
                                         <form:select path="categoryName" class="form-control">
                                             <c:forEach items="${categories}" var="cat">
                                                 <form:option value="${cat}" label="${cat}"></form:option>
                                             </c:forEach>
                                         </form:select>
                                     </div>
-                                    <form:errors path="categoryName"></form:errors>
                                 </div>
-                            </spring:bind>
 
-                            <spring:bind path="editCategoryName">
-                                <div class="form-group ${status.error ? 'has-error' : ''}">
+                                <div class="form-group">
                                     <label class="col-lg-3 control-label"></label>
-                                    <div class="col-lg-8">
-                                        <form:input type="text" path="editCategoryName" class="form-control"
+                                    <div class="col-lg-6">
+                                        <form:input required="required" type="text" path="editCategoryName"
+                                                    class="form-control"
                                         ></form:input>
                                     </div>
-                                    <form:errors path="editCategoryName"></form:errors>
                                 </div>
-                            </spring:bind>
 
-                            <div class="form-group">
-                                <label class="col-md-3 control-label"></label>
-                                <div class="col-md-8">
-                                    <input class="btn btn-primary" value="Edit" type="submit">
-                                    <span></span>
-                                    <input class="btn btn-default" value="Cancel" type="reset">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"></label>
+                                    <div class="col-md-6">
+                                        <input class="btn btn-primary" value="Edit" type="submit"/>
+                                        <span></span>
+                                        <input class="btn btn-default" value="Cancel" type="reset"/>
+                                    </div>
                                 </div>
-                            </div>
-
-                        </form:form>
-                        <br>
-                    </div>
-
+                            </spring:form>
+                        </div>
+                    </c:if>
 
                     <div class="tab-content">
-
-                        <%--<c:url var="add" value="/editCategories/addCategory"/>--%>
                         <br>
-
-                        <form:form modelAttribute="formAddCategory" method="POST" action="${pageContext.request.contextPath}/editCategories/addCategory"
-                                   class="form-horizontal">
-
-                            <spring:bind path="categoryName">
-                                <div class="form-group ${status.error ? 'has-error' : ''}">
-                                    <label class="col-lg-3 control-label">Add product category:</label>
-
-                                    <div class="col-lg-8">
-                                        <form:input type="text" path="categoryName" class="form-control"
-                                        ></form:input>
-                                    </div>
-                                    <form:errors path="categoryName"></form:errors>
-                                </div>
-                            </spring:bind>
+                        <spring:form modelAttribute="formAddCategory" method="POST" id="form-add-category"
+                                     action="${pageContext.request.contextPath}/editCategories/addCategory"
+                                     class="form-horizontal">
 
                             <div class="form-group">
-                                <label class="col-md-3 control-label"></label>
-                                <div class="col-md-8">
-                                    <input class="btn btn-primary" value="Add" type="submit">
+                                <label class="col-lg-3 control-label">Add product category:</label>
+
+                                <div class="col-lg-6">
+                                    <form:input required="required" type="text" path="addCategoryName"
+                                                class="form-control" id="add-category-input"
+                                    ></form:input>
                                 </div>
                             </div>
 
-                        </form:form>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label"></label>
+                                <div class="col-md-6">
+                                    <input id="add-new-category-product" class="btn btn-primary" value="Add"
+                                           type="submit">
+                                </div>
+                            </div>
+                        </spring:form>
                     </div>
+
+                    <c:if test="${!empty categoriesForRemove}">
+                        <div class="tab-content">
+                            <br>
+                            <spring:form method="POST" modelAttribute="formRemoveCategory"
+                                         action="${pageContext.request.contextPath}/editCategories/removeCategory"
+                                         class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label">Remove product category:</label>
+                                    <div class="col-lg-6">
+                                        <form:select class="form-control" path="removeCategoryName">
+                                            <c:forEach items="${categoriesForRemove}" var="cat">
+                                                <form:option value="${cat}" label="${cat}"></form:option>
+                                            </c:forEach>
+                                        </form:select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"></label>
+                                    <div class="col-md-6">
+                                        <input type="submit" value="Remove" class="btn btn-primary"/>
+                                    </div>
+                                </div>
+                            </spring:form>
+                        </div>
+                    </c:if>
+
+                    <c:if test="${!empty removedCategories}">
+                        <div class="tab-content">
+                            <br>
+                            <spring:form method="POST" modelAttribute="formReturnCategory"
+                                         action="${pageContext.request.contextPath}/editCategories/returnCategory"
+                                         class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label">Return product category:</label>
+                                    <div class="col-lg-6">
+                                        <form:select class="form-control" path="returnCategoryName">
+                                            <c:forEach items="${removedCategories}" var="cat">
+                                                <form:option value="${cat}" label="${cat}"></form:option>
+                                            </c:forEach>
+                                        </form:select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"></label>
+                                    <div class="col-md-6">
+                                        <input type="submit" value="Return" class="btn btn-primary"/>
+                                    </div>
+                                </div>
+                            </spring:form>
+                        </div>
+                    </c:if>
                 </div>
 
             </div>
@@ -124,5 +168,32 @@
 </div>
 <!-- /.container -->
 
+<div id="message-fail-add-category" class="my-message-success alert alert-danger">
+    <p style="font-size: 1.1em">Such category was removed later.</p>
+</div>
+
+<script>
+    $("#add-new-category-product").click(function (e) {
+        var form = $("#add-category-input").val();
+        if (form.replace(/\s/g, "")) {
+            e.preventDefault();
+            $.ajax({
+                type: "POST",
+                data: {addCategoryName: form},
+                url: "${pageContext.request.contextPath}/editCategories/checkExisting",
+                success: function (resp) {
+                    if (resp) {
+                        $("#message-fail-add-category").fadeIn(500);
+                        setTimeout(function () {
+                            $("#message-fail-add-category").fadeOut(1000)
+                        }, 2000);
+                    } else {
+                        $("#form-add-category").submit();
+                    }
+                }
+            })
+        }
+    })
+</script>
 </body>
 </html>

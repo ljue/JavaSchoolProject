@@ -1,8 +1,8 @@
 package com.jvschool.dao.Impl;
 
-import com.jvschool.dao.BucketDAO;
-import com.jvschool.dao.ProductDAO;
-import com.jvschool.entities.BucketEntity;
+import com.jvschool.dao.api.BucketDAO;
+import com.jvschool.dao.api.ProductDAO;
+import com.jvschool.model.BucketEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;

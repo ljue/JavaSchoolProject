@@ -1,14 +1,14 @@
 package com.jvschool.view;
 
-import com.jvschool.svc.AddressService;
-import com.jvschool.svc.DeliveryWayService;
-import com.jvschool.svc.OrderService;
-import com.jvschool.svc.PayWayService;
-import com.jvschool.util.Attributes.AddressAttribute;
-import com.jvschool.util.Attributes.BucketAttribute;
-import com.jvschool.util.Attributes.OrderAttribute;
-import com.jvschool.util.Attributes.SessionUser;
-import com.jvschool.util.OrderValidator;
+import com.jvschool.svc.api.AddressService;
+import com.jvschool.svc.api.DeliveryWayService;
+import com.jvschool.svc.api.OrderService;
+import com.jvschool.svc.api.PayWayService;
+import com.jvschool.dto.AddressAttribute;
+import com.jvschool.dto.BucketAttribute;
+import com.jvschool.dto.OrderAttribute;
+import com.jvschool.dto.SessionUser;
+import com.jvschool.util.validators.OrderValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

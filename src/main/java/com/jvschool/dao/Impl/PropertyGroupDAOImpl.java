@@ -1,7 +1,7 @@
 package com.jvschool.dao.Impl;
 
-import com.jvschool.dao.PropertyGroupDAO;
-import com.jvschool.entities.PropertyGroupEntity;
+import com.jvschool.dao.api.PropertyGroupDAO;
+import com.jvschool.model.PropertyGroupEntity;
 import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;

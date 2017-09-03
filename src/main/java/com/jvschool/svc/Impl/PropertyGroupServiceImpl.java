@@ -1,8 +1,8 @@
 package com.jvschool.svc.Impl;
 
 import com.jvschool.dao.Impl.PropertyGroupDAOImpl;
-import com.jvschool.entities.PropertyGroupEntity;
-import com.jvschool.svc.PropertyGroupService;
+import com.jvschool.model.PropertyGroupEntity;
+import com.jvschool.svc.api.PropertyGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

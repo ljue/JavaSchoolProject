@@ -1,12 +1,12 @@
 package com.jvschool.dao.Impl;
 
 
-import com.jvschool.dao.CategoryDAO;
-import com.jvschool.entities.CategoryEntity;
+import com.jvschool.dao.api.CategoryDAO;
+import com.jvschool.model.CategoryEntity;
 import org.springframework.stereotype.Repository;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import java.util.List;
 
 
@@ -63,6 +63,34 @@ public class CategoryDAOImpl implements CategoryDAO {
     public void editCategory(CategoryEntity category) {
 
         em.merge(category);
+    }
+
+    @Override
+    public void removeCategory(CategoryEntity category) {
+
+        Query query = em.createQuery("UPDATE CategoryEntity set visible=:visible where categoryId=:categoryId")
+                .setParameter("categoryId", category.getCategoryId()).setParameter("visible", false);
+
+        query.executeUpdate();
+
+    }
+
+    @Override
+    public List<CategoryEntity> getRemovedCategories() {
+
+        List<CategoryEntity> categories = em.createQuery("FROM CategoryEntity where visible=:visible ")
+                .setParameter("visible", false).getResultList();
+
+        return categories;
+    }
+
+    @Override
+    public void returnCategory(CategoryEntity category) {
+        Query query = em.createQuery("UPDATE CategoryEntity set visible=:visible where categoryId=:categoryId")
+                .setParameter("categoryId", category.getCategoryId()).setParameter("visible", true);
+
+        query.executeUpdate();
+
     }
 
 

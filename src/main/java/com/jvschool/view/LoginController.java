@@ -1,22 +1,17 @@
 package com.jvschool.view;
 
-import com.jvschool.svc.UserService;
-import com.jvschool.util.Attributes.SessionUser;
-import com.jvschool.util.UserValidator;
+import com.jvschool.svc.api.UserService;
+import com.jvschool.dto.SessionUser;
+import com.jvschool.util.validators.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.Map;
-
 @Controller
 @SessionAttributes("user")
 public class LoginController {
-
 
     @Autowired
     private UserService userService;
@@ -37,9 +32,7 @@ public class LoginController {
 
 
     @PostMapping(value = "/login")
-    public String login(@ModelAttribute("user") SessionUser user,
-                        Model model, HttpServletRequest request, String error, String logout) {
-
+    public String login(@ModelAttribute("user") SessionUser user, Model model) {
         SessionUser su = userService.loginUser(user.getLogin(),user.getPass());
         if (su!=null) {
             su.setProducts(user.getProducts());
@@ -55,14 +48,18 @@ public class LoginController {
     @GetMapping(value = "/logout")
     public String logout(@ModelAttribute("user") SessionUser user, Model model) {
         model.addAttribute("user",new SessionUser());
-        return "/login";
+        return "login";
+    }
+
+    @PostMapping(value = "/sendPassword")
+    public @ResponseBody boolean sendForgotPassword(@RequestParam("sendEmail") String email) {
+        return userService.sendLoginPasswordToEmail(email);
     }
 
 
     @GetMapping(value = "/registration")
     public String registration(Model model) {
         model.addAttribute("userForm", new SessionUser());
-
         return "registration";
     }
 
@@ -70,9 +67,6 @@ public class LoginController {
     public String registration(@ModelAttribute("userForm") SessionUser userForm, BindingResult bindingResult,
                                @ModelAttribute("user") SessionUser user, Model model) {
         userValidator.validate(userForm, bindingResult);
-      //  userService.addUser(user);
-
-
         if (bindingResult.hasErrors()) {
             return "registration";
         }

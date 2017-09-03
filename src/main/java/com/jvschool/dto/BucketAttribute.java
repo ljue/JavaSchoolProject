@@ -1,0 +1,32 @@
+package com.jvschool.dto;
+
+import com.jvschool.model.BucketEntity;
+import lombok.Getter;
+import lombok.Setter;
+
+
+@Getter
+@Setter
+public class BucketAttribute {
+
+    private int bucketId;
+    private long productId;
+    private int countProduct;
+    private double costProduct;
+    private long orderId;
+//    private String imageProduct;
+//    private String nameProduct;
+
+
+    public BucketAttribute() {}
+
+    public BucketAttribute(BucketEntity bucketEntity) {
+        this.bucketId = bucketEntity.getBucketId();
+        this.productId = bucketEntity.getProductId().getProductId();
+        this.countProduct = bucketEntity.getCountProduct();
+        this.costProduct = bucketEntity.getCostProduct();
+        this.orderId = bucketEntity.getOrderId();
+//        this.imageProduct = bucketEntity.getProductId().getPictures().get(0).getPicName();
+//        this.nameProduct = bucketEntity.getProductId().getProductName();
+    }
+}

@@ -1,14 +1,14 @@
 package com.jvschool.view;
 
-import com.jvschool.svc.AddressService;
-import com.jvschool.svc.OrderService;
-import com.jvschool.svc.ProductService;
-import com.jvschool.svc.UserService;
-import com.jvschool.util.Attributes.BucketAttribute;
-import com.jvschool.util.Attributes.OrderAttribute;
-import com.jvschool.util.Attributes.ProductAttribute;
-import com.jvschool.util.Attributes.SessionUser;
-import com.jvschool.util.UserValidator;
+import com.jvschool.svc.api.AddressService;
+import com.jvschool.svc.api.OrderService;
+import com.jvschool.svc.api.ProductService;
+import com.jvschool.svc.api.UserService;
+import com.jvschool.dto.BucketAttribute;
+import com.jvschool.dto.OrderAttribute;
+import com.jvschool.dto.ProductAttribute;
+import com.jvschool.dto.SessionUser;
+import com.jvschool.util.validators.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -44,20 +44,23 @@ public class UserController {
 
     @GetMapping(value = "/user")
     public String editUser(@ModelAttribute("user") SessionUser sessionUser,Model model) {
-        model.addAttribute("userForm", new SessionUser());
+        model.addAttribute("userForm", sessionUser);
         return "user";
     }
 
     @PostMapping(value = "/user/editInfo")
     public String editUser(@ModelAttribute("userForm") SessionUser userForm, @ModelAttribute("user") SessionUser user,
                            BindingResult bindingResult, Model model) {
-        userForm.setId(user.getId());
-        //userValidator.validate(userForm, bindingResult);!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+        userValidator.validate(userForm, bindingResult);
         if (bindingResult.hasErrors()) {
+            model.addAttribute("userForm", user);
             return "user";
         }
+        userForm.setId(user.getId());
         userService.editUserInfo(userForm);
         userForm.setProducts(user.getProducts());
+        userForm.setRole(user.getRole());
         model.addAttribute("user",userForm);
         return "redirect:/user";
     }
@@ -66,7 +69,7 @@ public class UserController {
     public String editPass(@ModelAttribute("userForm") SessionUser userForm, @ModelAttribute("user") SessionUser user,
                            BindingResult bindingResult, Model model) {
         userForm.setId(user.getId());
-        //userValidator.validate(userForm, bindingResult);
+        userValidator.validate(userForm, bindingResult);
         if (bindingResult.hasErrors()) {
             return "user";
         }

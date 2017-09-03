@@ -1,7 +1,7 @@
 package junit;
 
-import com.jvschool.dao.PayWayDAO;
-import com.jvschool.entities.PayWayEntity;
+import com.jvschool.dao.api.PayWayDAO;
+import com.jvschool.model.PayWayEntity;
 import com.jvschool.svc.Impl.PayWayServiceImpl;
 import org.junit.Assert;
 import org.junit.Before;

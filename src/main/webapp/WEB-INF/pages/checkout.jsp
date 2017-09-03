@@ -26,14 +26,14 @@
                     <label class="col-lg-3 control-label">Address</label>
                     <div class="col-lg-8">
                         <a data-toggle="modal" href="#modalAddress">Add new address</a><br>
-                        <div>
+                        <div id="checkout-list-addresses">
                             <c:if test="${!empty addresses}">
                                 <spring:bind path="addressId">
                                     <div class="${status.error ? 'has-error' : ''}">
                                     <c:forEach items="${addresses}" var="address" varStatus="status">
 
                                         <div class="container">
-                                            <form:radiobutton path="addressId"
+                                            <form:radiobutton  required="required" path="addressId"
                                                               value="${address.addressId}"></form:radiobutton>
                                             <br>
                                             <div class="col-lg-4 col-sm-3 text-center">
@@ -53,8 +53,8 @@
                                             </div>
                                         </div>
                                     </c:forEach>
-                                    </div>
                                     <form:errors path="addressId"></form:errors>
+                                    </div>
                                 </spring:bind>
                             </c:if>
                         </div>
@@ -67,11 +67,11 @@
                             <label class="col-lg-3 control-label">Delivery</label>
                             <div class="col-lg-8">
                                 <c:forEach items="${deliveryWays}" var="delivery">
-                                    <form:radiobutton path="deliveryWay" value="${delivery}" label="${delivery}"/><br>
+                                    <form:radiobutton required="required" path="deliveryWay" value="${delivery}" label="${delivery}"/><br>
                                 </c:forEach>
                             </div>
-                        </div>
                         <form:errors path="deliveryWay"></form:errors>
+                        </div>
                     </spring:bind>
                 </c:if>
 
@@ -81,18 +81,18 @@
                             <label class="col-lg-3 control-label">Pay Way</label>
                             <div class="col-lg-8">
                                 <c:forEach items="${payWays}" var="payW">
-                                    <form:radiobutton path="payWay" value="${payW}" label="${payW}"/><br>
+                                    <form:radiobutton  required="required" path="payWay" value="${payW}" label="${payW}"/><br>
                                 </c:forEach>
                             </div>
-                        </div>
                         <form:errors path="payWay"></form:errors>
+                        </div>
                     </spring:bind>
                 </c:if>
                 <br>
                 <div class="form-group">
                     <label class="col-md-3 control-label"></label>
                     <div class="col-md-8">
-                        <input class="btn btn-primary" value="Checkout" type="submit">
+                        <input id="finish-checkout-button" class="btn btn-primary" value="Checkout" type="submit">
                     </div>
                 </div>
 
@@ -198,5 +198,21 @@
     </div>
 </div>
 
+<div id="message-empty-address" class="my-message-success alert alert-danger">
+    <p style="font-size: 1.1em">Address is empty.</p>
+</div>
+
+<script>
+    $("#finish-checkout-button").click(function (e) {
+        var s = $("#checkout-list-addresses").text().replace(/\s/g, "");
+        if(!s) {
+            e.preventDefault();
+            $("#message-empty-address").fadeIn(500);
+            setTimeout(function () {
+                $("#message-empty-address").fadeOut(1000)
+            }, 2000);
+        }
+    })
+</script>
 </body>
 </html>

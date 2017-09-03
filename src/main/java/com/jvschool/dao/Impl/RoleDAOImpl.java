@@ -1,7 +1,7 @@
 package com.jvschool.dao.Impl;
 
-import com.jvschool.dao.RoleDAO;
-import com.jvschool.entities.RoleEntity;
+import com.jvschool.dao.api.RoleDAO;
+import com.jvschool.model.RoleEntity;
 import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

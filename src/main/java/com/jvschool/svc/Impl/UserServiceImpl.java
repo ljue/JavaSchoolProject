@@ -1,14 +1,15 @@
 package com.jvschool.svc.Impl;
 
-import com.jvschool.dao.OrderDAO;
-import com.jvschool.dao.UserDAO;
-import com.jvschool.entities.BucketEntity;
-import com.jvschool.entities.OrderEntity;
-import com.jvschool.entities.RoleEntity;
-import com.jvschool.entities.UserEntity;
-import com.jvschool.svc.RoleService;
-import com.jvschool.svc.UserService;
-import com.jvschool.util.Attributes.SessionUser;
+import com.jvschool.dao.api.OrderDAO;
+import com.jvschool.dao.api.UserDAO;
+import com.jvschool.model.BucketEntity;
+import com.jvschool.model.OrderEntity;
+import com.jvschool.model.RoleEntity;
+import com.jvschool.model.UserEntity;
+import com.jvschool.svc.api.RoleService;
+import com.jvschool.svc.api.UserService;
+import com.jvschool.util.senders.EmailSender;
+import com.jvschool.dto.SessionUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -133,6 +134,19 @@ public class UserServiceImpl implements UserService {
     @Override
     public long getUserIdByLogin(String login) {
         return userDAO.getUserIdByLogin(login);
+    }
+
+    @Override
+    public boolean sendLoginPasswordToEmail(String email) {
+        UserEntity userEntity = userDAO.getUserByEmail(email);
+        if(userEntity == null) {
+            return false;
+        } else {
+            String message = "Login: " + userEntity.getLogin() + "\nPassword: " + userEntity.getPass();
+            Runnable r = new EmailSender(email, "Personal info", message);
+            new Thread(r).start();
+            return true;
+        }
     }
 
 

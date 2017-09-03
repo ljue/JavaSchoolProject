@@ -1,7 +1,7 @@
 package com.jvschool.dao.Impl;
 
-import com.jvschool.dao.DeliveryWayDAO;
-import com.jvschool.entities.DeliveryWayEntity;
+import com.jvschool.dao.api.DeliveryWayDAO;
+import com.jvschool.model.DeliveryWayEntity;
 import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

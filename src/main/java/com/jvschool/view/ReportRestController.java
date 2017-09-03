@@ -1,10 +1,10 @@
 package com.jvschool.view;
 
 
-import com.jvschool.svc.ProductService;
-import com.jvschool.util.Attributes.ProductAttribute;
-import com.jvschool.util.Attributes.ProductDTO;
-import com.jvschool.util.Attributes.ProductsDTO;
+import com.jvschool.svc.api.ProductService;
+import com.jvschool.dto.ProductAttribute;
+import com.jvschool.util.dto.ProductDTO;
+import com.jvschool.util.dto.ProductsDTO;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

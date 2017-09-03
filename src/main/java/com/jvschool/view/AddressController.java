@@ -1,9 +1,9 @@
 package com.jvschool.view;
 
-import com.jvschool.svc.AddressService;
-import com.jvschool.util.AddressValidator;
-import com.jvschool.util.Attributes.AddressAttribute;
-import com.jvschool.util.Attributes.SessionUser;
+import com.jvschool.svc.api.AddressService;
+import com.jvschool.util.validators.AddressValidator;
+import com.jvschool.dto.AddressAttribute;
+import com.jvschool.dto.SessionUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

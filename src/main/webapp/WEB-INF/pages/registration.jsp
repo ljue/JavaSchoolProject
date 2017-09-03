@@ -24,7 +24,7 @@
         </spring:bind>
         <spring:bind path="secondName">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input  required="required" type="text" path="secondName" class="form-control" placeholder="Second Name"
+                <form:input  required="required" type="text" path="secondName" class="form-control" placeholder="Last Name"
                             ></form:input>
                 <form:errors path="secondName"></form:errors>
             </div>

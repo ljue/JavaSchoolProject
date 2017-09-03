@@ -123,7 +123,7 @@
 
 
 </body>
-    <div class="message-success-add-to-cart alert alert-success">
+    <div id="message-success-add-to-cart" class="my-message-success alert alert-success">
         <p style="font-size: 1.1em">Product was added to cart.</p>
     </div>
 

@@ -42,12 +42,12 @@
       <version>${hibernate-version}</version>
     </dependency>
 
-    <dependency>
-      <groupId>dom4j</groupId>
-      <artifactId>dom4j</artifactId>
-      <version>1.6.1</version>
-      <scope>provided</scope>
-    </dependency>
+    <!--<dependency>-->
+      <!--<groupId>dom4j</groupId>-->
+      <!--<artifactId>dom4j</artifactId>-->
+      <!--<version>1.6.1</version>-->
+      <!--<scope>provided</scope>-->
+    <!--</dependency>-->
 
     <!-- For JPA Annotations (Getter, Setter, etc.) -->
     <dependency>
@@ -132,12 +132,6 @@
       <version>1.2</version>
     </dependency>
 
-    <!--<dependency>-->
-      <!--<groupId>javax.servlet.jsp.jstl</groupId>-->
-      <!--<artifactId>javax.servlet.jsp.jstl-api</artifactId>-->
-      <!--<version>1.2.1</version>-->
-    <!--</dependency>-->
-
     <dependency>
     <groupId>javax.servlet</groupId>
     <artifactId>javax.servlet-api</artifactId>
@@ -205,25 +199,30 @@
       <version>4.12</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context-support</artifactId>
+      <version>4.3.3.RELEASE</version>
+    </dependency>
 
 
     <!-- Зависимость для интеграции Arquillian с JUnit.
                  При необходимости мы могли бы аналогично указать интеграцию с TestNG -->
-    <dependency>
-      <groupId>org.jboss.arquillian.junit</groupId>
-      <artifactId>arquillian-junit-container</artifactId>
-      <scope>test</scope>
-    </dependency>
+    <!--<dependency>-->
+      <!--<groupId>org.jboss.arquillian.junit</groupId>-->
+      <!--<artifactId>arquillian-junit-container</artifactId>-->
+      <!--<scope>test</scope>-->
+    <!--</dependency>-->
 
     <!-- Arquillian-адаптер для сервера приложений WildFly-9.0.1.Final.
          Адаптеры есть для большинства популярных серверов, поэтому, в зависимости от потребности,
          можно указать адаптер для другого сервера -->
-    <dependency>
-      <groupId>org.wildfly.arquillian</groupId>
-      <artifactId>wildfly-arquillian-container-managed</artifactId>
-      <version>1.0.1.Final</version>
-      <scope>test</scope>
-    </dependency>
+    <!--<dependency>-->
+      <!--<groupId>org.wildfly.arquillian</groupId>-->
+      <!--<artifactId>wildfly-arquillian-container-managed</artifactId>-->
+      <!--<version>1.0.1.Final</version>-->
+      <!--<scope>test</scope>-->
+    <!--</dependency>-->
 
     <!--<dependency>-->
       <!--<groupId>org.wildfly.arquillian</groupId>-->
@@ -259,18 +258,18 @@
 
   </dependencies>
 
-  <dependencyManagement>
-    <dependencies>
-      <!-- BOM с указанием версий артефактов для Arquillian -->
-      <dependency>
-        <groupId>org.jboss.arquillian</groupId>
-        <artifactId>arquillian-bom</artifactId>
-        <version>1.1.8.Final</version>
-        <scope>import</scope>
-        <type>pom</type>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
+  <!--<dependencyManagement>-->
+    <!--<dependencies>-->
+      <!--&lt;!&ndash; BOM с указанием версий артефактов для Arquillian &ndash;&gt;-->
+      <!--<dependency>-->
+        <!--<groupId>org.jboss.arquillian</groupId>-->
+        <!--<artifactId>arquillian-bom</artifactId>-->
+        <!--<version>1.1.8.Final</version>-->
+        <!--<scope>import</scope>-->
+        <!--<type>pom</type>-->
+      <!--</dependency>-->
+    <!--</dependencies>-->
+  <!--</dependencyManagement>-->
 
   <build>
     <finalName>my-webapp</finalName>
@@ -292,29 +291,29 @@
           <failOnMissingWebXml>false</failOnMissingWebXml>
         </configuration>
       </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-failsafe-plugin</artifactId>
-        <version>2.18.1</version>
-        <configuration>
-          <!-- Выполнять тесты последовательно, форкая для каждого новую VM -->
-          <forkCount>1</forkCount>
-          <reuseForks>false</reuseForks>
+      <!--<plugin>-->
+        <!--<groupId>org.apache.maven.plugins</groupId>-->
+        <!--<artifactId>maven-failsafe-plugin</artifactId>-->
+        <!--<version>2.18.1</version>-->
+        <!--<configuration>-->
+          <!--&lt;!&ndash; Выполнять тесты последовательно, форкая для каждого новую VM &ndash;&gt;-->
+          <!--<forkCount>1</forkCount>-->
+          <!--<reuseForks>false</reuseForks>-->
 
-          <redirectTestOutputToFile>false</redirectTestOutputToFile>
-          <!-- Будем пропускать выполнение тестов, если явно не указан профиль it
-               (т.к. интеграционные тесты могут выполняться очень долго)-->
-          <skipITs>true</skipITs>
-        </configuration>
-        <executions>
-          <execution>
-            <goals>
-              <goal>integration-test</goal>
-              <goal>verify</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
+          <!--<redirectTestOutputToFile>false</redirectTestOutputToFile>-->
+          <!--&lt;!&ndash; Будем пропускать выполнение тестов, если явно не указан профиль it-->
+               <!--(т.к. интеграционные тесты могут выполняться очень долго)&ndash;&gt;-->
+          <!--<skipITs>true</skipITs>-->
+        <!--</configuration>-->
+        <!--<executions>-->
+          <!--<execution>-->
+            <!--<goals>-->
+              <!--<goal>integration-test</goal>-->
+              <!--<goal>verify</goal>-->
+            <!--</goals>-->
+          <!--</execution>-->
+        <!--</executions>-->
+      <!--</plugin>-->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>

@@ -1,10 +1,10 @@
 package com.jvschool.svc.Impl;
 
 
-import com.jvschool.dao.CategoryDAO;
-import com.jvschool.entities.CategoryEntity;
-import com.jvschool.svc.CategoryService;
-import com.jvschool.util.Attributes.CategoryAttribute;
+import com.jvschool.dao.api.CategoryDAO;
+import com.jvschool.model.CategoryEntity;
+import com.jvschool.svc.api.CategoryService;
+import com.jvschool.dto.CategoryAttribute;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,6 +45,24 @@ public class CategoryServiceImpl implements CategoryService {
         }
         categoryEntity.setCategoryName(categoryAttribute.getEditCategoryName());
         categoryDAO.editCategory(categoryEntity);
+    }
+
+    @Override
+    public void removeCategory(String category) {
+        categoryDAO.removeCategory(categoryDAO.getProductCategoryByName(category));
+    }
+
+    @Override
+    public List<String> getRemovedCategories() {
+        List<String> categoryNames = new ArrayList<>();
+        categoryDAO.getRemovedCategories().stream()
+                .forEachOrdered(categoryEntity -> categoryNames.add(categoryEntity.getCategoryName()));
+        return categoryNames;
+    }
+
+    @Override
+    public void returnCategory(String category) {
+        categoryDAO.returnCategory(categoryDAO.getProductCategoryByName(category));
     }
 
 }

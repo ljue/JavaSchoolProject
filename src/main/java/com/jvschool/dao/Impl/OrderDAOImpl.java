@@ -1,9 +1,9 @@
 package com.jvschool.dao.Impl;
 
-import com.jvschool.dao.OrderDAO;
-import com.jvschool.dao.UserDAO;
-import com.jvschool.entities.OrderEntity;
-import com.jvschool.entities.UserEntity;
+import com.jvschool.dao.api.OrderDAO;
+import com.jvschool.dao.api.UserDAO;
+import com.jvschool.model.OrderEntity;
+import com.jvschool.model.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;

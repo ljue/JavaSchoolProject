@@ -85,8 +85,8 @@
 <script>
     function addProductToCart(obj) {
         var idProduct = obj.value;
-        $(".message-success-add-to-cart").fadeIn(500);
-        setTimeout(function(){$(".message-success-add-to-cart").fadeOut(1000)}, 2000);
+        $("#message-success-add-to-cart").fadeIn(500);
+        setTimeout(function(){$("#message-success-add-to-cart").fadeOut(1000)}, 2000);
         $.ajax({
             type: "POST",
             url: "${pageContext.request.contextPath}/addToCart/" + idProduct
