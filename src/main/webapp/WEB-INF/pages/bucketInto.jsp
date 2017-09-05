@@ -136,68 +136,9 @@
 <%--</script>--%>
 
 <script>
-    function addProductToCart(obj) {
-        var idProduct = obj.value;
-        var count = Number($("#changeCountProducts" + idProduct).val());
-        var cost = Number($('#costProduct' + idProduct).text());
-        var total = Number($('#calc-total-price').text());
 
-        count = count + 1;
-        total = total + cost;
+</script>
+<script>
 
-        $("#changeCountProducts" + idProduct).val(count);
-        $("#calc-total-price").text(total.toFixed(2));
-
-        $.ajax({
-            type: "POST",
-            url: "${pageContext.request.contextPath}/addToCart/" + idProduct
-        })
-    };
-    function minusProductFromCart(obj) {
-        var idProduct = obj.value;
-        var count = Number($("#changeCountProducts" + idProduct).val());
-        var cost = Number($('#costProduct' + idProduct).text());
-        var total = Number($('#calc-total-price').text());
-
-        if (count > 0) {
-            count = count - 1;
-            total = total - cost;
-
-            $("#changeCountProducts" + idProduct).val(count);
-            $("#calc-total-price").text(total.toFixed(2));
-            $.ajax({
-                type: "POST",
-                url: "${pageContext.request.contextPath}/minusFromCart/" + idProduct
-            })
-        }
-    };
-
-    function changeCountProducts(obj) {
-        var idProduct = obj.value;
-        var count = Number($("#changeCountProducts" + idProduct).val());
-
-        $.ajax({
-            type: "POST",
-            data: {count: count},
-            url: "${pageContext.request.contextPath}/changeCountInCart/" + idProduct,
-            success: function (page) {
-                $("#products-in-bucket").html(page);
-            }
-        })
-    };
-
-    function deleteProductFromCart(obj) {
-        var idProduct = obj.value;
-        var count = 0;
-        //$("#tr-in-bucket-table"+idProduct).slideUp();
-        $.ajax({
-            type: "POST",
-            data: {count: count},
-            url: "${pageContext.request.contextPath}/changeCountInCart/" + idProduct,
-            success: function (page) {
-                $("#products-in-bucket").html(page);
-            }
-        })
-    };
 
 </script>

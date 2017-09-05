@@ -42,7 +42,7 @@
                         <div class="form-group ${status.error ? 'has-error' : ''}" >
                             <label class="col-lg-3 control-label">First name:</label>
                             <div class="col-lg-8">
-                                <form:input  type="text" path="firstName" class="form-control" value="${user.firstName}"
+                                <form:input required="required"  type="text" path="firstName" class="form-control" value="${user.firstName}"
                                 ></form:input>
                             </div>
                             <form:errors path="firstName"></form:errors>
@@ -147,18 +147,10 @@
 
                     </form:form>
                 </div>
-
-
-
             </div>
         </div>
-
-
-
     </div>
 </div>
-
-<!-- /.container -->
 
 </body>
 </html>

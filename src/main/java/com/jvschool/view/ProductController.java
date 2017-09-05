@@ -51,6 +51,12 @@ public class ProductController {
         return "catalogProducts";
     }
 
+    @GetMapping(value = "/catalog/product/{productId}")
+    public String getProductDetails(@PathVariable long productId, Model model) {
+        model.addAttribute("product", productService.getProductAttributeById(productId));
+        return "product";
+    }
+
 
     @PostMapping(value = "/addToCart/{idProduct}")
     public void addToCart(@PathVariable("idProduct") Long id, @ModelAttribute("user") SessionUser user, Model model) {

@@ -42,8 +42,6 @@
                         <tbody>
 
                         <c:forEach var="order" items="${ordersHistory}">
-
-
                             <tr data-href="${pageContext.request.contextPath}/orderInHistory/${order.orderId}">
                                 <td>${order.orderId}</td>
                                 <td>${order.deliveryStatus}</td>
@@ -56,17 +54,10 @@
                                     });
                                 });
                             </script>
-
-
                         </c:forEach>
-
                         </tbody>
                     </table>
-
-
                 </c:if>
-
-
             </div>
         </div>
     </div>

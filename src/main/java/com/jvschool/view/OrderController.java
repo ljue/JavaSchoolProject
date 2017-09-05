@@ -1,13 +1,7 @@
 package com.jvschool.view;
 
-import com.jvschool.svc.api.AddressService;
-import com.jvschool.svc.api.DeliveryWayService;
-import com.jvschool.svc.api.OrderService;
-import com.jvschool.svc.api.PayWayService;
-import com.jvschool.dto.AddressAttribute;
-import com.jvschool.dto.BucketAttribute;
-import com.jvschool.dto.OrderAttribute;
-import com.jvschool.dto.SessionUser;
+import com.jvschool.dto.*;
+import com.jvschool.svc.api.*;
 import com.jvschool.util.validators.OrderValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,6 +26,8 @@ public class OrderController {
     private DeliveryWayService deliveryWayService;
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private ProductService productService;
     @Autowired
     private OrderValidator orderValidator;
 
@@ -93,6 +89,27 @@ public class OrderController {
         return "redirect:/user/checkout";
     }
 
+    @ResponseBody
+    @PostMapping(value = "/getCountInCart")
+    public int getCountItemsInCart(@ModelAttribute("user") SessionUser user){
+        return user.getProducts().entrySet().stream().mapToInt(s -> s.getValue()).sum();
+    }
 
+
+    @PostMapping(value = "/getProductsInCart")
+    public String getProductItemsInCart(@ModelAttribute("user") SessionUser user, Model model){
+        Map<ProductAttribute, Integer> productsInCart = new HashMap<>();
+        double totalPrice = 0;
+
+        for (Long productKey : user.getProducts().keySet()) {
+            ProductAttribute pa = productService.getProductAttributeById(productKey);
+            productsInCart.put(pa, user.getProducts().get(productKey));
+            totalPrice = totalPrice + pa.getCost() * user.getProducts().get(productKey);
+        }
+        model.addAttribute("productsInNavBar", productsInCart);
+        model.addAttribute("totalInNavBar", String.format(Locale.US, "%.2f", totalPrice));
+
+        return "../templates/cartDown";
+    }
 
 }

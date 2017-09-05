@@ -27,7 +27,7 @@
         <div class="col-md-9">
 
             <div class="row">
-                <h3>#Order Id: ${orderIn.orderId}</h3><br>
+                <h3>#Order Id: <span id="order-id-in-order-in-history">${orderIn.orderId}</span></h3><br>
                 <%--<h4>Delivery status: ${orderIn.deliveryStatus}</h4>--%>
                 <%--<h4>Pay way: ${orderIn.payWay}</h4>--%>
                 <%--<h4>Delivery way: ${orderIn.deliveryWay}</h4>--%>
@@ -142,16 +142,6 @@
     </div>
 </div>
 
-<script>
-    function repeatOrder(obj) {
-        $.ajax({
-            type: "POST",
-            url: "${pageContext.request.contextPath}/orderInHistory/repeatOrder/"+${orderIn.orderId},
-        });
-
-        location.href="${pageContext.request.contextPath}/bucket";
-    }
-</script>
 
 </body>
 </html>

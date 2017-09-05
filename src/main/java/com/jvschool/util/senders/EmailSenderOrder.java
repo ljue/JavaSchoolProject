@@ -20,6 +20,7 @@ public class EmailSenderOrder implements Runnable {
 
     private OrderEntity order;
     private static final String PICTURES_DIR = "D:/JavaSchoolProject/mywebapp/src/main/webapp/resources/Images/";
+    private static final String PASS = "favoritequadcopters";
 
     public EmailSenderOrder(OrderEntity order) {
 
@@ -30,7 +31,7 @@ public class EmailSenderOrder implements Runnable {
 
         String toEmail = order.getUser().getEmail();
         String fromEmail = "favorite.quadcopters@gmail.com";
-        String fromEmailPassword = "favoritequadcopters";
+
 
         Properties properties = new Properties();
         properties.put("mail.smtp.auth", "true");
@@ -42,7 +43,7 @@ public class EmailSenderOrder implements Runnable {
         Session session = Session.getDefaultInstance(properties,  new javax.mail.Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(fromEmail,fromEmailPassword);}});
+                return new PasswordAuthentication(fromEmail, PASS);}});
 
 
         try {

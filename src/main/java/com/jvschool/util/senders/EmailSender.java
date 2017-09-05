@@ -13,6 +13,7 @@ public class EmailSender implements Runnable {
     private String emailTo;
     private String msgSubject;
     private String msgText;
+    private static final String PASS = "favoritequadcopters";
 
     public EmailSender(String emailTo, String msgSubject, String msgText) {
         this.emailTo = emailTo;
@@ -24,7 +25,6 @@ public class EmailSender implements Runnable {
 
         String toEmail = emailTo;
         String fromEmail = "favorite.quadcopters@gmail.com";
-        String fromEmailPassword = "favoritequadcopters";
 
         Properties properties = new Properties();
         properties.put("mail.smtp.auth", "true");
@@ -36,7 +36,7 @@ public class EmailSender implements Runnable {
         Session session = Session.getDefaultInstance(properties,  new javax.mail.Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(fromEmail,fromEmailPassword);}});
+                return new PasswordAuthentication(fromEmail, PASS);}});
 
 
         try {

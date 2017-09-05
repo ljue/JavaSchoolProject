@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<script src="${pageContext.request.contextPath}/resources/js/catalog.js"></script>
 
 <c:if test="${!empty allProducts}">
     <c:forEach items="${allProducts}" var="product">
@@ -67,6 +68,9 @@
                                             onclick="addProductToCart(this)" class="btn btn-primary">
                                         Add To Cart
                                     </button>
+                                    <a href="${pageContext.request.contextPath}/catalog/product/${product.productId}"  class="btn btn-default">
+                                        View details
+                                    </a>
                                 </div>
 
                             </div>
@@ -82,14 +86,3 @@
 <div id="count-all-filtered-products" style="visibility: hidden;">${countProducts}</div>
 <div id="max-count-products-on-page" style="visibility: hidden;">12</div>
 
-<script>
-    function addProductToCart(obj) {
-        var idProduct = obj.value;
-        $("#message-success-add-to-cart").fadeIn(500);
-        setTimeout(function(){$("#message-success-add-to-cart").fadeOut(1000)}, 2000);
-        $.ajax({
-            type: "POST",
-            url: "${pageContext.request.contextPath}/addToCart/" + idProduct
-        })
-    }
-</script>

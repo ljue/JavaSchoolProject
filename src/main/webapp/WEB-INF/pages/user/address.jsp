@@ -58,9 +58,8 @@
                                                     <span><i class="fa fa-times fa-lg"></i></span></a>
                                                 <strong class="pull-left primary-font">Address ${status.count}</strong>
 
-                                                <ul data-brackets-id="12674" id="sortable"
-                                                    class="list-unstyled ui-sortable">
-                                                    <hr data-brackets-id="12673">
+                                                <ul class="list-unstyled ui-sortable">
+                                                    <hr>
                                                     </br>
                                                     <li class="ui-state-default" style="font-size: 1.2em">
                                                             ${address.country},<br>
@@ -174,19 +173,6 @@
 </div>
 
 </div>
-<!-- /.container -->
 
-<script>
-    $('a.remove-address-panel').click(function (e) {
-        e.preventDefault();
-        var addressId = $(this).data('seq');
-        var panelId = "#panel-address-" + addressId;
-        $(panelId).slideUp();//400mc
-        $.ajax({
-            type: "POST",
-            url: "${pageContext.request.contextPath}/address/remove/" + addressId
-        })
-    })
-</script>
 </body>
 </html>

@@ -54,7 +54,7 @@ public class UserController {
 
         userValidator.validate(userForm, bindingResult);
         if (bindingResult.hasErrors()) {
-            model.addAttribute("userForm", user);
+            model.addAttribute("userForm", userForm);
             return "user/user";
         }
         userForm.setId(user.getId());

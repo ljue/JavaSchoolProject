@@ -24,8 +24,6 @@
     <div id="products-in-bucket">
         <jsp:include page="bucketInto.jsp"/>
     </div>
-
-
 </div>
 
 

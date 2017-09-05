@@ -30,12 +30,6 @@
             <a href="${pageContext.request.contextPath}/history" class="btn btn-default">
                 Order history
             </a>
-            <%--<button onclick="location.href ='${pageContext.request.contextPath}/catalog'" class="btn btn-primary">--%>
-                <%--Continue shopping--%>
-            <%--</button>--%>
-            <%--<button onclick="location.href ='${pageContext.request.contextPath}/history'" class="btn btn-default">Check--%>
-                <%--order history--%>
-            <%--</button>--%>
         </div>
     </div>
 </div>
