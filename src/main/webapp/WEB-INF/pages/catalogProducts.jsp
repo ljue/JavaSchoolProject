@@ -8,7 +8,12 @@
         <div class="col-md-4 col-sm-3">
                 <span class="thumbnail">
                     <a role="button" data-toggle="modal" href="#product${product.productId}">
+                        <c:if test="${product.presentPic eq ''}">
+                            <img src="${pageContext.request.contextPath}/resources/Images/copter-512.png" alt="...">
+                        </c:if>
+                        <c:if test="${product.presentPic ne ''}">
                     <img src="${pageContext.request.contextPath}/resources/Images/${product.presentPic}" alt="...">
+                        </c:if>
                     </a>
 
                     <div class="size-div-name" data-toggle="tooltip" title="${product.productName}"><h5>${product.presentProductName}</h5></div>

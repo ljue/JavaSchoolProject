@@ -4,6 +4,8 @@ import com.jvschool.model.BucketEntity;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Locale;
+
 
 @Getter
 @Setter
@@ -12,7 +14,7 @@ public class BucketAttribute {
     private int bucketId;
     private long productId;
     private int countProduct;
-    private double costProduct;
+    private String costProduct;
     private long orderId;
 
 
@@ -22,7 +24,7 @@ public class BucketAttribute {
         this.bucketId = bucketEntity.getBucketId();
         this.productId = bucketEntity.getProductId().getProductId();
         this.countProduct = bucketEntity.getCountProduct();
-        this.costProduct = bucketEntity.getCostProduct();
+        this.costProduct = String.format(Locale.US, "%.2f", bucketEntity.getCostProduct());
         this.orderId = bucketEntity.getOrderId();
     }
 }

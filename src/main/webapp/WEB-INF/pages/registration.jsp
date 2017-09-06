@@ -5,7 +5,7 @@
 <%--<html>--%>
 <html lang="en">
 <head>
-    <title>Registration</title>
+    <%--<title>Registration</title>--%>
 </head>
 <body>
 <jsp:include page="../templates/navigation.jsp"/>

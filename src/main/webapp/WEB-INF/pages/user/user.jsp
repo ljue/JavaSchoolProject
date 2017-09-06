@@ -5,7 +5,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>UserInfo</title>
+    <%--<title>UserInfo</title>--%>
 </head>
 <body>
 <jsp:include page="../../templates/navigation.jsp"/>

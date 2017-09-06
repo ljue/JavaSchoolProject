@@ -3,6 +3,9 @@
 <c:set value="${pageContext.request.contextPath}" var="myContext"/>
 <head>
     <title>FavCopters</title>
+    <link rel="shortcut icon"
+          href="${pageContext.request.contextPath}/resources/Images/favicon.ico"
+          >
     <jsp:include page="head.jsp"/>
 </head>
 
@@ -32,8 +35,8 @@
 
 
             </ul>
-            <ul class="nav navbar-nav  navbar-right">
-
+            <ul class="nav navbar-nav navbar-right ">
+                <%----%>
                 <%--<li class="li-in-cart" id="dropdown-click-navbar-cart">--%>
                     <%--<a><i class="fa fa-shopping-cart" style="font-size:16px"></i>--%>
                         <%--<span id="navbar-count-in-cart" class="badge"></span> - Cart</a>--%>
@@ -42,23 +45,23 @@
                         <%--</div>--%>
                 <%--</li>--%>
 
-                <%--<li class="dropdown" id="dropdown-click-navbar-cart">--%>
-                    <%--<a class="dropdown-toggle"  data-toggle="dropdown" role="button" aria-expanded="false">--%>
-                        <%--<i class="fa fa-shopping-cart dropdown" style="font-size:16px"></i>--%>
-                        <%--<span id="navbar-count-in-cart" style="width: 30px"></span> - Cart</a>--%>
-                    <%--<ul class="dropdown-menu" role="menu">--%>
-                        <%--<div id="dropdown-cart">--%>
-                            <%--<jsp:include page="cartDown.jsp"/>--%>
-                        <%--</div>--%>
-                    <%--</ul>--%>
-                <%--</li>--%>
+                <li class="dropdown" id="dropdown-click-navbar-cart">
+                    <a class="dropdown-toggle"  data-toggle="dropdown" role="button" aria-expanded="false">
+                        <i class="fa fa-shopping-cart dropdown" style="font-size:16px"></i>
+                        <span id="navbar-count-in-cart" style="width: 30px"></span> - Cart</a>
+                    <ul class="dropdown-menu" role="menu" style="padding: 18px">
+                        <div id="dropdown-cart">
+                            <jsp:include page="cartDown.jsp"/>
+                        </div>
+                    </ul>
+                </li>
 
-                    <li>
-                        <a href="${pageContext.request.contextPath}/bucket" >
-                            <i class="fa fa-shopping-cart dropdown" style="font-size:16px"></i>
-                            <span id="navbar-count-in-cart" style="width: 30px"></span> - Cart
-                        </a>
-                    </li>
+                    <%--<li>--%>
+                        <%--<a href="${pageContext.request.contextPath}/bucket" >--%>
+                            <%--<i class="fa fa-shopping-cart dropdown" style="font-size:16px"></i>--%>
+                            <%--<span id="navbar-count-in-cart" style="width: 30px"></span> - Cart--%>
+                        <%--</a>--%>
+                    <%--</li>--%>
 
                 <c:if test="${user.role eq 'ROLE_ANONYM'}">
                     <li>

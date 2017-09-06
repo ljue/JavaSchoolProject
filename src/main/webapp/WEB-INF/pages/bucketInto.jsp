@@ -76,8 +76,14 @@
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-md-6 product_img">
-                                    <img src="${pageContext.request.contextPath}/resources/Images/${productInCart.key.presentPic}"
-                                         class="img-responsive">
+                                    <c:if test="${productInCart.key.presentPic eq ''}">
+                                        <img class="img-responsive"
+                                             src="${pageContext.request.contextPath}/resources/Images/copter-512.png" alt="...">
+                                    </c:if>
+                                    <c:if test="${productInCart.key.presentPic ne ''}">
+                                        <img class="img-responsive"
+                                             src="${pageContext.request.contextPath}/resources/Images/${productInCart.key.presentPic}" alt="...">
+                                    </c:if>
                                 </div>
                                 <div class="col-md-6 product_content">
                                     <h4>Product Id: <span>${productInCart.key.productId}</span></h4>

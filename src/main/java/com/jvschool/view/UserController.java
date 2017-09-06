@@ -99,7 +99,7 @@ public class UserController {
                 ProductAttribute pa = productService.getProductAttributeById(ba.getProductId());
                 pa.setCost(ba.getCostProduct());
                 productAttributes.add(pa);
-                total = total+ba.getCostProduct()*ba.getCountProduct();
+                total = total+ Double.parseDouble(ba.getCostProduct())*ba.getCountProduct();
             }
         }
         model.addAttribute("products",productAttributes);

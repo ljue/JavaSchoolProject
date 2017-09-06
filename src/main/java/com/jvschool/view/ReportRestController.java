@@ -43,4 +43,23 @@ public class ReportRestController {
         return productsDTO;
     }
 
+
+    @RequestMapping( value = "/advertisement/top/angular", produces = APPLICATION_JSON_VALUE, method = RequestMethod.GET)
+    public List<ProductDTO> topInfoAngular() {
+
+        List<ProductAttribute> productAttributes = productService.getTopProducts();
+
+        List<ProductDTO> productDTOList = new ArrayList<>();
+        for(ProductAttribute productAttribute : productAttributes) {
+            ProductDTO productDTO = new ProductDTO();
+            productDTO.setProductId(productAttribute.getProductId());
+            productDTO.setProductName(productAttribute.getProductName());
+            productDTO.setCost(productAttribute.getCost());
+            productDTO.setPicture(productAttribute.getPresentPic());
+            productDTOList.add(productDTO);
+        }
+        log.info(productDTOList.toString());
+        return productDTOList;
+    }
+
 }

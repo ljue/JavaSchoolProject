@@ -4,7 +4,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html lang="en">
 <head>
-    <title>Goods management</title>
+    <%--<title>Goods management</title>--%>
 </head>
 <body>
 <jsp:include page="../../templates/navigation.jsp"/>
@@ -42,10 +42,10 @@
 
                         <spring:bind path="productName">
                             <div class="form-group ${status.error ? 'has-error' : ''}">
-                                <label class="col-lg-3 control-label">Goods roleName:</label>
+                                <label class="col-lg-3 control-label">Goods name:</label>
                                 <div class="col-lg-8">
-                                    <form:input type="text" path="productName" class="form-control"
-                                                placeholder="Goods roleName"
+                                    <form:input required="required" type="text" path="productName" class="form-control"
+                                                placeholder="Goods name"
                                     ></form:input>
                                 </div>
                                 <form:errors path="productName"></form:errors>
@@ -56,7 +56,7 @@
                             <div class="form-group ${status.error ? 'has-error' : ''}">
                                 <label class="col-lg-3 control-label">Cost:</label>
                                 <div class="col-lg-8">
-                                    <form:input type="text" path="cost" class="form-control" placeholder="Cost"
+                                    <form:input required="required" type="text" path="cost" class="form-control" placeholder="Cost"
                                     ></form:input>
                                 </div>
                                 <form:errors path="cost"></form:errors>
@@ -67,7 +67,7 @@
                             <div class="form-group ${status.error ? 'has-error' : ''}">
                                 <label class="col-lg-3 control-label">Count:</label>
                                 <div class="col-lg-8">
-                                    <form:input type="text" path="count" class="form-control" placeholder="Count"
+                                    <form:input required="required" type="text" pattern="[0-9]{1,4}" path="count" class="form-control" placeholder="Count"
                                     ></form:input>
                                 </div>
                                 <form:errors path="count"></form:errors>
@@ -94,7 +94,7 @@
                             <div class="form-group ${status.error ? 'has-error' : ''}">
                                 <label class="col-lg-3 control-label">Size:</label>
                                 <div class="col-lg-8">
-                                    <form:input type="text" path="size" class="form-control" placeholder="Size (cm)"
+                                    <form:input required="required" type="text" path="size" class="form-control" placeholder="Size (cm)"
                                     ></form:input>
                                 </div>
                                 <form:errors path="size"></form:errors>
@@ -117,7 +117,7 @@
                             <div class="form-group ${status.error ? 'has-error' : ''}">
                                 <label class="col-lg-3 control-label">Fly time:</label>
                                 <div class="col-lg-8">
-                                    <form:input type="text" path="flyTime" class="form-control"
+                                    <form:input type="text"  pattern="[0-9]{0,4}" path="flyTime" class="form-control"
                                                 placeholder="Fly time (minutes)"
                                     ></form:input>
                                 </div>
@@ -129,7 +129,7 @@
                             <div class="form-group ${status.error ? 'has-error' : ''}">
                                 <label class="col-lg-3 control-label">Distance:</label>
                                 <div class="col-lg-8">
-                                    <form:input type="text" path="distance" class="form-control"
+                                    <form:input type="text"  pattern="[0-9]{0,4}" path="distance" class="form-control"
                                                 placeholder="Distance (m)"
                                     ></form:input>
                                 </div>

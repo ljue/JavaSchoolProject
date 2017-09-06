@@ -5,7 +5,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Check Order</title>
+    <%--<title>Check Order</title>--%>
 </head>
 <body>
 <jsp:include page="../../templates/navigation.jsp"/>
@@ -103,7 +103,7 @@
                                             <td>${bucket.productId}</td>
                                             <td>${product.productName}</td>
                                             <td>${bucket.countProduct}</td>
-                                            <td>$${product.cost * bucket.countProduct}</td>
+                                            <td>$${product.cost}</td>
                                         </tr>
 
 
@@ -119,8 +119,14 @@
                                                 <div class="modal-body">
                                                     <div class="row">
                                                         <div class="col-md-6 product_img">
-                                                            <img src="../resources/Images/${product.presentPic}"
-                                                                 class="img-responsive">
+                                                            <c:if test="${product.presentPic eq ''}">
+                                                                <img class="img-responsive"
+                                                                     src="${pageContext.request.contextPath}/resources/Images/copter-512.png" alt="...">
+                                                            </c:if>
+                                                            <c:if test="${product.presentPic ne ''}">
+                                                                <img class="img-responsive"
+                                                                     src="${pageContext.request.contextPath}/resources/Images/${product.presentPic}" alt="...">
+                                                            </c:if>
                                                         </div>
                                                         <div class="col-md-6 product_content">
                                                             <h4>Product Id: <span>${product.productId}</span></h4>

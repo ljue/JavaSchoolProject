@@ -278,7 +278,7 @@
   <!--</dependencyManagement>-->
 
   <build>
-    <finalName>my-webapp</finalName>
+    <finalName>favcopters</finalName>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

@@ -7,7 +7,7 @@
 <html>
 <head>
 
-    <title>Log in</title>
+    <%--<title>Log in</title>--%>
 </head>
 <body>
 <jsp:include page="../templates/navigation.jsp"/>

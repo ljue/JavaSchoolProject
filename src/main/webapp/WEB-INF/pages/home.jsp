@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Start page</title>
+    <%--<title>Start page</title>--%>
 <style>
     body {
     background: url(${pageContext.request.contextPath}/resources/Images/zakat.jpg) no-repeat;

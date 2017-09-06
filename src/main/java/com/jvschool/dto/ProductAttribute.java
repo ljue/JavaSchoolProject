@@ -8,10 +8,7 @@ import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Getter
 @Setter
@@ -20,8 +17,9 @@ public class ProductAttribute  implements Serializable, Comparable {
     private long productId;
     private String productName;
     private String presentProductName;
+    private String productCartName;
     private int count;
-    private double cost;
+    private String cost;
     private String size;
     private String battery;
     private int flyTime;
@@ -45,10 +43,18 @@ public class ProductAttribute  implements Serializable, Comparable {
         this.productId = productEntity.getProductId();
         this.productName = productEntity.getProductName();
 
-        this.presentProductName = this.productName.substring(0, this.productName.substring(0,60).lastIndexOf(' ')) + "...";
-
+        if (this.productName.length()>60) {
+            this.presentProductName = this.productName.substring(0, this.productName.substring(0, 60).lastIndexOf(' ')) + "...";
+            this.productCartName = this.productName.substring(0, this.productName.substring(0, 20).lastIndexOf(' ')) + "...";
+        } else if (this.productName.length()>20) {
+            this.presentProductName = this.productName;
+            this.productCartName = this.productName.substring(0, this.productName.substring(0, 20).lastIndexOf(' ')) + "...";
+        } else {
+            this.presentProductName = this.productName;
+            this.productCartName = this.productName;
+        }
         this.count = productEntity.getCount();
-        this.cost = productEntity.getCost();
+        this.cost = String.format(Locale.US, "%.2f", productEntity.getCost());
         this.size = productEntity.getSize();
         this.battery = productEntity.getBattery();
         this.flyTime = productEntity.getFlyTime();

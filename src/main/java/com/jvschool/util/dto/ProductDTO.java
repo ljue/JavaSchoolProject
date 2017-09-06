@@ -17,7 +17,7 @@ public class ProductDTO  implements Serializable {
 
     private long productId;
     private String productName;
-    private double cost;
+    private String cost;
     private String picture;
 
     private static final  String PICTURES_DIR = "D:/JavaSchoolProject/mywebapp/src/main/webapp/resources/Images/";

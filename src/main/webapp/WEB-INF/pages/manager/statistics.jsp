@@ -3,7 +3,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Statistic</title>
+    <%--<title>Statistic</title>--%>
 </head>
 <body>
 <jsp:include page="../../templates/navigation.jsp"/>
@@ -110,8 +110,14 @@
                                                 <div class="modal-body">
                                                     <div class="row">
                                                         <div class="col-md-6 product_img">
-                                                            <img src="${pageContext.request.contextPath}/resources/Images/${product.presentPic}"
-                                                                 class="img-responsive">
+                                                            <c:if test="${product.presentPic eq ''}">
+                                                                <img class="img-responsive"
+                                                                     src="${pageContext.request.contextPath}/resources/Images/copter-512.png" alt="...">
+                                                            </c:if>
+                                                            <c:if test="${product.presentPic ne ''}">
+                                                                <img class="img-responsive"
+                                                                     src="${pageContext.request.contextPath}/resources/Images/${product.presentPic}" alt="...">
+                                                            </c:if>
                                                         </div>
                                                         <div class="col-md-6 product_content">
                                                             <h4>Product Id: <span>${product.productId}</span></h4>

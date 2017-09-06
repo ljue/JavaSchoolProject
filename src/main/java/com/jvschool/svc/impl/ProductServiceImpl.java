@@ -100,7 +100,7 @@ public class ProductServiceImpl implements ProductService {
         ProductEntity productEntity = new ProductEntity();
 
         productEntity.setProductName(productAttribute.getProductName());
-        productEntity.setCost(productAttribute.getCost());
+        productEntity.setCost(Double.parseDouble(productAttribute.getCost()));
         productEntity.setCost(productAttribute.getCount());
         productEntity.setBattery(productAttribute.getBattery());
         productEntity.setDistance(productAttribute.getDistance());

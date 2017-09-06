@@ -104,7 +104,7 @@ public class OrderController {
         for (Long productKey : user.getProducts().keySet()) {
             ProductAttribute pa = productService.getProductAttributeById(productKey);
             productsInCart.put(pa, user.getProducts().get(productKey));
-            totalPrice = totalPrice + pa.getCost() * user.getProducts().get(productKey);
+            totalPrice = totalPrice + Double.parseDouble(pa.getCost()) * user.getProducts().get(productKey);
         }
         model.addAttribute("productsInNavBar", productsInCart);
         model.addAttribute("totalInNavBar", String.format(Locale.US, "%.2f", totalPrice));

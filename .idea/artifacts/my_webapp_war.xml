@@ -1,7 +1,7 @@
 <component name="ArtifactManager">
   <artifact type="war" name="my-webapp:war">
     <output-path>$PROJECT_DIR$/target</output-path>
-    <root id="archive" name="my-webapp.war">
+    <root id="archive" name="favcopters.war">
       <element id="artifact" artifact-name="my-webapp:war exploded" />
     </root>
   </artifact>

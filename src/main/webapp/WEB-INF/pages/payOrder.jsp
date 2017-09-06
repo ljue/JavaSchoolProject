@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Pay order</title>
+    <%--<title>Pay order</title>--%>
 </head>
 <body>
 <jsp:include page="../templates/navigation.jsp"/>

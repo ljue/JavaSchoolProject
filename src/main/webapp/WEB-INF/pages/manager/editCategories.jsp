@@ -4,7 +4,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html lang="en">
 <head>
-    <title>Goods management</title>
+    <%--<title>Goods management</title>--%>
 </head>
 <body>
 <jsp:include page="../../templates/navigation.jsp"/>

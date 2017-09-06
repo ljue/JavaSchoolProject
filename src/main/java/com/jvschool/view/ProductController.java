@@ -110,7 +110,7 @@ public class ProductController {
         for (Long productKey : user.getProducts().keySet()) {
             ProductAttribute pa = productService.getProductAttributeById(productKey);
             productsInCart.put(pa, user.getProducts().get(productKey));
-            totalPrice = totalPrice + pa.getCost() * user.getProducts().get(productKey);
+            totalPrice = totalPrice + Double.parseDouble(pa.getCost()) * user.getProducts().get(productKey);
         }
         model.addAttribute("productsInCart", productsInCart);
         model.addAttribute("totalPrice", String.format(Locale.US, "%.2f", totalPrice));
@@ -135,7 +135,7 @@ public class ProductController {
         for (Long productKey : user.getProducts().keySet()) {
             ProductAttribute pa = productService.getProductAttributeById(productKey);
             productsInCart.put(pa, user.getProducts().get(productKey));
-            totalPrice = totalPrice + pa.getCost() * user.getProducts().get(productKey);
+            totalPrice = totalPrice + Double.parseDouble(pa.getCost()) * user.getProducts().get(productKey);
         }
         model.addAttribute("productsInCart", productsInCart);
         model.addAttribute("totalPrice", String.format(Locale.US, "%.2f", totalPrice));

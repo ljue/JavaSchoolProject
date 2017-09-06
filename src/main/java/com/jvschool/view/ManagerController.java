@@ -88,7 +88,7 @@ public class ManagerController {
         productForm.setPicturesPath(picNames);
 
         productService.addProduct(productForm);
-        return "redirect:/manager/adminProducts";
+        return "redirect:/adminProducts";
     }
 
     @GetMapping(value = "/adminOrders")
@@ -123,7 +123,7 @@ public class ManagerController {
                 if (pa != null) {
                     pa.setCost(ba.getCostProduct());
                     productAttributes.add(pa);
-                    total = total + ba.getCostProduct() * ba.getCountProduct();
+                    total = total + Double.parseDouble(ba.getCostProduct()) * ba.getCountProduct();
                 }
             }
         }
@@ -148,7 +148,7 @@ public class ManagerController {
         orderAttribute.setDeliveryStatus(orderEditAttribute.getDeliveryStatus());
         orderService.editOrderDeliveryStatus(orderAttribute);
 
-        return "redirect:/manager/adminOrders/" + orderAttribute.getOrderId();
+        return "redirect:/adminOrders/" + orderAttribute.getOrderId();
     }
 
 

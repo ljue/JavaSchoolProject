@@ -3,7 +3,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Bucket</title>
+    <%--<title>Bucket</title>--%>
     <style>
         tbody > tr {
             cursor: pointer;
