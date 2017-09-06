@@ -38,10 +38,13 @@
                                                 <i class="fa fa-minus fa-2"></i>
                                             </button>
                                         </span>
-                        <input id="changeCountProducts${productInCart.key.productId}" type="text"
-                               value="${productInCart.value}"
-                               class="form-control input-number"
-                               onchange="changeCountProducts(${productInCart.key.productId})" required/>
+                        <%--<input id="changeCountProducts${productInCart.key.productId}" type="text"--%>
+                               <%--value="${productInCart.value}" data-seq="${productInCart.key.productId}"--%>
+                                <%--class="form-control input-number"--%>
+                               <%--onchange="changeCountProducts(this)" required/>--%>
+                        <input type="number"
+                               value="${productInCart.value}" data-seq="${productInCart.key.productId}"
+                               class="form-control input-number change-count-product-in-bucketInto" required/>
                         <span class="input-group-btn">
                                             <button type="button" class="btn btn-default btn-number"
                                                     value="${productInCart.key.productId}"
@@ -136,9 +139,85 @@
 <%--</script>--%>
 
 <script>
+    function addProductToCart(obj) {
+        var idProduct = obj.value;
+        var count = Number($("#changeCountProducts" + idProduct).val());
+        var cost = Number($('#costProduct' + idProduct).text());
+        var total = Number($('#calc-total-price').text());
+        $("#navbar-count-in-cart").text(Number($("#navbar-count-in-cart").text()) + 1);
 
-</script>
-<script>
+        count = count + 1;
+        total = total + cost;
 
+        $("#changeCountProducts" + idProduct).val(count);
+        $("#calc-total-price").text(total.toFixed(2));
+
+        $.ajax({
+            type: "POST",
+            url: "${pageContext.request.contextPath}/addToCart/" + idProduct
+        });
+    };
+    function minusProductFromCart(obj) {
+        var idProduct = obj.value;
+        var count = Number($("#changeCountProducts" + idProduct).val());
+        if (count > 0) {
+            var cost = Number($('#costProduct' + idProduct).text());
+            var total = Number($('#calc-total-price').text());
+            $("#navbar-count-in-cart").text(Number($("#navbar-count-in-cart").text()) - 1);
+
+            count = count - 1;
+            total = total - cost;
+
+            $("#changeCountProducts" + idProduct).val(count);
+            $("#calc-total-price").text(total.toFixed(2));
+            $.ajax({
+                type: "POST",
+                url: "${pageContext.request.contextPath}/minusFromCart/" + idProduct
+            })
+
+        }
+    };
+    function deleteProductFromCart(obj) {
+        var idProduct = obj.value;
+        var count = 0;
+        //$("#tr-in-bucket-table"+idProduct).slideUp();
+        $.ajax({
+            type: "POST",
+            data: {count: count},
+            url: "${pageContext.request.contextPath}/changeCountInCart/" + idProduct,
+            success: function (page) {
+                $("#products-in-bucket").html(page);
+                $.ajax({
+                    type: "POST",
+                    url: "${pageContext.request.contextPath}/getCountInCart",
+                    success: function (resp) {
+                        $("#navbar-count-in-cart").text(resp);
+                    }
+                })
+            }
+        })
+    };
+
+    $(".change-count-product-in-bucketInto").change(function () {
+        var count = $(this).val();
+        var idProduct =  $(this).data("seq");
+        if (count>0) {
+            $.ajax({
+                type: "POST",
+                data: {count: count},
+                url: "${pageContext.request.contextPath}/changeCountInCart/" + idProduct,
+                success: function (page) {
+                    $("#products-in-bucket").html(page);
+                    $.ajax({
+                        type: "POST",
+                        url: "${pageContext.request.contextPath}/getCountInCart",
+                        success: function (resp) {
+                            $("#navbar-count-in-cart").text(resp);
+                        }
+                    })
+                }
+            })
+        }
+    })
 
 </script>

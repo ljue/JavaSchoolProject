@@ -9,7 +9,6 @@
 </head>
 <body>
 <jsp:include page="../templates/navigation.jsp"/>
-<script src="${pageContext.request.contextPath}/resources/js/login.js"></script>
 
 <div class="container">
 
@@ -83,6 +82,43 @@
     </form:form>
 
 </div>
+<script>
+    function checkParams() {
+        var loginError = document.getElementById('loginExists').innerHTML;
+        var emailError = document.getElementById('emailExists').innerHTML;
 
+        if(loginError.length == 0 && emailError.length == 0) {
+            $('#submit-registration').removeAttr('disabled');
+        } else {
+            $('#submit-registration').attr('disabled', 'disabled');
+        }
+    }
+
+    function onBlurEmailFunction(obj){
+        var email = obj.value;
+        $.ajax({
+            type: "POST",
+            data: {email : email},
+            url: "${pageContext.request.contextPath}/registration/findEmail/",
+            success: function (msg) {
+                $("#emailExists").html(msg);
+            }
+        })
+        checkParams();
+    };
+
+    function onBlurLoginFunction(obj) {
+        var login = obj.value;
+        $.ajax({
+            type: "POST",
+            data: {login : login},
+            url: "${pageContext.request.contextPath}/registration/findLogin/",
+            success: function (msg) {
+                $("#loginExists").text(msg);
+            }
+        })
+        checkParams();
+    }
+</script>
 </body>
 </html>

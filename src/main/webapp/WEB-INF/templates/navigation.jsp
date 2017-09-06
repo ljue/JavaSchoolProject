@@ -91,6 +91,29 @@
         });
     });
 
+     $(document).ready(function () {
+         $.ajax({
+             type: "POST",
+             url: "${pageContext.request.contextPath}/getCountInCart",
+             success: function (resp) {
+                 $("#navbar-count-in-cart").text(resp);
+             }
+         })
+     });
+
+    $("#dropdown-click-navbar-cart").click(function () {
+
+        $.ajax({
+            type: "POST",
+            url: "${pageContext.request.contextPath}/getProductsInCart",
+            success: function (resp) {
+                console.log("dropdown was opened");
+                $("#dropdown-cart").html(resp);
+                $(".shopping-cart").fadeToggle( "fast");
+            }
+        })
+    })
+
 
 
 </script>

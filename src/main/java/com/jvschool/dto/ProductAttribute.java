@@ -15,7 +15,7 @@ import java.util.Map;
 
 @Getter
 @Setter
-public class ProductAttribute  implements Serializable {
+public class ProductAttribute  implements Serializable, Comparable {
 
     private long productId;
     private String productName;
@@ -70,4 +70,14 @@ public class ProductAttribute  implements Serializable {
         }
     }
 
+    @Override
+    public int compareTo(Object o) {
+        ProductAttribute productAttribute = (ProductAttribute) o;
+        if(this.productId>productAttribute.productId)
+            return 1;
+        else if(this.productId<productAttribute.productId)
+            return -1;
+        else
+            return this.productName.compareTo(productAttribute.productName);
+    }
 }

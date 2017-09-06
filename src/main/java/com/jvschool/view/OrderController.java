@@ -72,7 +72,7 @@ public class OrderController {
         orderAttribute.setBuckets(buckets);
         orderService.saveOrder(orderAttribute);
 
-        user.setProducts(new HashMap<>());
+        user.setProducts(new TreeMap<>());
         model.addAttribute(user);
 
         return "user/checkoutSuccess";
@@ -98,7 +98,7 @@ public class OrderController {
 
     @PostMapping(value = "/getProductsInCart")
     public String getProductItemsInCart(@ModelAttribute("user") SessionUser user, Model model){
-        Map<ProductAttribute, Integer> productsInCart = new HashMap<>();
+        Map<ProductAttribute, Integer> productsInCart = new TreeMap<>();
         double totalPrice = 0;
 
         for (Long productKey : user.getProducts().keySet()) {

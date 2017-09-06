@@ -141,7 +141,24 @@
         </div>
     </div>
 </div>
-
+<script>
+    function repeatOrder(obj) {
+        $.ajax({
+            type: "POST",
+            url: "${pageContext.request.contextPath}/orderInHistory/repeatOrder/" + $("#order-id-in-order-in-history").text(),
+            success: function () {
+                $.ajax({
+                    type: "POST",
+                    url: "${pageContext.request.contextPath}/getCountInCart",
+                    success: function (resp) {
+                        $("#navbar-count-in-cart").text(resp);
+                    }
+                })
+            }
+        });
+        location.href = "/bucket";
+    };
+</script>
 
 </body>
 </html>

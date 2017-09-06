@@ -7,10 +7,7 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Getter
 @Setter
@@ -26,7 +23,7 @@ public class SessionUser implements Serializable {
     private List<Long> listAddress= new ArrayList<>();
     private String role;
 
-    private Map<Long,Integer> products = new HashMap<>();
+    private Map<Long,Integer> products = new TreeMap<>();
 
     private String confirmPassword;
 

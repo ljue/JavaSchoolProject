@@ -201,6 +201,17 @@
 <div id="message-empty-address" class="my-message-success alert alert-danger">
     <p style="font-size: 1.1em">Address is empty.</p>
 </div>
-
+<script>
+    $("#finish-checkout-button").click(function (e) {
+        var s = $("#checkout-list-addresses").text().replace(/\s/g, "");
+        if (!s) {
+            e.preventDefault();
+            $("#message-empty-address").fadeIn(500);
+            setTimeout(function () {
+                $("#message-empty-address").fadeOut(1000)
+            }, 2000);
+        }
+    });
+</script>
 </body>
 </html>

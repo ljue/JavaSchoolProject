@@ -14,4 +14,4 @@
 
 <script src="${pageContext.request.contextPath}/resources/js/jquery.twbsPagination.js"></script>
 
-<script src="${pageContext.request.contextPath}/resources/js/order.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/some.js"></script>

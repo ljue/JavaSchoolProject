@@ -62,7 +62,7 @@ public class ProductController {
     public void addToCart(@PathVariable("idProduct") Long id, @ModelAttribute("user") SessionUser user, Model model) {
 
         if (user.getProducts() == null) {
-            Map<Long, Integer> map = new HashMap<>();
+            Map<Long, Integer> map = new TreeMap<>();
             map.put(id, 1);
             user.setProducts(map);
         } else {
@@ -104,7 +104,7 @@ public class ProductController {
         }
         model.addAttribute("user", user);
 
-        Map<ProductAttribute, Integer> productsInCart = new HashMap<>();
+        Map<ProductAttribute, Integer> productsInCart = new TreeMap<>();
         double totalPrice = 0;
 
         for (Long productKey : user.getProducts().keySet()) {
@@ -122,7 +122,7 @@ public class ProductController {
     @GetMapping(value = "/bucket")
     public String goBucket(@ModelAttribute("user") SessionUser user, Model model) {
 
-        Map<ProductAttribute, Integer> productsInCart = new HashMap<>();
+        Map<ProductAttribute, Integer> productsInCart = new TreeMap<>();
         double totalPrice = 0;
 
         for (Long productKey : user.getProducts().keySet()) {

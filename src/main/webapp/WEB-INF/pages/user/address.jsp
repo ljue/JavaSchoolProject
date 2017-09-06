@@ -173,6 +173,18 @@
 </div>
 
 </div>
+<script>
+    $('a.remove-address-panel').click(function (e) {
+        e.preventDefault();
+        var addressId = $(this).data('seq');
+        var panelId = "#panel-address-" + addressId;
+        $(panelId).slideUp();//400mc
+        $.ajax({
+            type: "POST",
+            url: "${pageContext.request.contextPath}/address/remove/" + addressId
+        })
+    })
 
+</script>
 </body>
 </html>
