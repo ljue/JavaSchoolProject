@@ -46,8 +46,8 @@
                                 <h5>Name: <span>${product.productName}</span></h5>
                                 <h5>Category: <span>${product.category}</span></h5>
                                 <h5>Battery: <span>${product.battery}</span></h5>
-                                <h5>Fly time: <span>${product.flyTime}</span></h5>
-                                <h5>Distance: <span>${product.distance}</span></h5>
+                                <h5>Fly time: <span>${product.flyTime} min</span></h5>
+                                <h5>Distance: <span>${product.distance} m</span></h5>
                                 <c:forEach items="${product.properties}" var="propertyGroup">
                                     <h5>${propertyGroup.key}: <span>
                                         <c:forEach items="${propertyGroup.value}" var="property" varStatus="status">
@@ -68,7 +68,11 @@
                                             onclick="addProductToCart(this)" class="btn btn-primary">
                                         Add To Cart
                                     </button>
-                                    <a href="${pageContext.request.contextPath}/catalog/product/${product.productId}"  class="btn btn-default">
+                                    <%--<form action="${pageContext.request.contextPath}/catalog/product/${product.productId}">--%>
+                                        <%--<button type="submit" class="btn btn-info">View details</button>--%>
+                                    <%--</form>--%>
+                                    <a href="${pageContext.request.contextPath}/catalog/product/${product.productId}"
+                                       class="btn btn-default" style="margin-top: 5px">
                                         View details
                                     </a>
                                 </div>

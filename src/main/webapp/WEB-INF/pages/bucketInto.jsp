@@ -42,7 +42,7 @@
                                <%--value="${productInCart.value}" data-seq="${productInCart.key.productId}"--%>
                                 <%--class="form-control input-number"--%>
                                <%--onchange="changeCountProducts(this)" required/>--%>
-                        <input type="number"
+                        <input type="number" id="changeCountProducts${productInCart.key.productId}"
                                value="${productInCart.value}" data-seq="${productInCart.key.productId}"
                                class="form-control input-number change-count-product-in-bucketInto" required/>
                         <span class="input-group-btn">
@@ -85,8 +85,8 @@
                                     <h5>Name: <span>${productInCart.key.productName}</span></h5>
                                     <h5>Category: <span>${productInCart.key.category}</span></h5>
                                     <h5>Battery: <span>${productInCart.key.battery}</span></h5>
-                                    <h5>Fly time: <span>${productInCart.key.flyTime}</span></h5>
-                                    <h5>Distance: <span>${productInCart.key.distance}</span></h5>
+                                    <h5>Fly time: <span>${productInCart.key.flyTime} min</span></h5>
+                                    <h5>Distance: <span>${productInCart.key.distance} m</span></h5>
                                     <c:forEach items="${productInCart.key.properties}" var="propertyGroup">
                                         <h5>${propertyGroup.key}: <span>
                                         <c:forEach items="${propertyGroup.value}" var="property" varStatus="status">
@@ -100,6 +100,12 @@
                                     <h3 class="cost"></span> $${productInCart.key.cost}</h3>
 
                                     <div class="space-ten"></div>
+                                    <div class="btn-ground">
+                                        <a href="${pageContext.request.contextPath}/catalog/product/${productInCart.key.productId}"
+                                           class="btn btn-default" style="margin-top: 5px">
+                                            View details
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -215,6 +221,14 @@
                             $("#navbar-count-in-cart").text(resp);
                         }
                     })
+                }
+            })
+        } else {
+            $.ajax({
+                type: "POST",
+                url: "${pageContext.request.contextPath}/changeCountInCart/getCurrentVal/" + idProduct,
+                success: function (resp) {
+                    $("#changeCountProducts" + idProduct).val(resp);
                 }
             })
         }

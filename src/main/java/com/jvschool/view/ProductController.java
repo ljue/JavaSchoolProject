@@ -118,6 +118,13 @@ public class ProductController {
         return "bucketInto";
     }
 
+    @ResponseBody
+    @PostMapping(value = "/changeCountInCart/getCurrentVal/{idProduct}")
+    public int changeCountProductInCartGetCurrentVal(@PathVariable("idProduct") long id,
+                                           @ModelAttribute("user") SessionUser user, Model model) {
+        return user.getProducts().get(id);
+    }
+
 
     @GetMapping(value = "/bucket")
     public String goBucket(@ModelAttribute("user") SessionUser user, Model model) {

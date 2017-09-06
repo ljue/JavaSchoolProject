@@ -45,7 +45,7 @@ public class AddressController {
         addressAttribute.setUserId(user.getId());
         addressService.addNewAddress(addressAttribute);
 
-        return "redirect:/user/address";
+        return "redirect:/address";
     }
 
     @PostMapping(value = "/address/remove/{addressId}")
