@@ -7,7 +7,7 @@
 <c:if test="${!empty productsInCart}">
 
 
-    <table class="table table-hover">
+    <table class="table table-hover" style="margin-bottom: 0">
         <thead>
         <tr>
             <th class="col-md-1">#Id</th>
@@ -23,13 +23,13 @@
         <c:forEach items="${productsInCart}" var="productInCart" varStatus="status">
             <%--<c:if test="${status.count }"--%>
             <tr id="tr-in-bucket-table${productInCart.key.productId}">
-                <td class="col-md-1">
+                <td class="col-md-1 cursor-default">
                         ${productInCart.key.productId}
                 </td>
                 <td data-toggle="modal" class="col-md-6" href="#productToBuy${productInCart.key.productId}">
                         ${productInCart.key.productName}
                 </td>
-                <td class="col-md-2">
+                <td class="col-md-2 cursor-default">
                     <div class="input-group">
                                         <span class="input-group-btn">
                                             <button type="button" class="btn btn-default btn-number"
@@ -38,10 +38,10 @@
                                                 <i class="fa fa-minus fa-2"></i>
                                             </button>
                                         </span>
-                        <%--<input id="changeCountProducts${productInCart.key.productId}" type="text"--%>
-                               <%--value="${productInCart.value}" data-seq="${productInCart.key.productId}"--%>
-                                <%--class="form-control input-number"--%>
-                               <%--onchange="changeCountProducts(this)" required/>--%>
+                            <%--<input id="changeCountProducts${productInCart.key.productId}" type="text"--%>
+                            <%--value="${productInCart.value}" data-seq="${productInCart.key.productId}"--%>
+                            <%--class="form-control input-number"--%>
+                            <%--onchange="changeCountProducts(this)" required/>--%>
                         <input type="number" id="changeCountProducts${productInCart.key.productId}"
                                value="${productInCart.value}" data-seq="${productInCart.key.productId}"
                                class="form-control input-number change-count-product-in-bucketInto" required/>
@@ -54,10 +54,10 @@
                         </span>
                     </div>
                 </td>
-                <td class="col-md-2" style="text-align: center"
-                    id="costProduct${productInCart.key.productId}">${productInCart.key.cost}
+                <td class="col-md-2 cursor-default" style="text-align: center"
+                    id="costProduct${productInCart.key.productId}">${productInCart.key.cost}$
                 </td>
-                <td style="text-align: center">
+                <td style="text-align: center" class="cursor-default">
                     <button type="button" class="btn btn-link btn-xs" value="${productInCart.key.productId}"
                             onclick="deleteProductFromCart(this)">
                         <span><i class="fa fa-trash-o fa-lg"></i> </span>
@@ -78,11 +78,13 @@
                                 <div class="col-md-6 product_img">
                                     <c:if test="${productInCart.key.presentPic eq ''}">
                                         <img class="img-responsive"
-                                             src="${pageContext.request.contextPath}/resources/Images/copter-512.png" alt="...">
+                                             src="${pageContext.request.contextPath}/resources/Images/default-copter.png"
+                                             alt="...">
                                     </c:if>
                                     <c:if test="${productInCart.key.presentPic ne ''}">
                                         <img class="img-responsive"
-                                             src="${pageContext.request.contextPath}/resources/Images/${productInCart.key.presentPic}" alt="...">
+                                             src="${pageContext.request.contextPath}/resources/Images/${productInCart.key.presentPic}"
+                                             alt="...">
                                     </c:if>
                                 </div>
                                 <div class="col-md-6 product_content">
@@ -101,7 +103,7 @@
                                         </c:forEach>
                                     </span></h5>
                                     </c:forEach>
-                                    <%--<h5>${productInCart.key.description}</h5>--%>
+                                        <%--<h5>${productInCart.key.description}</h5>--%>
 
                                     <h3 class="cost"></span> $${productInCart.key.cost}</h3>
 
@@ -120,14 +122,25 @@
             </div>
 
         </c:forEach>
-
-        <td></td>
-        <td></td>
-        <td style="text-align: center"><b>Total:</b></td>
-        <td id="calc-total-price" style="text-align: center">${totalPrice}</td>
-        <td></td>
-        </tbody>
-    </table>
+<tr class="cursor-default hover-tr-default">
+            <td></td>
+            <td></td>
+            <td style="text-align: center"><b>Total:</b></td>
+            <td id="calc-total-price" style="text-align: center">${totalPrice}$</td>
+            <td></td></tr>
+            </tbody>
+            </table>
+        <%--</tbody>--%>
+    <%--</table>--%>
+    <%--<table class="table">--%>
+        <%--<tbody>--%>
+        <%--<td class="col-md-1 cursor-default"></td>--%>
+        <%--<td class="col-md-6 cursor-default"></td>--%>
+        <%--<td style="text-align: center" class="col-md-2 cursor-default"><b>Total:</b></td>--%>
+        <%--<td id="calc-total-price" style="text-align: center" class="col-md-2 cursor-default">${totalPrice}$</td>--%>
+        <%--<td class="col-md-1 cursor-default"></td>--%>
+        <%--</tbody>--%>
+    <%--</table>--%>
 
 
     <div class="form-group">
@@ -212,8 +225,8 @@
 
     $(".change-count-product-in-bucketInto").change(function () {
         var count = $(this).val();
-        var idProduct =  $(this).data("seq");
-        if (count>0) {
+        var idProduct = $(this).data("seq");
+        if (count > 0) {
             $.ajax({
                 type: "POST",
                 data: {count: count},

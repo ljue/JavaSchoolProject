@@ -20,29 +20,35 @@
             <div class="list-group">
                 <a href="${pageContext.request.contextPath}/adminOrders" class="list-group-item">Order list</a>
                 <a href="${pageContext.request.contextPath}/statistics" class="list-group-item">Shop statistic</a>
-                <a href="${pageContext.request.contextPath}/adminProducts" class="list-group-item">Goods management</a>
+                <a href="${pageContext.request.contextPath}/adminProducts" class="list-group-item active-list-group-item">Goods management</a>
+                <a href="${pageContext.request.contextPath}/editCategories" class="list-group-item">Catalog management</a>
             </div>
         </div>
 
         <div class="col-md-9">
             <div class="row">
-                <br>
-                <ul class="nav nav-tabs">
-                    <li class="active"><a href="${pageContext.request.contextPath}/adminProducts">Add new goods</a></li>
-                    <li><a href="${pageContext.request.contextPath}/editCategories">Control categories</a></li>
-                    <li><a href="${pageContext.request.contextPath}/editPropertyGroups">Control property groups</a></li>
-                    <li><a href="${pageContext.request.contextPath}/editProperties">Control properties</a></li>
+                <%--<br>--%>
+                <%--<ul class="nav nav-tabs">--%>
+                    <%--<li class="active"><a href="${pageContext.request.contextPath}/adminProducts">Add new goods</a></li>--%>
+                    <%--&lt;%&ndash;<li><a href="${pageContext.request.contextPath}/editCategories">Control categories</a></li>&ndash;%&gt;--%>
+                    <%--&lt;%&ndash;<li><a href="${pageContext.request.contextPath}/editPropertyGroups">Control property groups</a></li>&ndash;%&gt;--%>
+                    <%--&lt;%&ndash;<li><a href="${pageContext.request.contextPath}/editProperties">Control properties</a></li>&ndash;%&gt;--%>
 
-                </ul>
+                <%--</ul>--%>
 
-                <div class="tab-content">
-                    <br>
+
+                <%--<div class="tab-content">--%>
+                    <%--<br><br>--%>
                     <form:form method="POST" enctype="multipart/form-data" modelAttribute="productForm"
                                action="${addProduct}" class="form-horizontal">
 
+                        <div class="form-group">
+                            <div class="col-lg-2"></div>
+                            <h3 class="col-lg-8">Add goods:</h3>
+                        </div>
                         <spring:bind path="productName">
                             <div class="form-group ${status.error ? 'has-error' : ''}">
-                                <label class="col-lg-3 control-label">Goods name:</label>
+                                <label class="col-lg-2 control-label">Goods name:</label>
                                 <div class="col-lg-8">
                                     <form:input required="required" type="text" path="productName" class="form-control"
                                                 placeholder="Goods name"
@@ -54,7 +60,7 @@
 
                         <spring:bind path="cost">
                             <div class="form-group ${status.error ? 'has-error' : ''}">
-                                <label class="col-lg-3 control-label">Cost:</label>
+                                <label class="col-lg-2 control-label">Cost:</label>
                                 <div class="col-lg-8">
                                     <form:input required="required" type="text" path="cost" class="form-control" placeholder="Cost"
                                     ></form:input>
@@ -65,7 +71,7 @@
 
                         <spring:bind path="count">
                             <div class="form-group ${status.error ? 'has-error' : ''}">
-                                <label class="col-lg-3 control-label">Count:</label>
+                                <label class="col-lg-2 control-label">Count:</label>
                                 <div class="col-lg-8">
                                     <form:input required="required" type="text" pattern="[0-9]{1,4}" path="count" class="form-control" placeholder="Count"
                                     ></form:input>
@@ -77,7 +83,7 @@
 
                         <spring:bind path="category">
                             <div class="form-group ${status.error ? 'has-error' : ''}">
-                                <label class="col-lg-3 control-label">Category:</label>
+                                <label class="col-lg-2 control-label">Category:</label>
                                 <div class="col-lg-8">
                                     <form:select path="category" class="form-control">
                                         <c:forEach items="${categories}" var="cat">
@@ -92,7 +98,7 @@
 
                         <spring:bind path="size">
                             <div class="form-group ${status.error ? 'has-error' : ''}">
-                                <label class="col-lg-3 control-label">Size:</label>
+                                <label class="col-lg-2 control-label">Size:</label>
                                 <div class="col-lg-8">
                                     <form:input required="required" type="text" path="size" class="form-control" placeholder="Size (cm)"
                                     ></form:input>
@@ -103,7 +109,7 @@
 
                         <spring:bind path="battery">
                             <div class="form-group ${status.error ? 'has-error' : ''}">
-                                <label class="col-lg-3 control-label">Battery:</label>
+                                <label class="col-lg-2 control-label">Battery:</label>
                                 <div class="col-lg-8">
                                     <form:input type="text" path="battery" class="form-control"
                                                 placeholder="Battery type, value"
@@ -115,7 +121,7 @@
 
                         <spring:bind path="flyTime">
                             <div class="form-group ${status.error ? 'has-error' : ''}">
-                                <label class="col-lg-3 control-label">Fly time:</label>
+                                <label class="col-lg-2 control-label">Fly time:</label>
                                 <div class="col-lg-8">
                                     <form:input type="text"  pattern="[0-9]{0,4}" path="flyTime" class="form-control"
                                                 placeholder="Fly time (minutes)"
@@ -127,7 +133,7 @@
 
                         <spring:bind path="distance">
                             <div class="form-group ${status.error ? 'has-error' : ''}">
-                                <label class="col-lg-3 control-label">Distance:</label>
+                                <label class="col-lg-2 control-label">Distance:</label>
                                 <div class="col-lg-8">
                                     <form:input type="text"  pattern="[0-9]{0,4}" path="distance" class="form-control"
                                                 placeholder="Distance (m)"
@@ -140,7 +146,7 @@
 
                         <c:forEach items="${propertiesNotSolo}" var="properties">
                             <div class="form-group">
-                                <label class="col-lg-3 control-label">${properties.key}:</label>
+                                <label class="col-lg-2 control-label">${properties.key}:</label>
                                 <div class="col-lg-8">
                                     <c:forEach items="${properties.value}" var="currentProperty">
                                             <form:checkbox path="saveProperties"
@@ -154,7 +160,7 @@
 
                         <c:forEach items="${propertiesSolo}" var="properties">
                             <div class="form-group">
-                                <label class="col-lg-3 control-label">${properties.key}:</label>
+                                <label class="col-lg-2 control-label">${properties.key}:</label>
                                 <div class="col-lg-8">
                                     <form:select path="saveProperties" class="form-control">
                                         <c:forEach items="${properties.value}" var="property">
@@ -168,7 +174,7 @@
 
                         <spring:bind path="description">
                             <div class="form-group ${status.error ? 'has-error' : ''}">
-                                <label class="col-lg-3 control-label">Description:</label>
+                                <label class="col-lg-2 control-label">Description:</label>
                                 <div class="col-lg-8">
                                     <form:textarea path="description" class="form-control"
                                                    placeholder="Add description less 2000 characters"
@@ -180,7 +186,7 @@
 
                         <spring:bind path="images">
                             <div class="form-group ${status.error ? 'has-error' : ''}">
-                                <label class="col-lg-3 control-label">Add picture:</label>
+                                <label class="col-lg-2 control-label">Add picture:</label>
                                 <div class="col-lg-8">
                                     <input type="file" name="images" multiple="multiple"/>
                                 </div>
@@ -190,7 +196,7 @@
 
 
                         <div class="form-group">
-                            <label class="col-md-3 control-label"></label>
+                            <label class="col-md-2 control-label"></label>
                             <div class="col-md-8">
                                 <input class="btn btn-primary" value="Add goods" type="submit">
                                 <span></span>
@@ -199,7 +205,7 @@
                         </div>
 
                     </form:form>
-                </div>
+                <%--</div>--%>
             </div>
 
 

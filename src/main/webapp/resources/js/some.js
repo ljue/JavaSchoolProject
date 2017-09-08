@@ -1,5 +1,11 @@
 
 $(function () {
+
+    //
+    // $(".time-stamp-view").
+
+
+
     $('tbody > tr').on('click', function(event) {
         event.preventDefault();
         $('#myModal').modal('show');
@@ -9,3 +15,7 @@ $(function () {
         $( '.open_info' ).toggleClass( "hide" );
     })
 });
+
+// function timestampView(obj) {
+//     return obj.datetimepicker();
+// }

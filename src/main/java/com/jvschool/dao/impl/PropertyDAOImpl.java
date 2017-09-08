@@ -20,8 +20,8 @@ public class PropertyDAOImpl implements PropertyDAO {
     @Override
     public List<PropertyEntity> getAllProperties() {
 
-        return em.createQuery("FROM PropertyEntity where visible=:visible ")
-                .setParameter("visible", true).getResultList();
+        return em.createQuery("FROM PropertyEntity where visible=:visible and propertyGroup.visible=:groupVisible ")
+                .setParameter("visible", true).setParameter("groupVisible", true).getResultList();
     }
 
     @Override

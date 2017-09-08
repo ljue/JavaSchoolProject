@@ -46,7 +46,14 @@
 </div>
 <c:forEach items="${productsInNavBar}" var="product">
     <li class="li-in-cart">
-        <img src="${pageContext.request.contextPath}/resources/Images/${product.key.presentPic}" class="img-in-cart">
+        <c:if test="${product.key.presentPic eq ''}">
+            <img src="${pageContext.request.contextPath}/resources/Images/copter-512.png"
+                 class="img-in-cart">
+        </c:if>
+        <c:if test="${product.key.presentPic ne ''}">
+            <img src="${pageContext.request.contextPath}/resources/Images/${product.key.presentPic}"
+                 class="img-in-cart">
+        </c:if>
         <a href="${pageContext.request.contextPath}/catalog/product/${product.key.productId}">
             <span class="item-name" data-toggle="tooltip" title="${product.key.productName}">
                     ${product.key.productCartName}
@@ -63,6 +70,11 @@
     <li class="divider"></li>
 </c:if>
 <li class="text-center"><a href="${pageContext.request.contextPath}/bucket">View Cart</a></li>
+<c:if test="${!empty productsInNavBar}">
+    <li class="divider"></li>
+    <li class="text-center"><a href="${pageContext.request.contextPath}/checkout">Checkout</a></li>
+</c:if>
+
 <%--</div>--%>
 <%--</ul>--%>
 <%--</ul>--%>

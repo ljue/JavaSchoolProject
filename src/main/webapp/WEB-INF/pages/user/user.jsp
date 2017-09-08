@@ -21,7 +21,7 @@
         <div class="col-md-3">
                 <p class="lead">   </p>
             <div class="list-group">
-                <a href="${pageContext.request.contextPath}/user" class="list-group-item">My Profile</a>
+                <a href="${pageContext.request.contextPath}/user" class="list-group-item active-list-group-item">My Profile</a>
                 <a href="${pageContext.request.contextPath}/address" class="list-group-item">My Address</a>
                 <a href="${pageContext.request.contextPath}/history" class="list-group-item">My Orders</a>
             </div>
@@ -64,7 +64,8 @@
                             <div class="form-group ${status.error ? 'has-error' : ''}" >
                                 <label class="col-lg-3 control-label">Birthday:</label>
                                 <div class="col-lg-8">
-                                    <form:input required="required"  type="date" path="birthday" class="form-control" value="${user.birthday}"
+                                    <form:input required="required"  type="date" path="birthday" class="form-control"
+                                                value="${user.birthday}" max="2017-06-01" min="1920-05-29"
                                     ></form:input>
                                 </div>
                                 <form:errors path="birthday"></form:errors>
@@ -76,10 +77,13 @@
                             <div class="form-group ${status.error ? 'has-error' : ''}" >
                                 <label class="col-lg-3 control-label">Email:</label>
                                 <div class="col-lg-8">
-                                    <form:input required="required"  type="text" path="email" class="form-control" value="${user.email}"
+                                    <form:input required="required"  type="text" path="email" class="form-control"
+                                                value="${user.email}" onblur="onBlurEmailEdit(this)"
                                     ></form:input>
                                 </div>
                                 <form:errors path="email"></form:errors>
+                                <div class="col-lg-3"></div>
+                                <div id="emailEditExists" class="has-error col-lg-8"></div>
                             </div>
                         </spring:bind>
 
@@ -87,10 +91,13 @@
                             <div class="form-group ${status.error ? 'has-error' : ''}" >
                                 <label class="col-lg-3 control-label">Login:</label>
                                 <div class="col-lg-8">
-                                    <form:input required="required"  type="text" path="login" class="form-control" value="${user.login}"
+                                    <form:input required="required"  type="text" path="login" class="form-control"
+                                                 value="${user.login}" onblur="onBlurLoginEdit(this)"
                                     ></form:input>
                                 </div>
                                 <form:errors path="login"></form:errors>
+                                <div class="col-lg-3"></div>
+                                <div id="loginEditExists" class="has-error col-lg-8"></div>
                             </div>
                         </spring:bind>
 
@@ -99,7 +106,7 @@
                         <div class="form-group">
                             <label class="col-md-3 control-label"></label>
                             <div class="col-md-8">
-                                <input class="btn btn-primary" value="Save Changes" type="submit">
+                                <input class="btn btn-primary" id="edit-user-info-button" value="Save Changes" type="submit">
                                 <span></span>
                                 <input class="btn btn-default" value="Cancel" type="reset">
                             </div>
@@ -118,7 +125,8 @@
                         <div class="form-group ${status.error ? 'has-error' : ''}" >
                         <label class="col-lg-3 control-label">Password:</label>
                         <div class="col-lg-8">
-                        <form:input required="required"  type="password" path="login" class="form-control" placeholder="Password"
+                        <form:input required="required"  type="password" path="login" class="form-control"
+                                    placeholder="Password"
                         ></form:input>
                         </div>
                         <form:errors path="pass"></form:errors>
@@ -129,7 +137,8 @@
                         <div class="form-group ${status.error ? 'has-error' : ''}" >
                         <label class="col-lg-3 control-label">Confirm password:</label>
                         <div class="col-lg-8">
-                        <form:input required="required"  type="password" path="pass" class="form-control" placeholder="Confirm password"
+                        <form:input required="required"  type="password" path="pass" class="form-control"
+                                    placeholder="Confirm password"
                         ></form:input>
                         </div>
                         <form:errors path="pass"></form:errors>
@@ -151,6 +160,47 @@
         </div>
     </div>
 </div>
+<script>
 
+    function checkParams() {
+        var loginError = document.getElementById('loginEditExists').innerHTML;
+        var emailError = document.getElementById('emailEditExists').innerHTML;
+
+        if(loginError.length !== 0 || emailError.length !== 0) {
+            $('#edit-user-info-button').removeAttr('active');
+            $('#edit-user-info-button').attr('disabled', 'disabled');
+        } else {
+            $('#edit-user-info-button').removeAttr('disabled');
+            $('#edit-user-info-button').attr('active', 'active');
+        }
+    }
+
+    function onBlurEmailEdit(obj) {
+        var email = obj.value;
+        $.ajax({
+            type: "POST",
+            data: {email : email},
+            url: "${pageContext.request.contextPath}/editInfo/findEmail/",
+            success: function (msg) {
+                $("#emailEditExists").html(msg);
+                checkParams();
+            }
+        })
+    }
+
+    function onBlurLoginEdit(obj) {
+        var login = obj.value;
+        $.ajax({
+            type: "POST",
+            data: {login : login},
+            url: "${pageContext.request.contextPath}/editInfo/findLogin/",
+            success: function (msg) {
+                $("#loginEditExists").text(msg);
+                checkParams();
+            }
+        })
+
+    }
+</script>
 </body>
 </html>

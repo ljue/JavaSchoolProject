@@ -9,8 +9,41 @@ body {
     /*padding-right: 0;*/
 }
 
+.btn-number {
+    margin-top: 0px;
+    height: 34px;
+}
 
+.cursor-default {
+    cursor: default;
+}
 
+.hover-tr-default:hover {
+    background-color: #fff !important;
+}
+
+.border-none {
+    border: 0 !important;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.active-list-group-item {
+    z-index: 2;
+    /*color: #fff;*/
+    color: #337ab7 !important;
+    background-color: #fff;
+    /*background-color: #337ab7;*/
+    border-color: #337ab7;
+}
+
+.item-photo:hover {
+    -webkit-box-shadow: 0px 10px 20px 0px rgba(50, 50, 50, 0.52);
+    -moz-box-shadow:    0px 10px 20px 0px rgba(50, 50, 50, 0.52);
+    box-shadow:         0px 10px 20px 0px rgba(50, 50, 50, 0.52)
+}
 
 .my-message-success{
     display: none;

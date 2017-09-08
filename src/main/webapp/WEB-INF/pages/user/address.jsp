@@ -24,7 +24,7 @@
             <p class="lead"></p>
             <div class="list-group">
                 <a href="${pageContext.request.contextPath}/user" class="list-group-item">My Profile</a>
-                <a href="${pageContext.request.contextPath}/address" class="list-group-item">My Address</a>
+                <a href="${pageContext.request.contextPath}/address" class="list-group-item active-list-group-item">My Address</a>
                 <a href="${pageContext.request.contextPath}/history" class="list-group-item">My orders</a>
             </div>
         </div>
@@ -54,7 +54,7 @@
                                         <div class="col-lg-6 col-sm-4 text-center">
                                             <div class="well" style="background: #fdf7f7">
                                                 <a title="Remove address" data-seq="${address.addressId}"
-                                                   class="pull-right remove-address-panel">
+                                                   class="pull-right remove-address-panel cursor-pointer">
                                                     <span><i class="fa fa-times fa-lg"></i></span></a>
                                                 <strong class="pull-left primary-font">Address ${status.count}</strong>
 

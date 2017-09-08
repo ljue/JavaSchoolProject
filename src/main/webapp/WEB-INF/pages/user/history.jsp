@@ -1,14 +1,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <%--<title>History</title>--%>
-
 </head>
 <body>
 <jsp:include page="../../templates/navigation.jsp"/>
-
+<fmt:setLocale value="en_US" scope="session" />
 <br>
 <br>
 <div class="container">
@@ -18,7 +18,7 @@
             <div class="list-group">
                 <a href="${pageContext.request.contextPath}/user" class="list-group-item">My Profile</a>
                 <a href="${pageContext.request.contextPath}/address" class="list-group-item">My Address</a>
-                <a href="${pageContext.request.contextPath}/history" class="list-group-item">My Orders</a>
+                <a href="${pageContext.request.contextPath}/history" class="list-group-item active-list-group-item">My Orders</a>
             </div>
         </div>
 
@@ -39,13 +39,13 @@
                             <th>Time</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="cursor-pointer">
 
-                        <c:forEach var="order" items="${ordersHistory}">
+                        <c:forEach var="order" items="${ordersHistory}" varStatus="status">
                             <tr data-href="${pageContext.request.contextPath}/orderInHistory/${order.orderId}">
                                 <td>${order.orderId}</td>
                                 <td>${order.deliveryStatus}</td>
-                                <td>${order.dateTimeOrder}</td>
+                                <td><fmt:formatDate type="both" dateStyle="long" timeStyle="medium" value="${order.dateTimeOrder}"/></td>
                             </tr>
                             <script>
                                 jQuery( function($) {

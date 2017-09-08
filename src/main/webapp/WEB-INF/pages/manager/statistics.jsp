@@ -17,8 +17,10 @@
             <p class="lead"></p>
             <div class="list-group">
                 <a href="${pageContext.request.contextPath}/adminOrders" class="list-group-item">Order list</a>
-                <a href="${pageContext.request.contextPath}/statistics" class="list-group-item">Shop statistic</a>
+                <a href="${pageContext.request.contextPath}/statistics" class="list-group-item active-list-group-item">Shop statistic</a>
                 <a href="${pageContext.request.contextPath}/adminProducts" class="list-group-item">Goods management</a>
+                <a href="${pageContext.request.contextPath}/editCategories" class="list-group-item">Catalog management</a>
+
             </div>
         </div>
 
@@ -89,7 +91,7 @@
 
 
                                 <c:forEach items="${topProducts}" var="product">
-                                    <tr data-toggle="modal"
+                                    <tr data-toggle="modal" class="cursor-pointer"
                                         href="#product-in-top-modal${product.productId}">
 
                                         <td>${product.productId}</td>
@@ -112,7 +114,7 @@
                                                         <div class="col-md-6 product_img">
                                                             <c:if test="${product.presentPic eq ''}">
                                                                 <img class="img-responsive"
-                                                                     src="${pageContext.request.contextPath}/resources/Images/copter-512.png" alt="...">
+                                                                     src="${pageContext.request.contextPath}/resources/Images/default-copter.png" alt="...">
                                                             </c:if>
                                                             <c:if test="${product.presentPic ne ''}">
                                                                 <img class="img-responsive"
@@ -174,7 +176,7 @@
                                 <%--You haven`t got week proceed statistic.--%>
                                 <%--</c:if>--%>
                                 <%--<c:if test="${weekProceed ne 0}">--%>
-                                ${weekProceed}
+                                ${weekProceed}$
                                 <%--</c:if>--%>
                             </label> <br>
                         </div>
@@ -186,7 +188,7 @@
                                 <%--You haven`t got month proceed statistic.--%>
                                 <%--</c:if>--%>
                                 <%--<c:if test="${monthProceed ne 0}">--%>
-                                ${monthProceed}
+                                ${monthProceed}$
                                 <%--</c:if>--%>
                             </label><br>
                         </div>

@@ -18,8 +18,15 @@
             <div class="row">
         <div class="col-md-1"></div>
         <div class="col-md-5 item-photo">
-            <img style="max-width:100%;"
-                 src="${pageContext.request.contextPath}/resources/Images/${product.presentPic}" alt="..."/>
+            <c:if test="${product.presentPic eq ''}">
+                <img src="${pageContext.request.contextPath}/resources/Images/default-copter.png"
+                      alt="..." style="max-width:100%;">
+            </c:if>
+            <c:if test="${product.presentPic ne ''}">
+                <img src="${pageContext.request.contextPath}/resources/Images/${product.presentPic}"
+                      alt="..." style="max-width:100%;">
+            </c:if>
+
         </div>
         <div class="col-md-5" style="border:0px solid gray">
             <h3>${product.productName}</h3>
@@ -72,7 +79,7 @@
         <div class="col-md-10">
 
             <div class="col-md-3">
-                <ul class="nav nav-tabs tabs-left">
+                <ul class="nav nav-tabs tabs-left border-none">
                     <li class="active">
                         <a href="#tab_default_1" data-toggle="tab">
                             Description </a>
@@ -138,12 +145,17 @@
         <%--</div>--%>
     </div>
 </div>
+
+<div id="message-success-add-to-cart-pr" class="my-message-success alert alert-success">
+    <p style="font-size: 1.1em">Product was added to cart.</p>
+</div>
+
 <script>
     function addProductToCart(obj) {
         var idProduct = obj.value;
         $("#navbar-count-in-cart").text(Number($("#navbar-count-in-cart").text())+1);
-        $("#message-success-add-to-cart").fadeIn(500);
-        setTimeout(function(){$("#message-success-add-to-cart").fadeOut(1000)}, 2000);
+        $("#message-success-add-to-cart-pr").fadeIn(500);
+        setTimeout(function(){$("#message-success-add-to-cart-pr").fadeOut(1000)}, 2000);
         $.ajax({
             type: "POST",
             url: "${pageContext.request.contextPath}/addToCart/" + idProduct

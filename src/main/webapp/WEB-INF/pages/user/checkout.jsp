@@ -18,13 +18,13 @@
 
         </div>
 
-        <div class="col-md-8">
+        <div class="col-md-8" >
             <form:form modelAttribute="orderForm" method="post" class="form-horizontal"
                        action="${pageContext.request.contextPath}/checkout/goPay">
 
                 <div class="form-group">
                     <label class="col-lg-3 control-label">Address</label>
-                    <div class="col-lg-8">
+                    <div class="col-lg-8"  style="padding-top: 5px">
                         <a data-toggle="modal" href="#modalAddress">Add new address</a><br>
                         <div id="checkout-list-addresses">
                             <c:if test="${!empty addresses}">
@@ -65,9 +65,10 @@
                     <spring:bind path="deliveryWay">
                         <div class="form-group ${status.error ? 'has-error' : ''}">
                             <label class="col-lg-3 control-label">Delivery</label>
-                            <div class="col-lg-8">
+                            <div class="col-lg-8"  style="padding-top: 5px">
                                 <c:forEach items="${deliveryWays}" var="delivery">
-                                    <form:radiobutton required="required" path="deliveryWay" value="${delivery}" label="${delivery}"/><br>
+                                    <form:radiobutton required="required" path="deliveryWay"
+                                                      value="${delivery}" label="${delivery}"/><br>
                                 </c:forEach>
                             </div>
                         <form:errors path="deliveryWay"></form:errors>
@@ -78,8 +79,8 @@
                 <c:if test="${!empty payWays}">
                     <spring:bind path="payWay">
                         <div class="form-group ${status.error ? 'has-error' : ''}">
-                            <label class="col-lg-3 control-label">Pay Way</label>
-                            <div class="col-lg-8">
+                            <label class="col-lg-3 control-label" >Pay Way</label>
+                            <div class="col-lg-8"  style="padding-top: 5px">
                                 <c:forEach items="${payWays}" var="payW">
                                     <form:radiobutton  required="required" path="payWay" value="${payW}" label="${payW}"/><br>
                                 </c:forEach>
@@ -92,7 +93,7 @@
                 <div class="form-group">
                     <label class="col-md-3 control-label"></label>
                     <div class="col-md-8">
-                        <input id="finish-checkout-button" class="btn btn-primary" value="Checkout" type="submit">
+                        <input id="finish-checkout-button" class="btn btn-primary" value="Checkout" type="submit"  >
                     </div>
                 </div>
 

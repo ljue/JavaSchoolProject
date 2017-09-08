@@ -20,7 +20,7 @@
             <div class="list-group">
                 <a href="${pageContext.request.contextPath}/user" class="list-group-item">My Profile</a>
                 <a href="${pageContext.request.contextPath}/address" class="list-group-item">My Address</a>
-                <a href="${pageContext.request.contextPath}/history" class="list-group-item">My Orders</a>
+                <a href="${pageContext.request.contextPath}/history" class="list-group-item active-list-group-item">My Orders</a>
             </div>
         </div>
 
@@ -68,7 +68,7 @@
                         <th>Cost</th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="cursor-pointer">
                     <c:forEach items="${products}" var="product">
                         <c:forEach items="${buckets}" var="bucket" varStatus="status">
                             <c:if test="${product.productId eq bucket.productId}">
@@ -76,7 +76,7 @@
                                     <td>${bucket.productId}</td>
                                     <td>${product.productName}</td>
                                     <td>${bucket.countProduct}</td>
-                                    <td>$${product.cost}</td>
+                                    <td>${product.cost}$</td>
                                 </tr>
 
 
@@ -94,7 +94,7 @@
                                                 <div class="col-md-6 product_img">
                                                     <c:if test="${product.presentPic eq ''}">
                                                         <img class="img-responsive"
-                                                             src="${pageContext.request.contextPath}/resources/Images/copter-512.png" alt="...">
+                                                             src="${pageContext.request.contextPath}/resources/Images/default-copter.png" alt="...">
                                                     </c:if>
                                                     <c:if test="${product.presentPic ne ''}">
                                                         <img class="img-responsive"
@@ -136,11 +136,11 @@
                             </div>
                         </c:forEach>
                     </c:forEach>
-                    <tr>
+                    <tr class="cursor-default hover-tr-default">
                         <td></td>
                         <td></td>
                         <td>Total:</td>
-                        <td>$${total}</td>
+                        <td>${total}$</td>
                     </tr>
                     </tbody>
                 </table>
@@ -160,11 +160,14 @@
             type: "POST",
             url: "${pageContext.request.contextPath}/orderInHistory/repeatOrder/" + $("#order-id-in-order-in-history").text(),
             success: function () {
+                <%--window.location.replace("${pageContext.request.contextPath}/bucket");--%>
+                <%--document.location.href = "${pageContext.request.contextPath}/bucket";--%>
                 $.ajax({
                     type: "POST",
                     url: "${pageContext.request.contextPath}/getCountInCart",
                     success: function (resp) {
                         $("#navbar-count-in-cart").text(resp);
+//                        location.href = "/bucket";
                     }
                 })
             }

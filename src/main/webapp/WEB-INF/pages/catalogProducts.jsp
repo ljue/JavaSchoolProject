@@ -9,7 +9,7 @@
                 <span class="thumbnail">
                     <a role="button" data-toggle="modal" href="#product${product.productId}">
                         <c:if test="${product.presentPic eq ''}">
-                            <img src="${pageContext.request.contextPath}/resources/Images/copter-512.png" alt="...">
+                            <img src="${pageContext.request.contextPath}/resources/Images/default-copter.png" alt="...">
                         </c:if>
                         <c:if test="${product.presentPic ne ''}">
                     <img src="${pageContext.request.contextPath}/resources/Images/${product.presentPic}" alt="...">
@@ -41,8 +41,14 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-6 product_img">
-                                <img src="${pageContext.request.contextPath}/resources/Images/${product.presentPic}"
-                                     class="img-responsive">
+                                <c:if test="${product.presentPic eq ''}">
+                                    <img src="${pageContext.request.contextPath}/resources/Images/default-copter.png"
+                                         class="img-responsive" alt="...">
+                                </c:if>
+                                <c:if test="${product.presentPic ne ''}">
+                                    <img src="${pageContext.request.contextPath}/resources/Images/${product.presentPic}"
+                                         class="img-responsive" alt="...">
+                                </c:if>
                             </div>
                             <div class="col-md-6 product_content">
                                 <h4>Product Id: <span>${product.productId}</span></h4>

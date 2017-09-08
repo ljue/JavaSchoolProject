@@ -3,17 +3,19 @@ package com.jvschool.dto;
 
 import com.jvschool.model.BucketEntity;
 import com.jvschool.model.OrderEntity;
+import lombok.Data;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-
+@Data
 public class OrderAttribute implements Serializable {
 
     private long orderId;
-    private Timestamp dateTimeOrder;
+    private Date dateTimeOrder;
     private Long userId;
     private Long addressId;
     private String payWay;
@@ -47,70 +49,5 @@ public class OrderAttribute implements Serializable {
         }
     }
 
-
-
-    public long getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(long orderId) {
-        this.orderId = orderId;
-    }
-
-    public Timestamp getDateTimeOrder() {
-        return dateTimeOrder;
-    }
-
-    public void setDateTimeOrder(Timestamp dateTimeOrder) {
-        this.dateTimeOrder = dateTimeOrder;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public Long getAddressId() {
-        return addressId;
-    }
-
-    public void setAddressId(Long addressId) {
-        this.addressId = addressId;
-    }
-
-    public String getPayWay() {
-        return payWay;
-    }
-
-    public void setPayWay(String payWay) {
-        this.payWay = payWay;
-    }
-
-    public String getDeliveryStatus() {
-        return deliveryStatus;
-    }
-
-    public void setDeliveryStatus(String deliveryStatus) {
-        this.deliveryStatus = deliveryStatus;
-    }
-
-    public String getDeliveryWay() {
-        return deliveryWay;
-    }
-
-    public void setDeliveryWay(String deliveryWay) {
-        this.deliveryWay = deliveryWay;
-    }
-
-    public List<BucketAttribute> getBuckets() {
-        return buckets;
-    }
-
-    public void setBuckets(List<BucketAttribute> buckets) {
-        this.buckets = buckets;
-    }
 
 }

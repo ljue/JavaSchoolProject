@@ -21,7 +21,7 @@
 
         <div class="col-md-3">
             <div class="row">
-                <div class="list-group list-category-item-in-catalog-js">
+                <div class="list-group list-category-item-in-catalog-js  cursor-pointer">
 
                     <a class="list-group-item category-item-in-catalog-js">All goods</a>
 
@@ -123,7 +123,7 @@
     <div id="category-in-catalog" style="visibility: hidden;"></div>
 </div>
 
-
+<%--<jsp:include page="../templates/footer.jsp"/>--%>
 </body>
     <div id="message-success-add-to-cart" class="my-message-success alert alert-success">
         <p style="font-size: 1.1em">Product was added to cart.</p>

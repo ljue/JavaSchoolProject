@@ -35,7 +35,7 @@
         <spring:bind path="birthday">
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <form:input  required="required" type="date" path="birthday" class="form-control" value="2000-06-01"
-                            max="2017-06-01" min="1900-05-29"
+                            max="2017-06-01" min="1920-05-29"
                             ></form:input>
                 <form:errors path="birthday"></form:errors>
             </div>
@@ -78,7 +78,7 @@
         </spring:bind>
 
         <button class="btn btn-lg btn-primary btn-block" type="submit"
-                disabled id="submit-registration">Submit</button>
+                 id="submit-registration">Submit</button>
     </form:form>
 
 </div>
@@ -87,10 +87,12 @@
         var loginError = document.getElementById('loginExists').innerHTML;
         var emailError = document.getElementById('emailExists').innerHTML;
 
-        if(loginError.length == 0 && emailError.length == 0) {
-            $('#submit-registration').removeAttr('disabled');
-        } else {
+        if(loginError.length !== 0 || emailError.length !== 0) {
+            $('#submit-registration').removeAttr('active');
             $('#submit-registration').attr('disabled', 'disabled');
+        } else {
+            $('#submit-registration').removeAttr('disabled');
+            $('#submit-registration').attr('active', 'active');
         }
     }
 
@@ -102,9 +104,10 @@
             url: "${pageContext.request.contextPath}/registration/findEmail/",
             success: function (msg) {
                 $("#emailExists").html(msg);
+                checkParams();
             }
         })
-        checkParams();
+
     };
 
     function onBlurLoginFunction(obj) {
@@ -115,9 +118,10 @@
             url: "${pageContext.request.contextPath}/registration/findLogin/",
             success: function (msg) {
                 $("#loginExists").text(msg);
+                checkParams();
             }
         })
-        checkParams();
+
     }
 </script>
 </body>

@@ -16,16 +16,16 @@
 
 <br>
 <br>
-<!-- Page Content -->
 <div class="container">
     <div class="row">
         <div class="col-md-3">
-            <%--<p class="lead">Личный кабинет</p>--%>
             <p class="lead"></p>
             <div class="list-group">
-                <a href="${pageContext.request.contextPath}/adminOrders" class="list-group-item">Order list</a>
+                <a href="${pageContext.request.contextPath}/adminOrders" class="list-group-item active-list-group-item">Order list</a>
                 <a href="${pageContext.request.contextPath}/statistics" class="list-group-item">Shop statistic</a>
                 <a href="${pageContext.request.contextPath}/adminProducts" class="list-group-item">Goods management</a>
+                <a href="${pageContext.request.contextPath}/editCategories" class="list-group-item">Catalog management</a>
+
             </div>
         </div>
 
@@ -99,7 +99,7 @@
                             <c:forEach items="${products}" var="product">
                                 <c:forEach items="${buckets}" var="bucket" varStatus="status">
                                     <c:if test="${product.productId eq bucket.productId}">
-                                        <tr data-toggle="modal" href="#productInOrder${product.productId}">
+                                        <tr data-toggle="modal" href="#productInOrder${product.productId}" class="cursor-pointer">
                                             <td>${bucket.productId}</td>
                                             <td>${product.productName}</td>
                                             <td>${bucket.countProduct}</td>
@@ -121,7 +121,7 @@
                                                         <div class="col-md-6 product_img">
                                                             <c:if test="${product.presentPic eq ''}">
                                                                 <img class="img-responsive"
-                                                                     src="${pageContext.request.contextPath}/resources/Images/copter-512.png" alt="...">
+                                                                     src="${pageContext.request.contextPath}/resources/Images/default-copter.png" alt="...">
                                                             </c:if>
                                                             <c:if test="${product.presentPic ne ''}">
                                                                 <img class="img-responsive"
@@ -158,7 +158,7 @@
                                     </div>
                                 </c:forEach>
                             </c:forEach>
-                            <tr>
+                            <tr class="cursor-default hover-tr-default">
                                 <td></td>
                                 <td></td>
                                 <td>Total:</td>

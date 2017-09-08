@@ -62,7 +62,27 @@ public class UserController {
         userForm.setProducts(user.getProducts());
         userForm.setRole(user.getRole());
         model.addAttribute("user",userForm);
-        return "redirect:/user/user";
+        return "redirect:/user";
+    }
+
+    @PostMapping(value = "/editInfo/findEmail/")
+    @ResponseBody
+    public String checkEmailExisting(@RequestParam String email, @ModelAttribute("user") SessionUser user) {
+        long id = userService.getUserIdByEmail(email);
+        if (id!=0 && id!=user.getId()) {
+            return "this email already exists";
+        } else
+            return "";
+    }
+
+    @PostMapping(value = "/editInfo/findLogin/")
+    @ResponseBody
+    public String checkLoginExisting(@RequestParam String login, @ModelAttribute("user") SessionUser user) {
+        long id = userService.getUserIdByLogin(login);
+        if (id!=0 && id!=user.getId()) {
+            return "this login already exists";
+        } else
+            return "";
     }
 
     @PostMapping(value = "/user/editPass")
@@ -76,7 +96,7 @@ public class UserController {
         userService.editUserPassword(userForm);
         userForm.setProducts(user.getProducts());
         model.addAttribute("user",userForm);
-        return "redirect:/user/user";
+        return "redirect:/user";
     }
 
     @GetMapping(value = "/history")

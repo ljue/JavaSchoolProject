@@ -18,6 +18,8 @@
                 <a href="${pageContext.request.contextPath}/adminOrders" class="list-group-item">Order list</a>
                 <a href="${pageContext.request.contextPath}/statistics" class="list-group-item">Shop statistic</a>
                 <a href="${pageContext.request.contextPath}/adminProducts" class="list-group-item">Goods management</a>
+                <a href="${pageContext.request.contextPath}/editCategories" class="list-group-item active-list-group-item">Catalog management</a>
+
             </div>
         </div>
 
@@ -25,11 +27,11 @@
         <div class="col-md-9">
             <div class="row">
                 <ul class="nav nav-tabs">
-                    <li><a href="${pageContext.request.contextPath}/adminProducts">Add new goods</a></li>
-                    <li><a href="${pageContext.request.contextPath}/editCategories">Control categories</a></li>
-                    <li><a href="${pageContext.request.contextPath}/editPropertyGroups">Control
+                    <%--<li><a href="${pageContext.request.contextPath}/adminProducts">Add new goods</a></li>--%>
+                    <li><a href="${pageContext.request.contextPath}/editCategories">Manage categories</a></li>
+                    <li><a href="${pageContext.request.contextPath}/editPropertyGroups">Manage
                         property groups</a></li>
-                    <li class="active"><a href="${pageContext.request.contextPath}/editProperties">Control
+                    <li class="active"><a href="${pageContext.request.contextPath}/editProperties">Manage
                         properties</a></li>
 
                 </ul>
@@ -59,7 +61,7 @@
                                     <label class="col-lg-3 control-label"></label>
                                     <div class="col-lg-6">
                                         <form:input required="required" type="text" path="edit"
-                                                    class="form-control"
+                                                    class="form-control" placeholder="New name for property"
                                         ></form:input>
                                     </div>
                                 </div>
@@ -96,7 +98,7 @@
                             <div class="form-group">
                                 <label class="col-lg-3 control-label"></label>
                                 <div class="col-lg-6">
-                                    <form:input required="required" type="text" path="add"
+                                    <form:input required="required" type="text" path="add" placeholder="Property name"
                                                 class="form-control" id="add-property-input"
                                     ></form:input>
                                 </div>

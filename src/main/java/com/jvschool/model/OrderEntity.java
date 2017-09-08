@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -24,7 +25,7 @@ public class OrderEntity implements Serializable {
 
     @Basic
     @Column(name = "TIME", nullable = false)
-    private Timestamp dateTimeOrder;
+    private Date dateTimeOrder;
 
     @ManyToOne
     @JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID", nullable = false)
