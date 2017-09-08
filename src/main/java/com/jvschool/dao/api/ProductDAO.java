@@ -19,5 +19,7 @@ public interface ProductDAO {
     long getCountProducts();
     List<ProductEntity> getProductsFromTo(int page, int count);
 
+    List<ProductEntity> getTopProductsForOneProduct(long productId);
+
 
 }

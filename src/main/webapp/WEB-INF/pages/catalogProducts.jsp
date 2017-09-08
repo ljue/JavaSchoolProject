@@ -99,7 +99,7 @@
 <c:if test="${empty allProducts}"> <h4 style="padding-left: 20px;">We don`t have goods such category. </h4></c:if>
 
 <div id="count-all-filtered-products" style="visibility: hidden;">${countProducts}</div>
-<div id="max-count-products-on-page" style="visibility: hidden;">12</div>
+
 
 <script>
     function addProductToCart(obj) {

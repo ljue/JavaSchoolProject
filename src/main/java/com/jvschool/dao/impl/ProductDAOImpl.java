@@ -216,4 +216,17 @@ public class ProductDAOImpl implements ProductDAO {
         }
         return topProducts.subList(from, to);
     }
+
+    @Override
+    public List<ProductEntity> getTopProductsForOneProduct(long productId) {
+
+        return  em.createQuery("select b.productId from BucketEntity b " +
+                " where b.orderId in (select b1.orderId from BucketEntity b1 " +
+                " where b1.productId.productId=:productId) and b.productId.productId!=:productId " +
+                " and b.productId.visible=:visible and b.productId.category.visible=:visible " +
+                " group by b.productId order by sum(b.countProduct) desc")
+                .setParameter("productId", productId).setParameter("visible", true).getResultList();
+
+
+    }
 }

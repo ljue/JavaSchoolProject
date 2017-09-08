@@ -162,4 +162,30 @@ public class ProductServiceImpl implements ProductService {
 
     }
 
+    @Override
+    public List<ProductAttribute> getTopProductsForOneProduct(long productId) {
+
+        List<ProductEntity> list = productDAO.getTopProductsForOneProduct(productId);
+        int countTop = 6;
+        if(list.size()<countTop) { // if count products in list less than 6,
+            // gets products from same category that product with such id
+            ProductEntity productById = getProductById(productId);
+            List<ProductEntity> productsByCategory = productDAO.getProductsByCategory(productById.getCategory());
+            if(productsByCategory.contains(productById)) {
+                productsByCategory.remove(productsByCategory.indexOf(productById));
+            }
+            for(ProductEntity productEntity:list) {
+                if(productsByCategory.contains(productEntity)) {
+                    productsByCategory.remove(productEntity);
+                }
+            }
+            int delta = countTop - list.size();
+            int countInCat = delta < productsByCategory.size() ? delta : productsByCategory.size();
+            list.addAll(productsByCategory.subList(0,countInCat));
+        }
+        List<ProductAttribute> lpa = new ArrayList<>();
+        list.stream().forEachOrdered(productEntity -> lpa.add(new ProductAttribute(productEntity)));
+        return lpa;
+    }
+
 }

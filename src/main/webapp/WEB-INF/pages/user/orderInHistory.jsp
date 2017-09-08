@@ -160,19 +160,9 @@
             type: "POST",
             url: "${pageContext.request.contextPath}/orderInHistory/repeatOrder/" + $("#order-id-in-order-in-history").text(),
             success: function () {
-                <%--window.location.replace("${pageContext.request.contextPath}/bucket");--%>
-                <%--document.location.href = "${pageContext.request.contextPath}/bucket";--%>
-                $.ajax({
-                    type: "POST",
-                    url: "${pageContext.request.contextPath}/getCountInCart",
-                    success: function (resp) {
-                        $("#navbar-count-in-cart").text(resp);
-//                        location.href = "/bucket";
-                    }
-                })
+                location.href = "/bucket";
             }
         });
-        location.href = "/bucket";
     };
 </script>
 

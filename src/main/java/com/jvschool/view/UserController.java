@@ -132,7 +132,7 @@ public class UserController {
     }
 
     @PostMapping(value = "/orderInHistory/repeatOrder/{orderId}")
-    public void repeatOrder(@PathVariable("orderId") long id, @ModelAttribute("user") SessionUser user, Model model) {
+    public boolean repeatOrder(@PathVariable("orderId") long id, @ModelAttribute("user") SessionUser user, Model model) {
 
         OrderAttribute orderAttribute = orderService.getOrderById(id);
         for(BucketAttribute bucketAttribute : orderAttribute.getBuckets()) {
@@ -143,6 +143,7 @@ public class UserController {
             val += bucketAttribute.getCountProduct();
             user.getProducts().put(bucketAttribute.getProductId(), val);
         }
+        return true;
     }
 
 

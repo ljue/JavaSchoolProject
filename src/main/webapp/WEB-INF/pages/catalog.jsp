@@ -23,7 +23,7 @@
             <div class="row">
                 <div class="list-group list-category-item-in-catalog-js  cursor-pointer">
 
-                    <a class="list-group-item category-item-in-catalog-js">All goods</a>
+                    <a class="list-group-item active-list-group-item category-item-in-catalog-js">All goods</a>
 
                     <c:if test="${!empty categories}">
                         <c:forEach var="category" items="${categories}">
@@ -39,7 +39,7 @@
                     <label>Cost:</label>
                     <div class="form-group">
                         <div class="col-lg-5">
-                            <form:input path="costFROM" class="form-control"></form:input>
+                            <form:input path="costFROM" class="form-control" pattern="[0-9]{1,4}[/.]{0,1}[0-9]{0,2}"></form:input>
                         </div>
                         <label class="col-lg-1">-</label>
                         <div class="col-lg-5">
@@ -115,19 +115,34 @@
         </div>
 
     </div>
+    <%--<div id="max-count-products-on-page" style="visibility: hidden;">12</div>--%>
+
 
     <div class="text-center">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label style="margin-right: 15px;">Count on page: </label>
+            <select id="max-count-products-on-page" >
+                <option>6</option>
+                <option>9</option>
+                <option selected="selected">12</option>
+                <option>21</option>
+                <option>27</option>
+            </select>
+            </div>
+        </form>
+
         <ul id="pagination-demo" class="pagination-sm"></ul>
     </div>
 
     <div id="category-in-catalog" style="visibility: hidden;"></div>
 </div>
-
+<div id="message-success-add-to-cart" class="my-message-success alert alert-success">
+    <p style="font-size: 1.1em">Product was added to cart.</p>
+</div>
 <%--<jsp:include page="../templates/footer.jsp"/>--%>
 </body>
-    <div id="message-success-add-to-cart" class="my-message-success alert alert-success">
-        <p style="font-size: 1.1em">Product was added to cart.</p>
-    </div>
+
 <script>
     function displayPage(newTotal){
         var pageData = $('#pagination-demo').data();
@@ -143,12 +158,12 @@
     }
 
     var oops = {
-        initiateStartPageClick: false,
-        totalPages: calcTotalPages($("#count-all-filtered-products").text(), $("#max-count-products-on-page").text()),
+//        initiateStartPageClick: false,
+        totalPages: calcTotalPages($("#count-all-filtered-products").text(), $("#max-count-products-on-page option:selected").text()),
         visiblePages: 7,
         onPageClick: function (event, page) {
             var form = $('#filter-form-in-catalog').serialize();
-            var count = $("#max-count-products-on-page").text();
+            var count = $("#max-count-products-on-page option:selected").text();
             var category = $("#category-in-catalog").text();
             if(category) { form = form + "&category=" + category; };
             $.ajax({
@@ -158,7 +173,7 @@
                 success: function (responsePage) {
                     $('#current-catalog-page').html(responsePage);
                     $('html, body').animate({scrollTop: 0}, 300);
-                    var newTotalPages = calcTotalPages($("#count-all-filtered-products").text(), $("#max-count-products-on-page").text());
+                    var newTotalPages = calcTotalPages($("#count-all-filtered-products").text(), $("#max-count-products-on-page option:selected").text());
                     displayPage(newTotalPages);
                 }
             })
@@ -173,11 +188,16 @@
         $('#pagination-demo').twbsPagination('show', 1);
     });
 
+    $("#max-count-products-on-page").change(function (event) {
+        event.preventDefault();
+        $('#pagination-demo').twbsPagination('show', 1);
+    })
+
     $(".category-item-in-catalog-js").click(function (event) {
         event.preventDefault();
 
-        $(".list-group-item.active").removeClass('active');
-        $(this).addClass('active');
+        $(".list-group-item.active-list-group-item").removeClass('active-list-group-item');
+        $(this).addClass('active-list-group-item');
 
         $('#filter-form-in-catalog').trigger('reset');
         var currentCategory = $(this).text();

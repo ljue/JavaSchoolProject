@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class HttpErrorHandlerController {
 
-//    @ExceptionHandler(Exception.class)
-//    public String handler(Exception ex) {
-//        log.error(ex.toString());
-//        return "error";
-//    }
+    @ExceptionHandler(Exception.class)
+    public String handler(Exception ex) {
+        log.error(ex.toString());
+        return "error";
+    }
 }

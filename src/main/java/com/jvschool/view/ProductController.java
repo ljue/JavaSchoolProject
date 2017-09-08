@@ -54,6 +54,7 @@ public class ProductController {
     @GetMapping(value = "/catalog/product/{productId}")
     public String getProductDetails(@PathVariable long productId, Model model) {
         model.addAttribute("product", productService.getProductAttributeById(productId));
+        model.addAttribute("productTop", productService.getTopProductsForOneProduct(productId));
         return "product";
     }
 

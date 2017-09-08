@@ -83,4 +83,5 @@ public interface ProductService {
      */
     Map<Integer, List<ProductAttribute>> getProductsByFilterFromTo(int page, int count, FilterAttribute filterAttribute);
 
+    List<ProductAttribute> getTopProductsForOneProduct(long productId);
 }
