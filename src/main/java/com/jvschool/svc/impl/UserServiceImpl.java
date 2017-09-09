@@ -94,12 +94,12 @@ public class UserServiceImpl implements UserService {
         userEntity.setEmail(user.getEmail());
         userEntity.setBirthday(user.getBirthday());
 
-        RoleEntity role = roleService.getRoleByName(user.getRole());
+        RoleEntity role = roleService.getRoleByName("ROLE_CLIENT");
         if (role!=null) {
             userEntity.setRoleByRole(role);
         } else {
             role = new RoleEntity();
-            role.setRoleName(user.getRole());
+            role.setRoleName("ROLE_CLIENT");
             userEntity.setRoleByRole(role);
         }
 

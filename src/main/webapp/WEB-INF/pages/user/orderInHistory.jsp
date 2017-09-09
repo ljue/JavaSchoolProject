@@ -18,9 +18,9 @@
         <div class="col-md-3">
             <p class="lead"></p>
             <div class="list-group">
-                <a href="${pageContext.request.contextPath}/user" class="list-group-item">My Profile</a>
-                <a href="${pageContext.request.contextPath}/address" class="list-group-item">My Address</a>
-                <a href="${pageContext.request.contextPath}/history" class="list-group-item active-list-group-item">My Orders</a>
+                <a href="${pageContext.request.contextPath}/profile/" class="list-group-item">My Profile</a>
+                <a href="${pageContext.request.contextPath}/profile/address" class="list-group-item">My Address</a>
+                <a href="${pageContext.request.contextPath}/profile/history" class="list-group-item active-list-group-item">My Orders</a>
             </div>
         </div>
 
@@ -158,7 +158,7 @@
     function repeatOrder(obj) {
         $.ajax({
             type: "POST",
-            url: "${pageContext.request.contextPath}/orderInHistory/repeatOrder/" + $("#order-id-in-order-in-history").text(),
+            url: "${pageContext.request.contextPath}/profile/orderInHistory/repeatOrder/" + $("#order-id-in-order-in-history").text(),
             success: function () {
                 location.href = "/bucket";
             }

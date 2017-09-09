@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <head>
     <title>FavCopters</title>
     <link rel="shortcut icon"
@@ -20,29 +21,25 @@
                 <li>
                     <a href="${pageContext.request.contextPath}/catalog">Catalog</a>
                 </li>
-                <c:if test="${user.role ne 'ROLE_ANONYM'}">
+                <%--<c:if test="${user.role ne 'ROLE_ANONYM'}">--%>
+                <sec:authorize access="hasRole('ROLE_CLIENT') or hasRole('ROLE_MANAGER')">
                     <li>
-                        <a href="${pageContext.request.contextPath}/user">My Room</a>
+                        <a href="${pageContext.request.contextPath}/profile/">My Room</a>
                     </li>
-                </c:if>
+                </sec:authorize>
+                <%--</c:if>--%>
 
-                <c:if test="${user.role eq 'ROLE_MANAGER'}">
+                <%--<c:if test="${user.role eq 'ROLE_MANAGER'}">--%>
+                <sec:authorize access="hasRole('ROLE_MANAGER')">
                     <li>
-                        <a href="${pageContext.request.contextPath}/adminOrders">Administration</a>
+                        <a href="${pageContext.request.contextPath}/management/adminOrders">Administration</a>
                     </li>
-                </c:if>
+                </sec:authorize>
+                <%--</c:if>--%>
 
 
             </ul>
             <ul class="nav navbar-nav navbar-right ">
-                <%----%>
-                <%--<li class="li-in-cart" id="dropdown-click-navbar-cart">--%>
-                    <%--<a><i class="fa fa-shopping-cart" style="font-size:16px"></i>--%>
-                        <%--<span id="navbar-count-in-cart" class="badge"></span> - Cart</a>--%>
-                        <%--<div id="dropdown-cart">--%>
-                            <%--<jsp:include page="cartDown.jsp"/>--%>
-                        <%--</div>--%>
-                <%--</li>--%>
 
                 <li class="dropdown" id="dropdown-click-navbar-cart">
                     <a class="dropdown-toggle"  data-toggle="dropdown" role="button" aria-expanded="false">
@@ -54,25 +51,21 @@
                         </div>
                     </ul>
                 </li>
-
-                    <%--<li>--%>
-                        <%--<a href="${pageContext.request.contextPath}/bucket" >--%>
-                            <%--<i class="fa fa-shopping-cart dropdown" style="font-size:16px"></i>--%>
-                            <%--<span id="navbar-count-in-cart" style="width: 30px"></span> - Cart--%>
-                        <%--</a>--%>
-                    <%--</li>--%>
-
-                <c:if test="${user.role eq 'ROLE_ANONYM'}">
+                <%--<c:if test="${user.role eq 'ROLE_ANONYM'}">--%>
+                    <sec:authorize access="!hasRole('ROLE_CLIENT') and !hasRole('ROLE_MANAGER')">
                     <li>
                         <a href="${pageContext.request.contextPath}/login">Log in</a>
                     </li>
-                </c:if>
+                    </sec:authorize>
+                <%--</c:if>--%>
 
-                <c:if test="${user.role ne 'ROLE_ANONYM'}">
+                <%--<c:if test="${user.role ne 'ROLE_ANONYM'}">--%>
+                <sec:authorize access="hasRole('ROLE_CLIENT') or hasRole('ROLE_MANAGER')">
                     <li>
                         <a href="${pageContext.request.contextPath}/logout">Log out</a>
                     </li>
-                </c:if>
+                </sec:authorize>
+                <%--</c:if>--%>
             </ul>
 
         </div>
@@ -81,12 +74,9 @@
 <script>
     $(function () {
         var location = window.location.href;
-//        alert(location);
         var cur_url = '${pageContext.request.contextPath}/' + location.split('/').pop();
-//        alert(cur_url);
         $('#my-menu-navbar li').each(function () {
             var link = $(this).find('a').attr('href');
-//            console.log(link);
             if (cur_url == link) {
                 $(this).addClass('active');
             }

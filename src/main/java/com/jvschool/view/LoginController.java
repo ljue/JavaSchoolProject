@@ -1,5 +1,6 @@
 package com.jvschool.view;
 
+import com.jvschool.svc.api.SecurityService;
 import com.jvschool.svc.api.UserService;
 import com.jvschool.dto.SessionUser;
 import com.jvschool.util.validators.UserValidator;
@@ -17,6 +18,9 @@ public class LoginController {
     private UserService userService;
 
     @Autowired
+    private SecurityService securityService;
+
+    @Autowired
     private UserValidator userValidator;
 
 
@@ -26,7 +30,9 @@ public class LoginController {
     }
 
     @GetMapping(value = "/login")
-    public String start() {
+    public String start(Model model, String error) {
+        if (error != null)
+            model.addAttribute("error", "Username or password is incorrect.");
         return "login";
     }
 
@@ -71,11 +77,14 @@ public class LoginController {
             return "registration";
         }
 
-        userForm.setRole("ROLE_CLIENT");
         userService.addUser(userForm);
         userForm.setId(userService.getUserIdByEmail(user.getEmail()));
+        securityService.autoLogin(userForm.getLogin(),userForm.getConfirmPassword());
+        userForm.setPass("");
+        userForm.setConfirmPassword("");
         userForm.setProducts(user.getProducts());
         model.addAttribute("user",userForm);
+
         return "redirect:/home";
     }
 

@@ -23,9 +23,9 @@
         <div class="col-md-3">
             <p class="lead"></p>
             <div class="list-group">
-                <a href="${pageContext.request.contextPath}/user" class="list-group-item">My Profile</a>
-                <a href="${pageContext.request.contextPath}/address" class="list-group-item active-list-group-item">My Address</a>
-                <a href="${pageContext.request.contextPath}/history" class="list-group-item">My orders</a>
+                <a href="${pageContext.request.contextPath}/profile/" class="list-group-item">My Profile</a>
+                <a href="${pageContext.request.contextPath}/profile/address" class="list-group-item active-list-group-item">My Address</a>
+                <a href="${pageContext.request.contextPath}/profile/history" class="list-group-item">My orders</a>
             </div>
         </div>
 
@@ -85,7 +85,8 @@
 
                     <div id="panel2" class="tab-pane fade">
                         <br>
-                        <form:form modelAttribute="formAddAddress" method="post" action="${pageContext.request.contextPath}/address/add"
+                        <form:form modelAttribute="formAddAddress" method="post"
+                                   action="${pageContext.request.contextPath}/profile/address/add"
                                    class="form-horizontal">
                             <fieldset>
                                 <spring:bind path="country">
@@ -181,7 +182,7 @@
         $(panelId).slideUp();//400mc
         $.ajax({
             type: "POST",
-            url: "${pageContext.request.contextPath}/address/remove/" + addressId
+            url: "${pageContext.request.contextPath}/profile/address/remove/" + addressId
         })
     })
 

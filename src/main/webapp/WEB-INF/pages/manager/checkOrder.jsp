@@ -21,10 +21,10 @@
         <div class="col-md-3">
             <p class="lead"></p>
             <div class="list-group">
-                <a href="${pageContext.request.contextPath}/adminOrders" class="list-group-item active-list-group-item">Order list</a>
-                <a href="${pageContext.request.contextPath}/statistics" class="list-group-item">Shop statistic</a>
-                <a href="${pageContext.request.contextPath}/adminProducts" class="list-group-item">Goods management</a>
-                <a href="${pageContext.request.contextPath}/editCategories" class="list-group-item">Catalog management</a>
+                <a href="${pageContext.request.contextPath}/management/adminOrders" class="list-group-item active-list-group-item">Order list</a>
+                <a href="${pageContext.request.contextPath}/management/statistics" class="list-group-item">Shop statistic</a>
+                <a href="${pageContext.request.contextPath}/management/adminProducts" class="list-group-item">Goods management</a>
+                <a href="${pageContext.request.contextPath}/management/editCategories" class="list-group-item">Catalog management</a>
 
             </div>
         </div>
@@ -46,7 +46,8 @@
                         </div><br>
                         <%--<h4>#User Id: ${orderIn.userId}</h4><br>--%>
                         <%--<h4>Delivery status: ${orderIn.deliveryStatus}</h4>--%>
-                        <form:form modelAttribute="editDeliveryStatus" method="post" action="${pageContext.request.contextPath}/editDeliveryStatus">
+                        <form:form modelAttribute="editDeliveryStatus" method="post"
+                                   action="${pageContext.request.contextPath}/management/editDeliveryStatus">
                             <div class="form-group">
                                 <label class="col-md-3">Edit delivery status:</label>
                                 <div class="col-md-5">
@@ -78,11 +79,6 @@
                                 ${addressOrder.streetAddress}, post code ${addressOrder.postIndex}</h4>
                             </label>
                         </div><br><br><br>
-                        <%--<h4>Pay way: ${orderIn.payWay}</h4>--%>
-                        <%--<h4>Delivery way: ${orderIn.deliveryWay}</h4>--%>
-
-                        <%--<h4>Address: ${addressOrder.country}, ${addressOrder.region}, ${addressOrder.city},--%>
-                            <%--${addressOrder.streetAddress}, post code ${addressOrder.postIndex}</h4>--%>
 
                         <br>
 
@@ -138,8 +134,6 @@
                                                             <h5>Battery: <span>${product.battery}</span></h5>
                                                             <h5>Fly time: <span>${product.flyTime} min</span></h5>
                                                             <h5>Distance: <span>${product.distance} m</span></h5>
-                                                            <%--<h5>${product.description}</h5>--%>
-
                                                             <h3 class="cost"></span> $${product.cost}</h3>
 
                                                             <div class="space-ten"></div>

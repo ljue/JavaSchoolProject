@@ -18,10 +18,11 @@
         <div class="col-md-3">
             <p class="lead"></p>
             <div class="list-group">
-                <a href="${pageContext.request.contextPath}/adminOrders" class="list-group-item">Order list</a>
-                <a href="${pageContext.request.contextPath}/statistics" class="list-group-item">Shop statistic</a>
-                <a href="${pageContext.request.contextPath}/adminProducts" class="list-group-item active-list-group-item">Goods management</a>
-                <a href="${pageContext.request.contextPath}/editCategories" class="list-group-item">Catalog management</a>
+                <a href="${pageContext.request.contextPath}/management/adminOrders" class="list-group-item">Order list</a>
+                <a href="${pageContext.request.contextPath}/management/statistics" class="list-group-item">Shop statistic</a>
+                <a href="${pageContext.request.contextPath}/management/adminProducts"
+                   class="list-group-item active-list-group-item">Goods management</a>
+                <a href="${pageContext.request.contextPath}/management/editCategories" class="list-group-item">Catalog management</a>
             </div>
         </div>
 
@@ -40,7 +41,7 @@
                 <%--<div class="tab-content">--%>
                     <%--<br><br>--%>
                     <form:form method="POST" enctype="multipart/form-data" modelAttribute="productForm"
-                               action="${addProduct}" class="form-horizontal">
+                               action="${pageContext.request.contextPath}/management/addProduct" class="form-horizontal">
 
                         <div class="form-group">
                             <div class="col-lg-2"></div>

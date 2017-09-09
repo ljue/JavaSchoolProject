@@ -25,7 +25,6 @@ public class ProductController {
     private PropertyService propertyService;
 
 
-
     @GetMapping(value = "/catalog")
     public String goCatalog(Model model) {
         model.addAttribute("countProducts", productService.getCountProducts());

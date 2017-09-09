@@ -146,7 +146,7 @@
     <div class="form-group">
         <label class="col-md-4 control-label"></label>
         <div class="col-md-8">
-            <a href="${pageContext.request.contextPath}/checkout">
+            <a href="${pageContext.request.contextPath}/checkout/">
                 <button type="button" class="btn btn-primary right"> CheckOut</button>
             </a>
         </div>

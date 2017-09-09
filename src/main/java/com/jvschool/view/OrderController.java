@@ -31,11 +31,8 @@ public class OrderController {
     @Autowired
     private OrderValidator orderValidator;
 
-    @GetMapping(value = "/checkout")
+    @GetMapping(value = "/checkout/")
     public String goCheckout(@ModelAttribute("user")SessionUser user, Model model) {
-        if(user.getRole().equals("ROLE_ANONYM")) {
-            return "redirect:/login";
-        }
 
         model.addAttribute("orderForm", new OrderAttribute());
         model.addAttribute("newAddress", new AddressAttribute());

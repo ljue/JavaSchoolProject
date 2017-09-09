@@ -21,9 +21,9 @@
         <div class="col-md-3">
                 <p class="lead">   </p>
             <div class="list-group">
-                <a href="${pageContext.request.contextPath}/user" class="list-group-item active-list-group-item">My Profile</a>
-                <a href="${pageContext.request.contextPath}/address" class="list-group-item">My Address</a>
-                <a href="${pageContext.request.contextPath}/history" class="list-group-item">My Orders</a>
+                <a href="${pageContext.request.contextPath}/profile/" class="list-group-item active-list-group-item">My Profile</a>
+                <a href="${pageContext.request.contextPath}/profile/address" class="list-group-item">My Address</a>
+                <a href="${pageContext.request.contextPath}/profile/history" class="list-group-item">My Orders</a>
             </div>
         </div>
 
@@ -35,14 +35,16 @@
                     <h3>Personal info</h3>
 
 
-                    <form:form method="POST" modelAttribute="userForm" action="${pageContext.request.contextPath}/user/editInfo" class="form-horizontal">
+                    <form:form method="POST" modelAttribute="userForm"
+                               action="${pageContext.request.contextPath}/profile/editInfo" class="form-horizontal">
 
 
                         <spring:bind path="firstName">
                         <div class="form-group ${status.error ? 'has-error' : ''}" >
                             <label class="col-lg-3 control-label">First name:</label>
                             <div class="col-lg-8">
-                                <form:input required="required"  type="text" path="firstName" class="form-control" value="${user.firstName}"
+                                <form:input required="required"  type="text" path="firstName" class="form-control"
+                                            value="${user.firstName}"
                                 ></form:input>
                             </div>
                             <form:errors path="firstName"></form:errors>
@@ -53,7 +55,8 @@
                             <div class="form-group ${status.error ? 'has-error' : ''}" >
                                 <label class="col-lg-3 control-label">Last name:</label>
                                 <div class="col-lg-8">
-                                    <form:input required="required"  type="text" path="secondName" class="form-control" value="${user.secondName}"
+                                    <form:input required="required"  type="text" path="secondName"
+                                                class="form-control" value="${user.secondName}"
                                     ></form:input>
                                 </div>
                                 <form:errors path="secondName"></form:errors>
@@ -119,7 +122,8 @@
                 <div class="col-md-8 col-sm-6 col-xs-12 personal-info">
                     <h4>Change Password</h4>
 
-                    <form:form method="POST" modelAttribute="userForm" action="${pageContext.request.contextPath}/user/editPass"  class="form-horizontal">
+                    <form:form method="POST" modelAttribute="userForm"
+                               action="${pageContext.request.contextPath}/profile/editPass"  class="form-horizontal">
 
                         <spring:bind path="pass">
                         <div class="form-group ${status.error ? 'has-error' : ''}" >
@@ -180,7 +184,7 @@
         $.ajax({
             type: "POST",
             data: {email : email},
-            url: "${pageContext.request.contextPath}/editInfo/findEmail/",
+            url: "${pageContext.request.contextPath}/profile/editInfo/findEmail/",
             success: function (msg) {
                 $("#emailEditExists").html(msg);
                 checkParams();
@@ -193,7 +197,7 @@
         $.ajax({
             type: "POST",
             data: {login : login},
-            url: "${pageContext.request.contextPath}/editInfo/findLogin/",
+            url: "${pageContext.request.contextPath}/profile/editInfo/findLogin/",
             success: function (msg) {
                 $("#loginEditExists").text(msg);
                 checkParams();

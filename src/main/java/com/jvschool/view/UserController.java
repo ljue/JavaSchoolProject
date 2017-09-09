@@ -22,6 +22,7 @@ import java.util.Locale;
 
 @Controller
 @SessionAttributes("user")
+@RequestMapping("/profile")
 public class UserController {
 
     @Autowired
@@ -42,27 +43,27 @@ public class UserController {
 
 
 
-    @GetMapping(value = "/user")
+    @GetMapping(value = "/")
     public String editUser(@ModelAttribute("user") SessionUser sessionUser,Model model) {
         model.addAttribute("userForm", sessionUser);
-        return "user/user";
+        return "user/profile";
     }
 
-    @PostMapping(value = "/user/editInfo")
+    @PostMapping(value = "/editInfo")
     public String editUser(@ModelAttribute("userForm") SessionUser userForm, @ModelAttribute("user") SessionUser user,
                            BindingResult bindingResult, Model model) {
 
         userValidator.validate(userForm, bindingResult);
         if (bindingResult.hasErrors()) {
             model.addAttribute("userForm", userForm);
-            return "user/user";
+            return "user/profile";
         }
         userForm.setId(user.getId());
         userService.editUserInfo(userForm);
         userForm.setProducts(user.getProducts());
         userForm.setRole(user.getRole());
         model.addAttribute("user",userForm);
-        return "redirect:/user";
+        return "redirect:/profile";
     }
 
     @PostMapping(value = "/editInfo/findEmail/")
@@ -85,18 +86,18 @@ public class UserController {
             return "";
     }
 
-    @PostMapping(value = "/user/editPass")
+    @PostMapping(value = "/editPass")
     public String editPass(@ModelAttribute("userForm") SessionUser userForm, @ModelAttribute("user") SessionUser user,
                            BindingResult bindingResult, Model model) {
         userForm.setId(user.getId());
         userValidator.validate(userForm, bindingResult);
         if (bindingResult.hasErrors()) {
-            return "user/user";
+            return "user/profile";
         }
         userService.editUserPassword(userForm);
         userForm.setProducts(user.getProducts());
         model.addAttribute("user",userForm);
-        return "redirect:/user";
+        return "redirect:/profile";
     }
 
     @GetMapping(value = "/history")

@@ -14,7 +14,7 @@
   <properties>
     <spring.version>4.3.9.RELEASE</spring.version>
     <hibernate-version>5.0.1.Final</hibernate-version>
-    <spring-security.version>3.2.4.RELEASE</spring-security.version>
+    <spring-security.version>4.2.3.RELEASE</spring-security.version>
     <jboss.home>C:/Users/Людмила/WildFly/wildfly-10.0.0.Final</jboss.home>
   </properties>
 
@@ -113,6 +113,11 @@
     <dependency>
       <groupId>org.springframework.security</groupId>
       <artifactId>spring-security-config</artifactId>
+      <version>${spring-security.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-taglibs</artifactId>
       <version>${spring-security.version}</version>
     </dependency>
 

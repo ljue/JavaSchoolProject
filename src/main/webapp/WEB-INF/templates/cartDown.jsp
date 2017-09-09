@@ -72,7 +72,7 @@
 <li class="text-center"><a href="${pageContext.request.contextPath}/bucket">View Cart</a></li>
 <c:if test="${!empty productsInNavBar}">
     <li class="divider"></li>
-    <li class="text-center"><a href="${pageContext.request.contextPath}/checkout">Checkout</a></li>
+    <li class="text-center"><a href="${pageContext.request.contextPath}/checkout/">Checkout</a></li>
 </c:if>
 
 <%--</div>--%>

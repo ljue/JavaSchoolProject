@@ -15,10 +15,11 @@
         <div class="col-md-3">
             <p class="lead"></p>
             <div class="list-group">
-                <a href="${pageContext.request.contextPath}/adminOrders" class="list-group-item">Order list</a>
-                <a href="${pageContext.request.contextPath}/statistics" class="list-group-item">Shop statistic</a>
-                <a href="${pageContext.request.contextPath}/adminProducts" class="list-group-item">Goods management</a>
-                <a href="${pageContext.request.contextPath}/editCategories" class="list-group-item active-list-group-item">Catalog management</a>
+                <a href="${pageContext.request.contextPath}/management/adminOrders" class="list-group-item">Order list</a>
+                <a href="${pageContext.request.contextPath}/management/statistics" class="list-group-item">Shop statistic</a>
+                <a href="${pageContext.request.contextPath}/management/adminProducts" class="list-group-item">Goods management</a>
+                <a href="${pageContext.request.contextPath}/management/editCategories"
+                   class="list-group-item active-list-group-item">Catalog management</a>
 
             </div>
         </div>
@@ -27,11 +28,10 @@
         <div class="col-md-9">
             <div class="row">
                 <ul class="nav nav-tabs">
-                    <%--<li><a href="${pageContext.request.contextPath}/adminProducts">Add new goods</a></li>--%>
-                    <li><a href="${pageContext.request.contextPath}/editCategories">Manage categories</a></li>
-                    <li class="active"><a href="${pageContext.request.contextPath}/editPropertyGroups">Manage
+                    <li><a href="${pageContext.request.contextPath}/management/editCategories">Manage categories</a></li>
+                    <li class="active"><a href="${pageContext.request.contextPath}/management/editPropertyGroups">Manage
                         property groups</a></li>
-                    <li><a href="${pageContext.request.contextPath}/editProperties">Manage properties</a></li>
+                    <li><a href="${pageContext.request.contextPath}/management/editProperties">Manage properties</a></li>
 
                 </ul>
 
@@ -42,7 +42,7 @@
 
 
                             <form:form modelAttribute="formEditPropertyGroup" method="POST"
-                                         action="${pageContext.request.contextPath}/editPropertyGroups/editPropertyGroup"
+                                         action="${pageContext.request.contextPath}/management/editPropertyGroups/editPropertyGroup"
                                          class="form-horizontal">
 
                                 <div class="form-group">
@@ -80,7 +80,7 @@
                     <div class="tab-content">
                         <br>
                         <form:form modelAttribute="formAddPropertyGroup" method="POST" id="form-add-property-group"
-                                     action="${pageContext.request.contextPath}/editPropertyGroups/addPropertyGroup"
+                                     action="${pageContext.request.contextPath}/management/editPropertyGroups/addPropertyGroup"
                                      class="form-horizontal">
 
                             <div class="form-group">
@@ -120,7 +120,7 @@
                         <div class="tab-content">
                             <br>
                             <form:form method="POST" modelAttribute="formRemovePropertyGroup"
-                                         action="${pageContext.request.contextPath}/editPropertyGroups/removePropertyGroup"
+                                         action="${pageContext.request.contextPath}/management/editPropertyGroups/removePropertyGroup"
                                          class="form-horizontal">
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label">Remove property group:</label>
@@ -146,7 +146,7 @@
                         <div class="tab-content">
                             <br>
                             <form:form method="POST" modelAttribute="formReturnPropertyGroup"
-                                         action="${pageContext.request.contextPath}/editPropertyGroups/returnPropertyGroup"
+                                         action="${pageContext.request.contextPath}/management/editPropertyGroups/returnPropertyGroup"
                                          class="form-horizontal">
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label">Return property group:</label>
@@ -193,7 +193,7 @@
             $.ajax({
                 type: "POST",
                 data: {add : form},
-                url: "${pageContext.request.contextPath}/editPropertyGroups/checkExisting",
+                url: "${pageContext.request.contextPath}/management/editPropertyGroups/checkExisting",
                 success: function (resp) {
                     if (resp) {
                         $("#message-fail-add-property-group").fadeIn(500);

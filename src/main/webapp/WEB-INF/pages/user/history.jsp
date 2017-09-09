@@ -16,9 +16,10 @@
         <div class="col-md-3">
             <p class="lead"></p>
             <div class="list-group">
-                <a href="${pageContext.request.contextPath}/user" class="list-group-item">My Profile</a>
-                <a href="${pageContext.request.contextPath}/address" class="list-group-item">My Address</a>
-                <a href="${pageContext.request.contextPath}/history" class="list-group-item active-list-group-item">My Orders</a>
+                <a href="${pageContext.request.contextPath}/profile/" class="list-group-item">My Profile</a>
+                <a href="${pageContext.request.contextPath}/profile/address" class="list-group-item">My Address</a>
+                <a href="${pageContext.request.contextPath}/profile/history"
+                   class="list-group-item active-list-group-item">My Orders</a>
             </div>
         </div>
 
@@ -42,7 +43,7 @@
                         <tbody class="cursor-pointer">
 
                         <c:forEach var="order" items="${ordersHistory}" varStatus="status">
-                            <tr data-href="${pageContext.request.contextPath}/orderInHistory/${order.orderId}">
+                            <tr data-href="${pageContext.request.contextPath}/profile/orderInHistory/${order.orderId}">
                                 <td>${order.orderId}</td>
                                 <td>${order.deliveryStatus}</td>
                                 <td><fmt:formatDate type="both" dateStyle="long" timeStyle="medium" value="${order.dateTimeOrder}"/></td>

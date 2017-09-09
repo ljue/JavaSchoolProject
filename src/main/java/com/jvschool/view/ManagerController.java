@@ -19,7 +19,7 @@ import java.util.*;
 @Log4j
 @Controller
 @SessionAttributes("user")
-//@RequestMapping("/my-webapp")
+@RequestMapping("/management")
 public class ManagerController {
 
     @Autowired
@@ -45,9 +45,6 @@ public class ManagerController {
     @GetMapping(value = "/adminProducts")
     public String goAdminProducts(Model model, @ModelAttribute("productForm") ProductAttribute productForm
             , @ModelAttribute("user") SessionUser user) {
-        if (!user.getRole().equals("ROLE_MANAGER")) {
-            return "redirect:/home";
-        }
 
         model.addAttribute("categories", categoryService.getAllProductCategoryNames());
         model.addAttribute("propertiesSolo", propertyService.getSoloProperties());
@@ -94,10 +91,6 @@ public class ManagerController {
     @GetMapping(value = "/adminOrders")
     public String goAdminOrders(Model model, @ModelAttribute("user") SessionUser user) {
 
-        if (!user.getRole().equals("ROLE_MANAGER")) {
-            return "redirect:/home";
-        }
-
         List<OrderAttribute> orders = orderService.getOrdersGroupByDeliveryStatus();
         model.addAttribute("orders", orders);
 
@@ -108,10 +101,6 @@ public class ManagerController {
     @GetMapping(value = "/adminOrders/{orderId}")
     public String goCheckOrder(@PathVariable("orderId") Long orderId, Model model,
                                HttpServletRequest request, @ModelAttribute("user") SessionUser user) {
-
-        if (!user.getRole().equals("ROLE_MANAGER")) {
-            return "redirect:/home";
-        }
 
         OrderAttribute orderAttribute = orderService.getOrderById(orderId);
         List<BucketAttribute> bucketAttributes = orderAttribute.getBuckets();
@@ -140,7 +129,7 @@ public class ManagerController {
     }
 
 
-    @PostMapping(value = "editDeliveryStatus")
+    @PostMapping(value = "/editDeliveryStatus")
     public String editDeliveryStatus(HttpServletRequest request,
                                      @ModelAttribute("editDeliveryStatus") OrderAttribute orderEditAttribute) {
 
@@ -152,12 +141,8 @@ public class ManagerController {
     }
 
 
-    @GetMapping(value = "statistics")
+    @GetMapping(value = "/statistics")
     public String goStatistics(Model model, @ModelAttribute("user") SessionUser user) {
-
-        if (!user.getRole().equals("ROLE_MANAGER")) {
-            return "redirect:/home";
-        }
 
         model.addAttribute("topClients", userService.getTopUsers());
         model.addAttribute("topProducts", productService.getTopProducts());
@@ -173,10 +158,6 @@ public class ManagerController {
 
     @GetMapping(value = "/editCategories")
     public String editCategoryGet(Model model, @ModelAttribute("user") SessionUser user) {
-
-        if (!user.getRole().equals("ROLE_MANAGER")) {
-            return "redirect:/home";
-        }
 
         model.addAttribute("formEditCategory", new CategoryAttribute());
         model.addAttribute("formAddCategory", new CategoryAttribute());
@@ -229,10 +210,6 @@ public class ManagerController {
     @GetMapping(value = "/editPropertyGroups")
     public String editPropertyGroupsGet(Model model, @ModelAttribute("user") SessionUser user) {
 
-        if (!user.getRole().equals("ROLE_MANAGER")) {
-            return "redirect:/home";
-        }
-
         model.addAttribute("formEditPropertyGroup", new EditForm());
         model.addAttribute("formAddPropertyGroup", new EditForm());
         model.addAttribute("formRemovePropertyGroup", new EditForm());
@@ -281,10 +258,6 @@ public class ManagerController {
 
     @GetMapping(value = "/editProperties")
     public String editPropertyGet(Model model, @ModelAttribute("user") SessionUser user) {
-
-        if (!user.getRole().equals("ROLE_MANAGER")) {
-            return "redirect:/home";
-        }
 
         model.addAttribute("formEditProperty", new EditForm());
         model.addAttribute("formAddProperty", new EditForm());

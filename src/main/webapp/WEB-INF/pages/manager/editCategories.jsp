@@ -18,10 +18,11 @@
         <div class="col-md-3">
             <p class="lead"></p>
             <div class="list-group">
-                <a href="${pageContext.request.contextPath}/adminOrders" class="list-group-item">Order list</a>
-                <a href="${pageContext.request.contextPath}/statistics" class="list-group-item">Shop statistic</a>
-                <a href="${pageContext.request.contextPath}/adminProducts" class="list-group-item">Goods management</a>
-                <a href="${pageContext.request.contextPath}/editCategories" class="list-group-item active-list-group-item">Catalog management</a>
+                <a href="${pageContext.request.contextPath}/management/adminOrders" class="list-group-item">Order list</a>
+                <a href="${pageContext.request.contextPath}/management/statistics" class="list-group-item">Shop statistic</a>
+                <a href="${pageContext.request.contextPath}/management/adminProducts" class="list-group-item">Goods management</a>
+                <a href="${pageContext.request.contextPath}/management/editCategories"
+                   class="list-group-item active-list-group-item">Catalog management</a>
             </div>
         </div>
 
@@ -30,10 +31,10 @@
             <div class="row">
                 <ul class="nav nav-tabs">
                     <%--<li><a href="${pageContext.request.contextPath}/adminProducts">Add new goods</a></li>--%>
-                    <li class="active"><a href="${pageContext.request.contextPath}/editCategories">Manage
+                    <li class="active"><a href="${pageContext.request.contextPath}/management/editCategories">Manage
                         categories</a></li>
-                    <li><a href="${pageContext.request.contextPath}/editPropertyGroups">Manage property groups</a></li>
-                    <li><a href="${pageContext.request.contextPath}/editProperties">Manage properties</a></li>
+                    <li><a href="${pageContext.request.contextPath}/management/editPropertyGroups">Manage property groups</a></li>
+                    <li><a href="${pageContext.request.contextPath}/management/editProperties">Manage properties</a></li>
                 </ul>
 
                 <div class="row">
@@ -43,7 +44,7 @@
 
 
                             <spring:form modelAttribute="formEditCategory" method="POST"
-                                         action="${pageContext.request.contextPath}/editCategories/editCategoryName"
+                                         action="${pageContext.request.contextPath}/management/editCategories/editCategoryName"
                                          class="form-horizontal">
 
                                 <div class="form-group">
@@ -81,7 +82,7 @@
                     <div class="tab-content">
                         <br>
                         <spring:form modelAttribute="formAddCategory" method="POST" id="form-add-category"
-                                     action="${pageContext.request.contextPath}/editCategories/addCategory"
+                                     action="${pageContext.request.contextPath}/management/editCategories/addCategory"
                                      class="form-horizontal">
 
                             <div class="form-group">
@@ -108,7 +109,7 @@
                         <div class="tab-content">
                             <br>
                             <spring:form method="POST" modelAttribute="formRemoveCategory"
-                                         action="${pageContext.request.contextPath}/editCategories/removeCategory"
+                                         action="${pageContext.request.contextPath}/management/editCategories/removeCategory"
                                          class="form-horizontal">
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label">Remove product category:</label>
@@ -134,7 +135,7 @@
                         <div class="tab-content">
                             <br>
                             <spring:form method="POST" modelAttribute="formReturnCategory"
-                                         action="${pageContext.request.contextPath}/editCategories/returnCategory"
+                                         action="${pageContext.request.contextPath}/management/editCategories/returnCategory"
                                          class="form-horizontal">
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label">Return product category:</label>
@@ -181,7 +182,7 @@
             $.ajax({
                 type: "POST",
                 data: {addCategoryName: form},
-                url: "${pageContext.request.contextPath}/editCategories/checkExisting",
+                url: "${pageContext.request.contextPath}/management/editCategories/checkExisting",
                 success: function (resp) {
                     if (resp) {
                         $("#message-fail-add-category").fadeIn(500);

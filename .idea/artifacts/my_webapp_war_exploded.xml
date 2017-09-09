@@ -36,10 +36,12 @@
           <element id="library" level="project" name="Maven: org.springframework:spring-expression:4.3.9.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-web:4.3.9.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-tx:4.3.9.RELEASE" />
-          <element id="library" level="project" name="Maven: org.springframework.security:spring-security-core:3.2.4.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.security:spring-security-core:4.2.3.RELEASE" />
           <element id="library" level="project" name="Maven: aopalliance:aopalliance:1.0" />
-          <element id="library" level="project" name="Maven: org.springframework.security:spring-security-web:3.2.4.RELEASE" />
-          <element id="library" level="project" name="Maven: org.springframework.security:spring-security-config:3.2.4.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.security:spring-security-web:4.2.3.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.security:spring-security-config:4.2.3.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.security:spring-security-taglibs:4.2.3.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.security:spring-security-acl:4.2.3.RELEASE" />
           <element id="library" level="project" name="Maven: org.mockito:mockito-all:1.10.19" />
           <element id="library" level="project" name="Maven: org.seleniumhq.selenium:selenium-chrome-driver:3.4.0" />
           <element id="library" level="project" name="Maven: org.seleniumhq.selenium:selenium-api:3.4.0" />

@@ -3,9 +3,6 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-<head>
-    <%--<title>Orders</title>--%>
-</head>
 <body>
 <jsp:include page="../../templates/navigation.jsp"/>
 <fmt:setLocale value="en_US" scope="session" />
@@ -17,10 +14,10 @@
         <div class="col-md-3">
             <p class="lead"></p>
             <div class="list-group">
-                <a href="${pageContext.request.contextPath}/adminOrders" class="list-group-item active-list-group-item">Order list</a>
-                <a href="${pageContext.request.contextPath}/statistics" class="list-group-item">Shop statistic</a>
-                <a href="${pageContext.request.contextPath}/adminProducts" class="list-group-item">Goods management</a>
-                <a href="${pageContext.request.contextPath}/editCategories" class="list-group-item">Catalog management</a>
+                <a href="${pageContext.request.contextPath}/management/adminOrders" class="list-group-item active-list-group-item">Order list</a>
+                <a href="${pageContext.request.contextPath}/management/statistics" class="list-group-item">Shop statistic</a>
+                <a href="${pageContext.request.contextPath}/management/adminProducts" class="list-group-item">Goods management</a>
+                <a href="${pageContext.request.contextPath}/management/editCategories" class="list-group-item">Catalog management</a>
 
             </div>
         </div>
@@ -60,17 +57,9 @@
 
                                         </td>
                                     </tr>
-                                    <%--<tr>--%>
-                                        <%--<td></td>--%>
-                                        <%--<td class="text-right">--%>
-                                            <%--&lt;%&ndash;<c:set var="orderId" value="${order.orderId}"/>&ndash;%&gt;--%>
-                                            <%----%>
-                                        <%--</td>--%>
-                                    <%--</tr>--%>
-
                                     </tbody>
                                 </table>
-                                <a href="${pageContext.request.contextPath}/adminOrders/${order.orderId}"
+                                <a href="${pageContext.request.contextPath}/management/adminOrders/${order.orderId}"
                                    class="btn btn-primary right" style="margin-right:60px;">Edit</a>
                             </div>
                         </div>
