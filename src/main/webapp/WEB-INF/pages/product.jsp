@@ -120,7 +120,7 @@
             </div>
         </c:if>
     </div>
-
+</div>
     <div id="message-success-add-to-cart-pr" class="my-message-success alert alert-success">
         <p style="font-size: 1.1em">Product was added to cart.</p>
     </div>

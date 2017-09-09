@@ -15,6 +15,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Log4j
 @Repository
@@ -212,6 +213,25 @@ public class ProductDAOImpl implements ProductDAO {
         return (long) em.createQuery("select count(p.productId) from ProductEntity p where p.visible=:visible " +
                 " and p.category.visible=:visibleCategory ")
                 .setParameter("visible", true).setParameter("visibleCategory", true).getSingleResult();
+    }
+
+    @Override
+    public boolean setMinusCountProducts(Map<Long, Integer> map) {
+
+        List<ProductEntity> productEntities = new ArrayList<>();
+        for (Map.Entry<Long,Integer> entry : map.entrySet()) {
+            ProductEntity productEntity = em.find(ProductEntity.class, entry.getKey(), LockModeType.PESSIMISTIC_WRITE);
+            if(productEntity.getCount() < entry.getValue()) {
+                return false;
+            }
+            productEntities.add(productEntity);
+        }
+        for (ProductEntity productEntity: productEntities) {
+            productEntity.setCount(productEntity.getCount() - map.get(productEntity.getProductId()));
+        }
+
+        em.flush();
+        return true;
     }
 
     @Override

@@ -209,4 +209,9 @@ public class ProductServiceImpl implements ProductService {
         productDAO.returnProductById(id);
     }
 
+    @Override
+    public boolean setMinusCountProducts(Map<Long, Integer> map) {
+        return productDAO.setMinusCountProducts(map);
+    }
+
 }

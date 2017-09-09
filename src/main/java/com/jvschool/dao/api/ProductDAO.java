@@ -5,7 +5,7 @@ import com.jvschool.model.ProductEntity;
 import com.jvschool.dto.FilterAttribute;
 
 import java.util.List;
-
+import java.util.Map;
 
 
 public interface ProductDAO {
@@ -21,6 +21,7 @@ public interface ProductDAO {
     List<ProductEntity> getTopProducts();
     List<ProductEntity> getProductsWithFilter(FilterAttribute filterAttribute);
     long getCountProducts();
+    boolean setMinusCountProducts(Map<Long, Integer> map);
     List<ProductEntity> getProductsFromTo(int page, int count);
 
     List<ProductEntity> getTopProductsForOneProduct(long productId);

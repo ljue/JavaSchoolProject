@@ -109,4 +109,10 @@ public class OrderController {
         return "../templates/cartDown";
     }
 
+    @ResponseBody
+    @PostMapping(value = "/checkout/checkAndSubCountProducts")
+    public boolean checkAndSubCountProduct(@ModelAttribute("user") SessionUser user) {
+        return productService.setMinusCountProducts(user.getProducts());
+    }
+
 }

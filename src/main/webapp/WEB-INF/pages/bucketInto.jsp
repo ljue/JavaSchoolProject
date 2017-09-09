@@ -11,7 +11,8 @@
         <thead>
         <tr>
             <th class="col-md-1">#Id</th>
-            <th class="col-md-6">Name</th>
+            <th class="col-md-5">Name</th>
+            <th class="col-md-1">Availability</th>
             <th class="col-md-2" style="text-align: center">Count</th>
             <th class="col-md-2" style="text-align: center">Cost $</th>
             <th class="col-md-1">Remove</th>
@@ -26,8 +27,17 @@
                 <td class="col-md-1 cursor-default">
                         ${productInCart.key.productId}
                 </td>
-                <td data-toggle="modal" class="col-md-6" href="#productToBuy${productInCart.key.productId}">
+                <td data-toggle="modal" class="col-md-1" href="#productToBuy${productInCart.key.productId}">
                         ${productInCart.key.productName}
+                </td>
+                <td class="col-md-1 text-center" style="padding: 17px 0 17px 0" data-seq="${productInCart.key.count}"
+                    id="check-count-product-${productInCart.key.productId}">
+                    <c:if test="${productInCart.key.count > productInCart.value}">
+                        <i class="fa fa-check" aria-hidden="true"></i>
+                    </c:if>
+                    <c:if test="${productInCart.key.count < productInCart.value}">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                    </c:if>
                 </td>
                 <td class="col-md-2 cursor-default">
                     <div class="input-group">
@@ -122,31 +132,21 @@
             </div>
 
         </c:forEach>
-<tr class="cursor-default hover-tr-default">
+        <tr class="cursor-default hover-tr-default">
+            <td></td>
             <td></td>
             <td></td>
             <td style="text-align: center"><b>Total:</b></td>
             <td id="calc-total-price" style="text-align: center">${totalPrice}</td>
-            <td></td></tr>
-            </tbody>
-            </table>
-        <%--</tbody>--%>
-    <%--</table>--%>
-    <%--<table class="table">--%>
-        <%--<tbody>--%>
-        <%--<td class="col-md-1 cursor-default"></td>--%>
-        <%--<td class="col-md-6 cursor-default"></td>--%>
-        <%--<td style="text-align: center" class="col-md-2 cursor-default"><b>Total:</b></td>--%>
-        <%--<td id="calc-total-price" style="text-align: center" class="col-md-2 cursor-default">${totalPrice}$</td>--%>
-        <%--<td class="col-md-1 cursor-default"></td>--%>
-        <%--</tbody>--%>
-    <%--</table>--%>
-
+            <td></td>
+        </tr>
+        </tbody>
+    </table>
 
     <div class="form-group">
         <label class="col-md-4 control-label"></label>
         <div class="col-md-8">
-            <a href="${pageContext.request.contextPath}/checkout/">
+            <a href="${pageContext.request.contextPath}/checkout/" id="btn-go-checkout">
                 <button type="button" class="btn btn-primary right"> CheckOut</button>
             </a>
         </div>
@@ -157,13 +157,22 @@
 <br>
 <br>
 <br>
-<%--<script>--%>
-<%--$('.product_view').on('hidden.bs.modal', function (e) {--%>
-<%--window.location.reload();--%>
-<%--})--%>
-<%--</script>--%>
+
+<div id="message-empty-count-of-product-in-bucket" class="my-message-success alert alert-danger">
+    <p style="font-size: 1.1em">Sorry, there are out of this products.</p>
+</div>
 
 <script>
+
+    function checkOptions(count, idProduct) {
+        if ($("#check-count-product-"+idProduct).data("seq")>count) {
+            $("#check-count-product-"+idProduct).html("<i class='fa fa-check fa-lg' aria-hidden='true'></i>");
+        } else {
+            $("#check-count-product-"+idProduct).html("<i class='fa fa-times fa-lg' aria-hidden='true'></i>");
+        }
+    }
+
+
     function addProductToCart(obj) {
         var idProduct = obj.value;
         var count = Number($("#changeCountProducts" + idProduct).val());
@@ -176,6 +185,8 @@
 
         $("#changeCountProducts" + idProduct).val(count);
         $("#calc-total-price").text(total.toFixed(2));
+
+        checkOptions(count, idProduct);
 
         $.ajax({
             type: "POST",
@@ -195,6 +206,9 @@
 
             $("#changeCountProducts" + idProduct).val(count);
             $("#calc-total-price").text(total.toFixed(2));
+
+            checkOptions(count, idProduct);
+
             $.ajax({
                 type: "POST",
                 url: "${pageContext.request.contextPath}/minusFromCart/" + idProduct
@@ -223,6 +237,16 @@
         })
     };
 
+    $("#btn-go-checkout").click(function (e) {
+        if($(".fa-times").length) {
+            e.preventDefault();
+            $("#message-empty-count-of-product-in-bucket").fadeIn(500);
+            setTimeout(function () {
+                $("#message-empty-count-of-product-in-bucket").fadeOut(1000)
+            }, 2000);
+        }
+    })
+
     $(".change-count-product-in-bucketInto").change(function () {
         var count = $(this).val();
         var idProduct = $(this).data("seq");
@@ -233,6 +257,7 @@
                 url: "${pageContext.request.contextPath}/changeCountInCart/" + idProduct,
                 success: function (page) {
                     $("#products-in-bucket").html(page);
+                    checkOptions(count, idProduct);
                     $.ajax({
                         type: "POST",
                         url: "${pageContext.request.contextPath}/getCountInCart",
@@ -248,6 +273,7 @@
                 url: "${pageContext.request.contextPath}/changeCountInCart/getCurrentVal/" + idProduct,
                 success: function (resp) {
                     $("#changeCountProducts" + idProduct).val(resp);
+                    checkOptions(count, idProduct);
                 }
             })
         }

@@ -92,4 +92,7 @@ public interface ProductService {
     void removeProductById(long id);
 
     void returnProductById(long id);
+
+    boolean setMinusCountProducts(Map<Long, Integer> map);
+
 }
