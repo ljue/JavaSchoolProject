@@ -24,6 +24,8 @@ public interface ProductService {
      */
     ProductEntity getProductById(long id);
 
+    long getPictureIdByPicName(String name);
+
     /**
      * Get list of all products sorted by popular and transform it to list of products dto.
      * @return
@@ -84,4 +86,10 @@ public interface ProductService {
     Map<Integer, List<ProductAttribute>> getProductsByFilterFromTo(int page, int count, FilterAttribute filterAttribute);
 
     List<ProductAttribute> getTopProductsForOneProduct(long productId);
+
+    void editProductInfo(ProductAttribute productAttribute);
+
+    void removeProductById(long id);
+
+    void returnProductById(long id);
 }

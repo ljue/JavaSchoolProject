@@ -65,4 +65,14 @@ public class CategoryServiceImpl implements CategoryService {
         categoryDAO.returnCategory(categoryDAO.getProductCategoryByName(category));
     }
 
+    @Override
+    public List<String> getCategoriesWithoutSomeCategory(String name) {
+
+        List<String> categoryNames = new ArrayList<>();
+        categoryDAO.getAllProductCategories().stream()
+                .filter(categoryEntity -> !categoryEntity.getCategoryName().equals(name))
+                .forEachOrdered(categoryEntity -> categoryNames.add(categoryEntity.getCategoryName()));
+        return categoryNames;
+    }
+
 }

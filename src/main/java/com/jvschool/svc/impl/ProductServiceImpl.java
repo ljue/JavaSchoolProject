@@ -39,6 +39,11 @@ public class ProductServiceImpl implements ProductService {
         return productDAO.getProductById(id);
     }
 
+    @Override
+    public long getPictureIdByPicName(String name) {
+        return productDAO.getPictureIdByPicName(name);
+    }
+
 
     @Override
     public List<ProductAttribute> getAllProducts() {
@@ -72,15 +77,11 @@ public class ProductServiceImpl implements ProductService {
         for (ProductEntity pe : lpe) {
             ProductAttribute pa = new ProductAttribute(pe);
             List<BucketEntity> lbe = bucketDAO.getBucketsByProductId(pe.getProductId());
-
             for (BucketEntity be : lbe) {
                 pa.setSumCount(pa.getSumCount() + be.getCountProduct());
             }
-
             lpa.add(pa);
         }
-
-
         return lpa;
     }
 
@@ -186,6 +187,26 @@ public class ProductServiceImpl implements ProductService {
         List<ProductAttribute> lpa = new ArrayList<>();
         list.stream().forEachOrdered(productEntity -> lpa.add(new ProductAttribute(productEntity)));
         return lpa;
+    }
+
+    @Override
+    public void editProductInfo(ProductAttribute productAttribute) {
+        ProductEntity productEntity = new ProductEntity();
+        productEntity.setProductId(productAttribute.getProductId());
+        productEntity.setCategory(categoryService.getProductCategoryByName(productAttribute.getCategory()));
+        productEntity.setCost(Double.parseDouble(productAttribute.getCost()));
+        productEntity.setCount(productAttribute.getCount());
+        productDAO.editProductInfo(productEntity);
+    }
+
+    @Override
+    public void removeProductById(long id) {
+        productDAO.removeProductById(id);
+    }
+
+    @Override
+    public void returnProductById(long id) {
+        productDAO.returnProductById(id);
     }
 
 }

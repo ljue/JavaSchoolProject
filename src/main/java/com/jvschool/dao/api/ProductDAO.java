@@ -11,7 +11,11 @@ import java.util.List;
 public interface ProductDAO {
 
     void addProduct(ProductEntity productEntity);
+    void editProductInfo(ProductEntity productEntity);
+    void removeProductById(long id);
+    void returnProductById(long id);
     ProductEntity getProductById(long id);
+    long getPictureIdByPicName(String name);
     List<ProductEntity> getAllProducts();
     List<ProductEntity> getProductsByCategory(CategoryEntity category);
     List<ProductEntity> getTopProducts();

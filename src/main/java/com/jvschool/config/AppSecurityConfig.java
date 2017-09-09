@@ -59,7 +59,9 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/profile/**").access("hasRole('ROLE_CLIENT') or hasRole('ROLE_MANAGER')")
                 .antMatchers("/checkout/**").access("hasRole('ROLE_CLIENT') or hasRole('ROLE_MANAGER')")
                 .and().formLogin().loginPage("/login").usernameParameter("login").passwordParameter("pass")
-                .successHandler(authenticationHandler);
+                .successHandler(authenticationHandler)
+                .and()
+                .exceptionHandling().accessDeniedPage("/403");
         http.logout()
                 .permitAll()
                 .clearAuthentication(true);

@@ -106,4 +106,9 @@ public class LoginController {
             return "";
     }
 
+    @GetMapping(value = "/403")
+    public String accessDenied() {
+        return "error/accessDenied";
+    }
+
 }

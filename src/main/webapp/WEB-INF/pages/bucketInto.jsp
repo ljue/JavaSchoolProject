@@ -13,7 +13,7 @@
             <th class="col-md-1">#Id</th>
             <th class="col-md-6">Name</th>
             <th class="col-md-2" style="text-align: center">Count</th>
-            <th class="col-md-2" style="text-align: center">Cost</th>
+            <th class="col-md-2" style="text-align: center">Cost $</th>
             <th class="col-md-1">Remove</th>
         </tr>
         </thead>
@@ -55,7 +55,7 @@
                     </div>
                 </td>
                 <td class="col-md-2 cursor-default" style="text-align: center"
-                    id="costProduct${productInCart.key.productId}">${productInCart.key.cost}$
+                    id="costProduct${productInCart.key.productId}">${productInCart.key.cost}
                 </td>
                 <td style="text-align: center" class="cursor-default">
                     <button type="button" class="btn btn-link btn-xs" value="${productInCart.key.productId}"
@@ -126,7 +126,7 @@
             <td></td>
             <td></td>
             <td style="text-align: center"><b>Total:</b></td>
-            <td id="calc-total-price" style="text-align: center">${totalPrice}$</td>
+            <td id="calc-total-price" style="text-align: center">${totalPrice}</td>
             <td></td></tr>
             </tbody>
             </table>

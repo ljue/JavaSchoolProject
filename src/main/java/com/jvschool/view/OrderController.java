@@ -83,7 +83,7 @@ public class OrderController {
         addressAttribute.setUserId(user.getId());
         addressService.addNewAddress(addressAttribute);
 
-        return "redirect:/checkout";
+        return "redirect:/checkout/";
     }
 
     @ResponseBody

@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sping" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <%@ page isELIgnored="false" %>
 
@@ -30,6 +31,17 @@
                         <a class="list-group-item category-item-in-catalog-js">${category}</a>
                         </c:forEach>
                     </c:if>
+
+                    <sec:authorize access="hasRole('ROLE_MANAGER')">
+                        <a class="list-group-item category-item-in-catalog-js">Removed goods</a>
+
+                        <c:if test="${!empty removedCategories}">
+                            <c:forEach var="removedCat" items="${removedCategories}">
+                                <a class="list-group-item category-item-in-catalog-js">${removedCat}</a>
+                            </c:forEach>
+                        </c:if>
+
+                    </sec:authorize>
 
                 </div>
                 <sping:form id="filter-form-in-catalog" modelAttribute="filter"
@@ -136,6 +148,7 @@
     </div>
 
     <div id="category-in-catalog" style="visibility: hidden;"></div>
+    <div id="visible-products-in-filter" style="visibility: hidden;"></div>
 </div>
 <div id="message-success-add-to-cart" class="my-message-success alert alert-success">
     <p style="font-size: 1.1em">Product was added to cart.</p>
@@ -158,13 +171,15 @@
     }
 
     var oops = {
-//        initiateStartPageClick: false,
+        initiateStartPageClick: false,
         totalPages: calcTotalPages($("#count-all-filtered-products").text(), $("#max-count-products-on-page option:selected").text()),
         visiblePages: 7,
         onPageClick: function (event, page) {
             var form = $('#filter-form-in-catalog').serialize();
             var count = $("#max-count-products-on-page option:selected").text();
             var category = $("#category-in-catalog").text();
+            var visible = $("#visible-products-in-filter").text();
+            if (visible) { form = form + "&visible=" + visible; };
             if(category) { form = form + "&category=" + category; };
             $.ajax({
                 type: "POST",
@@ -203,8 +218,13 @@
         var currentCategory = $(this).text();
         if (currentCategory === "All goods") {
             $("#category-in-catalog").empty();
+            $("#visible-products-in-filter").empty();
+        } else if (currentCategory === "Removed goods") {
+            $("#category-in-catalog").empty();
+            $("#visible-products-in-filter").text("false");
         } else {
             $("#category-in-catalog").text(currentCategory);
+            $("#visible-products-in-filter").empty();
         }
         $('#pagination-demo').twbsPagination('show', 1);
     })

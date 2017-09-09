@@ -42,52 +42,6 @@ public class ManagerController {
     private PropertyGroupService propertyGroupService;
 
 
-    @GetMapping(value = "/adminProducts")
-    public String goAdminProducts(Model model, @ModelAttribute("productForm") ProductAttribute productForm
-            , @ModelAttribute("user") SessionUser user) {
-
-        model.addAttribute("categories", categoryService.getAllProductCategoryNames());
-        model.addAttribute("propertiesSolo", propertyService.getSoloProperties());
-        model.addAttribute("propertiesNotSolo", propertyService.getNotSoloProperties());
-
-        return "manager/adminProducts";
-    }
-
-
-    @PostMapping(value = "/adminProducts")
-    public String addProduct(@ModelAttribute("productForm") ProductAttribute productForm,
-                             BindingResult bindingResult, Model model, HttpServletRequest request) {
-
-        productValidator.validate(productForm, bindingResult);
-        if (bindingResult.hasErrors()) {
-            model.addAttribute("categories", categoryService.getAllProductCategoryNames());
-            model.addAttribute("propertiesSolo", propertyService.getSoloProperties());
-            model.addAttribute("propertiesNotSolo", propertyService.getNotSoloProperties());
-            return "manager/adminProducts";
-        }
-
-        List<MultipartFile> files = productForm.getImages();
-        List<String> picNames = new ArrayList<>();
-        if (!files.isEmpty()) {
-            for (MultipartFile multipartFile : files) {
-
-                String picName = multipartFile.getOriginalFilename();
-                picNames.add(picName);
-
-                File imageFile = new File(request.getSession().getServletContext().getRealPath("/resources/Images/"), picName);
-                try {
-                    multipartFile.transferTo(imageFile);
-                } catch (IOException e) {
-                    log.error(e.toString());
-                }
-            }
-        }
-        productForm.setPicturesPath(picNames);
-
-        productService.addProduct(productForm);
-        return "redirect:/adminProducts";
-    }
-
     @GetMapping(value = "/adminOrders")
     public String goAdminOrders(Model model, @ModelAttribute("user") SessionUser user) {
 
@@ -137,7 +91,7 @@ public class ManagerController {
         orderAttribute.setDeliveryStatus(orderEditAttribute.getDeliveryStatus());
         orderService.editOrderDeliveryStatus(orderAttribute);
 
-        return "redirect:/adminOrders/" + orderAttribute.getOrderId();
+        return "redirect:/management/adminOrders/" + orderAttribute.getOrderId();
     }
 
 
@@ -150,6 +104,96 @@ public class ManagerController {
         model.addAttribute("monthProceed", String.format(Locale.US, "%.2f", orderService.getMonthProceed()));
 
         return "manager/statistics";
+    }
+
+    ///////////////////////////////// Products /////////////////////////////////////////
+
+
+    @GetMapping(value = "/adminProducts")
+    public String goAdminProducts(Model model, @ModelAttribute("productForm") ProductAttribute productForm
+            , @ModelAttribute("user") SessionUser user) {
+
+        model.addAttribute("categories", categoryService.getAllProductCategoryNames());
+        model.addAttribute("propertiesSolo", propertyService.getSoloProperties());
+        model.addAttribute("propertiesNotSolo", propertyService.getNotSoloProperties());
+
+        return "manager/adminProducts";
+    }
+
+
+    @PostMapping(value = "/addProduct")
+    public String addProduct(@ModelAttribute("productForm") ProductAttribute productForm,
+                             BindingResult bindingResult, Model model, HttpServletRequest request) {
+
+        productValidator.validate(productForm, bindingResult);
+
+        String picExistsMsg = null;
+
+        List<MultipartFile> files = productForm.getImages();
+        List<String> picNames = new ArrayList<>();
+        if (!files.isEmpty()) {
+            for (MultipartFile multipartFile : files) {
+
+                String picName = multipartFile.getOriginalFilename();
+                if (!picName.equals("") && productService.getPictureIdByPicName(picName) != 0) {
+                    picExistsMsg = "Picture with such name already exists";
+                    break;
+                }
+
+                picNames.add(picName);
+
+                File imageFile = new File(request.getSession().getServletContext().getRealPath("/resources/Images/"), picName);
+                try {
+                    multipartFile.transferTo(imageFile);
+                } catch (IOException e) {
+                    log.error(e.toString());
+                }
+            }
+        }
+
+        if (bindingResult.hasErrors() || picExistsMsg != null) {
+            model.addAttribute("picExistsMsg", picExistsMsg);
+            model.addAttribute("categories", categoryService.getAllProductCategoryNames());
+            model.addAttribute("propertiesSolo", propertyService.getSoloProperties());
+            model.addAttribute("propertiesNotSolo", propertyService.getNotSoloProperties());
+            return "manager/adminProducts";
+        }
+
+        productForm.setPicturesPath(picNames);
+
+        productService.addProduct(productForm);
+        return "redirect:/management/adminProducts";
+    }
+
+
+    @PostMapping(value = "/editProductInfo/{productId}")
+    public String editProductInfo(@PathVariable("productId") long productId,
+                                  @ModelAttribute("product") ProductAttribute product,
+                                  Model model) {
+        product.setProductId(productId);
+        productService.editProductInfo(product);
+        product = productService.getProductAttributeById(productId);
+        model.addAttribute("product", product);
+        model.addAttribute("categories", categoryService.getAllProductCategoryNames());
+        return "productEditInfo";
+    }
+
+    @PostMapping(value = "/removeProduct/{productId}")
+    public String removeProduct(@PathVariable("productId") long productId, Model model) {
+
+        productService.removeProductById(productId);
+        model.addAttribute("product", productService.getProductAttributeById(productId));
+        model.addAttribute("categories", categoryService.getAllProductCategoryNames());
+        return "productEditInfo";
+    }
+
+    @PostMapping(value = "/returnProduct/{productId}")
+    public String returnProduct(@PathVariable("productId") long productId, Model model) {
+
+        productService.returnProductById(productId);
+        model.addAttribute("product", productService.getProductAttributeById(productId));
+        model.addAttribute("categories", categoryService.getAllProductCategoryNames());
+        return "productEditInfo";
     }
 
 
@@ -175,25 +219,25 @@ public class ManagerController {
     public String editCategoryPost(@ModelAttribute("formEditCategory") CategoryAttribute categoryAttribute, Model model) {
 
         categoryService.editCategory(categoryAttribute);
-        return "redirect:/editCategories";
+        return "redirect:/management/editCategories";
     }
 
     @PostMapping(value = "/editCategories/addCategory")
     public String addCategoryPost(@ModelAttribute("formAddCategory") CategoryAttribute categoryAttribute) {
         categoryService.addProductCategory(categoryAttribute.getAddCategoryName());
-        return "redirect:/editCategories";
+        return "redirect:/management/editCategories";
     }
 
     @PostMapping(value = "/editCategories/removeCategory")
     public String removeCategory(@ModelAttribute("formRemoveCategory") CategoryAttribute categoryAttribute) {
         categoryService.removeCategory(categoryAttribute.getRemoveCategoryName());
-        return "redirect:/editCategories";
+        return "redirect:/management/editCategories";
     }
 
     @PostMapping(value = "/editCategories/returnCategory")
     public String returnCategory(@ModelAttribute("formReturnCategory") CategoryAttribute categoryAttribute) {
         categoryService.returnCategory(categoryAttribute.getReturnCategoryName());
-        return "redirect:/editCategories";
+        return "redirect:/management/editCategories";
     }
 
     @PostMapping(value = "/editCategories/checkExisting")
@@ -225,25 +269,25 @@ public class ManagerController {
     @PostMapping(value = "/editPropertyGroups/editPropertyGroup")
     public String editPropertyGroupsPost(@ModelAttribute("formEditPropertyGroup") EditForm editForm, Model model) {
         propertyGroupService.editPropertyGroup(editForm);
-        return "redirect:/editPropertyGroups";
+        return "redirect:/management/editPropertyGroups";
     }
 
     @PostMapping(value = "/editPropertyGroups/addPropertyGroup")
     public String addPropertyGroupsPost(@ModelAttribute("formAddPropertyGroup") EditForm editForm, Model model) {
         propertyGroupService.addPropertyGroup(editForm);
-        return "redirect:/editPropertyGroups";
+        return "redirect:/management/editPropertyGroups";
     }
 
     @PostMapping(value = "/editPropertyGroups/removePropertyGroup")
     public String removePropertyGroupsPost(@ModelAttribute("formRemovePropertyGroup") EditForm editForm, Model model) {
         propertyGroupService.removePropertyGroup(editForm.getRemove());
-        return "redirect:/editPropertyGroups";
+        return "redirect:/management/editPropertyGroups";
     }
 
     @PostMapping(value = "/editPropertyGroups/returnPropertyGroup")
     public String returnPropertyGroupsPost(@ModelAttribute("formReturnPropertyGroup") EditForm editForm, Model model) {
         propertyGroupService.returnPropertyGroup(editForm.getReturns());
-        return "redirect:/editPropertyGroups";
+        return "redirect:/management/editPropertyGroups";
     }
 
     @PostMapping(value = "/editPropertyGroups/checkExisting")
@@ -275,25 +319,25 @@ public class ManagerController {
     @PostMapping(value = "/editProperties/editProperty")
     public String editPropertyPost(@ModelAttribute("formEditProperty") EditForm editForm, Model model) {
         propertyService.editProperty(editForm);
-        return "redirect:/editProperties";
+        return "redirect:/management/editProperties";
     }
 
     @PostMapping(value = "/editProperties/addProperty")
     public String addPropertyPost(@ModelAttribute("formAddProperty") EditForm editForm, Model model) {
         propertyService.addProperty(editForm);
-        return "redirect:/editProperties";
+        return "redirect:/management/editProperties";
     }
 
     @PostMapping(value = "/editProperties/removeProperty")
     public String removePropertyPost(@ModelAttribute("formRemoveProperty") EditForm editForm, Model model) {
         propertyService.removeProperty(editForm.getRemove());
-        return "redirect:/editProperties";
+        return "redirect:/management/editProperties";
     }
 
     @PostMapping(value = "/editProperties/returnProperty")
     public String returnPropertyPost(@ModelAttribute("formReturnProperty") EditForm editForm, Model model) {
         propertyService.returnProperty(editForm.getReturns());
-        return "redirect:/editProperties";
+        return "redirect:/management/editProperties";
     }
 
     @PostMapping(value = "/editProperties/checkExisting")

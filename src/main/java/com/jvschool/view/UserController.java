@@ -63,7 +63,7 @@ public class UserController {
         userForm.setProducts(user.getProducts());
         userForm.setRole(user.getRole());
         model.addAttribute("user",userForm);
-        return "redirect:/profile";
+        return "redirect:/profile/profile";
     }
 
     @PostMapping(value = "/editInfo/findEmail/")
@@ -97,7 +97,7 @@ public class UserController {
         userService.editUserPassword(userForm);
         userForm.setProducts(user.getProducts());
         model.addAttribute("user",userForm);
-        return "redirect:/profile";
+        return "redirect:/profile/";
     }
 
     @GetMapping(value = "/history")

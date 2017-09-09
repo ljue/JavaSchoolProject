@@ -18,6 +18,7 @@ public class FilterAttribute {
     private int distanceTO;
     private String category;
     private List<String> properties = new ArrayList<>();
+    private boolean visible = true; // visible parameter for product
 
     private int countOnPage;
 

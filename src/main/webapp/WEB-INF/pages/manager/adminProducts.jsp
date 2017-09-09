@@ -191,6 +191,7 @@
                                 <div class="col-lg-8">
                                     <input type="file" name="images" multiple="multiple"/>
                                 </div>
+                                <div class="has-error">${picExistsMsg}</div>
                                 <form:errors path="images"></form:errors>
                             </div>
                         </spring:bind>

@@ -11,6 +11,6 @@ public class HttpErrorHandlerController {
     @ExceptionHandler(Exception.class)
     public String handler(Exception ex) {
         log.error(ex.toString());
-        return "error";
+        return "error/error";
     }
 }

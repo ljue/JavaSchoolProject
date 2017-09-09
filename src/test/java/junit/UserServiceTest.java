@@ -26,7 +26,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void testAddCategory() {
+    public void testLoginUser() {
 
         String login = "ivan";
         String password = "ivan";

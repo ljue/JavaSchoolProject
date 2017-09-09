@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <body>
@@ -15,6 +16,7 @@
 
         <div class="row">
             <div class="col-md-1"></div>
+
             <div class="col-md-5 item-photo">
                 <c:if test="${product.presentPic eq ''}">
                     <img src="${pageContext.request.contextPath}/resources/Images/default-copter.png"
@@ -24,102 +26,36 @@
                     <img src="${pageContext.request.contextPath}/resources/Images/${product.presentPic}"
                          alt="..." style="max-width:100%;">
                 </c:if>
-
             </div>
+
             <div class="col-md-5" style="border:0px solid gray">
                 <h3>${product.productName}</h3>
                 <h6>
-                    <%--<small>--%>
-                    #Id: ${product.productId}
-                    <%--</small>--%>
+                    #Id: <span id="product-id-edit-info">${product.productId}</span>
                 </h6>
-
                 <h3 style="margin-top:50px;">${product.cost}$</h3>
-
-                <div style="margin-top:20px;">
+                <div style="margin-top:70px;" class="form-group">
                     <button class="btn btn-primary" value="${product.productId}"
                             onclick="addProductToCart(this)"> Add to cart
                     </button>
+                    <sec:authorize access="hasRole('ROLE_MANAGER')">
+                        <button id="btn-show-edit-product-panel" class="btn btn-default"
+                                value="${product.productId}"> Edit product </button>
+                    </sec:authorize>
                 </div>
             </div>
         </div>
 
-        <%--<div class="row">--%>
-        <%--<c:forEach items="${productTop}" var="top" varStatus="status">--%>
-        <%--<div class="item">--%>
-        <%--<div class="col-md-4">--%>
-        <%--<a href="${pageContext.request.contextPath}/catalog/product/${top.productId}">--%>
-        <%--<c:if test="${top.presentPic eq ''}">--%>
-        <%--<img src="${pageContext.request.contextPath}/resources/Images/default-copter.png"--%>
-        <%--class="img-responsive center-block img-250">--%>
-        <%--</c:if>--%>
-        <%--<c:if test="${top.presentPic ne ''}">--%>
-        <%--<img src="${pageContext.request.contextPath}/resources/Images/${top.presentPic}"--%>
-        <%--class="img-responsive center-block img-250">--%>
-        <%--</c:if>--%>
-        <%--</a>--%>
-        <%--<div class="text-center">--%>
-        <%--<span data-toggle="tooltip" title="${top.productName}">--%>
-        <%--${top.productCartName}--%>
-        <%--</span>--%>
-        <%--</div>--%>
-        <%--</div>--%>
-        <%--</div>--%>
-        <%--</c:forEach>--%>
 
-        <%--</div>--%>
-
-
-        <div class="row" style="margin-top: 10px; min-height: 250px">
-            <div class="col-md-1"></div>
-            <div class="col-md-10">
-
-                <div class="col-md-3">
-                    <ul class="nav nav-tabs tabs-left border-none">
-                        <li class="active">
-                            <a href="#tab_default_1" data-toggle="tab">
-                                Description </a>
-                        </li>
-                        <li>
-                            <a href="#tab_default_2" data-toggle="tab">
-                                Details </a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-md-9">
-                    <div class="tab-content">
-                        <div class="tab-pane active" id="tab_default_1"
-                             style="width:100%;border-top:1px solid silver">
-                            <p style="padding:15px;">
-                                <%--<small>--%>
-                                ${product.description}
-                                <%--</small>--%>
-                            </p>
-                        </div>
-                        <div class="tab-pane" id="tab_default_2" style="width:100%;border-top:1px solid silver">
-                            <div style="padding: 15px;">
-                                <p>Category: <span>${product.category}</span></p>
-                                <p>Battery: <span>${product.battery}</span></p>
-                                <p>Fly time: <span>${product.flyTime} min</span></p>
-                                <p>Distance: <span>${product.distance} m</span></p>
-                                <c:forEach items="${product.properties}" var="propertyGroup">
-                                    <p>${propertyGroup.key}: <span>
-                                        <c:forEach items="${propertyGroup.value}" var="property" varStatus="status">
-                                            <c:if test="${status.index eq 0}">${property}</c:if><c:if
-                                                test="${status.index gt 0}">, ${property}</c:if>
-                                        </c:forEach>
-                                    </span></p>
-                                </c:forEach>
-
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-                <%--</div>--%>
-                <%--</div>--%>
-            </div>
+        <div id="product-in-catalog-info">
+            <jsp:include page="productInfo.jsp"/>
         </div>
+        <sec:authorize access="hasRole('ROLE_MANAGER')">
+            <div id="product-edit-info-panel" style="display: none;">
+                <jsp:include page="productEditInfo.jsp"/>
+            </div>
+        </sec:authorize>
+
         <%--</div>--%>
         <%--</div>--%>
         <%--</div>--%>
@@ -127,7 +63,7 @@
         <c:if test="${!empty productTop}">
             <hr>
             <div style="margin: 100px 0 50px 0;" class="text-center">
-                <h3 style="color: #23527c">You can also like:</h3>
+                <h3 style="color: #23527c">You may also like:</h3>
             </div>
 
             <div class="row">
@@ -185,6 +121,12 @@
         </c:if>
     </div>
 
+    <div id="message-success-add-to-cart-pr" class="my-message-success alert alert-success">
+        <p style="font-size: 1.1em">Product was added to cart.</p>
+    </div>
+    <div id="message-success-edit-product" class="my-message-success alert alert-success">
+        <p style="font-size: 1.1em; padding-left: 30px; padding-bottom: 5px"> Success.</p>
+    </div>
 
     <script>
         $(document).ready(function () {
@@ -206,14 +148,14 @@
                 }
             });
         });
-    </script>
 
+        $("#btn-show-edit-product-panel").click(function (e) {
+            e.preventDefault();
+            $("#product-edit-info-panel").slideDown();
+            var top = $("#product-edit-info-panel").offset().top;
+            $('body,html').animate({scrollTop: top}, 400);
+        })
 
-    <div id="message-success-add-to-cart-pr" class="my-message-success alert alert-success">
-        <p style="font-size: 1.1em">Product was added to cart.</p>
-    </div>
-
-    <script>
         function addProductToCart(obj) {
             var idProduct = obj.value;
             $("#navbar-count-in-cart").text(Number($("#navbar-count-in-cart").text()) + 1);

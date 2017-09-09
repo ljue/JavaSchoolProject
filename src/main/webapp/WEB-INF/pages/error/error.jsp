@@ -1,8 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Error</title>
-    <jsp:include page="../templates/head.jsp"/>
+    <jsp:include page="../../templates/head.jsp"/>
     <%--<style>--%>
         <%--body {--%>
             <%--background: url(${pageContext.request.contextPath}/resources/Images/zakat.jpg) no-repeat;--%>
@@ -14,8 +13,7 @@
     <%--</style>--%>
 </head>
 <body>
-<jsp:include page="../templates/navigation.jsp"/>
-<jsp:include page="../templates/scripts.jsp"/>
+<jsp:include page="../../templates/navigation.jsp"/>
 <br>
 <br>
 

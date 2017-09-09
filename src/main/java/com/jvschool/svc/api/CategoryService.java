@@ -50,4 +50,6 @@ public interface CategoryService {
      * @param category
      */
     void returnCategory(String category);
+
+    List<String> getCategoriesWithoutSomeCategory(String name);
 }

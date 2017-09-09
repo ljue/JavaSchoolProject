@@ -5,16 +5,18 @@ import com.jvschool.dao.api.ProductDAO;
 import com.jvschool.dao.api.PropertyDAO;
 import com.jvschool.model.*;
 import com.jvschool.dto.FilterAttribute;
+import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.LockModeType;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@Log4j
 @Repository
 public class ProductDAOImpl implements ProductDAO {
 
@@ -32,8 +34,33 @@ public class ProductDAOImpl implements ProductDAO {
 
         productEntity.setVisible(true);
         em.merge(productEntity);
+
+    }
+
+    @Override
+    public void editProductInfo(ProductEntity productEntity) {
+
+        ProductEntity newProductEntity = em.find(ProductEntity.class, productEntity.getProductId(),
+                LockModeType.PESSIMISTIC_WRITE);
+        newProductEntity.setCategory(productEntity.getCategory());
+        newProductEntity.setCount(newProductEntity.getCount()+productEntity.getCount());
+        newProductEntity.setCost(productEntity.getCost());
         em.flush();
 
+    }
+
+    @Override
+    public void removeProductById(long id) {
+        ProductEntity productEntity = em.find(ProductEntity.class, id);
+        productEntity.setVisible(false);
+        em.flush();
+    }
+
+    @Override
+    public void returnProductById(long id) {
+        ProductEntity productEntity = em.find(ProductEntity.class, id);
+        productEntity.setVisible(true);
+        em.flush();
     }
 
     @Override
@@ -43,6 +70,14 @@ public class ProductDAOImpl implements ProductDAO {
                 .setParameter("id", id).getResultList();
 
         return (list.isEmpty()) ? null : (ProductEntity) list.get(0);
+    }
+
+    @Override
+    public long getPictureIdByPicName(String name) {
+        List list = em.createQuery("select p.pictureId from PicturesEntity p where p.picName=:name")
+                .setParameter("name", name).getResultList();
+
+        return (list.isEmpty()) ? null : (long) list.get(0);
     }
 
     @Override
@@ -133,7 +168,7 @@ public class ProductDAOImpl implements ProductDAO {
             if (filterAttribute.getCategory() == null) {
                 criteriaQuery.where(criteriaBuilder.and(
                         propertiesNotSolo,
-                        criteriaBuilder.equal(product.get("visible"), true),
+                        criteriaBuilder.equal(product.get("visible"), filterAttribute.isVisible()),
                         criteriaBuilder.equal(product.get("category").get("visible"), true),
                         criteriaBuilder.between(product.get("cost"), filterAttribute.getCostFROM(), filterAttribute.getCostTO()),
                         criteriaBuilder.between(product.get("flyTime"), filterAttribute.getFlyTimeFROM(), filterAttribute.getFlyTimeTO()),
@@ -141,20 +176,18 @@ public class ProductDAOImpl implements ProductDAO {
             } else {
                 criteriaQuery.where(criteriaBuilder.and(
                         propertiesNotSolo,
-                        criteriaBuilder.equal(product.get("visible"), true),
-                        criteriaBuilder.equal(product.get("category").get("visible"), true),
+                        criteriaBuilder.equal(product.get("visible"), filterAttribute.isVisible()),
                         criteriaBuilder.between(product.get("cost"), filterAttribute.getCostFROM(), filterAttribute.getCostTO()),
                         criteriaBuilder.between(product.get("flyTime"), filterAttribute.getFlyTimeFROM(), filterAttribute.getFlyTimeTO()),
                         criteriaBuilder.between(product.get("distance"), filterAttribute.getDistanceFROM(), filterAttribute.getDistanceTO()),
                         criteriaBuilder.equal(product.get("category"), categoryDAO.getProductCategoryByName(filterAttribute.getCategory()))));
-
             }
         } else {
             if (filterAttribute.getCategory() == null) {
                 criteriaQuery.where(criteriaBuilder.and(
                         propertiesNotSolo,
                         product.join("properties").in(propertySoloEntityList),
-                        criteriaBuilder.equal(product.get("visible"), true),
+                        criteriaBuilder.equal(product.get("visible"), filterAttribute.isVisible()),
                         criteriaBuilder.equal(product.get("category").get("visible"), true),
                         criteriaBuilder.between(product.get("cost"), filterAttribute.getCostFROM(), filterAttribute.getCostTO()),
                         criteriaBuilder.between(product.get("flyTime"), filterAttribute.getFlyTimeFROM(), filterAttribute.getFlyTimeTO()),
@@ -163,16 +196,13 @@ public class ProductDAOImpl implements ProductDAO {
                 criteriaQuery.where(criteriaBuilder.and(
                         propertiesNotSolo,
                         product.join("properties").in(propertySoloEntityList),
-                        criteriaBuilder.equal(product.get("visible"), true),
-                        criteriaBuilder.equal(product.get("category").get("visible"), true),
+                        criteriaBuilder.equal(product.get("visible"), filterAttribute.isVisible()),
                         criteriaBuilder.between(product.get("cost"), filterAttribute.getCostFROM(), filterAttribute.getCostTO()),
                         criteriaBuilder.between(product.get("flyTime"), filterAttribute.getFlyTimeFROM(), filterAttribute.getFlyTimeTO()),
                         criteriaBuilder.between(product.get("distance"), filterAttribute.getDistanceFROM(), filterAttribute.getDistanceTO()),
                         criteriaBuilder.equal(product.get("category"), categoryDAO.getProductCategoryByName(filterAttribute.getCategory()))));
-
             }
         }
-
         return em.createQuery(criteriaQuery).getResultList();
     }
 
@@ -226,7 +256,5 @@ public class ProductDAOImpl implements ProductDAO {
                 " and b.productId.visible=:visible and b.productId.category.visible=:visible " +
                 " group by b.productId order by sum(b.countProduct) desc")
                 .setParameter("productId", productId).setParameter("visible", true).getResultList();
-
-
     }
 }

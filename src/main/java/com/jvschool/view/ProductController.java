@@ -32,6 +32,7 @@ public class ProductController {
         model.addAttribute("filter", new FilterAttribute());
         model.addAttribute("allProperties", propertyService.getProperties());
         model.addAttribute("categories", categoryService.getAllProductCategoryNames());
+        model.addAttribute("removedCategories", categoryService.getRemovedCategories());
 
         return "catalog";
     }
@@ -52,7 +53,9 @@ public class ProductController {
 
     @GetMapping(value = "/catalog/product/{productId}")
     public String getProductDetails(@PathVariable long productId, Model model) {
-        model.addAttribute("product", productService.getProductAttributeById(productId));
+        ProductAttribute product = productService.getProductAttributeById(productId);
+        model.addAttribute("product", product);
+        model.addAttribute("categories", categoryService.getAllProductCategoryNames());
         model.addAttribute("productTop", productService.getTopProductsForOneProduct(productId));
         return "product";
     }

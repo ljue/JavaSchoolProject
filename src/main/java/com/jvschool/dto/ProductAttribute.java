@@ -26,6 +26,7 @@ public class ProductAttribute  implements Serializable, Comparable {
     private int distance;
     private String description;
     private String category;
+    private boolean visible;
 
     private List<MultipartFile> images = new ArrayList<>();
     private List<String> picturesPath = new ArrayList<>();
@@ -61,6 +62,7 @@ public class ProductAttribute  implements Serializable, Comparable {
         this.distance = productEntity.getDistance();
         this.description = productEntity.getDescription();
         this.category = productEntity.getCategory().getCategoryName();
+        this.visible = productEntity.isVisible();
 
         for (PropertyEntity propertyEntity : productEntity.getProperties()) {
             properties.computeIfAbsent(propertyEntity.getPropertyGroup().getPropertyGroupName(),
@@ -73,6 +75,8 @@ public class ProductAttribute  implements Serializable, Comparable {
             for(PicturesEntity picPath:productEntity.getPictures()) {
                 picturesPath.add(picPath.getPicName());
             }
+        } else {
+            presentPic="default-copter.png";
         }
     }
 
