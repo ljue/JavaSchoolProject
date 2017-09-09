@@ -41,9 +41,10 @@ public class AuthenticationHandler implements AuthenticationSuccessHandler {
             } else if (userEntityByLogin != null) {
                 newUser = new SessionUser(userEntityByLogin);
             }
-
-            newUser.setProducts(user.getProducts());
-            session.setAttribute("user", newUser);
+            if (newUser!=null) {
+                newUser.setProducts(user.getProducts());
+                session.setAttribute("user", newUser);
+            }
         }
         httpServletResponse.sendRedirect("/");
     }

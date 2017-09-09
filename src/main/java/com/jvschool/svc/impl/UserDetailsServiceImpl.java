@@ -20,7 +20,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private UserDAO userDAO;
 
     @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String s) {
         UserEntity user;
         UserEntity userEntityByEmail = userDAO.getUserByEmail(s);
         UserEntity userEntityByLogin = userDAO.getUserByLogin(s);

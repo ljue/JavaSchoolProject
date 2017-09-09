@@ -6,7 +6,6 @@ import com.jvschool.model.OrderEntity;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

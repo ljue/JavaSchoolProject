@@ -3,6 +3,7 @@ package com.jvschool.dto;
 import com.jvschool.model.PicturesEntity;
 import com.jvschool.model.ProductEntity;
 import com.jvschool.model.PropertyEntity;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
@@ -12,6 +13,7 @@ import java.util.*;
 
 @Getter
 @Setter
+@EqualsAndHashCode
 public class ProductAttribute  implements Serializable, Comparable {
 
     private long productId;

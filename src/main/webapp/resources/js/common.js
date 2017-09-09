@@ -198,18 +198,18 @@ $("#btn-show-edit-product-panel").click(function (e) {
     $('body,html').animate({scrollTop: top}, 400);
 })
 
-function addProductToCart(obj) {
-    var idProduct = obj.value;
-    $("#navbar-count-in-cart").text(Number($("#navbar-count-in-cart").text()) + 1);
-    $("#message-success-add-to-cart-pr").fadeIn(500);
-    setTimeout(function () {
-        $("#message-success-add-to-cart-pr").fadeOut(1000)
-    }, 2000);
-    $.ajax({
-        type: "POST",
-        url: "${pageContext.request.contextPath}/addToCart/" + idProduct
-    })
-}
+// function addProductToCart(obj) {
+//     var idProduct = obj.value;
+//     $("#navbar-count-in-cart").text(Number($("#navbar-count-in-cart").text()) + 1);
+//     $("#message-success-add-to-cart-pr").fadeIn(500);
+//     setTimeout(function () {
+//         $("#message-success-add-to-cart-pr").fadeOut(1000)
+//     }, 2000);
+//     $.ajax({
+//         type: "POST",
+//         url: "${pageContext.request.contextPath}/addToCart/" + idProduct
+//     })
+// }
 
 ///////////////////////////////    login     ///////////////////////
 
@@ -244,16 +244,16 @@ $("#send-forgot-password").click(function (e) {
 
 ///////////////////////////  catalogProducts     ////////////////////////////
 
-function addProductToCart(obj) {
-    var idProduct = obj.value;
-    $("#navbar-count-in-cart").text(Number($("#navbar-count-in-cart").text())+1);
-    $("#message-success-add-to-cart").fadeIn(500);
-    setTimeout(function(){$("#message-success-add-to-cart").fadeOut(1000)}, 2000);
-    $.ajax({
-        type: "POST",
-        url: "${pageContext.request.contextPath}/addToCart/" + idProduct
-    })
-}
+// function addProductToCart(obj) {
+//     var idProduct = obj.value;
+//     $("#navbar-count-in-cart").text(Number($("#navbar-count-in-cart").text())+1);
+//     $("#message-success-add-to-cart").fadeIn(500);
+//     setTimeout(function(){$("#message-success-add-to-cart").fadeOut(1000)}, 2000);
+//     $.ajax({
+//         type: "POST",
+//         url: "${pageContext.request.contextPath}/addToCart/" + idProduct
+//     })
+// }
 
 /////////////////////////////// catalog /////////////////////////////////
 
@@ -455,18 +455,18 @@ $(".change-count-product-in-bucketInto").change(function () {
 
 /////////////////////////////////////// profile ////////////////////////////
 
-function checkParams() {
-    var loginError = document.getElementById('loginEditExists').innerHTML;
-    var emailError = document.getElementById('emailEditExists').innerHTML;
-
-    if(loginError.length !== 0 || emailError.length !== 0) {
-        $('#edit-user-info-button').removeAttr('active');
-        $('#edit-user-info-button').attr('disabled', 'disabled');
-    } else {
-        $('#edit-user-info-button').removeAttr('disabled');
-        $('#edit-user-info-button').attr('active', 'active');
-    }
-}
+// function checkParams() {
+//     var loginError = document.getElementById('loginEditExists').innerHTML;
+//     var emailError = document.getElementById('emailEditExists').innerHTML;
+//
+//     if(loginError.length !== 0 || emailError.length !== 0) {
+//         $('#edit-user-info-button').removeAttr('active');
+//         $('#edit-user-info-button').attr('disabled', 'disabled');
+//     } else {
+//         $('#edit-user-info-button').removeAttr('disabled');
+//         $('#edit-user-info-button').attr('active', 'active');
+//     }
+// }
 
 function onBlurEmailEdit(obj) {
     var email = obj.value;

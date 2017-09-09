@@ -38,7 +38,6 @@ public class SessionUser implements Serializable {
     public SessionUser(UserEntity ue) {
         this.id = ue.getId();
         this.login = ue.getLogin();
-//        this.pass = ue.getPass();
         this.email = ue.getEmail();
         this.firstName = ue.getFirstName();
         this.secondName = ue.getSecondName();

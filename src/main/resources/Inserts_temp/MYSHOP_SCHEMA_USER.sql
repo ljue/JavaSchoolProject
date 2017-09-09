@@ -1,0 +1,5 @@
+INSERT INTO MYSHOP_SCHEMA.USER (LOGIN, PASSWORD, EMAIL, FIRST_NAME, LAST_NAME, BIRTHDAY, ROLE_ID) VALUES ('admin', 'admin', 'admin@mail.ru', 'Ludmila', 'Ermakova', '1993-10-07', 1);
+INSERT INTO MYSHOP_SCHEMA.USER (LOGIN, PASSWORD, EMAIL, FIRST_NAME, LAST_NAME, BIRTHDAY, ROLE_ID) VALUES ('manager', 'manager', 'lmerm@mail.ru', 'Manager', 'Manager', '1848-07-18', 2);
+INSERT INTO MYSHOP_SCHEMA.USER (LOGIN, PASSWORD, EMAIL, FIRST_NAME, LAST_NAME, BIRTHDAY, ROLE_ID) VALUES ('client', 'client', 'client@mail.ru', 'Client', 'Client', '2017-07-18', 3);
+INSERT INTO MYSHOP_SCHEMA.USER (LOGIN, PASSWORD, EMAIL, FIRST_NAME, LAST_NAME, BIRTHDAY, ROLE_ID) VALUES ('lmerm', 'password', 'lusinda_erm@mail.ru', 'Ludmila', 'Ermakova', '2000-06-01', 3);
+INSERT INTO MYSHOP_SCHEMA.USER (LOGIN, PASSWORD, EMAIL, FIRST_NAME, LAST_NAME, BIRTHDAY, ROLE_ID) VALUES ('Yekaterina', 'client', 'katya-voroncova@yandex.ru', 'Yekaterina', 'Vorontsova', '1993-10-25', 3);

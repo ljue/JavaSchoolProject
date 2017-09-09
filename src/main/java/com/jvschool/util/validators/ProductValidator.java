@@ -28,7 +28,7 @@ public class ProductValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "cost", REQUIRED, REQ_STR);
 
         try {
-            double d = Double.parseDouble(productAttribute.getCost());
+            double b = Double.parseDouble(productAttribute.getCost());
         } catch (NumberFormatException e) {
             errors.rejectValue("cost", "Format.productForm.cost", "Invalid format.");
         }
