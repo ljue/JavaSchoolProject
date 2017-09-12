@@ -8,21 +8,45 @@ import java.util.List;
 
 public interface UserService {
 
+
+    /**
+     * Gets list of all users {@link UserEntity}.
+     * @return
+     */
     List<UserEntity> getAllUsers() ;
+
+    /**
+     * Gets user {@link UserEntity} by id.
+     * @param id
+     * @return
+     */
     UserEntity getUserById(Long id) ;
+
+    /**
+     * Gets user {@link UserEntity} by login.
+     * @param login
+     * @return
+     */
     UserEntity getUserByLogin(String login);
+
+    /**
+     * Gets user {@link UserEntity} by email.
+     * @param email
+     * @return
+     */
     UserEntity getUserByEmail(String email);
 
 
     /**
-     * Gets list of dto top users
+     * Gets list of top users {@link UserEntity},
+     * converts it to list of user dto {@link SessionUser} and returns it.
      * @return
      */
     List<SessionUser> getTopUsers();
 
     /**
-     * Method gets user entity by login and password and transforms it to do.
-     * If such user does not exist, method returns null value.
+     * Gets user {@link UserEntity} by login and password and converts it to dto {@link SessionUser}
+     * If such user does not exist, returns null value.
      * @param login
      * @param password
      * @return
@@ -30,42 +54,44 @@ public interface UserService {
     SessionUser loginUser(String login, String password);
 
     /**
-     * Method creates user entity by user dto and save it in database.
+     * Creates user {@link UserEntity} by user dto {@link SessionUser},
+     * sets new role {@link com.jvschool.model.RoleEntity} with name 'ROLE_CLIENT'
+     * and saves it in database.
      * @param user
      */
     void addUser(SessionUser user);
 
     /**
-     * Method gets user entity by user dto and update its information in database.
+     * Gets user {@link UserEntity} by user dto {@link SessionUser} and updates its information in database.
      * @param user
      */
     void editUserInfo(SessionUser user);
 
     /**
-     * Method gets user entity by user dto and update its password in database.
+     * Gets user {@link UserEntity} by user dto {@link SessionUser} and updates its password in database.
      * @param user
      */
     void editUserPassword(SessionUser user);
 
     /**
-     * Method finds user by email and return his id or 0 if it does not exist.
+     * Finds user {@link UserEntity} by email and returns his id or 0 if it does not exist.
      * @param email
      * @return
      */
     long getUserIdByEmail(String email);
 
     /**
-     * Method finds user by login and return his id or 0 if it does not exist.
+     * Finds user {@link UserEntity} by login and returns his id or 0 if it does not exist.
      * @param login
      * @return
      */
     long getUserIdByLogin(String login);
 
     /**
-     * If user with such email exists in database,
+     * If user {@link UserEntity} with such email exists in database,
      * method sends personal info (login, password) to email
-     * and return true.
-     * Else return false.
+     * and returns true.
+     * Else returns false.
      * @param email
      * @return
      */

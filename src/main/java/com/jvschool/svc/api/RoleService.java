@@ -8,14 +8,14 @@ import org.springframework.stereotype.Service;
 public interface RoleService {
 
     /**
-     * Method returns role by role`s name
+     * Method returns role {@link RoleEntity} by role`s name
      * @param name
      * @return
      */
     RoleEntity getRoleByName(String name);
 
     /**
-     * Method saves new role in database by name
+     * Method saves new role {@link RoleEntity} in database by name
      * @param name
      */
     void addRole(String name);

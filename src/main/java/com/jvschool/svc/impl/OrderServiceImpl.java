@@ -44,6 +44,9 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private DeliveryStatusService deliveryStatusService;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void saveOrder(final OrderAttribute orderAttribute) {
         final OrderEntity orderEntity = new OrderEntity();
@@ -87,6 +90,9 @@ public class OrderServiceImpl implements OrderService {
         new Thread(r).start();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void editOrderDeliveryStatus(OrderAttribute orderAttribute) {
         OrderEntity orderEntity = orderDAO.getOrderById(orderAttribute.getOrderId());
@@ -94,6 +100,9 @@ public class OrderServiceImpl implements OrderService {
         orderDAO.saveOrder(orderEntity);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<OrderAttribute> getOrdersGroupByDeliveryStatus() {
 
@@ -107,11 +116,17 @@ public class OrderServiceImpl implements OrderService {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public OrderAttribute getOrderById(long id) {
         return new OrderAttribute(orderDAO.getOrderById(id));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<OrderAttribute> getOrdersByUserId(long id) {
         List<OrderAttribute> loa = new ArrayList<>();
@@ -120,11 +135,17 @@ public class OrderServiceImpl implements OrderService {
         return loa;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public double getWeekProceed() {
         return orderDAO.getWeekProceed();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public double getMonthProceed() {
         return orderDAO.getMonthProceed();

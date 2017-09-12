@@ -24,32 +24,53 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserDAO userDAO;
+
     @Autowired
     private OrderDAO orderDAO;
+
     @Autowired
     private RoleService roleService;
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<UserEntity> getAllUsers()  {
         return userDAO.getAllUsers();
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public UserEntity getUserById(Long id)  {
         return userDAO.getUserById(id);
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public UserEntity getUserByLogin(String login) {
         return userDAO.getUserByLogin(login);
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public UserEntity getUserByEmail(String email) {
         return userDAO.getUserByEmail(email);
     }
 
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<SessionUser> getTopUsers() {
 
@@ -73,6 +94,10 @@ public class UserServiceImpl implements UserService {
         return lsu;
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public SessionUser loginUser(String login, String password) {
         UserEntity ue = userDAO.loginUser(login,password);
@@ -82,6 +107,10 @@ public class UserServiceImpl implements UserService {
             return null;
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addUser(SessionUser user) {
 
@@ -106,6 +135,10 @@ public class UserServiceImpl implements UserService {
         userDAO.addUser(userEntity);
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void editUserInfo(SessionUser user) {
 
@@ -119,6 +152,10 @@ public class UserServiceImpl implements UserService {
         userDAO.editUserInfo(userEntity);
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void editUserPassword(SessionUser user) {
         UserEntity ue = userDAO.getUserById(user.getId());
@@ -126,16 +163,28 @@ public class UserServiceImpl implements UserService {
         userDAO.editUserPassword(ue);
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public long getUserIdByEmail(String email) {
         return userDAO.getUserIdByEmail(email);
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public long getUserIdByLogin(String login) {
         return userDAO.getUserIdByLogin(login);
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean sendLoginPasswordToEmail(String email) {
         UserEntity userEntity = userDAO.getUserByEmail(email);

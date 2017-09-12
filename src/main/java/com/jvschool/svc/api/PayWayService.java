@@ -7,13 +7,13 @@ import java.util.List;
 
 public interface PayWayService {
     /**
-     * Get list of names all pay ways
+     * Gets list of all pay ways {@link PayWayEntity} and returns list of their names.
      * @return
      */
     List<String> getAllPayWays();
 
     /**
-     * Get pay way entity by name
+     * Gets pay way {@link PayWayEntity} by name.
      * @param name
      * @return
      */

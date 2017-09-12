@@ -30,6 +30,9 @@ public class PayWayServiceImpl implements PayWayService {
         return ls;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public PayWayEntity getPayWayByName(String name) {
         return payWayDAO.getPayWayByName(name);

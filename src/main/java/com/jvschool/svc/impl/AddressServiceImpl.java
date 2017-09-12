@@ -18,14 +18,17 @@ public class AddressServiceImpl implements AddressService {
     @Autowired
     private AddressDAO addressDAO;
 
-
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public AddressEntity getAddressById(long id) {
         return addressDAO.getAddressById(id);
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<AddressAttribute> getAllAddressesByUserId(long id) {
         List<AddressAttribute> laa = new ArrayList<>();
@@ -34,6 +37,9 @@ public class AddressServiceImpl implements AddressService {
         return laa;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addNewAddress(final AddressAttribute addressAttribute) {
         final AddressEntity addressEntity = new AddressEntity();
@@ -46,6 +52,9 @@ public class AddressServiceImpl implements AddressService {
         addressDAO.addNewAddress(addressEntity);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removeAddress(long id) {
         addressDAO.removeAddress(id);

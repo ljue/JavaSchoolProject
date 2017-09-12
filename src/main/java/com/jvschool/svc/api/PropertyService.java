@@ -10,39 +10,45 @@ import java.util.Map;
 public interface PropertyService {
 
     /**
-     * Gets list of all visible properties and return list of their names.
+     * Gets list of all visible properties {@link PropertyEntity} and returns list of their names.
      * @return
      */
     List<String> getAllVisibleProperties();
 
     /**
-     * Get property entity by name
+     * Gets property {@link PropertyEntity} by name
      * @param name
      * @return
      */
     PropertyEntity getPropertyByName(String name);
 
     /**
-     * Get property entity by id
+     * Get property {@link PropertyEntity} by id
      * @param id
      * @return
      */
     PropertyEntity getPropertyById(int id);
 
     /**
-     * Get properties, among which product can has only one value in group, and break them up into groups
+     * Gets properties {@link PropertyEntity},
+     * among which product {@link com.jvschool.model.ProductEntity} can has only one value
+     * in group {@link com.jvschool.model.PropertyGroupEntity},
+     * and breaks them up into groups
      * @return map: key - name group of properties, value - list properties names into group
      */
     Map<String, List<String>> getSoloProperties();
 
     /**
-     * Get properties, among which product can has several values in group, and break them up into groups
+     * Gets properties {@link PropertyEntity},
+     * among which product {@link com.jvschool.model.ProductEntity}  can has several values
+     * in group {@link com.jvschool.model.PropertyGroupEntity},
+     * and breaks them up into groups
      * @return map: key - name group of properties, value - list properties names into group
      */
     Map<String, List<String>> getNotSoloProperties();
 
     /**
-     * Get all properties and break up into groups
+     * Gets all properties {@link PropertyEntity} and break up into groups
      * @return map: key - name group of properties, value - list properties names into group
      */
     Map<String, List<String>> getProperties();

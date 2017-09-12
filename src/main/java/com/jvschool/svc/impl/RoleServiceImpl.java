@@ -16,12 +16,18 @@ public class RoleServiceImpl implements RoleService {
     private RoleDAO roleDAO;
 
 
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public RoleEntity getRoleByName(String name) {
         return roleDAO.getRoleByName(name);
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addRole(final String name) {
         final RoleEntity role = new RoleEntity();

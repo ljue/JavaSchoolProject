@@ -7,13 +7,13 @@ import java.util.List;
 public interface DeliveryWayService {
 
     /**
-     * Get list of all delivery ways and return list of their names.
+     * Gets list of all delivery ways {@link DeliveryWayEntity} and returns list of their names.
      * @return
      */
     List<String> getAllDeliveryWays();
 
     /**
-     * Get delivery way entity by name.
+     * Gets delivery way {@link DeliveryWayEntity} by name.
      * @param name
      * @return
      */

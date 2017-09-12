@@ -10,7 +10,8 @@ import java.util.List;
 public interface OrderService {
 
     /**
-     * Convert order dto to order entity and save it in database.
+     * Converts order dto {@link OrderAttribute} to order entity {@link com.jvschool.model.OrderEntity}
+     * and saves it in database.
      * @param orderAttribute
      */
     void saveOrder(OrderAttribute orderAttribute);

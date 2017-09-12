@@ -9,38 +9,39 @@ import java.util.List;
 public interface CategoryService {
 
     /**
-     * Get list of all product categories and return list of their names.
-     * @return
+     * Gets list of all visible product categories {@link CategoryEntity} and return list of their names.
+     * @return list of names visible categories
      */
     List<String> getAllProductCategoryNames();
 
     /**
-     * Get product category entity by name.
+     * Calls {@link com.jvschool.dao.api.CategoryDAO#getProductCategoryByName(String)}
      * @param name
      * @return
      */
     CategoryEntity getProductCategoryByName(String name);
 
     /**
-     * Create new product category entity with such name and save it in database.
+     * Calls {@link com.jvschool.dao.api.CategoryDAO#addProductCategory(String)}
      * @param name
      */
     void addProductCategory(String name);
 
     /**
-     * Convert product category dto to product category entity and merge it in database.
+     * Convert product category dto {@link CategoryAttribute} to product category entity and
+     * calls {@link com.jvschool.dao.api.CategoryDAO#editCategory(CategoryEntity)}.
      * @param categoryAttribute
      */
     void editCategory(CategoryAttribute categoryAttribute);
 
     /**
-     * Make category and all products in it unvisible.
+     * Make category and all products in it invisible.
      * @param category
      */
     void removeCategory(String category);
 
     /**
-     * Gets all unvisible categories and return list of their names.
+     * Gets all invisible categories and return list of their names.
      * @return
      */
     List<String> getRemovedCategories();
@@ -51,5 +52,5 @@ public interface CategoryService {
      */
     void returnCategory(String category);
 
-    List<String> getCategoriesWithoutSomeCategory(String name);
+
 }

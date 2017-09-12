@@ -20,31 +20,47 @@ public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private ProductDAO productDAO;
+
     @Autowired
     private BucketDAO bucketDAO;
+
     @Autowired
     private CategoryService categoryService;
+
     @Autowired
     private PropertyService propertyService;
 
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ProductAttribute getProductAttributeById(long id) {
         return new ProductAttribute(productDAO.getProductById(id));
     }
 
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ProductEntity getProductById(long id) {
         return productDAO.getProductById(id);
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public long getPictureIdByPicName(String name) {
         return productDAO.getPictureIdByPicName(name);
     }
 
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<ProductAttribute> getAllProducts() {
 
@@ -55,6 +71,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<ProductAttribute> getProductsByCategory(String category) {
 
@@ -68,6 +87,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<ProductAttribute> getTopProducts() {
 
@@ -85,6 +107,10 @@ public class ProductServiceImpl implements ProductService {
         return lpa;
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<ProductAttribute> getProductsWithFilter(FilterAttribute filterAttribute) {
 
@@ -95,6 +121,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addProduct(ProductAttribute productAttribute) {
 
@@ -133,11 +162,19 @@ public class ProductServiceImpl implements ProductService {
         productDAO.addProduct(productEntity);
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public long getCountProducts() {
         return productDAO.getCountProducts();
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<ProductAttribute> getProductsFromTo(int page, int count) {
         List<ProductAttribute> lpa = new ArrayList<>();
@@ -146,6 +183,10 @@ public class ProductServiceImpl implements ProductService {
         return lpa;
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Map<Integer, List<ProductAttribute>>  getProductsByFilterFromTo(int page, int count, FilterAttribute filterAttribute) {
 
@@ -163,6 +204,10 @@ public class ProductServiceImpl implements ProductService {
 
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<ProductAttribute> getTopProductsForOneProduct(long productId) {
 
@@ -189,6 +234,10 @@ public class ProductServiceImpl implements ProductService {
         return lpa;
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void editProductInfo(ProductAttribute productAttribute) {
         ProductEntity productEntity = new ProductEntity();
@@ -199,16 +248,28 @@ public class ProductServiceImpl implements ProductService {
         productDAO.editProductInfo(productEntity);
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removeProductById(long id) {
         productDAO.removeProductById(id);
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void returnProductById(long id) {
         productDAO.returnProductById(id);
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean setMinusCountProducts(Map<Long, Integer> map) {
         return productDAO.setMinusCountProducts(map);

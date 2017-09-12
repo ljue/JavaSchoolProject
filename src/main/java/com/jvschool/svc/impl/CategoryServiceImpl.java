@@ -19,6 +19,9 @@ public class CategoryServiceImpl implements CategoryService {
     private CategoryDAO categoryDAO;
 
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<String> getAllProductCategoryNames() {
         List<String> categoryNames = new ArrayList<>();
@@ -27,16 +30,25 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryNames;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public CategoryEntity getProductCategoryByName(String name) {
         return categoryDAO.getProductCategoryByName(name);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addProductCategory(String name) {
         categoryDAO.addProductCategory(name);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void editCategory(CategoryAttribute categoryAttribute) {
         CategoryEntity categoryEntity = categoryDAO.getProductCategoryByName(categoryAttribute.getCategoryName());
@@ -47,11 +59,17 @@ public class CategoryServiceImpl implements CategoryService {
         categoryDAO.editCategory(categoryEntity);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removeCategory(String category) {
         categoryDAO.removeCategory(categoryDAO.getProductCategoryByName(category));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<String> getRemovedCategories() {
         List<String> categoryNames = new ArrayList<>();
@@ -60,19 +78,13 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryNames;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void returnCategory(String category) {
         categoryDAO.returnCategory(categoryDAO.getProductCategoryByName(category));
     }
 
-    @Override
-    public List<String> getCategoriesWithoutSomeCategory(String name) {
-
-        List<String> categoryNames = new ArrayList<>();
-        categoryDAO.getAllProductCategories().stream()
-                .filter(categoryEntity -> !categoryEntity.getCategoryName().equals(name))
-                .forEachOrdered(categoryEntity -> categoryNames.add(categoryEntity.getCategoryName()));
-        return categoryNames;
-    }
 
 }

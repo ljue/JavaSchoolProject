@@ -8,20 +8,20 @@ import java.util.List;
 public interface DeliveryStatusService {
 
     /**
-     * Get list of delivery sttus model and return list of their names.
+     * Gets list of delivery status {@link DeliveryStatusEntity} and return list of their names.
      * @return
      */
     List<String> getAllDeliveryStatuses();
 
     /**
-     * Get delivery status entity by name.
+     * Gets delivery status {@link DeliveryStatusEntity} by name.
      * @param name
      * @return
      */
     DeliveryStatusEntity getDeliveryStatusByName(String name);
 
     /**
-     * Create new delivery status by name and save it in database.
+     * Creates new delivery status {@link DeliveryStatusEntity} by name and saves it in database.
      * @param name
      */
     void addDeliveryStatus(String name);

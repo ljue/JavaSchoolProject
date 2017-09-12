@@ -10,27 +10,27 @@ public interface AddressService {
 
 
     /**
-     * Get address entity by id.
+     * Gets {@link AddressEntity} by id.
      * @param id
-     * @return
+     * @return address
      */
     AddressEntity getAddressById(long id);
 
     /**
-     * Get all address model by user id and convert it to list of address dto.
-     * @param id
-     * @return
+     * Gets visible users {@link AddressEntity} by user id and convert it to list of {@link AddressAttribute}.
+     * @param id user id
+     * @return list of address dto
      */
     List<AddressAttribute> getAllAddressesByUserId(long id);
 
     /**
-     * Convert address dto to address entity and save it in database.
-     * @param addressAttribute
+     * Converts {@link AddressAttribute} to {@link AddressEntity} and save it in database.
+     * @param addressAttribute address dto
      */
     void addNewAddress(AddressAttribute addressAttribute);
 
     /**
-     * Set 'false' to field 'visible' in address entity where addressId = id.
+     * Calls {@link com.jvschool.dao.impl.AddressDAOImpl#removeAddress(long)}
      * @param id
      */
     void removeAddress(long id);

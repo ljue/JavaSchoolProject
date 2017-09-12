@@ -18,6 +18,9 @@ public class DeliveryStatusServiceImpl implements DeliveryStatusService {
     @Autowired
     private DeliveryStatusDAO deliveryStatusDAO;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<String> getAllDeliveryStatuses() {
         List<String> ls = new ArrayList<>();
@@ -26,11 +29,17 @@ public class DeliveryStatusServiceImpl implements DeliveryStatusService {
         return ls;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public DeliveryStatusEntity getDeliveryStatusByName(String name) {
         return deliveryStatusDAO.getDeliveryStatusByName(name);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addDeliveryStatus(String name) {
         deliveryStatusDAO.addDeliveryStatus(name);

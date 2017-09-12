@@ -19,11 +19,19 @@ public class PropertyGroupServiceImpl implements PropertyGroupService {
     @Autowired
     private PropertyGroupDAOImpl propertyGroupDAO;
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<PropertyGroupEntity> getAllPropertyGroups() {
         return propertyGroupDAO.getAllPropertyGroups();
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<String> getNamesAllPropertyGroups() {
         List<String> propertyGroupNames = new ArrayList<>();
@@ -32,16 +40,28 @@ public class PropertyGroupServiceImpl implements PropertyGroupService {
         return propertyGroupNames;
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public PropertyGroupEntity getPropertyGroupById(int id) {
         return propertyGroupDAO.getPropertyGroupById(id);
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public PropertyGroupEntity getPropertyGroupByName(String name) {
         return propertyGroupDAO.getPropertyGroupByName(name);
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addPropertyGroup(EditForm editForm) {
         PropertyGroupEntity propertyGroupEntity = new PropertyGroupEntity();
@@ -52,6 +72,10 @@ public class PropertyGroupServiceImpl implements PropertyGroupService {
         propertyGroupDAO.addPropertyGroup(propertyGroupEntity);
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void editPropertyGroup(EditForm editForm) {
         PropertyGroupEntity groupEntity = propertyGroupDAO.getPropertyGroupByName(editForm.getCurrent());
@@ -59,11 +83,19 @@ public class PropertyGroupServiceImpl implements PropertyGroupService {
         propertyGroupDAO.editPropertyGroup(groupEntity);
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removePropertyGroup(String name) {
         propertyGroupDAO.removePropertyGroup(name);
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<String> getRemovedPropertyGroups() {
         List<String> propertyGroupNames = new ArrayList<>();
@@ -72,6 +104,10 @@ public class PropertyGroupServiceImpl implements PropertyGroupService {
         return propertyGroupNames;
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void returnPropertyGroup(String name) {
         propertyGroupDAO.returnPropertyGroup(name);

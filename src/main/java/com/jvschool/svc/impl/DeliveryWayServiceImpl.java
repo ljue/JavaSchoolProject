@@ -18,6 +18,9 @@ public class DeliveryWayServiceImpl implements DeliveryWayService {
     @Autowired
     private DeliveryWayDAO deliveryWayDAO;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<String> getAllDeliveryWays() {
         List<String> ls = new ArrayList<>();
@@ -26,6 +29,9 @@ public class DeliveryWayServiceImpl implements DeliveryWayService {
         return ls;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public DeliveryWayEntity getDeliveryWayByName(String name) {
         return deliveryWayDAO.getDeliveryWayByName(name);

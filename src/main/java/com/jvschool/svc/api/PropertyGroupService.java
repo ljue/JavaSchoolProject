@@ -10,19 +10,20 @@ import java.util.List;
 public interface PropertyGroupService {
 
     /**
-     * Get list of property groups model
+     * Gets list of visible property groups {@link PropertyGroupEntity}.
      * @return
      */
     List<PropertyGroupEntity> getAllPropertyGroups();
 
     /**
-     * Get list of names of property groups model
+     * Gets list of visible property groups {@link PropertyGroupEntity}
+     *  and returns list of their names.
      * @return
      */
     List<String> getNamesAllPropertyGroups();
 
     /**
-     * Get property group entity by id
+     * Gets property group {@link PropertyGroupEntity} by id
      * @param id
      * @return
      */
@@ -58,7 +59,7 @@ public interface PropertyGroupService {
 
     /**
      * Gets list of {@link PropertyGroupEntity} where {@link PropertyGroupEntity#visible}
-     * is false. And transform it to list of String names.
+     * is false. And converts it to list of String names.
      * @return
      */
     List<String> getRemovedPropertyGroups();

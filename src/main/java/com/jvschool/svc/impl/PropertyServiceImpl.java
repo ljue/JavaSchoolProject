@@ -21,9 +21,13 @@ public class PropertyServiceImpl implements PropertyService {
 
     @Autowired
     private PropertyDAO propertyDAO;
+
     @Autowired
     private PropertyGroupDAO propertyGroupDAO;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<String> getAllVisibleProperties() {
         List<String> propertyNames = new ArrayList<>();
@@ -35,16 +39,28 @@ public class PropertyServiceImpl implements PropertyService {
         return propertyNames;
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public PropertyEntity getPropertyByName(String name) {
         return propertyDAO.getPropertyByName(name);
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public PropertyEntity getPropertyById(int id) {
         return propertyDAO.getPropertyById(id);
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Map<String, List<String>> getSoloProperties() {
         Map<String, List<String>> properties = new HashMap<>();
@@ -58,6 +74,10 @@ public class PropertyServiceImpl implements PropertyService {
         return properties;
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Map<String, List<String>> getNotSoloProperties() {
         Map<String, List<String>> properties = new HashMap<>();
@@ -71,6 +91,10 @@ public class PropertyServiceImpl implements PropertyService {
         return properties;
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Map<String, List<String>> getProperties() {
         Map<String, List<String>> properties = new HashMap<>();
@@ -82,6 +106,10 @@ public class PropertyServiceImpl implements PropertyService {
         return properties;
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addProperty(EditForm form) {
         PropertyEntity property = new PropertyEntity();
@@ -91,6 +119,10 @@ public class PropertyServiceImpl implements PropertyService {
         propertyDAO.addProperty(property);
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void editProperty(EditForm editForm) {
         PropertyEntity property = propertyDAO.getPropertyByName(editForm.getCurrent());
@@ -98,11 +130,19 @@ public class PropertyServiceImpl implements PropertyService {
         propertyDAO.editProperty(property);
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removeProperty(String name) {
         propertyDAO.removeProperty(name);
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<String> getRemovedProperties() {
         List<String> propertyNames = new ArrayList<>();
@@ -111,6 +151,10 @@ public class PropertyServiceImpl implements PropertyService {
         return propertyNames;
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void returnProperty(String name) {
         propertyDAO.returnProperty(name);
