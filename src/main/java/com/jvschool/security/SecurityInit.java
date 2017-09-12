@@ -1,4 +1,4 @@
-package com.jvschool.config;
+package com.jvschool.security;
 
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 

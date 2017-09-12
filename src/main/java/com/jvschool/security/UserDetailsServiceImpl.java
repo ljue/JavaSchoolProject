@@ -1,4 +1,4 @@
-package com.jvschool.svc.impl;
+package com.jvschool.security;
 
 import com.jvschool.dao.api.UserDAO;
 import com.jvschool.model.UserEntity;

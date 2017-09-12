@@ -28,7 +28,8 @@ public class AuthenticationHandler implements AuthenticationSuccessHandler {
         HttpSession session = httpServletRequest.getSession();
         SessionUser user = (SessionUser) session.getAttribute("user");
         if (user == null) {
-            session.setAttribute("user", new SessionUser());
+            user = new SessionUser();
+            session.setAttribute("user", user);
         }
 
         String loginName = authentication.getName();
@@ -50,7 +51,7 @@ public class AuthenticationHandler implements AuthenticationSuccessHandler {
             }
         }
 
-        if (session != null) {
+
             String redirectUrl = (String) session.getAttribute("url_prior_login");
             if (redirectUrl != null) {
                 session.removeAttribute("url_prior_login");
@@ -58,8 +59,6 @@ public class AuthenticationHandler implements AuthenticationSuccessHandler {
             } else {
                 httpServletResponse.sendRedirect("/");
             }
-        } else {
-            httpServletResponse.sendRedirect("/");
-        }
+
     }
 }

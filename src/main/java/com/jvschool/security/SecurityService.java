@@ -1,6 +1,5 @@
-package com.jvschool.svc.impl;
+package com.jvschool.security;
 
-import com.jvschool.svc.api.SecurityService;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -12,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 @Log4j
 @Service
-public class SecurityServiceImpl implements SecurityService {
+public class SecurityService {
 
 
     @Autowired
@@ -22,7 +21,6 @@ public class SecurityServiceImpl implements SecurityService {
     private UserDetailsService userDetailsService;
 
 
-    @Override
     public void autoLogin(String login, String password) {
         UserDetails userDetails = userDetailsService.loadUserByUsername(login);
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
