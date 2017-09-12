@@ -14,6 +14,7 @@ import javax.persistence.LockModeType;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -141,13 +142,16 @@ public class ProductDAOImpl implements ProductDAO {
     @Override
     public List<ProductEntity> getProductsWithFilter(FilterAttribute filterAttribute) {
 
-        List<PropertyEntity> propertySoloEntityList = new ArrayList<>();
         List<PropertyEntity> propertyNotSoloEntityList = new ArrayList<>();
+        Map<PropertyGroupEntity, List<PropertyEntity>> soloPropertyMap = new HashMap<>();
 
         for (String property : filterAttribute.getProperties()) {
             PropertyEntity propertyEntity = propertyDAO.getPropertyByName(property);
             if (propertyEntity.getPropertyGroup().isSolo()) {
-                propertySoloEntityList.add(propertyEntity);
+                if (!soloPropertyMap.containsKey(propertyEntity.getPropertyGroup())) {
+                    soloPropertyMap.put(propertyEntity.getPropertyGroup(), new ArrayList<>());
+                }
+                soloPropertyMap.get(propertyEntity.getPropertyGroup()).add(propertyEntity);
             } else {
                 propertyNotSoloEntityList.add(propertyEntity);
             }
@@ -157,53 +161,36 @@ public class ProductDAOImpl implements ProductDAO {
         CriteriaQuery criteriaQuery = criteriaBuilder.createQuery();
         Root product = criteriaQuery.from(ProductEntity.class);
 
-        Predicate propertiesNotSolo = criteriaBuilder.conjunction();
+        Predicate properties = criteriaBuilder.conjunction();
         for (PropertyEntity propertyEntity : propertyNotSoloEntityList) {
-            propertiesNotSolo = criteriaBuilder.and(propertiesNotSolo, criteriaBuilder.
+            properties = criteriaBuilder.and(properties, criteriaBuilder.
                     equal(product.join("properties"), propertyEntity));
+        }
+        for (Map.Entry<PropertyGroupEntity, List<PropertyEntity>> group : soloPropertyMap.entrySet()) {
+            properties = criteriaBuilder.and(properties, product.join("properties").in(group.getValue()));
         }
 
         criteriaQuery.multiselect(product).distinct(true);
 
-        if(propertySoloEntityList.isEmpty()) {
-            if (filterAttribute.getCategory() == null) {
-                criteriaQuery.where(criteriaBuilder.and(
-                        propertiesNotSolo,
-                        criteriaBuilder.equal(product.get("visible"), filterAttribute.isVisible()),
-                        criteriaBuilder.equal(product.get("category").get("visible"), true),
-                        criteriaBuilder.between(product.get("cost"), filterAttribute.getCostFROM(), filterAttribute.getCostTO()),
-                        criteriaBuilder.between(product.get("flyTime"), filterAttribute.getFlyTimeFROM(), filterAttribute.getFlyTimeTO()),
-                        criteriaBuilder.between(product.get("distance"), filterAttribute.getDistanceFROM(), filterAttribute.getDistanceTO())));
-            } else {
-                criteriaQuery.where(criteriaBuilder.and(
-                        propertiesNotSolo,
-                        criteriaBuilder.equal(product.get("visible"), filterAttribute.isVisible()),
-                        criteriaBuilder.between(product.get("cost"), filterAttribute.getCostFROM(), filterAttribute.getCostTO()),
-                        criteriaBuilder.between(product.get("flyTime"), filterAttribute.getFlyTimeFROM(), filterAttribute.getFlyTimeTO()),
-                        criteriaBuilder.between(product.get("distance"), filterAttribute.getDistanceFROM(), filterAttribute.getDistanceTO()),
-                        criteriaBuilder.equal(product.get("category"), categoryDAO.getProductCategoryByName(filterAttribute.getCategory()))));
-            }
+        if (filterAttribute.getCategory() == null) {
+            criteriaQuery.where(criteriaBuilder.and(
+                    properties,
+                    criteriaBuilder.equal(product.get("visible"), filterAttribute.isVisible()),
+                    criteriaBuilder.equal(product.get("category").get("visible"), true),
+                    criteriaBuilder.between(product.get("cost"), filterAttribute.getCostFROM(), filterAttribute.getCostTO()),
+                    criteriaBuilder.between(product.get("flyTime"), filterAttribute.getFlyTimeFROM(), filterAttribute.getFlyTimeTO()),
+                    criteriaBuilder.between(product.get("distance"), filterAttribute.getDistanceFROM(), filterAttribute.getDistanceTO())));
         } else {
-            if (filterAttribute.getCategory() == null) {
-                criteriaQuery.where(criteriaBuilder.and(
-                        propertiesNotSolo,
-                        product.join("properties").in(propertySoloEntityList),
-                        criteriaBuilder.equal(product.get("visible"), filterAttribute.isVisible()),
-                        criteriaBuilder.equal(product.get("category").get("visible"), true),
-                        criteriaBuilder.between(product.get("cost"), filterAttribute.getCostFROM(), filterAttribute.getCostTO()),
-                        criteriaBuilder.between(product.get("flyTime"), filterAttribute.getFlyTimeFROM(), filterAttribute.getFlyTimeTO()),
-                        criteriaBuilder.between(product.get("distance"), filterAttribute.getDistanceFROM(), filterAttribute.getDistanceTO())));
-            } else {
-                criteriaQuery.where(criteriaBuilder.and(
-                        propertiesNotSolo,
-                        product.join("properties").in(propertySoloEntityList),
-                        criteriaBuilder.equal(product.get("visible"), filterAttribute.isVisible()),
-                        criteriaBuilder.between(product.get("cost"), filterAttribute.getCostFROM(), filterAttribute.getCostTO()),
-                        criteriaBuilder.between(product.get("flyTime"), filterAttribute.getFlyTimeFROM(), filterAttribute.getFlyTimeTO()),
-                        criteriaBuilder.between(product.get("distance"), filterAttribute.getDistanceFROM(), filterAttribute.getDistanceTO()),
-                        criteriaBuilder.equal(product.get("category"), categoryDAO.getProductCategoryByName(filterAttribute.getCategory()))));
-            }
+            criteriaQuery.where(criteriaBuilder.and(
+                    properties,
+                    criteriaBuilder.equal(product.get("visible"), filterAttribute.isVisible()),
+                    criteriaBuilder.between(product.get("cost"), filterAttribute.getCostFROM(), filterAttribute.getCostTO()),
+                    criteriaBuilder.between(product.get("flyTime"), filterAttribute.getFlyTimeFROM(), filterAttribute.getFlyTimeTO()),
+                    criteriaBuilder.between(product.get("distance"), filterAttribute.getDistanceFROM(), filterAttribute.getDistanceTO()),
+                    criteriaBuilder.equal(product.get("category"), categoryDAO.getProductCategoryByName(filterAttribute.getCategory()))));
         }
+
+        criteriaQuery.orderBy(criteriaBuilder.desc(product.get("productId")));
         return em.createQuery(criteriaQuery).getResultList();
     }
 

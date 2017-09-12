@@ -51,33 +51,33 @@
                     <label>Cost:</label>
                     <div class="form-group">
                         <div class="col-lg-5">
-                            <form:input path="costFROM" class="form-control" pattern="[0-9]{1,4}[/.]{0,1}[0-9]{0,2}"></form:input>
+                            <form:input path="costFROM" class="form-control"  type="number" step="any"></form:input>
                         </div>
                         <label class="col-lg-1">-</label>
                         <div class="col-lg-5">
-                            <form:input path="costTO" class="form-control"></form:input>
+                            <form:input path="costTO" class="form-control"  type="number" step="any"></form:input>
                         </div>
                     </div>
 
                     <label>Fly time:</label>
                     <div class="form-group">
                         <div class="col-lg-5">
-                            <form:input path="flyTimeFROM" class="form-control"></form:input>
+                            <form:input path="flyTimeFROM" class="form-control"  type="number"></form:input>
                         </div>
                         <label class="col-lg-1">-</label>
                         <div class="col-lg-5">
-                            <form:input path="flyTimeTO" class="form-control"></form:input>
+                            <form:input path="flyTimeTO" class="form-control" type="number"></form:input>
                         </div>
                     </div>
 
                     <label>Distance:</label>
                     <div class="form-group">
                         <div class="col-lg-5">
-                            <form:input path="distanceFROM" class="form-control"></form:input>
+                            <form:input path="distanceFROM" class="form-control"  type="number"></form:input>
                         </div>
                         <label class="col-lg-1">-</label>
                         <div class="col-lg-5">
-                            <form:input path="distanceTO" class="form-control"></form:input>
+                            <form:input path="distanceTO" class="form-control"  type="number"></form:input>
                         </div>
                     </div>
 

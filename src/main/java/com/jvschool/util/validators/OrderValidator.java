@@ -9,9 +9,10 @@ import org.springframework.validation.Validator;
 
 @Log4j
 @Component
-public class OrderValidator  implements Validator {
+public class OrderValidator implements Validator {
 
     private static final String REQ = "This field is required.";
+
     @Override
     public boolean supports(Class<?> aClass) {
         return OrderAttribute.class.equals(aClass);
@@ -22,7 +23,7 @@ public class OrderValidator  implements Validator {
 
         OrderAttribute order = (OrderAttribute) o;
 
-        if ( order.getPayWay() == null) {
+        if (order.getPayWay() == null) {
             try {
                 errors.rejectValue("payWay", "Required.orderForm.payWay", REQ);
             } catch (Exception e) {
@@ -30,11 +31,11 @@ public class OrderValidator  implements Validator {
             }
         }
 
-        if ( order.getDeliveryWay() == null) {
+        if (order.getDeliveryWay() == null) {
             errors.rejectValue("deliveryWay", "Required.orderForm.deliveryWay", REQ);
         }
 
-        if ( order.getAddressId() == null) {
+        if (order.getAddressId() == null) {
             errors.rejectValue("addressId", "Required.orderForm.addressId", REQ);
         }
 

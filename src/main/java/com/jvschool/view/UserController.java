@@ -8,13 +8,18 @@ import com.jvschool.dto.BucketAttribute;
 import com.jvschool.dto.OrderAttribute;
 import com.jvschool.dto.ProductAttribute;
 import com.jvschool.dto.SessionUser;
+import com.jvschool.util.validators.EditPassValidator;
+import com.jvschool.util.validators.EditUserInfoValidator;
 import com.jvschool.util.validators.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -29,7 +34,10 @@ public class UserController {
     private UserService userService;
 
     @Autowired
-    private UserValidator userValidator;
+    private EditUserInfoValidator editUserInfoValidator;
+
+    @Autowired
+    private EditPassValidator editPassValidator;
 
     @Autowired
     private OrderService orderService;
@@ -45,25 +53,31 @@ public class UserController {
 
     @GetMapping(value = "/")
     public String editUser(@ModelAttribute("user") SessionUser sessionUser,Model model) {
-        model.addAttribute("userForm", sessionUser);
+        SessionUser user = new SessionUser(userService.getUserById(sessionUser.getId()));
+        model.addAttribute("user", user);
+        model.addAttribute("userForm", user);
         return "user/profile";
     }
 
     @PostMapping(value = "/editInfo")
-    public String editUser(@ModelAttribute("userForm") SessionUser userForm, @ModelAttribute("user") SessionUser user,
+    public String editUser(@ModelAttribute("userForm") SessionUser userForm,
+                           HttpServletRequest request,
                            BindingResult bindingResult, Model model) {
 
-        userValidator.validate(userForm, bindingResult);
+
+        editUserInfoValidator.validate(userForm, bindingResult);
         if (bindingResult.hasErrors()) {
-            model.addAttribute("userForm", userForm);
+//            model.addAttribute("user", user);
             return "user/profile";
         }
+
+        SessionUser user = (SessionUser) request.getSession().getAttribute("user");
         userForm.setId(user.getId());
         userService.editUserInfo(userForm);
         userForm.setProducts(user.getProducts());
         userForm.setRole(user.getRole());
         model.addAttribute("user",userForm);
-        return "redirect:/profile/profile";
+        return "redirect:/profile/";
     }
 
     @PostMapping(value = "/editInfo/findEmail/")
@@ -87,16 +101,17 @@ public class UserController {
     }
 
     @PostMapping(value = "/editPass")
-    public String editPass(@ModelAttribute("userForm") SessionUser userForm, @ModelAttribute("user") SessionUser user,
+    public String editPass(@ModelAttribute("userForm") SessionUser userForm, HttpServletRequest request,
                            BindingResult bindingResult, Model model) {
-        userForm.setId(user.getId());
-        userValidator.validate(userForm, bindingResult);
+
+        SessionUser user = (SessionUser) request.getSession().getAttribute("user");
+        editPassValidator.validate(userForm, bindingResult);
         if (bindingResult.hasErrors()) {
             return "user/profile";
         }
+
+        userForm.setId(user.getId());
         userService.editUserPassword(userForm);
-        userForm.setProducts(user.getProducts());
-        model.addAttribute("user",userForm);
         return "redirect:/profile/";
     }
 

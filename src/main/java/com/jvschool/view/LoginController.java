@@ -1,6 +1,6 @@
 package com.jvschool.view;
 
-import com.jvschool.svc.api.SecurityService;
+import com.jvschool.security.SecurityService;
 import com.jvschool.svc.api.UserService;
 import com.jvschool.dto.SessionUser;
 import com.jvschool.util.validators.UserValidator;
@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @SessionAttributes("user")
@@ -30,32 +32,41 @@ public class LoginController {
     }
 
     @GetMapping(value = "/login")
-    public String start(Model model, String error) {
+    public String start(Model model, String error, HttpServletRequest request) {
         if (error != null)
             model.addAttribute("error", "Username or password is incorrect.");
+        else {
+            String referrer = request.getHeader("Referer");
+            request.getSession().setAttribute("url_prior_login", referrer);
+        }
         return "login";
     }
 
-
-    @PostMapping(value = "/login")
-    public String login(@ModelAttribute("user") SessionUser user, Model model) {
-        SessionUser su = userService.loginUser(user.getLogin(),user.getPass());
-        if (su!=null) {
-            su.setProducts(user.getProducts());
-            model.addAttribute("user", su);
-            return "redirect:/home";
-        }
-        else {
-            model.addAttribute("error", "Username or password is incorrect.");
-            return "login";
-        }
+    @GetMapping(value = "/403")
+    public String accessDenied() {
+        return "error/accessDenied";
     }
 
-    @GetMapping(value = "/logout")
-    public String logout(@ModelAttribute("user") SessionUser user, Model model) {
-        model.addAttribute("user",new SessionUser());
-        return "redirect:/login";
-    }
+//
+//    @PostMapping(value = "/login")
+//    public String login(@ModelAttribute("user") SessionUser user, Model model) {
+//        SessionUser su = userService.loginUser(user.getLogin(),user.getPass());
+//        if (su!=null) {
+//            su.setProducts(user.getProducts());
+//            model.addAttribute("user", su);
+//            return "redirect:/home";
+//        }
+//        else {
+//            model.addAttribute("error", "Username or password is incorrect.");
+//            return "login";
+//        }
+//    }
+
+//    @GetMapping(value = "/logout")
+//    public String logout(@ModelAttribute("user") SessionUser user, Model model) {
+//        model.addAttribute("user",new SessionUser());
+//        return "redirect:/login";
+//    }
 
     @PostMapping(value = "/sendPassword")
     public @ResponseBody boolean sendForgotPassword(@RequestParam("sendEmail") String email) {
@@ -79,7 +90,9 @@ public class LoginController {
 
         userService.addUser(userForm);
         userForm.setId(userService.getUserIdByEmail(user.getEmail()));
+
         securityService.autoLogin(userForm.getLogin(),userForm.getConfirmPassword());
+
         userForm.setPass("");
         userForm.setConfirmPassword("");
         userForm.setProducts(user.getProducts());
@@ -106,9 +119,6 @@ public class LoginController {
             return "";
     }
 
-    @GetMapping(value = "/403")
-    public String accessDenied() {
-        return "error/accessDenied";
-    }
+
 
 }

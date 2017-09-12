@@ -7,6 +7,7 @@ import com.jvschool.util.dto.ProductDTO;
 import com.jvschool.util.dto.ProductsDTO;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -44,6 +45,7 @@ public class ReportRestController {
     }
 
 
+    @CrossOrigin
     @RequestMapping( value = "/advertisement/top/angular", produces = APPLICATION_JSON_VALUE, method = RequestMethod.GET)
     public List<ProductDTO> topInfoAngular() {
 

@@ -102,7 +102,7 @@ public class ProductServiceImpl implements ProductService {
 
         productEntity.setProductName(productAttribute.getProductName());
         productEntity.setCost(Double.parseDouble(productAttribute.getCost()));
-        productEntity.setCost(productAttribute.getCount());
+        productEntity.setCount(productAttribute.getCount());
         productEntity.setBattery(productAttribute.getBattery());
         productEntity.setDistance(productAttribute.getDistance());
         productEntity.setFlyTime(productAttribute.getFlyTime());

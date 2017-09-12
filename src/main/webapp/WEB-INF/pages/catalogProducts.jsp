@@ -12,7 +12,7 @@
                             <img src="${pageContext.request.contextPath}/resources/Images/default-copter.png" alt="...">
                         </c:if>
                         <c:if test="${product.presentPic ne ''}">
-                    <img src="${pageContext.request.contextPath}/resources/Images/${product.presentPic}" alt="...">
+                            <img src="${pageContext.request.contextPath}/resources/Images/${product.presentPic}" alt="...">
                         </c:if>
                     </a>
 

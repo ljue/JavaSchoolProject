@@ -27,7 +27,7 @@
             <a href="${pageContext.request.contextPath}/catalog" class="btn btn-primary">
                 Continue shopping
             </a>
-            <a href="${pageContext.request.contextPath}/history" class="btn btn-default">
+            <a href="${pageContext.request.contextPath}/profile/history" class="btn btn-default">
                 Order history
             </a>
         </div>

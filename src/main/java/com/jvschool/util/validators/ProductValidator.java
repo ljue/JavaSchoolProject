@@ -29,10 +29,13 @@ public class ProductValidator implements Validator {
 
         try {
             double b = Double.parseDouble(productAttribute.getCost());
+            if (b < 0) {
+                errors.rejectValue("cost", "Format.productForm.cost", "Cost must be positive.");
+            }
         } catch (NumberFormatException e) {
             errors.rejectValue("cost", "Format.productForm.cost", "Invalid format.");
         }
-        if (productAttribute.getCount()==0) {
+        if (productAttribute.getCount() == 0) {
             errors.rejectValue("count", REQUIRED, REQ_STR);
         }
 

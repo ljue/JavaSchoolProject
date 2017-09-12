@@ -40,10 +40,12 @@ public class EmailSenderOrder implements Runnable {
         properties.put("mail.smtp.host", "smtp.gmail.com");
         properties.put("mail.smtp.port", "587");
 
-        Session session = Session.getDefaultInstance(properties,  new javax.mail.Authenticator() {
+        Session session = Session.getDefaultInstance(properties, new javax.mail.Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(fromEmail, PASS);}});
+                return new PasswordAuthentication(fromEmail, PASS);
+            }
+        });
 
 
         try {
@@ -62,13 +64,13 @@ public class EmailSenderOrder implements Runnable {
 
             int i = 0;
             double total = 0;
-            for (BucketEntity bucket: order.getBuckets()) {
-                builder.append("<H4>"+ bucket.getProductId().getProductName() + "</H4>" +
+            for (BucketEntity bucket : order.getBuckets()) {
+                builder.append("<H4>" + bucket.getProductId().getProductName() + "</H4>" +
                         "<p>Count: " + bucket.getCountProduct() + "</p>" +
                         "<p>Cost: " + bucket.getCostProduct() + "$</p>" +
                         "<img style=\"height: 300px; width: 300px;\" src=\"cid:image"
                         + (++i) + "\"><br><br>");
-                total += bucket.getCostProduct()*bucket.getCountProduct();
+                total += bucket.getCostProduct() * bucket.getCountProduct();
 
                 messageBodyPart = new MimeBodyPart();
                 DataSource fds = new FileDataSource(
@@ -92,7 +94,7 @@ public class EmailSenderOrder implements Runnable {
 
 
             log.info("send email letter successfully");
-        }catch (MessagingException mex) {
+        } catch (MessagingException mex) {
 
             log.error(mex.toString());
         }

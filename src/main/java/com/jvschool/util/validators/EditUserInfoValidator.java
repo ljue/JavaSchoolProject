@@ -7,9 +7,8 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-
 @Component
-public class UserValidator implements Validator {
+public class EditUserInfoValidator implements Validator {
 
     private static final String REQUIRED = "Required";
     private static final String REQ_STR = "This field is required.";
@@ -26,19 +25,8 @@ public class UserValidator implements Validator {
         SessionUser user = (SessionUser) o;
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "login", REQUIRED, REQ_STR);
-        if (user.getLogin()!=null && (user.getLogin().length() < 4 || user.getLogin().length() > 30)) {
+        if (user.getLogin() != null && (user.getLogin().length() < 4 || user.getLogin().length() > 30)) {
             errors.rejectValue("login", "Size.userForm.login", "Username must be between 4 and 30 characters.");
-        }
-
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "pass", REQUIRED, REQ_STR);
-        if (user.getPass() != null &&
-                (user.getPass().length() < 4 || user.getPass().length() > 30)) {
-            errors.rejectValue("pass", "Size.userForm.pass", "Password must be between 4 and 30 characters.");
-        }
-
-        if (user.getPass() != null && user.getConfirmPassword() != null &&
-                !user.getConfirmPassword().equals(user.getPass())) {
-            errors.rejectValue("confirmPassword", "Different.userForm.pass", "Password don't match.");
         }
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firstName", REQUIRED, REQ_STR);
@@ -50,8 +38,5 @@ public class UserValidator implements Validator {
         if (!EmailValidator.getInstance(allowLocal).isValid(user.getEmail())) {
             errors.rejectValue("email", "Unvalidated.userForm.email", "Email is unvalidated.");
         }
-
     }
-
-
 }

@@ -40,23 +40,6 @@ create table MYSHOP_SCHEMA.CATEGORY
 )
 ;
 
-create table MYSHOP_SCHEMA.CITY
-(
-	CITY_ID bigint auto_increment
-		primary key,
-	REGION_ID bigint not null,
-	NAME varchar(128) not null
-)
-;
-
-create table MYSHOP_SCHEMA.COUNTRY
-(
-	COUNTRY_ID bigint not null
-		primary key,
-	NAME varchar(128) not null
-)
-;
-
 create table MYSHOP_SCHEMA.DELIVERY_STATUS
 (
 	DELIVERY_STATUS_ID bigint auto_increment
@@ -204,7 +187,7 @@ create index PROPERTY_PROPERTY_GROUP_PROPERTY_GROUP_ID_fk
 	on PROPERTY (PROPERTY_GROUP_ID)
 ;
 
-alter table MYSHOP_SCHEMA.PRODUCT_HAS_PROPERTY
+alter table PRODUCT_HAS_PROPERTY
 	add constraint PRODUCT_HAS_PROPERTY_PROPERTY_PROPERTY_ID_fk
 		foreign key (PROPERTY_ID) references MYSHOP_SCHEMA.PROPERTY (PROPERTY_ID)
 ;
@@ -222,15 +205,6 @@ create table MYSHOP_SCHEMA.PROPERTY_GROUP
 alter table MYSHOP_SCHEMA.PROPERTY
 	add constraint PROPERTY_PROPERTY_GROUP_PROPERTY_GROUP_ID_fk
 		foreign key (PROPERTY_GROUP_ID) references MYSHOP_SCHEMA.PROPERTY_GROUP (PROPERTY_GROUP_ID)
-;
-
-create table MYSHOP_SCHEMA.REGION
-(
-	REGION_ID bigint not null
-		primary key,
-	COUNTRY_ID bigint not null,
-	NAME varchar(128) not null
-)
 ;
 
 create table MYSHOP_SCHEMA.ROLE

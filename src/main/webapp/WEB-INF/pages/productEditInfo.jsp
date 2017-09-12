@@ -51,8 +51,9 @@
                     <div class="form-group">
                         <label class="col-md-4  control-label">Current cost is: ${product.cost}$</label>
                         <div class="col-md-6">
-                            <form:input path="cost" value="${product.cost}" id="input-cost-edit-product"
-                                        type="text" required="required" class="form-control"/>
+                            <form:input path="cost" value="${product.cost}"
+                                        id="input-cost-edit-product" type="number" step="any"
+                                         required="required" class="form-control"/>
                         </div>
                         <div class="has-error double-regex-error-message"></div>
                     </div>
@@ -83,10 +84,11 @@
     $("#btn-edit-product-info").click(function (e) {
         e.preventDefault();
 //        var re = new RegExp("^(?:[1-9]\d*|0)?(?:\.\d+)?$");
-//        var doub = $("#input-cost-edit-product").val();
+        var doub = $("#input-cost-edit-product").val();
 //        var parsDoub = parseFloat(doub);
 //        if (parsDoub === doub && doub>0 && doub!=="") {
 //            alert("+");
+        if(doub>0) {
             var form = $("#form-edit-product-info").serialize();
             var productId = $("#product-id-edit-info").text();
             $.ajax({
@@ -101,9 +103,9 @@
                     }, 2000);
                 }
             })
-//        } else {
-//            $(".double-regex-error-message").text("Invalid format.")
-//        }
+        } else {
+            $(".double-regex-error-message").text("Invalid format.")
+        }
     })
 
     $("#btn-remove-product-info").click(function (e) {

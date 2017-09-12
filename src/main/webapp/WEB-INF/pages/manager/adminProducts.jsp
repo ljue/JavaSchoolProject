@@ -177,7 +177,7 @@
                             <div class="form-group ${status.error ? 'has-error' : ''}">
                                 <label class="col-lg-2 control-label">Description:</label>
                                 <div class="col-lg-8">
-                                    <form:textarea path="description" class="form-control"
+                                    <form:textarea path="description" class="form-control" style="min-height:200px;"
                                                    placeholder="Add description less 2000 characters"
                                     ></form:textarea>
                                 </div>

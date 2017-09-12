@@ -22,8 +22,7 @@ public class RoleFilter implements Filter {
         HttpSession session = request.getSession();
         SessionUser user = (SessionUser) session.getAttribute("user");
         if (user == null) {
-            user = new SessionUser();
-            session.setAttribute("user", user);
+            session.setAttribute("user", new SessionUser());
         }
         filterChain.doFilter(servletRequest, servletResponse);
     }

@@ -1,4 +1,4 @@
-package com.jvschool.util;
+package com.jvschool.security;
 
 import com.jvschool.dto.SessionUser;
 import com.jvschool.model.UserEntity;
@@ -27,6 +27,9 @@ public class AuthenticationHandler implements AuthenticationSuccessHandler {
 
         HttpSession session = httpServletRequest.getSession();
         SessionUser user = (SessionUser) session.getAttribute("user");
+        if (user == null) {
+            session.setAttribute("user", new SessionUser());
+        }
 
         String loginName = authentication.getName();
 
@@ -41,11 +44,22 @@ public class AuthenticationHandler implements AuthenticationSuccessHandler {
             } else if (userEntityByLogin != null) {
                 newUser = new SessionUser(userEntityByLogin);
             }
-            if (newUser!=null) {
+            if (newUser != null) {
                 newUser.setProducts(user.getProducts());
                 session.setAttribute("user", newUser);
             }
         }
-        httpServletResponse.sendRedirect("/");
+
+        if (session != null) {
+            String redirectUrl = (String) session.getAttribute("url_prior_login");
+            if (redirectUrl != null) {
+                session.removeAttribute("url_prior_login");
+                httpServletResponse.sendRedirect(redirectUrl);
+            } else {
+                httpServletResponse.sendRedirect("/");
+            }
+        } else {
+            httpServletResponse.sendRedirect("/");
+        }
     }
 }

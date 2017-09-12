@@ -39,7 +39,7 @@ public class Sender {
             sender.close();
             session.close();
             connection.close();
-        } catch ( NamingException | JMSException e) {
+        } catch (NamingException | JMSException e) {
             log.error(e.toString());
         }
     }

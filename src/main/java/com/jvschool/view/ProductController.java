@@ -27,8 +27,12 @@ public class ProductController {
 
     @GetMapping(value = "/catalog")
     public String goCatalog(Model model) {
-        model.addAttribute("countProducts", productService.getCountProducts());
-        model.addAttribute("allProducts", productService.getProductsFromTo(1, 12));
+        Map<Integer, List<ProductAttribute>> map =
+                productService.getProductsByFilterFromTo(1, 12, new FilterAttribute());
+        for (Map.Entry<Integer, List<ProductAttribute>> entry : map.entrySet()) {
+            model.addAttribute("countProducts", entry.getKey());
+            model.addAttribute("allProducts", entry.getValue());
+        }
         model.addAttribute("filter", new FilterAttribute());
         model.addAttribute("allProperties", propertyService.getProperties());
         model.addAttribute("categories", categoryService.getAllProductCategoryNames());

@@ -33,10 +33,12 @@ public class EmailSender implements Runnable {
         properties.put("mail.smtp.host", "smtp.gmail.com");
         properties.put("mail.smtp.port", "587");
 
-        Session session = Session.getDefaultInstance(properties,  new javax.mail.Authenticator() {
+        Session session = Session.getDefaultInstance(properties, new javax.mail.Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(fromEmail, PASS);}});
+                return new PasswordAuthentication(fromEmail, PASS);
+            }
+        });
 
 
         try {
@@ -50,7 +52,7 @@ public class EmailSender implements Runnable {
             Transport.send(message);
 
             log.info("send email letter successfully");
-        }catch (MessagingException mex) {
+        } catch (MessagingException mex) {
 
             log.error(mex.toString());
         }

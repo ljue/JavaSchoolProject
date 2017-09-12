@@ -19,9 +19,10 @@
 <div class="container">
     <div class="row">
         <div class="col-md-3">
-                <p class="lead">   </p>
+            <p class="lead"></p>
             <div class="list-group">
-                <a href="${pageContext.request.contextPath}/profile/" class="list-group-item active-list-group-item">My Profile</a>
+                <a href="${pageContext.request.contextPath}/profile/" class="list-group-item active-list-group-item">My
+                    Profile</a>
                 <a href="${pageContext.request.contextPath}/profile/address" class="list-group-item">My Address</a>
                 <a href="${pageContext.request.contextPath}/profile/history" class="list-group-item">My Orders</a>
             </div>
@@ -40,22 +41,22 @@
 
 
                         <spring:bind path="firstName">
-                        <div class="form-group ${status.error ? 'has-error' : ''}" >
-                            <label class="col-lg-3 control-label">First name:</label>
-                            <div class="col-lg-8">
-                                <form:input required="required"  type="text" path="firstName" class="form-control"
-                                            value="${user.firstName}"
-                                ></form:input>
+                            <div class="form-group ${status.error ? 'has-error' : ''}">
+                                <label class="col-lg-3 control-label">First name:</label>
+                                <div class="col-lg-8">
+                                    <form:input required="required" type="text" path="firstName" class="form-control"
+                                                value="${user.firstName}"
+                                    ></form:input>
+                                </div>
+                                <form:errors path="firstName"></form:errors>
                             </div>
-                            <form:errors path="firstName"></form:errors>
-                        </div>
                         </spring:bind>
 
                         <spring:bind path="secondName">
-                            <div class="form-group ${status.error ? 'has-error' : ''}" >
+                            <div class="form-group ${status.error ? 'has-error' : ''}">
                                 <label class="col-lg-3 control-label">Last name:</label>
                                 <div class="col-lg-8">
-                                    <form:input required="required"  type="text" path="secondName"
+                                    <form:input required="required" type="text" path="secondName"
                                                 class="form-control" value="${user.secondName}"
                                     ></form:input>
                                 </div>
@@ -64,10 +65,10 @@
                         </spring:bind>
 
                         <spring:bind path="birthday">
-                            <div class="form-group ${status.error ? 'has-error' : ''}" >
+                            <div class="form-group ${status.error ? 'has-error' : ''}">
                                 <label class="col-lg-3 control-label">Birthday:</label>
                                 <div class="col-lg-8">
-                                    <form:input required="required"  type="date" path="birthday" class="form-control"
+                                    <form:input required="required" type="date" path="birthday" class="form-control"
                                                 value="${user.birthday}" max="2017-06-01" min="1920-05-29"
                                     ></form:input>
                                 </div>
@@ -77,10 +78,10 @@
 
 
                         <spring:bind path="email">
-                            <div class="form-group ${status.error ? 'has-error' : ''}" >
+                            <div class="form-group ${status.error ? 'has-error' : ''}">
                                 <label class="col-lg-3 control-label">Email:</label>
                                 <div class="col-lg-8">
-                                    <form:input required="required"  type="text" path="email" class="form-control"
+                                    <form:input required="required" type="text" path="email" class="form-control"
                                                 value="${user.email}" onblur="onBlurEmailEdit(this)"
                                     ></form:input>
                                 </div>
@@ -91,11 +92,11 @@
                         </spring:bind>
 
                         <spring:bind path="login">
-                            <div class="form-group ${status.error ? 'has-error' : ''}" >
+                            <div class="form-group ${status.error ? 'has-error' : ''}">
                                 <label class="col-lg-3 control-label">Login:</label>
                                 <div class="col-lg-8">
-                                    <form:input required="required"  type="text" path="login" class="form-control"
-                                                 value="${user.login}" onblur="onBlurLoginEdit(this)"
+                                    <form:input required="required" type="text" path="login" class="form-control"
+                                                value="${user.login}" onblur="onBlurLoginEdit(this)"
                                     ></form:input>
                                 </div>
                                 <form:errors path="login"></form:errors>
@@ -105,11 +106,11 @@
                         </spring:bind>
 
 
-
                         <div class="form-group">
                             <label class="col-md-3 control-label"></label>
                             <div class="col-md-8">
-                                <input class="btn btn-primary" id="edit-user-info-button" value="Save Changes" type="submit">
+                                <input class="btn btn-primary" id="edit-user-info-button" value="Save Changes"
+                                       type="submit">
                                 <span></span>
                                 <input class="btn btn-default" value="Cancel" type="reset">
                             </div>
@@ -123,30 +124,30 @@
                     <h4>Change Password</h4>
 
                     <form:form method="POST" modelAttribute="userForm"
-                               action="${pageContext.request.contextPath}/profile/editPass"  class="form-horizontal">
+                               action="${pageContext.request.contextPath}/profile/editPass" class="form-horizontal">
 
                         <spring:bind path="pass">
-                        <div class="form-group ${status.error ? 'has-error' : ''}" >
-                        <label class="col-lg-3 control-label">Password:</label>
-                        <div class="col-lg-8">
-                        <form:input required="required"  type="password" path="login" class="form-control"
-                                    placeholder="Password"
-                        ></form:input>
-                        </div>
-                        <form:errors path="pass"></form:errors>
-                        </div>
+                            <div class="form-group ${status.error ? 'has-error' : ''}">
+                                <label class="col-lg-3 control-label">Password:</label>
+                                <div class="col-lg-8">
+                                    <form:input required="required" type="password" path="pass" class="form-control"
+                                                placeholder="Password"
+                                    ></form:input>
+                                </div>
+                                <form:errors path="pass"></form:errors>
+                            </div>
                         </spring:bind>
 
-                        <spring:bind path="pass">
-                        <div class="form-group ${status.error ? 'has-error' : ''}" >
-                        <label class="col-lg-3 control-label">Confirm password:</label>
-                        <div class="col-lg-8">
-                        <form:input required="required"  type="password" path="pass" class="form-control"
-                                    placeholder="Confirm password"
-                        ></form:input>
-                        </div>
-                        <form:errors path="pass"></form:errors>
-                        </div>
+                        <spring:bind path="confirmPassword">
+                            <div class="form-group ${status.error ? 'has-error' : ''}">
+                                <label class="col-lg-3 control-label">Confirm password:</label>
+                                <div class="col-lg-8">
+                                    <form:input required="required" type="password" path="confirmPassword" class="form-control"
+                                                placeholder="Confirm password"
+                                    ></form:input>
+                                </div>
+                                <form:errors path="confirmPassword"></form:errors>
+                            </div>
                         </spring:bind>
 
                         <div class="form-group">
@@ -170,7 +171,7 @@
         var loginError = document.getElementById('loginEditExists').innerHTML;
         var emailError = document.getElementById('emailEditExists').innerHTML;
 
-        if(loginError.length !== 0 || emailError.length !== 0) {
+        if (loginError.length !== 0 || emailError.length !== 0) {
             $('#edit-user-info-button').removeAttr('active');
             $('#edit-user-info-button').attr('disabled', 'disabled');
         } else {
@@ -183,7 +184,7 @@
         var email = obj.value;
         $.ajax({
             type: "POST",
-            data: {email : email},
+            data: {email: email},
             url: "${pageContext.request.contextPath}/profile/editInfo/findEmail/",
             success: function (msg) {
                 $("#emailEditExists").html(msg);
@@ -196,7 +197,7 @@
         var login = obj.value;
         $.ajax({
             type: "POST",
-            data: {login : login},
+            data: {login: login},
             url: "${pageContext.request.contextPath}/profile/editInfo/findLogin/",
             success: function (msg) {
                 $("#loginEditExists").text(msg);
