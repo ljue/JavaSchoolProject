@@ -2,12 +2,14 @@ package com.jvschool.dao.impl;
 
 import com.jvschool.dao.api.AddressDAO;
 import com.jvschool.model.AddressEntity;
+import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.List;
 
+@Log4j
 @Repository
 public class AddressDAOImpl implements AddressDAO {
 
@@ -27,6 +29,7 @@ public class AddressDAOImpl implements AddressDAO {
 
         addressEntity.setVisible(true);
         em.persist(addressEntity);
+        log.info("Add address: " + addressEntity.toString());
     }
 
     @Override
@@ -36,6 +39,7 @@ public class AddressDAOImpl implements AddressDAO {
                 .setParameter("addressId", id).setParameter("visible", false);
 
         query.executeUpdate();
+        log.info("Remove address with id: " + id);
     }
 
     @Override

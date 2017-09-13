@@ -4,6 +4,7 @@ import com.jvschool.dao.api.OrderDAO;
 import com.jvschool.dao.api.UserDAO;
 import com.jvschool.model.OrderEntity;
 import com.jvschool.model.UserEntity;
+import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
@@ -15,7 +16,7 @@ import javax.persistence.criteria.Root;
 import java.sql.Date;
 import java.util.List;
 
-
+@Log4j
 @Repository
 public class OrderDAOImpl implements OrderDAO {
 
@@ -31,6 +32,7 @@ public class OrderDAOImpl implements OrderDAO {
     public void saveOrder(OrderEntity orderEntity) {
 
         em.merge(orderEntity);
+        log.info("Save order: " + orderEntity);
     }
 
     @Override

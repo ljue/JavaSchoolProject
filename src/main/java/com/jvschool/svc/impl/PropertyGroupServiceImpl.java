@@ -66,7 +66,7 @@ public class PropertyGroupServiceImpl implements PropertyGroupService {
     public void addPropertyGroup(EditForm editForm) {
         PropertyGroupEntity propertyGroupEntity = new PropertyGroupEntity();
         propertyGroupEntity.setPropertyGroupName(editForm.getAdd());
-        boolean t = (editForm.getType().equals("true")) ? true : false;
+        boolean t = (editForm.getType() != null) ? ((editForm.getType().equals("true")) ? true : false) : false;
         propertyGroupEntity.setSolo(t);
         propertyGroupEntity.setVisible(true);
         propertyGroupDAO.addPropertyGroup(propertyGroupEntity);

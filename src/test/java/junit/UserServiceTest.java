@@ -20,9 +20,12 @@ public class UserServiceTest {
 
     private String login = "ivan";
     private String password = "ivan";
+    private String login1 = "ivan1";
+    private String password1 = "ivan1";
     private String email = "aaa@a.a";
     private long id = 5;
     private List<UserEntity> users = new ArrayList<>();
+    UserEntity user;
 
     @Mock
     private UserDAO userDAO;
@@ -33,33 +36,38 @@ public class UserServiceTest {
     @Before
     public void init() {
         MockitoAnnotations.initMocks(this);
+
+
+        user = new UserEntity();
+        user.setLogin(login);
+        when(userDAO.loginUser(login, password)).thenReturn(user);
+        when(userDAO.getUserIdByEmail(email)).thenReturn(id);
+        when(userDAO.getUserIdByLogin(login)).thenReturn(id);
     }
 
     @Test
     public void testLoginUser() {
-
-        UserEntity user = new UserEntity();
-        user.setLogin(login);
-        when(userDAO.loginUser(login, password)).thenReturn(user);
-
-        SessionUser sessionUser = userService.loginUser(login, password);
-
-        Assert.assertEquals(login, sessionUser.getLogin());
-
+        Assert.assertEquals(login, userService.loginUser(login, password).getLogin());
     }
 
     @Test
     public void testGetUserIdByEmail() {
+        Assert.assertEquals(id, userService.getUserIdByEmail(email));
+    }
 
-        when(userDAO.getUserIdByEmail(email)).thenReturn(id);
+    @Test
+    public void failTestGetUserIdByEmail() {
         Assert.assertEquals(id, userService.getUserIdByEmail(email));
     }
 
     @Test
     public void testGetUserIdByLogin() {
-
-        when(userDAO.getUserIdByLogin(login)).thenReturn(id);
         Assert.assertEquals(id, userService.getUserIdByLogin(login));
+    }
+
+    @Test
+    public void failTestGetUserIdByLogin() {
+        Assert.assertFalse(id == userService.getUserIdByLogin(login1));
     }
 
     @Test
@@ -73,8 +81,6 @@ public class UserServiceTest {
         when(userDAO.getAllUsers()).thenReturn(users);
         Assert.assertEquals(0, userService.getAllUsers().size());
     }
-
-
 
 
 }

@@ -20,6 +20,7 @@
 
         <div class="col-md-8" >
             <form:form modelAttribute="orderForm" method="post" class="form-horizontal"
+                       id="form-checkout"
                        action="${pageContext.request.contextPath}/checkout/goPay">
 
                 <div class="form-group">
@@ -209,27 +210,30 @@
 
 <script>
     $("#finish-checkout-button").click(function (e) {
+        e.preventDefault();
         var s = $("#checkout-list-addresses").text().replace(/\s/g, "");
         if (!s) {
-            e.preventDefault();
+
             $("#message-empty-address").fadeIn(500);
             setTimeout(function () {
                 $("#message-empty-address").fadeOut(1000)
             }, 2000);
-        }
-        $.ajax({
-            type: "POST",
-            url: "${pageContext.request.contextPath}/checkout/checkAndSubCountProducts",
-            success: function (resp) {
-                if (!resp) {
-                    e.preventDefault();
-                    $("#message-empty-count-of-product").fadeIn(500);
-                    setTimeout(function () {
-                        $("#message-empty-count-of-product").fadeOut(1000)
-                    }, 2000);
+        } else {
+            $.ajax({
+                type: "POST",
+                url: "${pageContext.request.contextPath}/checkout/checkAndSubCountProducts",
+                success: function (resp) {
+                    if (!resp) {
+                        $("#message-empty-count-of-product").fadeIn(500);
+                        setTimeout(function () {
+                            $("#message-empty-count-of-product").fadeOut(1000)
+                        }, 2000);
+                    } else {
+                        $("#form-checkout").submit();
+                    }
                 }
-            }
-        })
+            })
+        }
     });
 </script>
 </body>

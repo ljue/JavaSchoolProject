@@ -48,6 +48,7 @@ public interface ProductService {
 
     /**
      * Get list of top (max 10) products {@link ProductEntity},
+     * calculates total count orders for each,
      * transforms it to list of products dto {@link ProductAttribute} and returns it.
      * @return
      */

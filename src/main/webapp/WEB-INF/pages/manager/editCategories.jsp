@@ -171,7 +171,7 @@
 <!-- /.container -->
 
 <div id="message-fail-add-category" class="my-message-success alert alert-danger">
-    <p style="font-size: 1.1em">Such category was removed later.</p>
+    <p style="font-size: 1.1em">Category with such name already exists.</p>
 </div>
 
 <script>

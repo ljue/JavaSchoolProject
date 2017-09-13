@@ -48,6 +48,7 @@ public class PropertyGroupDAOImpl implements PropertyGroupDAO {
     @Override
     public void addPropertyGroup(PropertyGroupEntity propertyGroupEntity) {
         em.persist(propertyGroupEntity);
+        log.info("Add property group: " + propertyGroupEntity);
     }
 
     @Override
@@ -61,6 +62,7 @@ public class PropertyGroupDAOImpl implements PropertyGroupDAO {
                 .setParameter("propertyGroupName", name).setParameter("visible", false);
 
         query.executeUpdate();
+        log.info("Remove property group: " + name);
     }
 
     @Override
@@ -76,5 +78,6 @@ public class PropertyGroupDAOImpl implements PropertyGroupDAO {
                 .setParameter("propertyGroupName", name).setParameter("visible", true);
 
         query.executeUpdate();
+        log.info("Return property group: " + name);
     }
 }

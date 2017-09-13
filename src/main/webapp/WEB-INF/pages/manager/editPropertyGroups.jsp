@@ -182,7 +182,7 @@
 <!-- /.container -->
 
 <div id="message-fail-add-property-group" class="my-message-success alert alert-danger">
-    <p style="font-size: 1.1em">Error. May be such property group was removed later.</p>
+    <p style="font-size: 1.1em">Error. Property group with such name already exists.</p>
 </div>
 
 <script>

@@ -3,6 +3,7 @@ package com.jvschool.model;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -10,6 +11,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+@ToString
 @Getter
 @Setter
 @EqualsAndHashCode

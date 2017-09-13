@@ -17,7 +17,7 @@
         <div class="row">
             <div class="col-md-1"></div>
 
-            <div class="col-md-5 item-photo">
+            <div class="col-md-5 item-photo" style="min-height: 400px; min-width: 400px">
                 <c:if test="${product.presentPic eq ''}">
                     <img src="${pageContext.request.contextPath}/resources/Images/default-copter.png"
                          alt="..." style="max-width:100%;">
@@ -33,8 +33,17 @@
                 <h6>
                     #Id: <span id="product-id-edit-info">${product.productId}</span>
                 </h6>
+
                 <h3 style="margin-top:50px;">${product.cost}$</h3>
-                <div style="margin-top:70px;" class="form-group">
+                <div style="padding-top: 50px; margin-left: 2px">
+                    <c:if test="${product.count>0}">
+                        <span><i class="fa fa-check" aria-hidden="true"></i> In stock</span>
+                    </c:if>
+                    <c:if test="${product.count==0}">
+                        <span><i class="fa fa-times" aria-hidden="true"></i> Out of</span>
+                    </c:if>
+                </div>
+                <div style="margin-top:20px;" class="form-group">
                     <button class="btn btn-primary" value="${product.productId}"
                             onclick="addProductToCart(this)"> Add to cart
                     </button>

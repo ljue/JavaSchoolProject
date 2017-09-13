@@ -40,10 +40,10 @@
                     </div>
                     <div class="modal-body">
                         <div class="row">
-                            <div class="col-md-6 product_img">
+                            <div class="col-md-6 product_img" style="min-height: 300px; min-width: 300px">
                                 <c:if test="${product.presentPic eq ''}">
                                     <img src="${pageContext.request.contextPath}/resources/Images/default-copter.png"
-                                         class="img-responsive" alt="...">
+                                         class="img-responsive" alt="..." >
                                 </c:if>
                                 <c:if test="${product.presentPic ne ''}">
                                     <img src="${pageContext.request.contextPath}/resources/Images/${product.presentPic}"
@@ -71,6 +71,14 @@
                                 <%--<h5>Description: <span>${product.description}</span></h5>--%>
 
                                 <h3 class="cost"></span> $${product.cost}</h3>
+                                <div style="padding-top: 15px">
+                                    <c:if test="${product.count>0}">
+                                        <span><i class="fa fa-check" aria-hidden="true"></i> In stock</span>
+                                    </c:if>
+                                    <c:if test="${product.count==0}">
+                                        <span><i class="fa fa-times" aria-hidden="true"></i> Out of</span>
+                                    </c:if>
+                                </div>
 
 
                                 <div class="space-ten"></div>

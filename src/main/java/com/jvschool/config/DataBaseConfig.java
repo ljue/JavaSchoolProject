@@ -21,7 +21,7 @@ public class DataBaseConfig {
 
     @Bean
     public PlatformTransactionManager platformTransactionManager() {
-//        return new JpaTransactionManager();
-        return new JtaTransactionManager();
+        return new JpaTransactionManager();
+//        return new JtaTransactionManager();
     }
 }

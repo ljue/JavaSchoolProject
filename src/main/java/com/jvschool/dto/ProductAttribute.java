@@ -44,17 +44,18 @@ public class ProductAttribute  implements Serializable, Comparable {
     public ProductAttribute(ProductEntity productEntity) {
 
         this.productId = productEntity.getProductId();
-        this.productName = productEntity.getProductName();
-
-        if (this.productName.length()>60) {
-            this.presentProductName = this.productName.substring(0, this.productName.substring(0, 60).lastIndexOf(' ')) + "...";
-            this.productCartName = this.productName.substring(0, this.productName.substring(0, 20).lastIndexOf(' ')) + "...";
-        } else if (this.productName.length()>20) {
-            this.presentProductName = this.productName;
-            this.productCartName = this.productName.substring(0, this.productName.substring(0, 20).lastIndexOf(' ')) + "...";
-        } else {
-            this.presentProductName = this.productName;
-            this.productCartName = this.productName;
+        if(productEntity.getProductName()!=null) {
+            this.productName = productEntity.getProductName();
+            if (this.productName.length() > 60) {
+                this.presentProductName = this.productName.substring(0, this.productName.substring(0, 60).lastIndexOf(' ')) + "...";
+                this.productCartName = this.productName.substring(0, this.productName.substring(0, 20).lastIndexOf(' ')) + "...";
+            } else if (this.productName.length() > 20) {
+                this.presentProductName = this.productName;
+                this.productCartName = this.productName.substring(0, this.productName.substring(0, 20).lastIndexOf(' ')) + "...";
+            } else {
+                this.presentProductName = this.productName;
+                this.productCartName = this.productName;
+            }
         }
         this.count = productEntity.getCount();
         this.cost = String.format(Locale.US, "%.2f", productEntity.getCost());
@@ -63,7 +64,9 @@ public class ProductAttribute  implements Serializable, Comparable {
         this.flyTime = productEntity.getFlyTime();
         this.distance = productEntity.getDistance();
         this.description = productEntity.getDescription();
-        this.category = productEntity.getCategory().getCategoryName();
+        if(productEntity.getCategory()!=null) {
+            this.category = productEntity.getCategory().getCategoryName();
+        }
         this.visible = productEntity.isVisible();
 
         for (PropertyEntity propertyEntity : productEntity.getProperties()) {

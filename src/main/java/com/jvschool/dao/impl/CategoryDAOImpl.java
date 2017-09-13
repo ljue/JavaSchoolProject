@@ -3,13 +3,14 @@ package com.jvschool.dao.impl;
 
 import com.jvschool.dao.api.CategoryDAO;
 import com.jvschool.model.CategoryEntity;
+import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.List;
 
-
+@Log4j
 @Repository
 public class CategoryDAOImpl implements CategoryDAO {
 
@@ -46,6 +47,7 @@ public class CategoryDAOImpl implements CategoryDAO {
         categoryEntity.setCategoryName(name);
         categoryEntity.setVisible(true);
         em.persist(categoryEntity);
+        log.info("Add category: " + categoryEntity.toString());
     }
 
     @Override
@@ -60,6 +62,7 @@ public class CategoryDAOImpl implements CategoryDAO {
                 .setParameter("categoryId", category.getCategoryId()).setParameter("visible", false);
 
         query.executeUpdate();
+        log.info("Remove category: " + category.toString());
     }
 
     @Override
@@ -75,6 +78,7 @@ public class CategoryDAOImpl implements CategoryDAO {
                 .setParameter("categoryId", category.getCategoryId()).setParameter("visible", true);
 
         query.executeUpdate();
+        log.info("Return category: " + category.toString());
     }
 
 

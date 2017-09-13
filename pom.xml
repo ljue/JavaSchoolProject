@@ -42,15 +42,12 @@
       <version>${hibernate-version}</version>
     </dependency>
 
-    <dependency>
-      <groupId>dom4j</groupId>
-      <artifactId>dom4j</artifactId>
-      <version>1.6.1</version>
-      <scope>provided</scope>
-    </dependency>
-
-
-
+    <!--<dependency>-->
+      <!--<groupId>dom4j</groupId>-->
+      <!--<artifactId>dom4j</artifactId>-->
+      <!--<version>1.6.1</version>-->
+      <!--<scope>provided</scope>-->
+    <!--</dependency>-->
 
     <!-- For JPA Annotations (Getter, Setter, etc.) -->
     <dependency>
@@ -394,18 +391,18 @@
       <!--</plugin>-->
 
 
-      <!--<plugin>-->
-        <!--<groupId>org.wildfly.plugins</groupId>-->
-        <!--<artifactId>wildfly-maven-plugin</artifactId>-->
-        <!--<version>1.0.2.Final</version>-->
+      <plugin>
+        <groupId>org.wildfly.plugins</groupId>
+        <artifactId>wildfly-maven-plugin</artifactId>
+        <version>1.0.2.Final</version>
         <!--<configuration>-->
           <!--<hostname>localhost</hostname>-->
           <!--<port>9990</port>-->
-          <!--<name>my-webapp</name>-->
+          <!--<name>favcopters</name>-->
           <!--<username>manager</username>-->
           <!--<password>manager</password>-->
         <!--</configuration>-->
-      <!--</plugin>-->
+      </plugin>
 
     </plugins>
   </build>

@@ -13,14 +13,14 @@ import java.nio.file.Files;
 @Getter
 @Setter
 @Log4j
-public class ProductDTO  implements Serializable {
+public class ProductDTO implements Serializable {
 
     private long productId;
     private String productName;
     private String cost;
     private String picture;
 
-    private static final  String PICTURES_DIR = "D:/JavaSchoolProject/mywebapp/src/main/webapp/resources/Images/";
+    private static final String PICTURES_DIR = "D:/JavaSchoolProject/mywebapp/src/main/webapp/resources/Images/";
 
     @Override
     public String toString() {
@@ -33,6 +33,9 @@ public class ProductDTO  implements Serializable {
 
     public void setPicture(String picture) {
 
+        if (picture == null) {
+            picture = "default-copter.png";
+        }
         try {
             File f = new File(PICTURES_DIR + picture);
             byte[] fileContent = Files.readAllBytes(f.toPath());
@@ -42,6 +45,7 @@ public class ProductDTO  implements Serializable {
             this.picture = picture;
             log.error(e.toString());
         }
+
 
     }
 }

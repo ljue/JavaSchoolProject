@@ -3,6 +3,7 @@ package com.jvschool.dao.impl;
 import com.jvschool.dao.api.UserDAO;
 import com.jvschool.model.OrderEntity;
 import com.jvschool.model.UserEntity;
+import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -14,7 +15,7 @@ import javax.persistence.criteria.Root;
 import java.util.List;
 
 
-
+@Log4j
 @Repository
 public class UserDAOImpl implements UserDAO {
 
@@ -59,6 +60,7 @@ public class UserDAOImpl implements UserDAO {
     public void addUser(UserEntity user) {
 
         em.persist(user);
+        log.info("Add user: " + user.toString());
 
     }
 

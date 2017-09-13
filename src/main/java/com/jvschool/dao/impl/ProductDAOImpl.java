@@ -36,6 +36,7 @@ public class ProductDAOImpl implements ProductDAO {
 
         productEntity.setVisible(true);
         em.merge(productEntity);
+        log.info("Add product: " + productEntity.toString());
 
     }
 
@@ -56,6 +57,7 @@ public class ProductDAOImpl implements ProductDAO {
         ProductEntity productEntity = em.find(ProductEntity.class, id);
         productEntity.setVisible(false);
         em.flush();
+        log.info("Remove product: " + productEntity.toString());
     }
 
     @Override
@@ -63,6 +65,7 @@ public class ProductDAOImpl implements ProductDAO {
         ProductEntity productEntity = em.find(ProductEntity.class, id);
         productEntity.setVisible(true);
         em.flush();
+        log.info("Return product: " + productEntity.toString());
     }
 
     @Override
@@ -79,7 +82,7 @@ public class ProductDAOImpl implements ProductDAO {
         List list = em.createQuery("select p.pictureId from PicturesEntity p where p.picName=:name")
                 .setParameter("name", name).getResultList();
 
-        return (list.isEmpty()) ? null : (long) list.get(0);
+        return (list.isEmpty()) ? 0 : (long) list.get(0);
     }
 
     @Override

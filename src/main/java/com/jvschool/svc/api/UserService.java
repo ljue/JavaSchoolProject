@@ -38,7 +38,7 @@ public interface UserService {
 
 
     /**
-     * Gets list of top users {@link UserEntity},
+     * Gets list of top users {@link UserEntity}, calculates total for each user,
      * converts it to list of user dto {@link SessionUser} and returns it.
      * @return
      */
