@@ -54,6 +54,7 @@ public class UserController {
     @GetMapping(value = "/")
     public String editUser(@ModelAttribute("user") SessionUser sessionUser,Model model) {
         SessionUser user = new SessionUser(userService.getUserById(sessionUser.getId()));
+        user.setProducts(sessionUser.getProducts());
         model.addAttribute("user", user);
         model.addAttribute("userForm", user);
         return "user/profile";
