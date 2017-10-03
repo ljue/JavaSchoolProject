@@ -28,7 +28,9 @@
 
                     <c:if test="${!empty categories}">
                         <c:forEach var="category" items="${categories}">
+
                         <a class="list-group-item category-item-in-catalog-js">${category}</a>
+
                         </c:forEach>
                     </c:if>
 

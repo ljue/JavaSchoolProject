@@ -47,26 +47,6 @@ public class LoginController {
         return "error/accessDenied";
     }
 
-//
-//    @PostMapping(value = "/login")
-//    public String login(@ModelAttribute("user") SessionUser user, Model model) {
-//        SessionUser su = userService.loginUser(user.getLogin(),user.getPass());
-//        if (su!=null) {
-//            su.setProducts(user.getProducts());
-//            model.addAttribute("user", su);
-//            return "redirect:/home";
-//        }
-//        else {
-//            model.addAttribute("error", "Username or password is incorrect.");
-//            return "login";
-//        }
-//    }
-
-//    @GetMapping(value = "/logout")
-//    public String logout(@ModelAttribute("user") SessionUser user, Model model) {
-//        model.addAttribute("user",new SessionUser());
-//        return "redirect:/login";
-//    }
 
     @PostMapping(value = "/sendPassword")
     public @ResponseBody boolean sendForgotPassword(@RequestParam("sendEmail") String email) {

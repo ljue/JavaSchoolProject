@@ -57,7 +57,7 @@ public class AuthenticationHandler implements AuthenticationSuccessHandler {
                 session.removeAttribute("url_prior_login");
                 httpServletResponse.sendRedirect(redirectUrl);
             } else {
-                httpServletResponse.sendRedirect("/");
+                httpServletResponse.sendRedirect("/favcopters/");
             }
 
     }

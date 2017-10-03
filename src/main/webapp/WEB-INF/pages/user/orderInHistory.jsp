@@ -160,7 +160,7 @@
             type: "POST",
             url: "${pageContext.request.contextPath}/profile/orderInHistory/repeatOrder/" + $("#order-id-in-order-in-history").text(),
             success: function () {
-                location.href = "/bucket";
+                location.href = "/favcopters/bucket";
             }
         });
     };
